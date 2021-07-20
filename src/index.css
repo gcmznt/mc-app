@@ -7,6 +7,7 @@ body {
   text-align: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  user-select: none;
 }
 
 code {
@@ -117,4 +118,16 @@ button {
 .option span {
   float: right;
   opacity: 0.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #333;
+    color: white;
+  }
+  .fab,
+  button {
+    background: #fff;
+    color: #000;
+  }
 }

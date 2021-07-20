@@ -36,3 +36,10 @@
 .box--flat .box__content {
   transform: none;
 }
+
+@media (prefers-color-scheme: dark) {
+  .box__content {
+    background: #000;
+    color: #ccc;
+  }
+}

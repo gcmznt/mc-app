@@ -63,3 +63,14 @@
   line-height: 1;
   padding-bottom: 0.2em;
 }
+
+@media (prefers-color-scheme: dark) {
+  .counter__next,
+  .counter__prev,
+  .counter__add,
+  .counter__reduce {
+    border-color: #fff;
+    background: #fff;
+    color: #000;
+  }
+}
