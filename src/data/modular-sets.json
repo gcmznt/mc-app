@@ -1,0 +1,17 @@
+{
+  "Bomb Scare": {
+    "name": "Bomb Scare",
+    "sideSchemes": ["Bomb Scare"],
+    "pack": "Core Set"
+  },
+  "Hydra Patrol": {
+    "name": "Hydra Patrol",
+    "sideSchemes": ["Hydra Patrol"],
+    "pack": "The Rise of Red Skull"
+  },
+  "Masters of Evil": {
+    "name": "Masters of Evil",
+    "sideSchemes": ["The Masters of Evil"],
+    "pack": "Core Set"
+  }
+}

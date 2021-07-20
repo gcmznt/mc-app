@@ -1,0 +1,224 @@
+{
+  "Avalanche!": {
+    "complete": 0,
+    "name": "Avalanche!",
+    "start": "2p",
+    "step": 0
+  },
+  "Bomb Scare": {
+    "complete": 0,
+    "name": "Bomb Scare",
+    "start": [2, "1p"],
+    "step": 0
+  },
+  "Blazing Inferno": {
+    "complete": 0,
+    "name": "Blazing Inferno",
+    "start": "3p",
+    "step": 0
+  },
+  "Breakin' & Takin'": {
+    "complete": 0,
+    "name": "Breakin' & Takin'",
+    "start": 2,
+    "step": 0
+  },
+  "Budding Crime Syndicate": {
+    "complete": 0,
+    "name": "Budding Crime Syndicate",
+    "start": [2, "2p"],
+    "step": 0
+  },
+  "Crowd Control": {
+    "complete": 0,
+    "name": "Crowd Control",
+    "start": "2p",
+    "step": 0
+  },
+  "Cull the Weak": {
+    "complete": 0,
+    "name": "Cull the Weak",
+    "start": "2p",
+    "step": 0
+  },
+  "Defense Network": {
+    "complete": 0,
+    "name": "Defense Network",
+    "start": [2, "1p"],
+    "step": 0
+  },
+  "Extortion of Seismic Proportion": {
+    "complete": 0,
+    "name": "Extortion of Seismic Proportion",
+    "start": "2p",
+    "step": 0
+  },
+  "Family Feud": {
+    "complete": 0,
+    "name": "Family Feud",
+    "start": 2,
+    "step": 0
+  },
+  "Generation Why?": {
+    "complete": 0,
+    "name": "Generation Why?",
+    "start": "2p",
+    "step": 0
+  },
+  "Hydra Patrol": {
+    "complete": 0,
+    "name": "Hydra Patrol",
+    "start": "2p",
+    "step": 0
+  },
+  "Highway Robbery": {
+    "complete": 0,
+    "name": "Highway Robbery",
+    "start": "3p",
+    "step": 0
+  },
+  "Hit Squad": {
+    "complete": 0,
+    "name": "Hit Squad",
+    "start": "3p",
+    "step": 0
+  },
+  "Illegal Arms Factory": {
+    "complete": 0,
+    "name": "Illegal Arms Factory",
+    "start": [3, "1p"],
+    "step": 0
+  },
+  "Imminent Overload": {
+    "complete": 0,
+    "name": "Imminent Overload",
+    "start": [3, "1p"],
+    "step": 0
+  },
+  "Killer for Hire": {
+    "complete": 0,
+    "name": "Killer for Hire",
+    "start": [3, "1p"],
+    "step": 0
+  },
+  "Klyntar Frenzy": {
+    "complete": 0,
+    "name": "Klyntar Frenzy",
+    "start": "2p",
+    "step": 0
+  },
+  "Marked for Death": {
+    "complete": 0,
+    "name": "Marked for Death",
+    "start": 5,
+    "step": 0
+  },
+  "Mother's Orders": {
+    "complete": 0,
+    "name": "Mother's Orders",
+    "start": "2p",
+    "step": 0
+  },
+  "None Shall Pass": {
+    "complete": "12p",
+    "name": "None Shall Pass",
+    "start": "2p",
+    "step": "1p"
+  },
+  "Open the Dark Dimension": {
+    "complete": 0,
+    "name": "Open the Dark Dimension",
+    "start": "3p",
+    "step": 0
+  },
+  "Personal Challenge": {
+    "complete": 0,
+    "name": "Personal Challenge",
+    "start": [3, "1p"],
+    "step": 0
+  },
+  "Secret Rendezvous": {
+    "complete": "8p",
+    "name": "Secret Rendezvous",
+    "start": 0,
+    "step": "1p"
+  },
+  "Sibling Rivalry": {
+    "complete": 0,
+    "name": "Sibling Rivalry",
+    "start": 4,
+    "step": 0
+  },
+  "Super Absorbing Power": {
+    "complete": 0,
+    "name": "Super Absorbing Power",
+    "start": "3p",
+    "step": 0
+  },
+  "Tech Theft": {
+    "complete": 0,
+    "name": "Tech Theft",
+    "start": "2p",
+    "step": 0
+  },
+  "The \"Immortal\" Klaw": {
+    "complete": 0,
+    "name": "The \"Immortal\" Klaw",
+    "start": "3p",
+    "step": 0
+  },
+  "The Break In!": {
+    "complete": "7p",
+    "name": "The Break In!",
+    "start": 0,
+    "step": "1p"
+  },
+  "The Masters of Evil": {
+    "complete": 0,
+    "name": "The Masters of Evil",
+    "start": "3p",
+    "step": 0
+  },
+  "The Next Evolution": {
+    "complete": 0,
+    "name": "The Next Evolution",
+    "start": "2p",
+    "step": 0
+  },
+  "The Psyche-Magnitron": {
+    "complete": 0,
+    "name": "The Psyche-Magnitron",
+    "start": [3, "1p"],
+    "step": 0
+  },
+  "The Viper's Ambition": {
+    "complete": 0,
+    "name": "The Viper's Ambition",
+    "start": [2, "1p"],
+    "step": 0
+  },
+  "Total Destruction": {
+    "complete": 0,
+    "name": "Total Destruction",
+    "start": "2p",
+    "step": 0
+  },
+  "Underground Distribution": {
+    "complete": "6p",
+    "name": "Underground Distribution",
+    "start": 0,
+    "step": "1p"
+  },
+  "Usurp the Throne": {
+    "complete": 0,
+    "name": "Usurp the Throne",
+    "start": "3p",
+    "step": 0
+  },
+  "Vendetta": {
+    "complete": 0,
+    "name": "Vendetta",
+    "start": "2p",
+    "step": 0
+  }
+}

@@ -1,0 +1,188 @@
+[
+  {
+    "alterEgo": "Peter Parker",
+    "aspects": ["Justice"],
+    "hitPoints": 10,
+    "name": "Spider-man",
+    "nemesisSchemes": ["Highway Robbery"],
+    "pack": "Core Set"
+  },
+  {
+    "alterEgo": "Carol Danvers",
+    "aspects": ["Leadership"],
+    "hitPoints": 12,
+    "name": "Captain Marvel",
+    "nemesisSchemes": ["The Psyche-Magnitron"],
+    "pack": "Core Set"
+  },
+  {
+    "alterEgo": "Jennifer Walters",
+    "aspects": ["Aggression"],
+    "hitPoints": 15,
+    "name": "She-Hulk",
+    "nemesisSchemes": ["Personal Challenge"],
+    "pack": "Core Set"
+  },
+  {
+    "alterEgo": "Tony Stark",
+    "aspects": ["Aggression"],
+    "hitPoints": 9,
+    "name": "Iron Man",
+    "nemesisSchemes": ["Imminent Overload"],
+    "pack": "Core Set"
+  },
+  {
+    "alterEgo": "T'Challa",
+    "aspects": ["Protection"],
+    "hitPoints": 11,
+    "name": "Black Panther",
+    "nemesisSchemes": ["Usurp the Throne"],
+    "pack": "Core Set"
+  },
+  {
+    "alterEgo": "Steve Rogers",
+    "aspects": ["Leadership"],
+    "hitPoints": 11,
+    "name": "Captain America",
+    "nemesisSchemes": ["Hit Squad"],
+    "pack": "Captain America"
+  },
+  {
+    "alterEgo": "Kamala Khan",
+    "aspects": ["Protection"],
+    "hitPoints": 10,
+    "name": "Ms. Marvel",
+    "nemesisSchemes": ["Generation Why?"],
+    "pack": "Ms. Marvel"
+  },
+  {
+    "alterEgo": "Odinson",
+    "aspects": ["Aggression"],
+    "hitPoints": 14,
+    "name": "Thor",
+    "nemesisSchemes": ["Family Feud"],
+    "pack": "Thor"
+  },
+  {
+    "alterEgo": "Natasha Romanoff",
+    "aspects": ["Justice"],
+    "hitPoints": 9,
+    "name": "Black Widow",
+    "nemesisSchemes": ["Killer for Hire"],
+    "pack": "Black Widow"
+  },
+  {
+    "alterEgo": "Stephen Strange",
+    "aspects": ["Protection"],
+    "hitPoints": 10,
+    "name": "Doctor Strange",
+    "nemesisSchemes": ["Open the Dark Dimension"],
+    "pack": "Doctor Strange"
+  },
+  {
+    "alterEgo": "Bruce Banner",
+    "aspects": ["Aggression"],
+    "hitPoints": 18,
+    "name": "Hulk",
+    "nemesisSchemes": ["Total Destruction"],
+    "pack": "Hulk"
+  },
+  {
+    "alterEgo": "Clint Barton",
+    "aspects": ["Leadership"],
+    "hitPoints": 9,
+    "name": "Hawkeye",
+    "nemesisSchemes": ["Marked for Death"],
+    "pack": "The Rise of Red Skull"
+  },
+  {
+    "alterEgo": "Jessica Drew",
+    "aspects": ["Aggression", "Justice"],
+    "hitPoints": 11,
+    "name": "Spider-Woman",
+    "nemesisSchemes": ["The Viper's Ambition"],
+    "pack": "The Rise of Red Skull"
+  },
+  {
+    "alterEgo": "Scott Lang",
+    "aspects": ["Leadership"],
+    "hitPoints": 12,
+    "name": "Ant-Man",
+    "nemesisSchemes": ["Tech Theft"],
+    "pack": "Ant-Man"
+  },
+  {
+    "alterEgo": "Nadia Van Dyne",
+    "aspects": ["Aggression"],
+    "hitPoints": 11,
+    "name": "Wasp",
+    "nemesisSchemes": ["Mother's Orders"],
+    "pack": "Wasp"
+  },
+  {
+    "alterEgo": "Pietro Maximoff",
+    "aspects": ["Protection"],
+    "hitPoints": 9,
+    "name": "Quicksilver",
+    "nemesisSchemes": ["Extortion of Seismic Proportion"],
+    "pack": "Quicksilver"
+  },
+  {
+    "alterEgo": "Wanda Maximoff",
+    "aspects": ["Justice"],
+    "hitPoints": 10,
+    "name": "Scarlet Witch",
+    "nemesisSchemes": ["The Next Evolution"],
+    "pack": "Scarlet Witch"
+  },
+  {
+    "alterEgo": "Groot",
+    "aspects": ["Protection"],
+    "counters": [["Growth", 0, 10]],
+    "hitPoints": 11,
+    "name": "Groot",
+    "nemesisSchemes": ["Blazing Inferno"],
+    "pack": "Galaxy's Most Wanted"
+  },
+  {
+    "alterEgo": "Rocket Raccoon",
+    "aspects": ["Aggression"],
+    "hitPoints": 9,
+    "name": "Rocket Raccoon",
+    "nemesisSchemes": ["Vendetta"],
+    "pack": "Galaxy's Most Wanted"
+  },
+  {
+    "alterEgo": "Peter Quill",
+    "aspects": ["Leadership"],
+    "hitPoints": 10,
+    "name": "Star-Lord",
+    "nemesisSchemes": ["Budding Crime Syndicate"],
+    "pack": "Star-Lord"
+  },
+  {
+    "alterEgo": "Gamora",
+    "aspects": ["Aggression"],
+    "hitPoints": 10,
+    "name": "Gamora",
+    "nemesisSchemes": ["Sibling Rivalry"],
+    "pack": "Gamora"
+  },
+  {
+    "alterEgo": "Drax",
+    "aspects": ["Protection"],
+    "counters": [["Vengeance", 0, 3]],
+    "hitPoints": 14,
+    "name": "Drax",
+    "nemesisSchemes": ["Cull the Weak"],
+    "pack": "Drax"
+  },
+  {
+    "alterEgo": "Flash Thompson",
+    "aspects": ["Justice"],
+    "hitPoints": 12,
+    "name": "Venom",
+    "nemesisSchemes": ["Klyntar Frenzy"],
+    "pack": "Venom"
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "mainScheme": ["The Break In!"],
+    "modular": ["Bomb Scare"],
+    "name": "Rhino",
+    "levels": { "1": "14p", "2": "15p", "3": "16p" },
+    "pack": "Core Set",
+    "sideSchemes": ["Breakin' & Takin'", "Crowd Control"],
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
+    "villain": "Rhino"
+  },
+  {
+    "mainScheme": ["Underground Distribution", "Secret Rendezvous"],
+    "modular": ["Masters of Evil"],
+    "name": "Klaw",
+    "levels": { "1": "12p", "2": "18p", "3": "22p" },
+    "pack": "Core Set",
+    "sideSchemes": [
+      "Defense Network",
+      "Illegal Arms Factory",
+      "The \"Immortal\" Klaw"
+    ],
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
+    "villain": "Klaw"
+  },
+  {
+    "counters": [["Delay", 0, -1]],
+    "mainScheme": ["None Shall Pass"],
+    "modular": ["Hydra Patrol"],
+    "name": "Absorbing Man",
+    "levels": { "1": "14p", "2": "15p", "3": "16p" },
+    "pack": "The Rise of Red Skull",
+    "sideSchemes": ["Avalanche!", "Avalanche!", "Super Absorbing Power"],
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
+    "villain": "Absorbing Man"
+  }
+]

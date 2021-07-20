@@ -1,25 +1,71 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import Generate from "./components/Generate";
+import Match from "./components/Match";
+import Options from "./components/Options";
+import heroes from "./data/heroes.json";
+import scenarios from "./data/scenarios.json";
 
-function App() {
+const data = { heroes, scenarios };
+
+export default function App() {
+  const [options, setOptions] = useState(false);
+  const [selection, setSelection] = useState({ heroes: [], scenarios: [] });
+  const [setup, setSetup] = useState(false);
+  const [started, setStarted] = useState(false);
+
+  const saveOptions = () => {
+    localStorage.setItem("selection", JSON.stringify(selection));
+    setSetup(false);
+    setOptions(false);
+  };
+
+  const handleGeneration = (settings) => {
+    setStarted(false);
+    setSetup(settings);
+  };
+
+  const handleQuit = () => {
+    setStarted(false);
+    setSetup(false);
+    localStorage.removeItem("current");
+  };
+  const handleStart = () => setStarted(true);
+
+  useEffect(() => {
+    setSelection(JSON.parse(localStorage.getItem("selection")) || data);
+    const saved = JSON.parse(localStorage.getItem("current"));
+    if (saved) {
+      setStarted(true);
+      setSetup(saved.setup);
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      {options && (
+        <>
+          <Options data={data} selection={selection} onChange={setSelection} />
+          <div className="fab" onClick={saveOptions}>
+            Save
+          </div>
+        </>
+      )}
+      {!options && !started && (
+        <>
+          <Generate onGenerate={handleGeneration} selection={selection} />
+          <div className="fab" onClick={() => setOptions(true)}>
+            Options
+          </div>
+        </>
+      )}
+      {!options && setup && (
+        <Match
+          onQuit={handleQuit}
+          onStart={handleStart}
+          initialSetup={setup}
+          started={started}
+        />
+      )}
+    </main>
   );
 }
-
-export default App;

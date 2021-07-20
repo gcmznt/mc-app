@@ -1,0 +1,38 @@
+.box {
+  position: relative;
+  text-align: center;
+}
+
+.box--flag {
+  text-align: left;
+}
+
+.box__title {
+  position: absolute;
+  top: -1em;
+  left: 50%;
+  background: #ed1d24;
+  color: white;
+  transform: translateX(-50%);
+  font-size: 1.4em;
+  z-index: 100;
+  padding: 0 0.3em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  max-width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.box__content {
+  transform: perspective(200px) rotateX(5deg);
+  background-color: #fff;
+  margin: 2.5em 0 1em;
+  box-shadow: 0 0 15px #0003;
+  padding: 0.8em;
+  font-size: 1.1em;
+}
+
+.box--flat .box__content {
+  transform: none;
+}

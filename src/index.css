@@ -1,13 +1,115 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  padding: 1em 1em 15em;
+  background: #ececec;
+  font-family: "Exo 2", sans-serif;
+  font-variant: small-caps;
+  text-align: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.is-disabled {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.aspect {
+  height: 1em;
+  width: 1em;
+  display: inline-block;
+  background: var(--color);
+  border-radius: 100px;
+  vertical-align: bottom;
+  margin: 0 0.3em;
+}
+
+.is-aggression {
+  --color: #e01414;
+}
+
+.is-justice {
+  --color: #f2ca00;
+}
+
+.is-protection {
+  --color: #00cc4e;
+}
+
+.is-leadership {
+  --color: #3499eb;
+}
+
+.vs {
+  background: #ed1d24;
+  color: white;
+  font-size: 1.4em;
+  padding: 0 0.3em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin: 0.8em;
+}
+
+button {
+  box-sizing: border-box;
+  border: 1px solid black;
+  align-items: center;
+  justify-content: center;
+  font-family: "Exo 2", sans-serif;
+  background: #000;
+  color: #fff;
+  font-size: 16px;
+  margin: 0.3em;
+  padding: 0.3em 0.6em 0.5em;
+}
+
+.fab {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  height: 1.4em;
+  display: flex;
+  padding: 0.8em 1.4em;
+  border-radius: 100px;
+  background-color: #000;
+  color: #fff;
+  z-index: 1000;
+}
+
+.result {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1em 2em;
+  font-size: 2em;
+  background: #ed1d24;
+  color: white;
+  z-index: 200;
+  box-shadow: 0 0 15px 5px #0006;
+}
+
+.result.is-winner {
+  background: rgb(1, 185, 56);
+}
+
+.fraction {
+  font-size: 0.6em;
+  opacity: 0.5;
+  display: inline-block;
+  margin: 0 0.2em;
+}
+
+.option {
+  display: block;
+}
+
+.option span {
+  float: right;
+  opacity: 0.5;
 }
