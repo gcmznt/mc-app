@@ -271,7 +271,7 @@ export default function Status({ onResult, onQuit, result, setup }) {
               />
             ))}
         </Box>
-        <Box title={mainScheme.levels[villainCounter.stage][0]}>
+        <Box title={mainScheme.levels[mainScheme.stage][0]}>
           <Counters
             counter={mainScheme}
             onComplete={handleComplete}
