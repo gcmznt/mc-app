@@ -8,15 +8,17 @@ export default function Counter({
   limit,
   onAdd,
   onAddLimit,
+  onEnable,
   onNext,
   onPrev,
   onReduce,
   onReduceLimit,
+  over,
   value,
 }) {
   const [editMode, setEditMode] = useState(false);
 
-  const toggle = () => disabled || setEditMode((m) => !m);
+  const toggle = () => disabled || over || setEditMode((m) => !m);
 
   return (
     <div className="counter">
@@ -76,11 +78,18 @@ export default function Counter({
       {!disabled && onNext && (
         <div
           className={`counter__next ${
-            editMode || value < limit ? "is-disabled" : ""
+            editMode || (over ? value !== limit : value < limit)
+              ? "is-disabled"
+              : ""
           }`}
           onClick={onNext}
         >
           {last ? lastLabel || "✓" : "»"}
+        </div>
+      )}
+      {disabled && onEnable && (
+        <div className={`counter__next`} onClick={onEnable}>
+          +
         </div>
       )}
     </div>

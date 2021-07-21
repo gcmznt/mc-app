@@ -121,6 +121,7 @@
   },
   "None Shall Pass": {
     "complete": "12p",
+    "counters": [["Delay", 0, -1]],
     "name": "None Shall Pass",
     "start": "2p",
     "step": "1p"

@@ -120,6 +120,11 @@ button {
   opacity: 0.5;
 }
 
+.log {
+  max-height: 400px;
+  overflow: auto;
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     background: #333;

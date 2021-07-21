@@ -12,6 +12,7 @@ export default function App() {
   const [selection, setSelection] = useState({ heroes: [], scenarios: [] });
   const [setup, setSetup] = useState(false);
   const [started, setStarted] = useState(false);
+  const [wakeLock, setWakeLock] = useState(false);
 
   const saveOptions = () => {
     localStorage.setItem("selection", JSON.stringify(selection));
@@ -39,6 +40,34 @@ export default function App() {
       setSetup(saved.setup);
     }
   }, []);
+
+  useEffect(() => {
+    if ("wakeLock" in navigator) {
+      if (started) {
+        navigator.wakeLock
+          .request("screen")
+          .then(setWakeLock)
+          .catch(console.error);
+      } else if (wakeLock) {
+        wakeLock.release().then(() => setWakeLock(false));
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [started]);
+
+  useEffect(() => {
+    const resetLock = () => {
+      if (wakeLock !== false && document.visibilityState === "visible") {
+        navigator.wakeLock
+          .request("screen")
+          .then(setWakeLock)
+          .catch(console.error);
+      }
+    };
+    document.addEventListener("visibilitychange", resetLock);
+
+    return () => document.removeEventListener("visibilitychange", resetLock);
+  }, [wakeLock]);
 
   return (
     <main>

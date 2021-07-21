@@ -16,9 +16,21 @@ export default function Generate({ onGenerate, selection }) {
   const getAspects = (h) =>
     !aspect ? h : { ...h, aspects: getRandom(aspects, h.aspects.length) };
 
+  const getNemesisSchemes = (h) => ({
+    ...h,
+    nemesisSchemes: h.nemesisSchemes.map((s) => schemes[s]),
+  });
+
+  const getSideSchemes = (h) => ({
+    ...h,
+    sideSchemes: h.sideSchemes.map((s) => schemes[s]),
+  });
+
   const randomize = () => {
-    const heroes = getRandom(selection.heroes, players).map(getAspects);
-    const scenario = getRandom(selection.scenarios)[0];
+    const heroes = getRandom(selection.heroes, players)
+      .map(getAspects)
+      .map(getNemesisSchemes);
+    const scenario = getRandom(selection.scenarios).map(getSideSchemes)[0];
     onGenerate({
       heroes,
       mode,
@@ -28,9 +40,10 @@ export default function Generate({ onGenerate, selection }) {
       scenario: {
         ...scenario,
         mainScheme: scenario.mainScheme.map((s) => schemes[s]),
-        modular: !modular
+        modular: (!modular
           ? scenario.modular.map((m) => modularSet[m])
-          : getRandom(Object.values(modularSet), scenario.modular.length),
+          : getRandom(Object.values(modularSet), scenario.modular.length)
+        ).map(getSideSchemes),
       },
     });
   };

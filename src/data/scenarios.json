@@ -24,7 +24,6 @@
     "villain": "Klaw"
   },
   {
-    "counters": [["Delay", 0, -1]],
     "mainScheme": ["None Shall Pass"],
     "modular": ["Hydra Patrol"],
     "name": "Absorbing Man",

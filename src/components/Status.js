@@ -1,15 +1,30 @@
 import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { toValue } from "../utils";
-import Hero from "./Hero";
-import Scheme from "./Scheme";
-import Villain from "./Villain";
+import Counters from "./Counters";
+import Log from "./Log";
+
+const Box = ({ title, children }) => (
+  <div className="box">
+    <div className="box__title">{title}</div>
+    <div className="box__content">{children}</div>
+  </div>
+);
+
+const getResText = (result) =>
+  ({
+    defeated: "All heroes are dead!",
+    "give-up": "You gave up.",
+    scheme: "You lost by scheme!",
+    winner: "You won!",
+  }[result]);
 
 const getCounter = (options) => {
   return {
-    active: options.active || true,
+    active: typeof options.active !== "undefined" ? options.active : true,
     id: uuid(),
     levels: options.levels,
+    initialLevels: options.levels,
     name: options.name,
     parent: options.parent,
     stage: options.stage || 0,
@@ -19,73 +34,110 @@ const getCounter = (options) => {
 
 const getStageText = (level) => new Array(level).fill("I").join("");
 
-const getHeroExtraCounter = (hero, counter, parent) =>
-  getCounter({
-    name: `${hero.name} | ${counter[0]}`,
-    type: "hero-extra",
-    levels: [counter],
-    parent,
+const getFullCounter = (name, type, levels, children) => {
+  const parentCounter = getCounter({
+    name,
+    type,
+    levels,
   });
-
-const getVillainExtraCounter = (scenario, counter, parent) =>
-  getCounter({
-    name: `${scenario.villain} | ${counter[0]}`,
-    type: "villain-extra",
-    levels: [counter],
-    parent,
-  });
-
-const getHeroCounter = (hero) => {
-  const heroCounter = getCounter({
-    name: hero.name,
-    type: "hero",
-    levels: [[hero.name, 0, hero.hitPoints]],
-  });
-  const extra = (hero.counters || []).map((c) =>
-    getHeroExtraCounter(hero, c, heroCounter.id)
+  const extra = (children || []).map((c) =>
+    getCounter({
+      name: `${name} | ${c[0]}`,
+      type: `${type}-extra`,
+      levels: [c],
+      parent: parentCounter.id,
+    })
   );
 
-  return [heroCounter, ...extra];
+  return [parentCounter, ...extra];
 };
 
-const getVillainCounter = (scenario, mode, players) => {
-  const villainCounter = getCounter({
-    name: scenario.villain,
-    type: "villain",
-    levels: scenario.stages[mode].map((s) => [
+const getHeroCounter = (players) => (hero) =>
+  [
+    ...getFullCounter(
+      hero.name,
+      "hero",
+      [[hero.name, 0, hero.hitPoints]],
+      hero.counters
+    ),
+    ...hero.nemesisSchemes.map((s) =>
+      getCounter({
+        active: false,
+        name: `${hero.name} | ${s.name}`,
+        type: "nemesis-scheme",
+        levels: [
+          [s.name, toValue(s.start, players), toValue(s.complete, players)],
+        ],
+      })
+    ),
+  ];
+
+const getVillainCounter = (scenario, mode, players) => [
+  ...getFullCounter(
+    scenario.villain,
+    "villain",
+    scenario.stages[mode].map((s) => [
       `${scenario.villain} ${getStageText(s)}`,
       0,
       toValue(scenario.levels[s], players),
     ]),
-  });
-  const extra = (scenario.counters || []).map((c) =>
-    getVillainExtraCounter(scenario, c, villainCounter.id)
-  );
-
-  return [villainCounter, ...extra];
-};
+    scenario.counters
+  ),
+  ...scenario.sideSchemes.map((s) =>
+    getCounter({
+      active: false,
+      name: `${scenario.villain.name} | ${s.name}`,
+      type: "side-scheme",
+      levels: [
+        [s.name, toValue(s.start, players), toValue(s.complete, players)],
+      ],
+    })
+  ),
+  ...scenario.modular
+    .map((mod) =>
+      mod.sideSchemes.map((s) =>
+        getCounter({
+          active: false,
+          name: `${mod.name} | ${s.name}`,
+          type: "modular-scheme",
+          levels: [
+            [s.name, toValue(s.start, players), toValue(s.complete, players)],
+          ],
+        })
+      )
+    )
+    .flat(),
+];
 
 const getMainSchemeCounter = (scenario, players) =>
-  getCounter({
-    name: scenario.name,
-    type: "scheme-main",
-    levels: scenario.mainScheme.map((s) => [
+  getFullCounter(
+    scenario.name,
+    "scenario",
+    scenario.mainScheme.map((s) => [
       s.name,
       toValue(s.start, players),
       toValue(s.complete, players),
     ]),
-  });
+    ...scenario.mainScheme.filter((s) => s.counters).map((s) => s.counters)
+  );
 
 const getCounters = (setup) => [
-  ...setup.heroes.map(getHeroCounter).flat(),
+  ...setup.heroes.map(getHeroCounter(setup.players)).flat(),
   ...getVillainCounter(setup.scenario, setup.mode.toLowerCase(), setup.players),
-  getMainSchemeCounter(setup.scenario, setup.players),
+  ...getMainSchemeCounter(setup.scenario, setup.players),
 ];
 
 export default function Status({ onResult, onQuit, result, setup }) {
   const [counters, setCounters] = useState(false);
+  const [log, setLog] = useState([]);
+  const [interacted, setInteracted] = useState(false);
+
+  const addToLog = (entry) => {
+    setLog((l) => [{ id: uuid(), date: new Date(), ...entry }, ...l]);
+  };
 
   const updateCounter = (id, values) => {
+    setInteracted(true);
     if (!result && id)
       setCounters((cs) =>
         cs.map((c) => (c.id === id ? { ...c, ...values } : c))
@@ -96,8 +148,10 @@ export default function Status({ onResult, onQuit, result, setup }) {
     const saved = JSON.parse(localStorage.getItem("current"));
     if (saved) {
       setCounters(saved.counters);
+      setLog(saved.log.map((l) => ({ ...l, date: new Date(l.date) })));
     } else {
       setCounters(getCounters(setup));
+      addToLog({ start: true });
     }
   }, [setup]);
 
@@ -108,8 +162,16 @@ export default function Status({ onResult, onQuit, result, setup }) {
     ) {
       onResult("defeated", counters);
     }
-    localStorage.setItem("current", JSON.stringify({ setup, counters }));
-  }, [counters, onResult, setup]);
+    interacted && window.navigator.vibrate(50);
+    localStorage.setItem(
+      "current",
+      JSON.stringify({ counters, log, result, setup })
+    );
+  }, [counters, interacted, log, onResult, result, setup]);
+
+  useEffect(() => {
+    result && addToLog({ result, resultText: getResText(result) });
+  }, [result]);
 
   const handleDefeat = (counter) => {
     if (counter.stage + 1 < counter.levels.length) {
@@ -136,19 +198,33 @@ export default function Status({ onResult, onQuit, result, setup }) {
     }
   };
 
-  const handleRestart = () => {
-    onResult(false);
-    setCounters(getCounters(setup));
+  const handleCompleteSide = (counter) => {
+    updateCounter(counter.id, { active: false, levels: counter.initialLevels });
   };
 
-  const resText = {
-    defeated: "All heroes are dead!",
-    "give-up": "You gave up.",
-    scheme: "You lost by scheme!",
-    winner: "You won!",
-  }[result];
+  const handleEnableSide = (counter) => {
+    updateCounter(counter.id, { active: true });
+  };
+
+  const handleRestart = () => {
+    onResult(false);
+    setLog([]);
+    setCounters(getCounters(setup));
+    addToLog({ start: true });
+  };
+
+  const defaultCounterProps = {
+    addToLog: addToLog,
+    onUpdate: updateCounter,
+    result: result,
+  };
 
   const villainCounter = (counters || []).find((c) => c.type === "villain");
+  const mainScheme = (counters || []).find((c) => c.type === "scenario");
+  const sideSchemes = (counters || []).filter((c) =>
+    ["modular-scheme", "nemesis-scheme", "side-scheme"].includes(c.type)
+  );
+  const activeSideSchemes = (sideSchemes || []).filter((c) => !c.visible);
 
   return (
     counters && (
@@ -156,31 +232,81 @@ export default function Status({ onResult, onQuit, result, setup }) {
         {counters
           .filter((c) => c.type === "hero")
           .map((counter) => (
-            <Hero
-              counter={counter}
-              result={result}
-              extra={counters.filter((c) => c.parent === counter.id)}
-              key={counter.id}
-              onDefeat={handleHeroDefeat(counter)}
-              onUpdate={updateCounter}
-            />
+            <Box key={counter.id} title={counter.levels[counter.stage][0]}>
+              <Counters
+                counter={counter}
+                lastLabel="💀"
+                legend="Hits"
+                onComplete={handleHeroDefeat(counter)}
+                {...defaultCounterProps}
+              />
+              {counters
+                .filter((c) => c.parent === counter.id)
+                .map((c) => (
+                  <Counters
+                    counter={c}
+                    key={c.id}
+                    legend={c.levels[c.stage][0]}
+                    {...defaultCounterProps}
+                  />
+                ))}
+            </Box>
           ))}
-        <Villain
-          counter={villainCounter}
-          extra={counters.filter((c) => c.parent === villainCounter.id)}
-          result={result}
-          onDefeat={handleDefeat}
-          onUpdate={updateCounter}
-        />
-        <Scheme
-          counter={counters.find((c) => c.type === "scheme-main")}
-          result={result}
-          onComplete={handleComplete}
-          onUpdate={updateCounter}
-        />
+        <Box title={villainCounter.levels[villainCounter.stage][0]}>
+          <Counters
+            counter={villainCounter}
+            lastLabel="💀"
+            legend="Hits"
+            onComplete={handleDefeat}
+            {...defaultCounterProps}
+          />
+          {counters
+            .filter((c) => c.parent === villainCounter.id)
+            .map((c) => (
+              <Counters
+                counter={c}
+                key={c.id}
+                legend={c.levels[c.stage][0]}
+                {...defaultCounterProps}
+              />
+            ))}
+        </Box>
+        <Box title={mainScheme.levels[villainCounter.stage][0]}>
+          <Counters
+            counter={mainScheme}
+            onComplete={handleComplete}
+            legend="Threats"
+            {...defaultCounterProps}
+          />
+          {counters
+            .filter((c) => c.parent === mainScheme.id)
+            .map((c) => (
+              <Counters
+                counter={c}
+                key={c.id}
+                legend={c.levels[c.stage][0]}
+                {...defaultCounterProps}
+              />
+            ))}
+        </Box>
+        {!!activeSideSchemes.length && (
+          <Box title="Side schemes">
+            {activeSideSchemes.map((c) => (
+              <Counters
+                counter={c}
+                key={c.id}
+                over={true}
+                onComplete={handleCompleteSide}
+                onEnable={handleEnableSide}
+                legend={c.levels[c.stage][0]}
+                {...defaultCounterProps}
+              />
+            ))}
+          </Box>
+        )}
         {result ? (
           <div className={`result is-${result}`}>
-            <div>{resText}</div>
+            <div>{getResText(result)}</div>
             <button onClick={onQuit}>Exit</button>
             <button onClick={handleRestart}>Restart</button>
           </div>
@@ -190,6 +316,7 @@ export default function Status({ onResult, onQuit, result, setup }) {
             <button onClick={handleRestart}>Restart</button>
           </div>
         )}
+        <Log log={log} />
       </div>
     )
   );
