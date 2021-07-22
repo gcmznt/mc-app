@@ -83,9 +83,9 @@ export default function Counter({
         {!disabled && onNext && (
           <div
             className={`counter__next ${
-              editMode || (over ? value !== limit : value < limit)
-                ? "is-disabled"
-                : ""
+              !editMode && (value === limit || value === advance)
+                ? ""
+                : "is-disabled"
             }`}
             onClick={onNext}
           >

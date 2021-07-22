@@ -38,10 +38,10 @@
     "villain": "Ultron"
   },
   {
-    "counters": [["Criminal Enterprise", "2p", 0]],
+    "counters": [["Criminal Enterprise", "2p", -1]],
     "mainScheme": ["Hostile Takeover", "Corporate Acquisition"],
     "modular": ["Goblin Gimmicks"],
-    "name": "Green Goblin - Risky Business",
+    "name": "Risky Business",
     "levels": { "1": "14p", "2": "18p", "3": "22p" },
     "pack": "Green Goblin",
     "sideSchemes": [
@@ -57,7 +57,7 @@
   {
     "mainScheme": ["Unleashing the Mutagen", "Mutagen Cloud"],
     "modular": ["Goblin Gimmicks"],
-    "name": "Green Goblin - Mutagen Formula",
+    "name": "Mutagen Formula",
     "levels": { "1": "16p", "2": "18p", "3": "20p" },
     "pack": "Green Goblin",
     "sideSchemes": [
@@ -167,7 +167,7 @@
     "encounter": ["Galactic Artifacts"],
     "mainScheme": ["The Grand Collection"],
     "modular": ["Menagerie Medley"],
-    "name": "Collector 1 – Infiltrate the Museum",
+    "name": "Infiltrate the Museum",
     "levels": { "1": "13p", "2": "14p", "3": "18p" },
     "pack": "Galaxy’s Most Wanted",
     "sideSchemes": [],
@@ -182,7 +182,7 @@
       "The Great Escape"
     ],
     "modular": ["Menagerie Medley"],
-    "name": "Collector 2 – Escape the Museum",
+    "name": "Escape the Museum",
     "levels": { "1": "8p", "2": "10p" },
     "pack": "Galaxy’s Most Wanted",
     "sideSchemes": [],

@@ -1,8 +1,11 @@
 .option {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .option__flag {
-  float: right;
+  margin-left: 0.5em;
   opacity: 0.5;
 }

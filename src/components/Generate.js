@@ -36,7 +36,10 @@ export default function Generate({ onGenerate, selection }) {
 
     onGenerate({
       heroes,
-      mode: mode === "Random" ? getRandom(["Standard", "Expert"])[0] : mode,
+      mode: (mode === "Random"
+        ? getRandom(["Standard", "Expert"])[0]
+        : mode
+      ).toLowerCase(),
       players,
       randomAspects: aspect,
       randomModular: modular,

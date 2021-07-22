@@ -30,7 +30,7 @@ export default function Counter({
       onUpdate(counter.id, {
         levels: counter.levels.map((l, i) =>
           i === counter.stage
-            ? [l[0], l[1] + valueOffset, l[2] + limitOffset]
+            ? [l[0], l[1] + valueOffset, l[2] + limitOffset, l[3]]
             : l
         ),
       });
@@ -50,11 +50,6 @@ export default function Counter({
   };
 
   const next = () => {
-    if (counter.stage + 1 >= counter.levels.length) {
-      logEvent(EVENTS.COMPLETE, counter.id, counter);
-    } else {
-      logEvent(EVENTS.NEXT, counter.id, counter);
-    }
     onComplete(counter);
   };
 

@@ -87,7 +87,8 @@ button {
   z-index: 200;
 }
 
-.result.is-winner {
+.result.is-winner,
+.result.is-scheme-win {
   background: rgb(1, 185, 56);
 }
 

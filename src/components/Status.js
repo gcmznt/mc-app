@@ -10,7 +10,8 @@ const getResText = (result) =>
   ({
     defeated: "All heroes are dead!",
     "give-up": "You gave up.",
-    scheme: "You lost by scheme!",
+    "scheme-win": "You win by scheme!",
+    scheme: "You lost by scheme.",
     winner: "You won!",
   }[result]);
 
@@ -61,7 +62,11 @@ const getHeroCounter = (players) => (hero) =>
         name: `${hero.name} | ${s.name}`,
         type: "nemesis-scheme",
         levels: [
-          [s.name, toValue(s.start, players), toValue(s.complete, players)],
+          [
+            s.name,
+            toValue(s.start || 0, players),
+            toValue(s.complete || 0, players),
+          ],
         ],
       })
     ),
@@ -74,17 +79,26 @@ const getVillainCounter = (scenario, mode, players) => [
     scenario.stages[mode].map((s) => [
       `${scenario.villain} ${getStageText(s)}`,
       0,
-      toValue(scenario.levels[s], players),
+      toValue(scenario.levels[s] || 0, players),
     ]),
-    scenario.counters
+    (scenario.counters || []).map((c) => [
+      c[0],
+      toValue(c[1] || 0, players),
+      toValue(c[2] || 0, players),
+      toValue(c[3], players),
+    ])
   ),
-  ...scenario.sideSchemes.map((s) =>
+  ...(scenario.sideSchemes || []).map((s) =>
     getCounter({
       active: false,
       name: `${scenario.villain} | ${s.name}`,
       type: "side-scheme",
       levels: [
-        [s.name, toValue(s.start, players), toValue(s.complete, players)],
+        [
+          s.name,
+          toValue(s.start || 0, players),
+          toValue(s.complete || 0, players),
+        ],
       ],
     })
   ),
@@ -96,7 +110,11 @@ const getVillainCounter = (scenario, mode, players) => [
           name: `${mod.name} | ${s.name}`,
           type: "modular-scheme",
           levels: [
-            [s.name, toValue(s.start, players), toValue(s.complete, players)],
+            [
+              s.name,
+              toValue(s.start || 0, players),
+              toValue(s.complete || 0, players),
+            ],
           ],
         })
       )
@@ -110,11 +128,20 @@ const getMainSchemeCounter = (scenario, players) =>
     "scenario",
     scenario.mainScheme.map((s) => [
       s.name,
-      toValue(s.start, players),
-      toValue(s.complete, players),
+      toValue(s.start || 0, players),
+      toValue(s.complete || 0, players),
       toValue(s.advance, players),
     ]),
-    ...scenario.mainScheme.filter((s) => s.counters).map((s) => s.counters)
+    ...scenario.mainScheme
+      .filter((s) => s.counters)
+      .map((s) =>
+        s.counters.map((c) => [
+          c[0],
+          toValue(c[1] || 0, players),
+          toValue(c[2] || 0, players),
+          toValue(c[3], players),
+        ])
+      )
   );
 
 const getCounters = (setup) => [
@@ -187,14 +214,39 @@ export default function Status({ onResult, onQuit, result, setup }) {
     onQuit();
   };
 
-  const handleHeroDefeat = (counter) => () => {
+  const disableCounter = (counter) => {
     updateCounter(counter.id, { active: false });
   };
 
+  const handleHeroDefeat = (counter) => () => {
+    disableCounter(counter);
+    counters.filter((c) => c.parent === counter.id).map(disableCounter);
+  };
+
   const handleComplete = (counter) => {
-    if (counter.stage + 1 < counter.levels.length) {
+    const currentStage = counter.levels[counter.stage];
+    if (
+      Number.isInteger(currentStage[3]) &&
+      currentStage[3] === currentStage[1]
+    ) {
+      if (counter.stage + 1 < counter.levels.length) {
+        logEvent(EVENTS.NEXT, counter.id, counter);
+        updateCounter(counter.id, { stage: counter.stage + 1 });
+      } else {
+        logEvent(EVENTS.COMPLETE, counter.id, counter);
+        onResult("scheme-win", counters);
+      }
+    } else if (
+      Number.isInteger(currentStage[3]) &&
+      currentStage[2] === currentStage[1]
+    ) {
+      logEvent(EVENTS.COMPLETE, counter.id, counter);
+      onResult("scheme", counters);
+    } else if (counter.stage + 1 < counter.levels.length) {
+      logEvent(EVENTS.NEXT, counter.id, counter);
       updateCounter(counter.id, { stage: counter.stage + 1 });
     } else {
+      logEvent(EVENTS.COMPLETE, counter.id, counter);
       onResult("scheme", counters);
     }
   };
@@ -228,7 +280,7 @@ export default function Status({ onResult, onQuit, result, setup }) {
   );
   const activeSideSchemes = (sideSchemes || []).filter((c) => c.active);
 
-  console.log(mainScheme);
+  console.log(setup);
 
   return (
     counters && (
