@@ -6,7 +6,7 @@
     "levels": { "1": "14p", "2": "15p", "3": "16p" },
     "pack": "Core Set",
     "sideSchemes": ["Breakin' & Takin'", "Crowd Control"],
-    "stages": { "expert": [2, 3], "standard": [1, 2] },
+    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
     "villain": "Rhino"
   },
   {
@@ -20,8 +20,73 @@
       "Illegal Arms Factory",
       "The \"Immortal\" Klaw"
     ],
-    "stages": { "expert": [2, 3], "standard": [1, 2] },
+    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
     "villain": "Klaw"
+  },
+  {
+    "mainScheme": [
+      "The Crimson Cowl",
+      "Assault on NORAD",
+      "Countdown to Oblivion"
+    ],
+    "modular": ["Under Attack"],
+    "name": "Ultron",
+    "levels": { "1": "17p", "2": "22p", "3": "27p" },
+    "pack": "Core Set",
+    "sideSchemes": ["Drone Factory", "Invasive AI", "Ultron's Imperative"],
+    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "villain": "Ultron"
+  },
+  {
+    "counters": [["Criminal Enterprise", "2p", 0]],
+    "mainScheme": ["Hostile Takeover", "Corporate Acquisition"],
+    "modular": ["Goblin Gimmicks"],
+    "name": "Green Goblin - Risky Business",
+    "levels": { "1": "14p", "2": "18p", "3": "22p" },
+    "pack": "Green Goblin",
+    "sideSchemes": [
+      "Collapsing Bridge",
+      "Oscorp Manufacturing",
+      "Oscorp Manufacturing",
+      "Payoff",
+      "Payoff"
+    ],
+    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "villain": "Green Goblin"
+  },
+  {
+    "mainScheme": ["Unleashing the Mutagen", "Mutagen Cloud"],
+    "modular": ["Goblin Gimmicks"],
+    "name": "Green Goblin - Mutagen Formula",
+    "levels": { "1": "16p", "2": "18p", "3": "20p" },
+    "pack": "Green Goblin",
+    "sideSchemes": [
+      "Goblin Reinforcements",
+      "Goblin Reinforcements",
+      "Goblin Nation",
+      "Overrun",
+      "Overrun"
+    ],
+    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "villain": "Green Goblin"
+  },
+  {
+    "mainScheme": [
+      "Attack on Mount Athena",
+      "The Infinity Stone",
+      "The Gataway"
+    ],
+    "modular": ["Hydra Patrol", "Weapon Master", "Legions of Hydra"],
+    "name": "Crossbones",
+    "levels": { "1": "12p", "2": "14p", "3": "16p" },
+    "pack": "The Rise of Red Skull",
+    "sideSchemes": [
+      "Crossbones' Assault",
+      "Crossbones' Assault",
+      "Cornered Staff"
+    ],
+    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "villain": "Crossbones"
   },
   {
     "mainScheme": ["None Shall Pass"],
@@ -30,7 +95,126 @@
     "levels": { "1": "14p", "2": "15p", "3": "16p" },
     "pack": "The Rise of Red Skull",
     "sideSchemes": ["Avalanche!", "Avalanche!", "Super Absorbing Power"],
-    "stages": { "expert": [2, 3], "standard": [1, 2] },
+    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
     "villain": "Absorbing Man"
+  },
+  {
+    "mainScheme": ["Hunting Down Heroes"],
+    "modular": ["Weapon Master"],
+    "name": "Taskmaster",
+    "levels": { "1": "13p", "2": "16p", "3": "17p" },
+    "pack": "The Rise of Red Skull",
+    "sideSchemes": [
+      "Captured by Hydra",
+      "Captured by Hydra",
+      "Captured by Hydra",
+      "Captured by Hydra",
+      "Taskmaster's Training Camp"
+    ],
+    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "villain": "Taskmaster"
+  },
+  {
+    "counters": [["Test counters", 0, 3]],
+    "mainScheme": ["The Island of Dr. Zola", "The Mad Doctor"],
+    "modular": ["Under Attack"],
+    "name": "Zola",
+    "levels": { "1": "12p", "2": "14p", "3": "16p" },
+    "pack": "The Rise of Red Skull",
+    "sideSchemes": [
+      "Hydra Prison",
+      "Test Subjects",
+      "Test Subjects",
+      "Zola's Experiments"
+    ],
+    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "villain": "Zola"
+  },
+  {
+    "mainScheme": ["The Rise of Red Skull", "New World Hydra"],
+    "modular": ["Hydra Assault", "Hydra Patrol"],
+    "name": "Red Skull",
+    "levels": { "1": "12p", "2": "16p", "3": "20p" },
+    "pack": "The Rise of Red Skull",
+    "sideSchemes": [
+      "The Red House",
+      "The Sleeper Awakened",
+      "Prison Camps",
+      "Censor the Past",
+      "Hydra Reinforcements",
+      "Mass Chaos"
+    ],
+    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "villain": "Red Skull"
+  },
+  {
+    "encounter": ["Ship Command"],
+    "mainScheme": ["Terrestrial Invasion", "Protect the Planet"],
+    "modular": ["Band of Badoon"],
+    "name": "Brotherhood of Badoon",
+    "levels": { "1": "13p", "2": "14p", "3": "18p" },
+    "pack": "Galaxy’s Most Wanted",
+    "sideSchemes": [
+      "Blockade",
+      "Bombardment",
+      "Oppressive Armada",
+      "Spatial Positioning"
+    ],
+    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "villain": "Drang"
+  },
+  {
+    "encounter": ["Galactic Artifacts"],
+    "mainScheme": ["The Grand Collection"],
+    "modular": ["Menagerie Medley"],
+    "name": "Collector 1 – Infiltrate the Museum",
+    "levels": { "1": "13p", "2": "14p", "3": "18p" },
+    "pack": "Galaxy’s Most Wanted",
+    "sideSchemes": [],
+    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "villain": "Collector"
+  },
+  {
+    "encounter": ["Galactic Artifacts", "Ship Command"],
+    "mainScheme": [
+      "The Missing Milano",
+      "Lost in the Museum",
+      "The Great Escape"
+    ],
+    "modular": ["Menagerie Medley"],
+    "name": "Collector 2 – Escape the Museum",
+    "levels": { "1": "8p", "2": "10p" },
+    "pack": "Galaxy’s Most Wanted",
+    "sideSchemes": [],
+    "stages": { "expert": ["2"], "standard": ["1"] },
+    "villain": "Collector"
+  },
+  {
+    "counters": [["Nebula's Ship", 0, -1]],
+    "encounter": ["Power Stone", "Ship Command"],
+    "mainScheme": ["The Art of Evasion", "Warp Drive Initiated"],
+    "modular": ["Space Pirates"],
+    "name": "Nebula",
+    "levels": { "1": "14p", "2": "17p", "3": "20p" },
+    "pack": "Galaxy’s Most Wanted",
+    "sideSchemes": ["Lethal Intent", "Lethal Intent"],
+    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "villain": "Nebula"
+  },
+  {
+    "encounter": ["Power Stone", "Ship Command"],
+    "mainScheme": ["Interception Imminent", "Take What Is Mine"],
+    "modular": ["Kree Militants"],
+    "name": "Ronan",
+    "levels": { "1": "14p", "2": "18p", "3": "25p" },
+    "pack": "Galaxy’s Most Wanted",
+    "sideSchemes": [
+      "Cut the Power",
+      "Pincer Maneuver",
+      "Pincer Maneuver",
+      "Superior Tactics"
+    ],
+    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "villain": "Ronan the Accuser"
   }
 ]

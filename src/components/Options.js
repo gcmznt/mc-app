@@ -1,9 +1,8 @@
-// import { useEffect } from "react";
-import SelectHeroes from "./SelectHeroes";
-import SelectScenarios from "./SelectScenarios";
+import Box from "./ui/Box";
+import Option from "./ui/Option";
 
 export default function Options({ data, onChange, selection }) {
-  const toggle = (key) => (el) => {
+  const toggle = (key, el) => {
     onChange({
       ...selection,
       [key]: selection[key].some((e) => e.name === el)
@@ -13,27 +12,31 @@ export default function Options({ data, onChange, selection }) {
   };
 
   return (
-    <div>
-      <div className="box box--flag box--flat">
-        <div className="box__title">Heroes</div>
-        <div className="box__content">
-          <SelectHeroes
-            heroes={data.heroes}
-            heroList={selection.heroes}
-            onChange={toggle("heroes")}
+    <>
+      <Box title="Heroes" flag flat>
+        {data.heroes.map((hero) => (
+          <Option
+            key={hero.name}
+            checked={selection.heroes.some((h) => h.name === hero.name)}
+            flag={hero.pack !== hero.name && hero.pack}
+            label={hero.name}
+            onChange={(e) => toggle("heroes", e.target.value)}
+            value={hero.name}
           />
-        </div>
-      </div>
-      <div className="box box--flag box--flat">
-        <div className="box__title">Scenarios</div>
-        <div className="box__content">
-          <SelectScenarios
-            scenarios={data.scenarios}
-            scenarioList={selection.scenarios}
-            onChange={toggle("scenarios")}
+        ))}
+      </Box>
+      <Box title="Scenarios" flag flat>
+        {data.scenarios.map((scenario) => (
+          <Option
+            key={scenario.name}
+            checked={selection.scenarios.some((s) => s.name === scenario.name)}
+            flag={scenario.pack !== scenario.name && scenario.pack}
+            label={scenario.name}
+            onChange={(e) => toggle("scenarios", e.target.value)}
+            value={scenario.name}
           />
-        </div>
-      </div>
-    </div>
+        ))}
+      </Box>
+    </>
   );
 }

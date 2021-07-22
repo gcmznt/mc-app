@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Setup from "./Setup";
 import Status from "./Status";
+import Box from "./ui/Box";
 
 export default function Match({ onQuit, onStart, initialSetup, started }) {
   const [result, setResult] = useState(null);
@@ -13,16 +14,14 @@ export default function Match({ onQuit, onStart, initialSetup, started }) {
   return (
     result !== null &&
     (!started ? (
-      <div>
-        <div className="box">
-          <div className="box__content">
-            <Setup setup={initialSetup} />
-          </div>
-        </div>
+      <>
+        <Box>
+          <Setup setup={initialSetup} />
+        </Box>
         <div>
           <button onClick={onStart}>Start</button>
         </div>
-      </div>
+      </>
     ) : (
       <Status
         onResult={handleResult}

@@ -4,6 +4,8 @@ import schemes from "../data/schemes.json";
 import { getRandom } from "../utils";
 import Mode from "./Mode";
 import Players from "./Players";
+import Box from "./ui/Box";
+import Option from "./ui/Option";
 
 const aspects = ["Aggression", "Justice", "Leadership", "Protection"];
 
@@ -23,7 +25,7 @@ export default function Generate({ onGenerate, selection }) {
 
   const getSideSchemes = (h) => ({
     ...h,
-    sideSchemes: h.sideSchemes.map((s) => schemes[s]),
+    sideSchemes: (h.sideSchemes || []).map((s) => schemes[s]),
   });
 
   const randomize = () => {
@@ -31,67 +33,59 @@ export default function Generate({ onGenerate, selection }) {
       .map(getAspects)
       .map(getNemesisSchemes);
     const scenario = getRandom(selection.scenarios).map(getSideSchemes)[0];
+
     onGenerate({
       heroes,
-      mode,
+      mode: mode === "Random" ? getRandom(["Standard", "Expert"])[0] : mode,
       players,
       randomAspects: aspect,
       randomModular: modular,
       scenario: {
         ...scenario,
         mainScheme: scenario.mainScheme.map((s) => schemes[s]),
-        modular: (!modular
-          ? scenario.modular.map((m) => modularSet[m])
-          : getRandom(Object.values(modularSet), scenario.modular.length)
-        ).map(getSideSchemes),
+        modular: [
+          ...(scenario.encounter || [])
+            .map((m) => modularSet[m])
+            .map(getSideSchemes),
+          ...(!modular
+            ? scenario.modular.map((m) => modularSet[m])
+            : getRandom(
+                Object.values(modularSet).filter(
+                  (m) => !(scenario.encounter || []).includes(m.name)
+                ),
+                scenario.modular.length
+              )
+          ).map(getSideSchemes),
+        ],
       },
     });
   };
 
   return (
-    <div>
-      <div className="box">
-        <div className="box__title">Players</div>
-        <div className="box__content">
-          <Players
-            onChange={setPlayers}
-            value={players}
-            max={selection.heroes.length}
-          />
-        </div>
-      </div>
-      <div className="box">
-        <div className="box__title">Mode</div>
-        <div className="box__content">
-          <Mode onChange={setMode} value={mode} />
-        </div>
-      </div>
-      <div className="box">
-        <div className="box__title">Random</div>
-        <div className="box__content">
-          <div>
-            <label>
-              <input
-                type="checkbox"
-                checked={aspect}
-                onChange={(e) => setAspect(e.target.checked)}
-              />{" "}
-              Get random aspect
-            </label>
-          </div>
-          <div>
-            <label>
-              <input
-                type="checkbox"
-                checked={modular}
-                onChange={(e) => setModular(e.target.checked)}
-              />{" "}
-              Get random modular set
-            </label>
-          </div>
-        </div>
-      </div>
+    <>
+      <Box title="Players">
+        <Players
+          onChange={setPlayers}
+          value={players}
+          max={selection.heroes.length}
+        />
+      </Box>
+      <Box title="Mode">
+        <Mode onChange={setMode} value={mode} />
+      </Box>
+      <Box title="Random">
+        <Option
+          checked={aspect}
+          label="Get random aspect"
+          onChange={(e) => setAspect(e.target.checked)}
+        />
+        <Option
+          checked={modular}
+          label="Get random modular set"
+          onChange={(e) => setModular(e.target.checked)}
+        />
+      </Box>
       <button onClick={randomize}>Generate</button>
-    </div>
+    </>
   );
 }

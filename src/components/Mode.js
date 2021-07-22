@@ -3,7 +3,7 @@ export default function Mode({ onChange, value }) {
 
   return (
     <div>
-      {["Standard", "Expert"].map((mode) => (
+      {["Standard", "Expert", "Random"].map((mode) => (
         <label key={mode}>
           <input
             checked={mode === value}

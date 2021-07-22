@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Generate from "./components/Generate";
 import Match from "./components/Match";
 import Options from "./components/Options";
+import Fab from "./components/ui/Fab";
 import heroes from "./data/heroes.json";
 import scenarios from "./data/scenarios.json";
 
@@ -74,17 +75,13 @@ export default function App() {
       {options && (
         <>
           <Options data={data} selection={selection} onChange={setSelection} />
-          <div className="fab" onClick={saveOptions}>
-            Save
-          </div>
+          <Fab label="Save" onClick={saveOptions} />
         </>
       )}
       {!options && !started && (
         <>
           <Generate onGenerate={handleGeneration} selection={selection} />
-          <div className="fab" onClick={() => setOptions(true)}>
-            Options
-          </div>
+          <Fab label="Options" onClick={() => setOptions(true)} />
         </>
       )}
       {!options && setup && (

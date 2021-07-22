@@ -1,123 +1,117 @@
 {
   "Avalanche!": {
-    "complete": 0,
     "name": "Avalanche!",
-    "start": "2p",
-    "step": 0
+    "start": "2p"
+  },
+  "Assault on NORAD": {
+    "complete": "10p",
+    "name": "Assault on NORAD",
+    "step": "1p"
   },
   "Bomb Scare": {
-    "complete": 0,
     "name": "Bomb Scare",
-    "start": [2, "1p"],
-    "step": 0
+    "start": [2, "1p"]
   },
   "Blazing Inferno": {
-    "complete": 0,
     "name": "Blazing Inferno",
-    "start": "3p",
-    "step": 0
+    "start": "3p"
   },
   "Breakin' & Takin'": {
-    "complete": 0,
     "name": "Breakin' & Takin'",
-    "start": 2,
-    "step": 0
+    "start": 2
   },
   "Budding Crime Syndicate": {
-    "complete": 0,
     "name": "Budding Crime Syndicate",
-    "start": [2, "2p"],
-    "step": 0
+    "start": [2, "2p"]
+  },
+  "Corporate Acquisition": {
+    "complete": "10p",
+    "name": "Corporate Acquisition",
+    "start": "1p",
+    "step": "2p"
+  },
+  "Countdown to Oblivion": {
+    "complete": "5p",
+    "name": "Countdown to Oblivion",
+    "step": "1p"
   },
   "Crowd Control": {
-    "complete": 0,
     "name": "Crowd Control",
-    "start": "2p",
-    "step": 0
+    "start": "2p"
   },
   "Cull the Weak": {
-    "complete": 0,
     "name": "Cull the Weak",
-    "start": "2p",
-    "step": 0
+    "start": "2p"
   },
   "Defense Network": {
-    "complete": 0,
     "name": "Defense Network",
-    "start": [2, "1p"],
-    "step": 0
+    "start": [2, "1p"]
+  },
+  "Drone Factory": {
+    "name": "Drone Factory",
+    "start": 4
   },
   "Extortion of Seismic Proportion": {
-    "complete": 0,
     "name": "Extortion of Seismic Proportion",
-    "start": "2p",
-    "step": 0
+    "start": "2p"
   },
   "Family Feud": {
-    "complete": 0,
     "name": "Family Feud",
-    "start": 2,
-    "step": 0
+    "start": 2
   },
   "Generation Why?": {
-    "complete": 0,
     "name": "Generation Why?",
-    "start": "2p",
-    "step": 0
-  },
-  "Hydra Patrol": {
-    "complete": 0,
-    "name": "Hydra Patrol",
-    "start": "2p",
-    "step": 0
+    "start": "2p"
   },
   "Highway Robbery": {
-    "complete": 0,
     "name": "Highway Robbery",
-    "start": "3p",
-    "step": 0
+    "start": "3p"
   },
   "Hit Squad": {
-    "complete": 0,
     "name": "Hit Squad",
-    "start": "3p",
-    "step": 0
+    "start": "3p"
+  },
+  "Hostile Takeover": {
+    "complete": "7p",
+    "name": "Hostile Takeover",
+    "start": "2p",
+    "step": "1p"
+  },
+  "Hydra Patrol": {
+    "name": "Hydra Patrol",
+    "start": "2p"
   },
   "Illegal Arms Factory": {
-    "complete": 0,
     "name": "Illegal Arms Factory",
-    "start": [3, "1p"],
-    "step": 0
+    "start": [3, "1p"]
   },
   "Imminent Overload": {
-    "complete": 0,
     "name": "Imminent Overload",
-    "start": [3, "1p"],
-    "step": 0
+    "start": [3, "1p"]
+  },
+  "Invasive AI": {
+    "name": "Invasive AI",
+    "start": "3p"
   },
   "Killer for Hire": {
-    "complete": 0,
     "name": "Killer for Hire",
-    "start": [3, "1p"],
-    "step": 0
+    "start": [3, "1p"]
   },
   "Klyntar Frenzy": {
-    "complete": 0,
     "name": "Klyntar Frenzy",
-    "start": "2p",
-    "step": 0
+    "start": "2p"
+  },
+  "Legions of Hydra": {
+    "name": "Legions of Hydra",
+    "start": 3
   },
   "Marked for Death": {
-    "complete": 0,
     "name": "Marked for Death",
-    "start": 5,
-    "step": 0
+    "start": 5
   },
   "Mother's Orders": {
-    "complete": 0,
     "name": "Mother's Orders",
-    "start": "2p",
-    "step": 0
+    "start": "2p"
   },
   "None Shall Pass": {
     "complete": "12p",
@@ -127,99 +121,348 @@
     "step": "1p"
   },
   "Open the Dark Dimension": {
-    "complete": 0,
     "name": "Open the Dark Dimension",
-    "start": "3p",
-    "step": 0
+    "start": "3p"
   },
   "Personal Challenge": {
-    "complete": 0,
     "name": "Personal Challenge",
-    "start": [3, "1p"],
-    "step": 0
+    "start": [3, "1p"]
   },
   "Secret Rendezvous": {
     "complete": "8p",
     "name": "Secret Rendezvous",
-    "start": 0,
     "step": "1p"
   },
   "Sibling Rivalry": {
-    "complete": 0,
     "name": "Sibling Rivalry",
-    "start": 4,
-    "step": 0
+    "start": 4
   },
   "Super Absorbing Power": {
-    "complete": 0,
     "name": "Super Absorbing Power",
-    "start": "3p",
-    "step": 0
+    "start": "3p"
   },
   "Tech Theft": {
-    "complete": 0,
     "name": "Tech Theft",
-    "start": "2p",
-    "step": 0
+    "start": "2p"
   },
   "The \"Immortal\" Klaw": {
-    "complete": 0,
     "name": "The \"Immortal\" Klaw",
-    "start": "3p",
-    "step": 0
+    "start": "3p"
   },
   "The Break In!": {
     "complete": "7p",
     "name": "The Break In!",
-    "start": 0,
     "step": "1p"
   },
+  "The Crimson Cowl": {
+    "complete": "3p",
+    "name": "The Crimson Cowl",
+    "step": "1p"
+  },
+  "The Doomsday Chair": {
+    "name": "The Doomsday Chair",
+    "start": 8
+  },
   "The Masters of Evil": {
-    "complete": 0,
     "name": "The Masters of Evil",
-    "start": "3p",
-    "step": 0
+    "start": "3p"
   },
   "The Next Evolution": {
-    "complete": 0,
     "name": "The Next Evolution",
-    "start": "2p",
-    "step": 0
+    "start": "2p"
   },
   "The Psyche-Magnitron": {
-    "complete": 0,
     "name": "The Psyche-Magnitron",
-    "start": [3, "1p"],
-    "step": 0
+    "start": [3, "1p"]
   },
   "The Viper's Ambition": {
-    "complete": 0,
     "name": "The Viper's Ambition",
-    "start": [2, "1p"],
-    "step": 0
+    "start": [2, "1p"]
   },
   "Total Destruction": {
-    "complete": 0,
     "name": "Total Destruction",
-    "start": "2p",
-    "step": 0
+    "start": "2p"
+  },
+  "Ultron's Imperative": {
+    "name": "Ultron's Imperative",
+    "start": "2p"
+  },
+  "Under Attack": {
+    "name": "Under Attack",
+    "start": 3
   },
   "Underground Distribution": {
     "complete": "6p",
     "name": "Underground Distribution",
-    "start": 0,
     "step": "1p"
   },
   "Usurp the Throne": {
-    "complete": 0,
     "name": "Usurp the Throne",
-    "start": "3p",
-    "step": 0
+    "start": "3p"
   },
   "Vendetta": {
-    "complete": 0,
     "name": "Vendetta",
+    "start": "2p"
+  },
+  "Collapsing Bridge": {
+    "name": "Collapsing Bridge",
+    "start": "2p"
+  },
+  "Oscorp Manufacturing": {
+    "name": "Oscorp Manufacturing",
+    "start": "2p"
+  },
+  "Payoff": {
+    "name": "Payoff",
+    "start": "2p"
+  },
+  "Unleashing the Mutagen": {
+    "complete": "7p",
+    "name": "Unleashing the Mutagen",
     "start": "2p",
-    "step": 0
+    "step": "1p"
+  },
+  "Mutagen Cloud": {
+    "complete": "11p",
+    "name": "Mutagen Cloud",
+    "start": "4p"
+  },
+  "Goblin Reinforcements": {
+    "name": "Goblin Reinforcements",
+    "start": 2
+  },
+  "A Mess of Things": {
+    "name": "A Mess of Things",
+    "start": 2
+  },
+  "Goblin Nation": {
+    "name": "Goblin Nation",
+    "start": "2p"
+  },
+  "Power Drain": {
+    "name": "Power Drain",
+    "start": "2p"
+  },
+  "Overrun": {
+    "name": "Overrun",
+    "start": "1p"
+  },
+  "Running Interference": {
+    "name": "Running Interference",
+    "start": "1p"
+  },
+  "Attack on Mount Athena": {
+    "complete": "3p",
+    "name": "Attack on Mount Athena",
+    "step": "1p"
+  },
+  "The Infinity Stone": {
+    "complete": "6p",
+    "name": "The Infinity Stone",
+    "start": "1p",
+    "step": "1p"
+  },
+  "The Gataway": {
+    "complete": "5p",
+    "name": "The Gataway",
+    "start": "1p",
+    "step": "1p"
+  },
+  "Crossbones' Assault": {
+    "name": "Crossbones' Assault",
+    "start": "2p"
+  },
+  "Cornered Staff": {
+    "name": "Cornered Staff",
+    "start": 3
+  },
+  "Hunting Down Heroes": {
+    "complete": "12p",
+    "name": "Hunting Down Heroes",
+    "start": "1p",
+    "step": "1p"
+  },
+  "Captured by Hydra": {
+    "name": "Captured by Hydra",
+    "start": 5
+  },
+  "Taskmaster's Training Camp": {
+    "name": "Taskmaster's Training Camp",
+    "start": "2p"
+  },
+  "The Island of Dr. Zola": {
+    "complete": "6p",
+    "name": "The Island of Dr. Zola",
+    "step": "1p"
+  },
+  "The Mad Doctor": {
+    "complete": "8p",
+    "name": "The Mad Doctor",
+    "start": "1p",
+    "step": "1p"
+  },
+  "Hydra Prison": {
+    "name": "Hydra Prison",
+    "start": 1
+  },
+  "Test Subjects": {
+    "name": "Test Subjects",
+    "start": "2p"
+  },
+  "Zola's Experiments": {
+    "name": "Zola's Experiments",
+    "start": "3p"
+  },
+  "The Rise of Red Skull": {
+    "complete": "8p",
+    "name": "The Rise of Red Skull",
+    "step": "1p"
+  },
+  "New World Hydra": {
+    "complete": "11p",
+    "name": "New World Hydra",
+    "start": "1p",
+    "step": "1p"
+  },
+  "The Red House": {
+    "name": "The Red House",
+    "start": "3p"
+  },
+  "The Sleeper Awakened": {
+    "name": "The Sleeper Awakened",
+    "start": 0
+  },
+  "Prison Camps": {
+    "name": "Prison Camps",
+    "start": "3p"
+  },
+  "Censor the Past": {
+    "name": "Censor the Past",
+    "start": "3p"
+  },
+  "Hydra Reinforcements": {
+    "name": "Hydra Reinforcements",
+    "start": "2p"
+  },
+  "Mass Chaos": {
+    "name": "Mass Chaos",
+    "start": 0
+  },
+  "Hujahdarian Monarch Egg": {
+    "name": "Hujahdarian Monarch Egg",
+    "start": [3, "2p"]
+  },
+  "Magical Teapot": {
+    "name": "Magical Teapot",
+    "start": [3, "2p"]
+  },
+  "Philosopher's Stone": {
+    "name": "Philosopher's Stone",
+    "start": [3, "2p"]
+  },
+  "Crystal Ball": {
+    "name": "Crystal Ball",
+    "start": [3, "2p"]
+  },
+  "Sound the Alarms": {
+    "name": "Sound the Alarms",
+    "start": "2p"
+  },
+  "Cannonade": {
+    "name": "Cannonade",
+    "start": [1, "3p"]
+  },
+  "Terrestrial Invasion": {
+    "complete": "8p",
+    "name": "Terrestrial Invasion",
+    "start": "2p",
+    "step": "2p"
+  },
+  "Protect the Planet": {
+    "complete": "8p",
+    "name": "Protect the Planet",
+    "start": "4p",
+    "step": "2p"
+  },
+  "Blockade": {
+    "name": "Blockade",
+    "start": [2, "2p"]
+  },
+  "Bombardment": {
+    "name": "Bombardment",
+    "start": "3p"
+  },
+  "Oppressive Armada": {
+    "name": "Oppressive Armada",
+    "start": [1, "3p"]
+  },
+  "Spatial Positioning": {
+    "name": "Spatial Positioning",
+    "start": "3p"
+  },
+  "The Grand Collection": {
+    "complete": "10p",
+    "name": "The Grand Collection",
+    "start": "4p",
+    "step": "1p"
+  },
+  "The Missing Milano": {
+    "advance": 0,
+    "complete": "11p",
+    "name": "The Missing Milano",
+    "start": "7p",
+    "step": "1p"
+  },
+  "Lost in the Museum": {
+    "advance": 0,
+    "complete": "15p",
+    "name": "Lost in the Museum",
+    "start": "11p",
+    "step": "1p"
+  },
+  "The Great Escape": {
+    "advance": 0,
+    "complete": "12p",
+    "name": "The Great Escape",
+    "start": "8p",
+    "step": "1p"
+  },
+  "The Art of Evasion": {
+    "complete": "6p",
+    "name": "The Art of Evasion",
+    "start": "2p"
+  },
+  "Warp Drive Initiated": {
+    "complete": "9p",
+    "name": "Warp Drive Initiated",
+    "start": "3p"
+  },
+  "Lethal Intent": {
+    "name": "Lethal Intent",
+    "start": "2p"
+  },
+  "Interception Imminent": {
+    "complete": "7p",
+    "name": "Interception Imminent",
+    "start": "2p",
+    "step": "2p"
+  },
+  "Take What Is Mine": {
+    "complete": "10p",
+    "name": "Take What Is Mine",
+    "start": "1p",
+    "step": "2p"
+  },
+  "Cut the Power": {
+    "name": "Cut the Power",
+    "start": "3p"
+  },
+  "Pincer Maneuver": {
+    "name": "Pincer Maneuver",
+    "start": [3, "2p"]
+  },
+  "Superior Tactics": {
+    "name": "Superior Tactics",
+    "start": "2p"
   }
 }

@@ -1,103 +1,90 @@
+:root {
+  --color-accent: #e01414;
+  --color-bg-card: #fff;
+  --color-bg: #ececec;
+  --color-cta-contrast: #fff;
+  --color-cta: #000;
+  --color-fg: #000;
+}
+
 body {
-  margin: 0;
-  padding: 1em 1em 15em;
-  background: #ececec;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
   font-family: "Exo 2", sans-serif;
   font-variant: small-caps;
+  margin: 0;
+  padding: 1em 1em 15em;
   text-align: center;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   user-select: none;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
 main {
-  max-width: 500px;
   margin: auto;
+  max-width: 500px;
 }
 
 .is-disabled {
-  pointer-events: none;
   opacity: 0.3;
-}
-
-.aspect {
-  height: 1em;
-  width: 1em;
-  display: inline-block;
-  background: var(--color);
-  border-radius: 100px;
-  vertical-align: bottom;
-  margin: 0 0.3em;
+  pointer-events: none;
 }
 
 .is-aggression {
-  --color: #e01414;
+  --color-accent: #e01414;
 }
 
+.is-scheme,
 .is-justice {
-  --color: #f2ca00;
+  --color-accent: #f2ca00;
+  --color-accent-contrast: #000;
 }
 
 .is-protection {
-  --color: #00cc4e;
+  --color-accent: #00cc4e;
 }
 
+.is-hero,
 .is-leadership {
-  --color: #3499eb;
+  --color-accent: #3499eb;
 }
 
 .vs {
-  background: #ed1d24;
+  background: var(--color-accent);
   color: white;
   font-size: 1.4em;
+  margin: 0.8em;
   padding: 0 0.3em;
   text-transform: uppercase;
   white-space: nowrap;
-  margin: 0.8em;
 }
 
 button {
-  box-sizing: border-box;
-  border: 1px solid black;
   align-items: center;
-  justify-content: center;
-  font-family: "Exo 2", sans-serif;
-  background: #000;
-  color: #fff;
-  font-size: 16px;
-  margin: 0.3em;
-  padding: 0.3em 0.6em 0.5em;
-}
-
-.fab {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  height: 1.4em;
-  display: flex;
-  padding: 0.8em 1.4em;
+  background-color: var(--color-cta);
   border-radius: 100px;
-  background-color: #000;
-  color: #fff;
-  z-index: 1000;
+  border: 0;
+  box-sizing: border-box;
+  color: var(--color-cta-contrast);
+  font-family: "Exo 2", sans-serif;
+  font-size: 20px;
+  font-variant: small-caps;
+  justify-content: center;
+  margin: 0.3em;
+  padding: 0.5em 1em 0.7em;
 }
 
 .result {
-  position: fixed;
+  background: var(--color-accent);
   bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1em 2em;
-  font-size: 2em;
-  background: #ed1d24;
-  color: white;
-  z-index: 200;
   box-shadow: 0 0 15px 5px #0006;
+  color: white;
+  font-size: 2em;
+  left: 0;
+  padding: 1em 2em;
+  position: fixed;
+  right: 0;
+  z-index: 200;
 }
 
 .result.is-winner {
@@ -105,34 +92,18 @@ button {
 }
 
 .fraction {
-  font-size: 0.6em;
-  opacity: 0.5;
   display: inline-block;
+  font-size: 0.6em;
   margin: 0 0.2em;
-}
-
-.option {
-  display: block;
-}
-
-.option span {
-  float: right;
   opacity: 0.5;
-}
-
-.log {
-  max-height: 400px;
-  overflow: auto;
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
-    background: #333;
-    color: white;
-  }
-  .fab,
-  button {
-    background: #fff;
-    color: #000;
+  :root {
+    --color-bg-card: #000;
+    --color-bg: #333;
+    --color-cta-contrast: #000;
+    --color-cta: #fff;
+    --color-fg: #fff;
   }
 }

@@ -1,97 +1,85 @@
-import { useState } from "react";
-import "../styles/counter.css";
+import { EVENTS } from "./Log";
+import CounterUI from "./ui/Counter";
 
 export default function Counter({
-  disabled,
-  last = true,
+  logEvent,
+  counter,
   lastLabel,
-  limit,
-  onAdd,
-  onAddLimit,
+  onComplete,
   onEnable,
-  onNext,
-  onPrev,
-  onReduce,
-  onReduceLimit,
-  over,
-  value,
+  onUpdate,
+  over = false,
+  result,
+  title,
 }) {
-  const [editMode, setEditMode] = useState(false);
+  const update = (counter, valueOffset, limitOffset = 0) => {
+    if (
+      (over ||
+        counter.levels[counter.stage][2] < 0 ||
+        counter.levels[counter.stage][1] + valueOffset <=
+          counter.levels[counter.stage][2] + limitOffset) &&
+      counter.levels[counter.stage][1] + valueOffset >= 0
+    ) {
+      if (valueOffset === 1) logEvent(EVENTS.INCREASE, counter.id, counter);
+      if (valueOffset === -1) logEvent(EVENTS.DECREASE, counter.id, counter);
+      if (limitOffset === 1)
+        logEvent(EVENTS.INCREASELIMIT, counter.id, counter);
+      if (limitOffset === -1)
+        logEvent(EVENTS.DECREASELIMIT, counter.id, counter);
 
-  const toggle = () => disabled || over || setEditMode((m) => !m);
+      onUpdate(counter.id, {
+        levels: counter.levels.map((l, i) =>
+          i === counter.stage
+            ? [l[0], l[1] + valueOffset, l[2] + limitOffset]
+            : l
+        ),
+      });
+    }
+  };
+
+  const add = () => update(counter, 1);
+  const reduce = () => update(counter, -1);
+  const increaseLimit = () => update(counter, 0, 1);
+  const decreaseLimit = () => update(counter, 0, -1);
+
+  const previous = () => {
+    if (counter.stage > 0) {
+      logEvent(EVENTS.PREVIOUS, counter.id, counter);
+      onUpdate(counter.id, { stage: counter.stage - 1 });
+    }
+  };
+
+  const next = () => {
+    if (counter.stage + 1 >= counter.levels.length) {
+      logEvent(EVENTS.COMPLETE, counter.id, counter);
+    } else {
+      logEvent(EVENTS.NEXT, counter.id, counter);
+    }
+    onComplete(counter);
+  };
+
+  const enable = () => onEnable(counter);
 
   return (
-    <div className="counter">
-      {!disabled && onPrev && (
-        <div
-          className={`counter__prev ${
-            editMode || value > 0 ? "is-disabled" : ""
-          }`}
-          onClick={onPrev}
-        >
-          «
-        </div>
-      )}
-
-      {!disabled && (
-        <div
-          className={`counter__reduce ${
-            (!editMode && value <= 0) || (editMode && value >= limit)
-              ? "is-disabled"
-              : ""
-          }`}
-          onClick={editMode ? onReduceLimit : onReduce}
-        >
-          &minus;
-        </div>
-      )}
-
-      {limit === -1 ? (
-        <div className="counter__value">
-          <big>{value}</big>
-        </div>
-      ) : editMode ? (
-        <div className="counter__value" onClick={toggle}>
-          <small>{value}</small>
-          <span className="fraction">/</span>
-          <big>{limit}</big>
-        </div>
-      ) : (
-        <div className="counter__value" onClick={toggle}>
-          <big>{value}</big>
-          <span className="fraction">/</span>
-          <small>{limit}</small>
-        </div>
-      )}
-
-      {!disabled && (
-        <div
-          className={`counter__add ${
-            !editMode && value >= limit && limit > 0 ? "is-disabled" : ""
-          }`}
-          onClick={editMode ? onAddLimit : onAdd}
-        >
-          +
-        </div>
-      )}
-
-      {!disabled && onNext && (
-        <div
-          className={`counter__next ${
-            editMode || (over ? value !== limit : value < limit)
-              ? "is-disabled"
-              : ""
-          }`}
-          onClick={onNext}
-        >
-          {last ? lastLabel || "✓" : "»"}
-        </div>
-      )}
-      {disabled && onEnable && (
-        <div className={`counter__next`} onClick={onEnable}>
-          +
-        </div>
-      )}
-    </div>
+    counter && (
+      <CounterUI
+        advance={counter.levels[counter.stage][3]}
+        disabled={result || !counter.active}
+        last={counter.stage + 1 >= counter.levels.length}
+        lastLabel={lastLabel}
+        limit={counter.levels[counter.stage][2]}
+        key={counter.id}
+        onAdd={add}
+        onAddLimit={increaseLimit}
+        onEnable={!result && onEnable && enable}
+        onNext={onComplete && next}
+        onPrev={counter.stage > 0 && previous}
+        onReduce={reduce}
+        onReduceLimit={decreaseLimit}
+        over={over}
+        title={title || counter.levels[counter.stage][0]}
+        value={counter.levels[counter.stage][1]}
+      />
+    )
   );
 }

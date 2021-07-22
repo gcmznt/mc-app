@@ -1,0 +1,8 @@
+.option {
+  display: block;
+}
+
+.option__flag {
+  float: right;
+  opacity: 0.5;
+}

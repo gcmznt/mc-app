@@ -11,8 +11,8 @@
   position: absolute;
   top: -1em;
   left: 50%;
-  background: #ed1d24;
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
   transform: translateX(-50%);
   font-size: 1.4em;
   z-index: 100;
@@ -26,7 +26,7 @@
 
 .box__content {
   transform: perspective(200px) rotateX(5deg);
-  background-color: #fff;
+  background-color: var(--color-bg-card);
   margin: 2.5em 0 1em;
   box-shadow: 0 0 15px #0003;
   padding: 0.8em;
@@ -37,9 +37,7 @@
   transform: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  .box__content {
-    background: #000;
-    color: #ccc;
-  }
+.box.is-log .box__content {
+  max-height: 400px;
+  overflow: auto;
 }
