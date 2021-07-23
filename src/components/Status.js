@@ -1,19 +1,27 @@
 import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { toValue } from "../utils";
+import {
+  COUNTERS_SCHEME,
+  COUNTER_TYPES,
+  EVENTS,
+  RESULT_TYPES,
+  STORAGE_KEYS,
+} from "../utils/constants";
+import { getResText } from "../utils/texts";
 import Counter from "./Counter";
-import Log, { EVENTS } from "./Log";
+import { CounterBox } from "./CounterBox";
+import Log from "./Log";
 import Box from "./ui/Box";
 import Option from "./ui/Option";
 
-const getResText = (result) =>
-  ({
-    defeated: "All heroes are dead!",
-    "give-up": "You gave up.",
-    "scheme-win": "You win by scheme!",
-    scheme: "You lost by scheme.",
-    winner: "You won!",
-  }[result]);
+const isActive = (counter) => counter.active;
+const isNotActive = (counter) => !counter.active;
+const childOf = (parent) => (counter) => counter.parent === parent.id;
+const isSideCounter = (counter) => COUNTERS_SCHEME.includes(counter.type);
+const isVillainCounter = (counter) => counter.type === COUNTER_TYPES.VILLAIN;
+const isMainCounter = (counter) => counter.type === COUNTER_TYPES.SCENARIO;
+const isHeroCounter = (counter) => counter.type === COUNTER_TYPES.HERO;
 
 const getCounter = (options) => {
   return {
@@ -56,7 +64,7 @@ const getHeroCounter = (players) => (hero) =>
       [[hero.name, 0, hero.hitPoints]],
       hero.counters
     ),
-    ...hero.nemesisSchemes.map((s) =>
+    ...hero.sideSchemes.map((s) =>
       getCounter({
         active: false,
         name: `${hero.name} | ${s.name}`,
@@ -76,7 +84,7 @@ const getVillainCounter = (scenario, mode, players) => [
   ...getFullCounter(
     scenario.villain,
     "villain",
-    scenario.stages[mode].map((s) => [
+    scenario.stages[mode.toLowerCase()].map((s) => [
       `${scenario.villain} ${getStageText(s)}`,
       0,
       toValue(scenario.levels[s] || 0, players),
@@ -145,9 +153,9 @@ const getMainSchemeCounter = (scenario, players) =>
   );
 
 const getCounters = (setup) => [
-  ...setup.heroes.map(getHeroCounter(setup.players)).flat(),
-  ...getVillainCounter(setup.scenario, setup.mode.toLowerCase(), setup.players),
-  ...getMainSchemeCounter(setup.scenario, setup.players),
+  ...setup.heroes.map(getHeroCounter(setup.settings.players)).flat(),
+  ...getVillainCounter(setup.scenario, setup.mode, setup.settings.players),
+  ...getMainSchemeCounter(setup.scenario, setup.settings.players),
 ];
 
 export default function Status({ onResult, onQuit, result, setup }) {
@@ -170,47 +178,26 @@ export default function Status({ onResult, onQuit, result, setup }) {
       );
   };
 
-  useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem("current"));
-    if (saved) {
-      setCounters(saved.counters);
-      setLog(saved.log.map((l) => ({ ...l, date: new Date(l.date) })));
-    } else {
-      setCounters(getCounters(setup));
-      logEvent(EVENTS.START, "match");
-    }
-  }, [setup]);
+  const doUpdate = (event, counter, values) => {
+    logEvent(event, counter.id, counter);
+    updateCounter(counter.id, values);
+  };
 
-  useEffect(() => {
-    if (
-      counters &&
-      counters.filter((c) => c.type === "hero").every((h) => !h.active)
-    ) {
-      onResult("defeated", counters);
-    }
-    interacted && window.navigator.vibrate(50);
-    localStorage.setItem(
-      "current",
-      JSON.stringify({ counters, log, result, setup })
-    );
-  }, [counters, interacted, log, onResult, result, setup]);
-
-  useEffect(() => {
-    result &&
-      interacted &&
-      logEvent(EVENTS.END, "match", { result, resultText: getResText(result) });
-  }, [interacted, result]);
+  const endGame = (event, counter, result) => {
+    logEvent(event, counter.id, counter);
+    onResult(result, counters);
+  };
 
   const handleDefeat = (counter) => {
     if (counter.stage + 1 < counter.levels.length) {
-      updateCounter(counter.id, { stage: counter.stage + 1 });
+      doUpdate(EVENTS.NEXT, counter, { stage: counter.stage + 1 });
     } else {
-      onResult("winner", counters);
+      endGame(EVENTS.COMPLETE, counter, RESULT_TYPES.WINNER);
     }
   };
 
   const handleGiveUp = () => {
-    onResult("give-up", counters);
+    onResult(RESULT_TYPES.GIVE_UP, counters);
     onQuit();
   };
 
@@ -219,124 +206,122 @@ export default function Status({ onResult, onQuit, result, setup }) {
   };
 
   const handleHeroDefeat = (counter) => () => {
-    disableCounter(counter);
-    counters.filter((c) => c.parent === counter.id).map(disableCounter);
+    [counter, ...counters.filter(childOf(counter))].map(disableCounter);
+  };
+
+  const handlePrevious = (counter) => {
+    if (counter.stage > 0) {
+      doUpdate(EVENTS.PREVIOUS, counter, { stage: counter.stage - 1 });
+    }
   };
 
   const handleComplete = (counter) => {
-    const currentStage = counter.levels[counter.stage];
-    if (
-      Number.isInteger(currentStage[3]) &&
-      currentStage[3] === currentStage[1]
-    ) {
-      if (counter.stage + 1 < counter.levels.length) {
-        logEvent(EVENTS.NEXT, counter.id, counter);
-        updateCounter(counter.id, { stage: counter.stage + 1 });
-      } else {
-        logEvent(EVENTS.COMPLETE, counter.id, counter);
-        onResult("scheme-win", counters);
-      }
-    } else if (
-      Number.isInteger(currentStage[3]) &&
-      currentStage[2] === currentStage[1]
-    ) {
-      logEvent(EVENTS.COMPLETE, counter.id, counter);
-      onResult("scheme", counters);
-    } else if (counter.stage + 1 < counter.levels.length) {
-      logEvent(EVENTS.NEXT, counter.id, counter);
-      updateCounter(counter.id, { stage: counter.stage + 1 });
+    const stage = counter.levels[counter.stage];
+    const hasAdvance = Number.isInteger(stage[3]);
+    const advance = stage[3] === stage[1];
+    const complete = stage[2] === stage[1];
+    const last = counter.stage + 1 >= counter.levels.length;
+
+    if (hasAdvance && advance && last) {
+      endGame(EVENTS.COMPLETE, counter, RESULT_TYPES.SCHEME_WIN);
+    } else if ((hasAdvance && complete) || (complete && last)) {
+      endGame(EVENTS.COMPLETE, counter, RESULT_TYPES.SCHEME);
     } else {
-      logEvent(EVENTS.COMPLETE, counter.id, counter);
-      onResult("scheme", counters);
+      doUpdate(EVENTS.NEXT, counter, { stage: counter.stage + 1 });
     }
   };
 
   const handleCompleteSide = (counter) => {
-    updateCounter(counter.id, { active: false, levels: counter.initialLevels });
+    doUpdate(EVENTS.COMPLETE, counter, {
+      active: false,
+      levels: counter.initialLevels,
+    });
   };
 
   const handleEnableSide = (counter) => {
-    logEvent(EVENTS.ENTER, counter.id, counter);
-    updateCounter(counter.id, { active: true });
+    doUpdate(EVENTS.ENTER, counter, { active: true });
   };
 
   const handleRestart = () => {
     onResult(false);
     setLog([]);
     setCounters(getCounters(setup));
-    logEvent(EVENTS.RESTART, "match");
+    logEvent(EVENTS.RESTART);
   };
 
-  const defaultCounterProps = {
-    logEvent: logEvent,
-    onUpdate: updateCounter,
-    result: result,
-  };
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEYS.CURRENT));
+    if (saved) {
+      setCounters(saved.counters);
+      setLog(saved.log.map((l) => ({ ...l, date: new Date(l.date) })));
+    } else {
+      setCounters(getCounters(setup));
+      logEvent(EVENTS.START);
+    }
+  }, [setup]);
 
-  const villainCounter = (counters || []).find((c) => c.type === "villain");
-  const mainScheme = (counters || []).find((c) => c.type === "scenario");
-  const sideSchemes = (counters || []).filter((c) =>
-    ["modular-scheme", "nemesis-scheme", "side-scheme"].includes(c.type)
-  );
-  const activeSideSchemes = (sideSchemes || []).filter((c) => c.active);
+  useEffect(() => {
+    if (counters && counters.filter(isHeroCounter).every(isNotActive)) {
+      onResult(RESULT_TYPES.DEFEATED, counters);
+    }
+  }, [counters, onResult]);
 
-  console.log(setup);
+  useEffect(() => {
+    interacted && window.navigator.vibrate(50);
+    localStorage.setItem(
+      STORAGE_KEYS.CURRENT,
+      JSON.stringify({ counters, log, result, setup })
+    );
+  }, [counters, interacted, log, result, setup]);
+
+  useEffect(() => {
+    if (interacted && result) {
+      logEvent(EVENTS.END, false, { result, resultText: getResText(result) });
+    }
+  }, [interacted, result]);
+
+  const defaultCounterProps = { logEvent, onUpdate: updateCounter, result };
+
+  const heroesCounters = (counters || []).filter(isHeroCounter);
+  const villainCounter = (counters || []).find(isVillainCounter);
+  const mainScheme = (counters || []).find(isMainCounter);
+  const sideSchemes = (counters || []).filter(isSideCounter);
 
   return (
     counters && (
       <div>
-        {counters
-          .filter((c) => c.type === "hero")
-          .map((counter) => (
-            <Box
-              key={counter.id}
-              title={counter.levels[counter.stage][0]}
-              type="hero"
-            >
-              <Counter
-                counter={counter}
-                lastLabel="💀"
-                title="Hits"
-                onComplete={handleHeroDefeat(counter)}
-                {...defaultCounterProps}
-              />
-              {counters
-                .filter((c) => c.parent === counter.id)
-                .map((c) => (
-                  <Counter counter={c} key={c.id} {...defaultCounterProps} />
-                ))}
-            </Box>
-          ))}
-        <Box title={villainCounter.levels[villainCounter.stage][0]}>
-          <Counter
-            counter={villainCounter}
+        {heroesCounters.map((counter) => (
+          <CounterBox
+            commonProps={defaultCounterProps}
+            counter={counter}
+            key={counter.id}
             lastLabel="💀"
+            onComplete={handleHeroDefeat(counter)}
+            siblings={counters.filter(childOf(counter))}
             title="Hits"
-            onComplete={handleDefeat}
-            {...defaultCounterProps}
+            type={counter.type}
           />
-          {counters
-            .filter((c) => c.parent === villainCounter.id)
-            .map((c) => (
-              <Counter counter={c} key={c.id} {...defaultCounterProps} />
-            ))}
-        </Box>
-        <Box title={mainScheme.levels[mainScheme.stage][0]} type="scheme">
-          <Counter
-            counter={mainScheme}
-            onComplete={handleComplete}
-            title="Threats"
-            {...defaultCounterProps}
-          />
-          {counters
-            .filter((c) => c.parent === mainScheme.id)
-            .map((c) => (
-              <Counter counter={c} key={c.id} {...defaultCounterProps} />
-            ))}
-        </Box>
+        ))}
+        <CounterBox
+          commonProps={defaultCounterProps}
+          counter={villainCounter}
+          lastLabel="💀"
+          onComplete={handleDefeat}
+          siblings={counters.filter(childOf(villainCounter))}
+          title="Hits"
+        />
+        <CounterBox
+          commonProps={defaultCounterProps}
+          counter={mainScheme}
+          onComplete={handleComplete}
+          onPrevious={handlePrevious}
+          siblings={counters.filter(childOf(mainScheme))}
+          title="Threats"
+          type="scheme"
+        />
 
         <Box title="Side schemes" flat type="scheme">
-          {activeSideSchemes.map((c) => (
+          {sideSchemes.filter(isActive).map((c) => (
             <Counter
               counter={c}
               key={c.id}
@@ -348,13 +333,13 @@ export default function Status({ onResult, onQuit, result, setup }) {
           ))}
         </Box>
         <Box title="Other side schemes" flat flag type="scheme">
-          {sideSchemes.map((c) => (
+          {sideSchemes.map((counter) => (
             <Option
-              key={c.id}
-              checked={c.active}
-              label={c.name}
-              onChange={() => handleEnableSide(c)}
-              value={c.name}
+              key={counter.id}
+              checked={counter.active}
+              label={counter.name}
+              onChange={() => handleEnableSide(counter)}
+              value={counter.name}
             />
           ))}
         </Box>

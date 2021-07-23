@@ -6,7 +6,7 @@
     "levels": { "1": "14p", "2": "15p", "3": "16p" },
     "pack": "Core Set",
     "sideSchemes": ["Breakin' & Takin'", "Crowd Control"],
-    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
     "villain": "Rhino"
   },
   {
@@ -20,7 +20,7 @@
       "Illegal Arms Factory",
       "The \"Immortal\" Klaw"
     ],
-    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
     "villain": "Klaw"
   },
   {
@@ -34,7 +34,7 @@
     "levels": { "1": "17p", "2": "22p", "3": "27p" },
     "pack": "Core Set",
     "sideSchemes": ["Drone Factory", "Invasive AI", "Ultron's Imperative"],
-    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
     "villain": "Ultron"
   },
   {
@@ -51,7 +51,7 @@
       "Payoff",
       "Payoff"
     ],
-    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
     "villain": "Green Goblin"
   },
   {
@@ -67,10 +67,11 @@
       "Overrun",
       "Overrun"
     ],
-    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
     "villain": "Green Goblin"
   },
   {
+    "encounter": ["Experimental Weapon"],
     "mainScheme": [
       "Attack on Mount Athena",
       "The Infinity Stone",
@@ -85,7 +86,7 @@
       "Crossbones' Assault",
       "Cornered Staff"
     ],
-    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
     "villain": "Crossbones"
   },
   {
@@ -95,10 +96,11 @@
     "levels": { "1": "14p", "2": "15p", "3": "16p" },
     "pack": "The Rise of Red Skull",
     "sideSchemes": ["Avalanche!", "Avalanche!", "Super Absorbing Power"],
-    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
     "villain": "Absorbing Man"
   },
   {
+    "encounter": ["Hydra Patrol"],
     "mainScheme": ["Hunting Down Heroes"],
     "modular": ["Weapon Master"],
     "name": "Taskmaster",
@@ -111,7 +113,7 @@
       "Captured by Hydra",
       "Taskmaster's Training Camp"
     ],
-    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
     "villain": "Taskmaster"
   },
   {
@@ -127,7 +129,7 @@
       "Test Subjects",
       "Zola's Experiments"
     ],
-    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
     "villain": "Zola"
   },
   {
@@ -144,7 +146,7 @@
       "Hydra Reinforcements",
       "Mass Chaos"
     ],
-    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
     "villain": "Red Skull"
   },
   {
@@ -160,7 +162,7 @@
       "Oppressive Armada",
       "Spatial Positioning"
     ],
-    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
     "villain": "Drang"
   },
   {
@@ -171,7 +173,7 @@
     "levels": { "1": "13p", "2": "14p", "3": "18p" },
     "pack": "Galaxy’s Most Wanted",
     "sideSchemes": [],
-    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
     "villain": "Collector"
   },
   {
@@ -186,7 +188,7 @@
     "levels": { "1": "8p", "2": "10p" },
     "pack": "Galaxy’s Most Wanted",
     "sideSchemes": [],
-    "stages": { "expert": ["2"], "standard": ["1"] },
+    "stages": { "expert": [2], "standard": [1] },
     "villain": "Collector"
   },
   {
@@ -198,7 +200,7 @@
     "levels": { "1": "14p", "2": "17p", "3": "20p" },
     "pack": "Galaxy’s Most Wanted",
     "sideSchemes": ["Lethal Intent", "Lethal Intent"],
-    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
     "villain": "Nebula"
   },
   {
@@ -214,7 +216,7 @@
       "Pincer Maneuver",
       "Superior Tactics"
     ],
-    "stages": { "expert": ["2", "3"], "standard": ["1", "2"] },
+    "stages": { "expert": [2, 3], "standard": [1, 2] },
     "villain": "Ronan the Accuser"
   }
 ]

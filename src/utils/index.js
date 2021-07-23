@@ -1,5 +1,9 @@
-export function getRandom(list, count = 1) {
+export function getRandomList(list, count = 1) {
   return [...list].sort(() => 0.5 - Math.random()).slice(0, count);
+}
+
+export function getRandom(list) {
+  return getRandomList(list, 1)[0];
 }
 
 function valReducer(moltiplier) {

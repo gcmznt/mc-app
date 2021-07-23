@@ -29,6 +29,11 @@
     "sideSchemes": ["Hydra Patrol"],
     "pack": "The Rise of Red Skull"
   },
+  "Experimental Weapon": {
+    "name": "Experimental Weapon",
+    "sideSchemes": [],
+    "pack": "The Rise of Red Skull"
+  },
   "Legions of Hydra": {
     "name": "Legions of Hydra",
     "sideSchemes": ["Legions of Hydra", "Legions of Hydra"],

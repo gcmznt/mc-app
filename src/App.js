@@ -5,8 +5,13 @@ import Options from "./components/Options";
 import Fab from "./components/ui/Fab";
 import heroes from "./data/heroes.json";
 import scenarios from "./data/scenarios.json";
+import { STORAGE_KEYS } from "./utils/constants";
 
 const data = { heroes, scenarios };
+const fullSelect = {
+  heroes: heroes.map((h) => h.name),
+  scenarios: scenarios.map((h) => h.name),
+};
 
 export default function App() {
   const [options, setOptions] = useState(false);
@@ -15,27 +20,34 @@ export default function App() {
   const [started, setStarted] = useState(false);
   const [wakeLock, setWakeLock] = useState(false);
 
+  const showOptions = () => {
+    setOptions(true);
+  };
+
   const saveOptions = () => {
-    localStorage.setItem("selection", JSON.stringify(selection));
+    localStorage.setItem(STORAGE_KEYS.SELECTION, JSON.stringify(selection));
     setSetup(false);
     setOptions(false);
   };
 
-  const handleGeneration = (settings) => {
+  const handleGeneration = (setup) => {
     setStarted(false);
-    setSetup(settings);
+    setSetup(setup);
+    localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(setup.settings));
   };
 
   const handleQuit = () => {
     setStarted(false);
     setSetup(false);
-    localStorage.removeItem("current");
+    localStorage.removeItem(STORAGE_KEYS.CURRENT);
   };
   const handleStart = () => setStarted(true);
 
   useEffect(() => {
-    setSelection(JSON.parse(localStorage.getItem("selection")) || data);
-    const saved = JSON.parse(localStorage.getItem("current"));
+    setSelection(
+      JSON.parse(localStorage.getItem(STORAGE_KEYS.SELECTION)) || fullSelect
+    );
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEYS.CURRENT));
     if (saved) {
       setStarted(true);
       setSetup(saved.setup);
@@ -73,23 +85,23 @@ export default function App() {
   return (
     <main>
       {options && (
-        <>
-          <Options data={data} selection={selection} onChange={setSelection} />
-          <Fab label="Save" onClick={saveOptions} />
-        </>
+        <Options data={data} selection={selection} onChange={setSelection} />
       )}
       {!options && !started && (
-        <>
-          <Generate onGenerate={handleGeneration} selection={selection} />
-          <Fab label="Options" onClick={() => setOptions(true)} />
-        </>
-      )}
-      {!options && setup && (
-        <Match
-          onQuit={handleQuit}
+        <Generate
+          data={data}
+          onGenerate={handleGeneration}
           onStart={handleStart}
-          initialSetup={setup}
-          started={started}
+          selection={selection}
+        />
+      )}
+      {!options && started && (
+        <Match onQuit={handleQuit} initialSetup={setup} />
+      )}
+      {!started && (
+        <Fab
+          label={options ? "Save" : "Options"}
+          onClick={options ? saveOptions : showOptions}
         />
       )}
     </main>
