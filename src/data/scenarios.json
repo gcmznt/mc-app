@@ -7,7 +7,8 @@
     "pack": "Core Set",
     "sideSchemes": ["Breakin' & Takin'", "Crowd Control"],
     "stages": { "expert": [2, 3], "standard": [1, 2] },
-    "villain": "Rhino"
+    "villain": "Rhino",
+    "villains": []
   },
   {
     "mainScheme": ["Underground Distribution", "Secret Rendezvous"],

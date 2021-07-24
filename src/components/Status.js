@@ -8,7 +8,7 @@ import {
   RESULT_TYPES,
   STORAGE_KEYS,
 } from "../utils/constants";
-import { getResText } from "../utils/texts";
+import { getResText, getStageText } from "../utils/texts";
 import Counter from "./Counter";
 import { CounterBox } from "./CounterBox";
 import Log from "./Log";
@@ -23,31 +23,37 @@ const isVillainCounter = (counter) => counter.type === COUNTER_TYPES.VILLAIN;
 const isMainCounter = (counter) => counter.type === COUNTER_TYPES.SCENARIO;
 const isHeroCounter = (counter) => counter.type === COUNTER_TYPES.HERO;
 
-const getCounter = (options) => {
+const getCounter = ({
+  active = true,
+  levels,
+  name,
+  parent = false,
+  stage = 0,
+  type,
+}) => {
   return {
-    active: typeof options.active !== "undefined" ? options.active : true,
+    active,
     id: uuid(),
-    levels: options.levels,
-    initialLevels: options.levels,
-    name: options.name,
-    parent: options.parent,
-    stage: options.stage || 0,
-    type: options.type,
+    levels,
+    initialLevels: levels,
+    name,
+    parent,
+    stage,
+    type,
   };
 };
 
-const getStageText = (level) => new Array(level).fill("I").join("");
-
-const getFullCounter = (name, type, levels, children) => {
+const getFullCounter = (name, type, levels, children, options) => {
   const parentCounter = getCounter({
     name,
     type,
     levels,
+    ...options,
   });
   const extra = (children || []).map((c) =>
     getCounter({
       name: `${name} | ${c[0]}`,
-      type: `${type}-extra`,
+      type,
       levels: [c],
       parent: parentCounter.id,
     })
@@ -56,112 +62,79 @@ const getFullCounter = (name, type, levels, children) => {
   return [parentCounter, ...extra];
 };
 
-const getHeroCounter = (players) => (hero) =>
-  [
-    ...getFullCounter(
-      hero.name,
-      "hero",
-      [[hero.name, 0, hero.hitPoints]],
-      hero.counters
-    ),
-    ...hero.sideSchemes.map((s) =>
-      getCounter({
-        active: false,
-        name: `${hero.name} | ${s.name}`,
-        type: "nemesis-scheme",
-        levels: [
-          [
-            s.name,
-            toValue(s.start || 0, players),
-            toValue(s.complete || 0, players),
-          ],
-        ],
-      })
-    ),
-  ];
+const getHeroCounter = (hero) =>
+  getFullCounter(
+    hero.name,
+    COUNTER_TYPES.HERO,
+    [[hero.name, 0, hero.hitPoints]],
+    hero.counters
+  );
 
-const getVillainCounter = (scenario, mode, players) => [
+const getSideCounter = (scheme) =>
+  getFullCounter(
+    scheme.name,
+    COUNTER_TYPES.SIDE_SCHEME,
+    [[scheme.name, scheme.start || 0, scheme.complete || 0]],
+    [],
+    { active: false }
+  );
+
+const getVillainCounter = (scenario, mode) => [
   ...getFullCounter(
     scenario.villain,
-    "villain",
+    COUNTER_TYPES.VILLAIN,
     scenario.stages[mode.toLowerCase()].map((s) => [
       `${scenario.villain} ${getStageText(s)}`,
       0,
-      toValue(scenario.levels[s] || 0, players),
+      scenario.levels[s] || 0,
     ]),
-    (scenario.counters || []).map((c) => [
-      c[0],
-      toValue(c[1] || 0, players),
-      toValue(c[2] || 0, players),
-      toValue(c[3], players),
-    ])
+    scenario.counters
   ),
-  ...(scenario.sideSchemes || []).map((s) =>
-    getCounter({
-      active: false,
-      name: `${scenario.villain} | ${s.name}`,
-      type: "side-scheme",
-      levels: [
-        [
-          s.name,
-          toValue(s.start || 0, players),
-          toValue(s.complete || 0, players),
-        ],
-      ],
-    })
-  ),
-  ...scenario.modular
-    .map((mod) =>
-      mod.sideSchemes.map((s) =>
-        getCounter({
-          active: false,
-          name: `${mod.name} | ${s.name}`,
-          type: "modular-scheme",
-          levels: [
-            [
-              s.name,
-              toValue(s.start || 0, players),
-              toValue(s.complete || 0, players),
-            ],
-          ],
-        })
-      )
-    )
-    .flat(),
 ];
 
-const getMainSchemeCounter = (scenario, players) =>
+const getMainSchemeCounter = (scenario) =>
   getFullCounter(
     scenario.name,
-    "scenario",
+    COUNTER_TYPES.SCENARIO,
     scenario.mainScheme.map((s) => [
       s.name,
-      toValue(s.start || 0, players),
-      toValue(s.complete || 0, players),
-      toValue(s.advance, players),
+      s.start || 0,
+      s.complete || 0,
+      s.advance,
     ]),
-    ...scenario.mainScheme
-      .filter((s) => s.counters)
-      .map((s) =>
-        s.counters.map((c) => [
-          c[0],
-          toValue(c[1] || 0, players),
-          toValue(c[2] || 0, players),
-          toValue(c[3], players),
-        ])
-      )
+    ...scenario.mainScheme.filter((s) => s.counters).map((s) => s.counters)
   );
 
-const getCounters = (setup) => [
-  ...setup.heroes.map(getHeroCounter(setup.settings.players)).flat(),
-  ...getVillainCounter(setup.scenario, setup.mode, setup.settings.players),
-  ...getMainSchemeCounter(setup.scenario, setup.settings.players),
+const multiply = (players) => (counter) => ({
+  ...counter,
+  levels: (counter.levels || []).map((level) => [
+    level[0],
+    toValue(level[1] || 0, players),
+    toValue(level[2] || 0, players),
+    toValue(level[3], players),
+  ]),
+});
+
+const getSideSchemes = (setup) => [
+  ...setup.heroes.map((h) => h.sideSchemes).flat(),
+  ...setup.scenario.sideSchemes,
+  ...setup.scenario.modular.map((mod) => mod.sideSchemes).flat(),
 ];
+
+const getCounters = (setup) =>
+  [
+    ...setup.heroes.map(getHeroCounter).flat(),
+    ...getVillainCounter(setup.scenario, setup.mode),
+    ...getMainSchemeCounter(setup.scenario),
+    ...getSideSchemes(setup).map(getSideCounter).flat(),
+  ].map(multiply(setup.settings.players));
 
 export default function Status({ onResult, onQuit, result, setup }) {
   const [counters, setCounters] = useState(false);
   const [log, setLog] = useState([]);
   const [interacted, setInteracted] = useState(false);
+
+  console.log(counters);
 
   const logEvent = (event, entity, data) => {
     setLog((l) => [
