@@ -2,6 +2,8 @@ import { EVENTS } from "../utils/constants";
 import {
   getAddTokenText,
   getCompleteText,
+  getDecreaseText,
+  getIncreaseText,
   getRemoveTokenText,
   getStageName,
 } from "../utils/texts";
@@ -14,7 +16,7 @@ const getLogString = ({ count = 0, data, event }) => {
     case EVENTS.DECREASE:
       return `${getStageName(data)} | ${getRemoveTokenText(data.type, count)}`;
     case EVENTS.DECREASE_LIMIT:
-      return `${getStageName(data)} | Limit decreased`;
+      return `${getStageName(data)} | ${getDecreaseText(count)}`;
     case EVENTS.END:
       return data.resultText;
     case EVENTS.ENTER:
@@ -22,7 +24,7 @@ const getLogString = ({ count = 0, data, event }) => {
     case EVENTS.INCREASE:
       return `${getStageName(data)} | ${getAddTokenText(data.type, count)}`;
     case EVENTS.INCREASE_LIMIT:
-      return `${getStageName(data)} | Increased limit`;
+      return `${getStageName(data)} | ${getIncreaseText(count)}`;
     case EVENTS.NEXT:
       return `${getStageName(data)} | Next stage`;
     case EVENTS.PREVIOUS:

@@ -26,6 +26,12 @@ export const getRemoveTokenText = (type, count) =>
     [COUNTER_TYPES.VILLAIN]: `Healed${count > 1 ? ` × ${count}` : ""}`,
   }[type] || `Removed ${getTokenCount(type, count)}`);
 
+export const getIncreaseText = (count) =>
+  `Increased limit${count > 1 ? ` × ${count}` : ""}`;
+
+export const getDecreaseText = (count) =>
+  `Limit decreased${count > 1 ? ` × ${count}` : ""}`;
+
 export const getCompleteText = (type) =>
   ({
     [COUNTER_TYPES.HERO]: "Defeated",
@@ -35,7 +41,7 @@ export const getCompleteText = (type) =>
     [COUNTER_TYPES.VILLAIN]: "Defeated",
   }[type] || "Complete");
 
-export const getStageName = (counter) => counter.levels[counter.stage][0];
+export const getStageName = (counter) => counter.levels[counter.stage].name;
 export const getStageText = (level) => new Array(level).fill("I").join("");
 
 export const getResText = (result) =>

@@ -15,8 +15,8 @@ export default function Counter({
 }) {
   const update = (counter, vOff, lOff = 0) => {
     const id = counter.id;
-    const value = counter.levels[counter.stage][1];
-    const limit = counter.levels[counter.stage][2];
+    const value = counter.levels[counter.stage].value;
+    const limit = counter.levels[counter.stage].limit;
 
     if (
       (over || limit < 0 || value + vOff <= limit + lOff) &&
@@ -28,8 +28,10 @@ export default function Counter({
       else if (lOff === -1) logEvent(EVENTS.DECREASE_LIMIT, id, counter);
 
       onUpdate(id, {
-        levels: counter.levels.map((l, i) =>
-          i === counter.stage ? [l[0], l[1] + vOff, l[2] + lOff, l[3]] : l
+        levels: counter.levels.map((level, i) =>
+          i === counter.stage
+            ? { ...level, value: level.value + vOff, limit: level.limit + lOff }
+            : level
         ),
       });
     }
@@ -46,11 +48,11 @@ export default function Counter({
 
   return (
     <CounterUI
-      advance={counter.levels[counter.stage][3]}
+      advance={counter.levels[counter.stage].advance}
       disabled={result || !counter.active}
       last={counter.stage + 1 >= counter.levels.length}
       lastLabel={lastLabel}
-      limit={counter.levels[counter.stage][2]}
+      limit={counter.levels[counter.stage].limit}
       key={counter.id}
       onAdd={add}
       onAddLimit={increaseLimit}
@@ -60,8 +62,8 @@ export default function Counter({
       onReduce={reduce}
       onReduceLimit={decreaseLimit}
       over={over}
-      title={title || counter.levels[counter.stage][0]}
-      value={counter.levels[counter.stage][1]}
+      title={title || counter.levels[counter.stage].name}
+      value={counter.levels[counter.stage].value}
     />
   );
 }

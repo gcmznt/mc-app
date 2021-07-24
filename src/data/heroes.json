@@ -138,7 +138,7 @@
   {
     "alterEgo": "Groot",
     "aspects": ["Protection"],
-    "counters": [["Growth", 0, 10]],
+    "counters": [{ "name": "Growth", "limit": 10 }],
     "hitPoints": 11,
     "name": "Groot",
     "nemesisSchemes": ["Blazing Inferno"],
@@ -171,7 +171,7 @@
   {
     "alterEgo": "Drax",
     "aspects": ["Protection"],
-    "counters": [["Vengeance", 0, 3]],
+    "counters": [{ "name": "Vengeance", "limit": 3 }],
     "hitPoints": 14,
     "name": "Drax",
     "nemesisSchemes": ["Cull the Weak"],

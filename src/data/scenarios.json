@@ -39,7 +39,7 @@
     "villain": "Ultron"
   },
   {
-    "counters": [["Criminal Enterprise", "2p", -1]],
+    "counters": [{ "name": "Criminal Enterprise", "start": "2p", "limit": -1 }],
     "mainScheme": ["Hostile Takeover", "Corporate Acquisition"],
     "modular": ["Goblin Gimmicks"],
     "name": "Risky Business",
@@ -118,7 +118,7 @@
     "villain": "Taskmaster"
   },
   {
-    "counters": [["Test counters", 0, 3]],
+    "counters": [{ "name": "Test counters", "limit": 3 }],
     "mainScheme": ["The Island of Dr. Zola", "The Mad Doctor"],
     "modular": ["Under Attack"],
     "name": "Zola",
@@ -193,7 +193,7 @@
     "villain": "Collector"
   },
   {
-    "counters": [["Nebula's Ship", 0, -1]],
+    "counters": [{ "name": "Nebula's Ship", "limit": -1 }],
     "encounter": ["Power Stone", "Ship Command"],
     "mainScheme": ["The Art of Evasion", "Warp Drive Initiated"],
     "modular": ["Space Pirates"],

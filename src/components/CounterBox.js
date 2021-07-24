@@ -12,7 +12,7 @@ export function CounterBox({
   type,
 }) {
   return (
-    <Box title={counter.levels[counter.stage][0]} type={type}>
+    <Box title={counter.levels[counter.stage].name} type={type}>
       <Counter
         counter={counter}
         lastLabel={lastLabel}

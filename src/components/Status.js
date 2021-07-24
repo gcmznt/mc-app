@@ -52,8 +52,8 @@ const getFullCounter = (name, type, levels, children, options) => {
   });
   const extra = (children || []).map((c) =>
     getCounter({
-      name: `${name} | ${c[0]}`,
-      type,
+      name: `${name} | ${c.name}`,
+      type: `${type}-child`,
       levels: [c],
       parent: parentCounter.id,
     })
@@ -66,28 +66,23 @@ const getHeroCounter = (hero) =>
   getFullCounter(
     hero.name,
     COUNTER_TYPES.HERO,
-    [[hero.name, 0, hero.hitPoints]],
+    [{ name: hero.name, limit: hero.hitPoints }],
     hero.counters
   );
 
 const getSideCounter = (scheme) =>
-  getFullCounter(
-    scheme.name,
-    COUNTER_TYPES.SIDE_SCHEME,
-    [[scheme.name, scheme.start || 0, scheme.complete || 0]],
-    [],
-    { active: false }
-  );
+  getFullCounter(scheme.name, COUNTER_TYPES.SIDE_SCHEME, [scheme], [], {
+    active: false,
+  });
 
 const getVillainCounter = (scenario, mode) => [
   ...getFullCounter(
     scenario.villain,
     COUNTER_TYPES.VILLAIN,
-    scenario.stages[mode.toLowerCase()].map((s) => [
-      `${scenario.villain} ${getStageText(s)}`,
-      0,
-      scenario.levels[s] || 0,
-    ]),
+    scenario.stages[mode.toLowerCase()].map((s) => ({
+      name: `${scenario.villain} ${getStageText(s)}`,
+      limit: scenario.levels[s],
+    })),
     scenario.counters
   ),
 ];
@@ -96,23 +91,19 @@ const getMainSchemeCounter = (scenario) =>
   getFullCounter(
     scenario.name,
     COUNTER_TYPES.SCENARIO,
-    scenario.mainScheme.map((s) => [
-      s.name,
-      s.start || 0,
-      s.complete || 0,
-      s.advance,
-    ]),
+    scenario.mainScheme,
     ...scenario.mainScheme.filter((s) => s.counters).map((s) => s.counters)
   );
 
 const multiply = (players) => (counter) => ({
   ...counter,
-  levels: (counter.levels || []).map((level) => [
-    level[0],
-    toValue(level[1] || 0, players),
-    toValue(level[2] || 0, players),
-    toValue(level[3], players),
-  ]),
+  levels: (counter.levels || []).map((level) => ({
+    ...level,
+    start: toValue(level.start || 0, players),
+    value: toValue(level.start || 0, players),
+    limit: toValue(level.limit || level.complete || 0, players),
+    advance: toValue(level.advance, players),
+  })),
 });
 
 const getSideSchemes = (setup) => [
@@ -190,9 +181,9 @@ export default function Status({ onResult, onQuit, result, setup }) {
 
   const handleComplete = (counter) => {
     const stage = counter.levels[counter.stage];
-    const hasAdvance = Number.isInteger(stage[3]);
-    const advance = stage[3] === stage[1];
-    const complete = stage[2] === stage[1];
+    const hasAdvance = Number.isInteger(stage.advance);
+    const advance = stage.advance === stage.value;
+    const complete = stage.limit === stage.value;
     const last = counter.stage + 1 >= counter.levels.length;
 
     if (hasAdvance && advance && last) {
