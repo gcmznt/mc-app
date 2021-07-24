@@ -41,7 +41,10 @@ export default function App() {
     setSetup(false);
     localStorage.removeItem(STORAGE_KEYS.CURRENT);
   };
-  const handleStart = () => setStarted(true);
+
+  const handleStart = () => {
+    setStarted(true);
+  };
 
   useEffect(() => {
     setSelection(

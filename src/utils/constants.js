@@ -37,6 +37,7 @@ export const RESULT_TYPES = {
 
 export const STORAGE_KEYS = {
   CURRENT: "current",
+  LAST_HEROES: "last-heroes",
   SELECTION: "selection",
   SETTINGS: "settings",
 };

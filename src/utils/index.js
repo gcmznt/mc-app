@@ -1,9 +1,12 @@
-export function getRandomList(list, count = 1) {
-  return [...list].sort(() => 0.5 - Math.random()).slice(0, count);
+export function getRandomList(list, count = 1, exclude) {
+  return list
+    .filter((el) => !(exclude || []).includes(el))
+    .sort(() => 0.5 - Math.random())
+    .slice(0, count);
 }
 
-export function getRandom(list) {
-  return getRandomList(list, 1)[0];
+export function getRandom(list, exclude) {
+  return getRandomList(list, 1, exclude)[0];
 }
 
 function valReducer(moltiplier) {

@@ -9,14 +9,18 @@ import Box from "./ui/Box";
 import Option from "./ui/Option";
 import Setup from "./ui/Setup";
 
+const initialSetting = {
+  mode: "Standard",
+  players: 1,
+  randomAspects: true,
+  randomCumulative: true,
+  randomModulars: true,
+};
+
 export default function Generate({ data, onGenerate, onStart, selection }) {
+  const [lastHeroes, setLastHeroes] = useState(false);
   const [setup, setSetup] = useState(false);
-  const [settings, setSettings] = useState({
-    mode: "Standard",
-    players: 1,
-    randomAspects: true,
-    randomModulars: true,
-  });
+  const [settings, setSettings] = useState(initialSetting);
 
   const handleChange = (key) => (val) => {
     setSettings((s) => ({ ...s, [key]: val }));
@@ -37,22 +41,41 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
     sideSchemes: getSideSchemes(el),
   });
 
+  const getHeroes = () => {
+    const possible = settings.randomCumulative
+      ? selection.heroes.filter((hero) => !lastHeroes.includes(hero))
+      : selection.heroes;
+
+    return getRandomList(
+      possible.length >= settings.players
+        ? possible
+        : [
+            ...possible,
+            ...getRandomList(
+              selection.heroes,
+              settings.players - possible.length,
+              possible
+            ),
+          ],
+      settings.players
+    );
+  };
+
   const randomize = () => {
-    const heroes = getRandomList(selection.heroes, settings.players)
+    const heroes = getHeroes()
       .map((hero) => data.heroes.find((h) => h.name === hero))
       .map((hero) => (settings.randomAspects ? getAspects(hero) : hero))
       .map(addSideSchemes);
     const scenarioName = getRandom(selection.scenarios);
     const scenario = data.scenarios.find((s) => s.name === scenarioName);
 
-    const encounters = (scenario.encounter || []).map((m) => modularSets[m]);
-    const defaultModular = (scenario.modular || []).map((m) => modularSets[m]);
-    const availableModular = Object.values(modularSets).filter(
-      (m) => !(scenario.encounter || []).includes(m.name)
-    );
-    const modulars = !settings.randomModulars
-      ? defaultModular
-      : getRandomList(availableModular, scenario.modular.length);
+    const modular = settings.randomModulars
+      ? getRandomList(
+          Object.keys(modularSets),
+          scenario.modular.length,
+          scenario.encounter
+        )
+      : scenario.modular;
 
     setSetup({
       heroes,
@@ -61,10 +84,33 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
         ...scenario,
         sideSchemes: getSideSchemes(scenario),
         mainScheme: scenario.mainScheme.map((s) => schemes[s]),
-        modular: [...encounters, ...modulars].map(addSideSchemes),
+        modular: [...(scenario.encounter || []), ...modular]
+          .map((m) => modularSets[m])
+          .map(addSideSchemes),
       },
       settings,
     });
+  };
+
+  const save = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  };
+
+  const handleStart = () => {
+    if (lastHeroes.length + setup.heroes.length <= selection.heroes.length) {
+      save(STORAGE_KEYS.LAST_HEROES, [
+        ...lastHeroes,
+        ...setup.heroes.map((hero) => hero.name),
+      ]);
+    } else {
+      save(
+        STORAGE_KEYS.LAST_HEROES,
+        setup.heroes
+          .filter((hero) => lastHeroes.includes(hero.name))
+          .map((hero) => hero.name)
+      );
+    }
+    onStart();
   };
 
   useEffect(() => {
@@ -73,7 +119,9 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEYS.SETTINGS));
-    if (saved) setSettings(saved);
+    const lh = JSON.parse(localStorage.getItem(STORAGE_KEYS.LAST_HEROES));
+    if (saved) setSettings({ ...initialSetting, ...saved });
+    setLastHeroes(lh || []);
   }, []);
 
   return (
@@ -99,6 +147,11 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
           label="Get random modular set"
           onChange={(e) => handleChange("randomModulars")(e.target.checked)}
         />
+        <Option
+          checked={settings.randomCumulative}
+          label="Exclude last used heroes"
+          onChange={(e) => handleChange("randomCumulative")(e.target.checked)}
+        />
       </Box>
       <button onClick={randomize}>Generate</button>
       {setup && (
@@ -107,7 +160,7 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
             <Setup setup={setup} />
           </Box>
           <div>
-            <button onClick={onStart}>Start</button>
+            <button onClick={handleStart}>Start</button>
           </div>
         </>
       )}
