@@ -42,7 +42,8 @@ export const getCompleteText = (type) =>
   }[type] || "Complete");
 
 export const getStageName = (counter) => counter.levels[counter.stage].name;
-export const getStageText = (level) => new Array(level).fill("I").join("");
+export const getStageText = (level) =>
+  isNaN(level) ? level : new Array(level).fill("I").join("");
 
 export const getResText = (result) =>
   ({

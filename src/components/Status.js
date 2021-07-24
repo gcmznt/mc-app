@@ -35,7 +35,6 @@ const getCounter = ({
     active,
     id: uuid(),
     levels,
-    initialLevels: levels,
     name,
     parent,
     stage,
@@ -72,20 +71,21 @@ const getHeroCounter = (hero) =>
 
 const getSideCounter = (scheme) =>
   getFullCounter(scheme.name, COUNTER_TYPES.SIDE_SCHEME, [scheme], [], {
-    active: false,
+    active: typeof scheme.active === "boolean" ? scheme.active : false,
   });
 
-const getVillainCounter = (scenario, mode) => [
-  ...getFullCounter(
-    scenario.villain,
-    COUNTER_TYPES.VILLAIN,
-    scenario.stages[mode.toLowerCase()].map((s) => ({
-      name: `${scenario.villain} ${getStageText(s)}`,
-      limit: scenario.levels[s],
-    })),
-    scenario.counters
-  ),
-];
+const getVillainCounter = (mode) => (villain) =>
+  [
+    ...getFullCounter(
+      villain.name,
+      COUNTER_TYPES.VILLAIN,
+      villain.stages[mode.toLowerCase()].map((stage) => ({
+        name: `${villain.name} ${getStageText(stage)}`,
+        limit: villain.levels[stage],
+      })),
+      villain.counters
+    ),
+  ];
 
 const getMainSchemeCounter = (scenario) =>
   getFullCounter(
@@ -95,16 +95,20 @@ const getMainSchemeCounter = (scenario) =>
     ...scenario.mainScheme.filter((s) => s.counters).map((s) => s.counters)
   );
 
-const multiply = (players) => (counter) => ({
-  ...counter,
-  levels: (counter.levels || []).map((level) => ({
+const multiply = (players) => (counter) => {
+  const multiplied = (counter.levels || []).map((level) => ({
     ...level,
     start: toValue(level.start || 0, players),
     value: toValue(level.start || 0, players),
     limit: toValue(level.limit || level.complete || 0, players),
     advance: toValue(level.advance, players),
-  })),
-});
+  }));
+  return {
+    ...counter,
+    levels: multiplied,
+    initialLevels: multiplied,
+  };
+};
 
 const getSideSchemes = (setup) => [
   ...setup.heroes.map((h) => h.sideSchemes).flat(),
@@ -115,7 +119,7 @@ const getSideSchemes = (setup) => [
 const getCounters = (setup) =>
   [
     ...setup.heroes.map(getHeroCounter).flat(),
-    ...getVillainCounter(setup.scenario, setup.mode),
+    ...setup.scenario.villains.map(getVillainCounter(setup.mode)).flat(),
     ...getMainSchemeCounter(setup.scenario),
     ...getSideSchemes(setup).map(getSideCounter).flat(),
   ].map(multiply(setup.settings.players));
@@ -124,8 +128,6 @@ export default function Status({ onResult, onQuit, result, setup }) {
   const [counters, setCounters] = useState(false);
   const [log, setLog] = useState([]);
   const [interacted, setInteracted] = useState(false);
-
-  console.log(counters);
 
   const logEvent = (event, entity, data) => {
     setLog((l) => [
@@ -152,13 +154,13 @@ export default function Status({ onResult, onQuit, result, setup }) {
     onResult(result, counters);
   };
 
-  const handleDefeat = (counter) => {
-    if (counter.stage + 1 < counter.levels.length) {
-      doUpdate(EVENTS.NEXT, counter, { stage: counter.stage + 1 });
-    } else {
-      endGame(EVENTS.COMPLETE, counter, RESULT_TYPES.WINNER);
-    }
-  };
+  // const handleDefeat = (counter) => () => {
+  //   if (counter.stage + 1 < counter.levels.length) {
+  //     doUpdate(EVENTS.NEXT, counter, { stage: counter.stage + 1 });
+  //   } else {
+  //     endGame(EVENTS.COMPLETE, counter, RESULT_TYPES.WINNER);
+  //   }
+  // };
 
   const handleGiveUp = () => {
     onResult(RESULT_TYPES.GIVE_UP, counters);
@@ -169,8 +171,13 @@ export default function Status({ onResult, onQuit, result, setup }) {
     updateCounter(counter.id, { active: false });
   };
 
-  const handleHeroDefeat = (counter) => () => {
-    [counter, ...counters.filter(childOf(counter))].map(disableCounter);
+  const handleDefeat = (counter) => {
+    if (counter.stage + 1 < counter.levels.length) {
+      doUpdate(EVENTS.NEXT, counter, { stage: counter.stage + 1 });
+    } else {
+      logEvent(EVENTS.COMPLETE, counter.id, counter);
+      [counter, ...counters.filter(childOf(counter))].map(disableCounter);
+    }
   };
 
   const handlePrevious = (counter) => {
@@ -203,7 +210,9 @@ export default function Status({ onResult, onQuit, result, setup }) {
   };
 
   const handleEnableSide = (counter) => {
-    doUpdate(EVENTS.ENTER, counter, { active: true });
+    if (!counter.active) {
+      doUpdate(EVENTS.ENTER, counter, { active: true });
+    }
   };
 
   const handleRestart = () => {
@@ -228,6 +237,9 @@ export default function Status({ onResult, onQuit, result, setup }) {
     if (counters && counters.filter(isHeroCounter).every(isNotActive)) {
       onResult(RESULT_TYPES.DEFEATED, counters);
     }
+    if (counters && counters.filter(isVillainCounter).every(isNotActive)) {
+      onResult(RESULT_TYPES.WINNER, counters);
+    }
   }, [counters, onResult]);
 
   useEffect(() => {
@@ -247,7 +259,7 @@ export default function Status({ onResult, onQuit, result, setup }) {
   const defaultCounterProps = { logEvent, onUpdate: updateCounter, result };
 
   const heroesCounters = (counters || []).filter(isHeroCounter);
-  const villainCounter = (counters || []).find(isVillainCounter);
+  const villainCounters = (counters || []).filter(isVillainCounter);
   const mainScheme = (counters || []).find(isMainCounter);
   const sideSchemes = (counters || []).filter(isSideCounter);
 
@@ -260,20 +272,24 @@ export default function Status({ onResult, onQuit, result, setup }) {
             counter={counter}
             key={counter.id}
             lastLabel="💀"
-            onComplete={handleHeroDefeat(counter)}
+            onComplete={handleDefeat}
             siblings={counters.filter(childOf(counter))}
             title="Hits"
             type={counter.type}
           />
         ))}
-        <CounterBox
-          commonProps={defaultCounterProps}
-          counter={villainCounter}
-          lastLabel="💀"
-          onComplete={handleDefeat}
-          siblings={counters.filter(childOf(villainCounter))}
-          title="Hits"
-        />
+        {villainCounters.map((counter) => (
+          <CounterBox
+            commonProps={defaultCounterProps}
+            counter={counter}
+            key={counter.id}
+            lastLabel="💀"
+            onComplete={handleDefeat}
+            siblings={counters.filter(childOf(counter))}
+            title="Hits"
+            type={counter.type}
+          />
+        ))}
         <CounterBox
           commonProps={defaultCounterProps}
           counter={mainScheme}

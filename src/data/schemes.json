@@ -239,6 +239,31 @@
     "name": "Goblin Nation",
     "start": "2p"
   },
+  "Breakout": {
+    "complete": "6p",
+    "name": "Breakout",
+    "step": 1
+  },
+  "Day of Reckoning": {
+    "active": true,
+    "name": "Day of Reckoning",
+    "start": 6
+  },
+  "Thunderstruck": {
+    "active": true,
+    "name": "Thunderstruck",
+    "start": 5
+  },
+  "Pile It On!": {
+    "active": true,
+    "name": "Pile It On!",
+    "start": 3
+  },
+  "Clear the Road": {
+    "active": true,
+    "name": "Clear the Road",
+    "start": 4
+  },
   "Power Drain": {
     "name": "Power Drain",
     "start": "2p"
