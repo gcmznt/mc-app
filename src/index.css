@@ -1,7 +1,8 @@
 :root {
   --color-accent: #e01414;
+  --color-accent-contrast: #fff;
   --color-bg-card: #fff;
-  --color-bg: #ececec;
+  --color-bg: #ddd;
   --color-cta-contrast: #fff;
   --color-cta: #000;
   --color-fg: #000;
@@ -31,6 +32,7 @@ main {
 
 .is-aggression {
   --color-accent: #e01414;
+  --color-accent-contrast: #fff;
 }
 
 .is-tough {
@@ -60,7 +62,7 @@ main {
 
 .vs {
   background: var(--color-accent);
-  color: white;
+  color: var(--color-accent-contrast);
   font-size: 1.4em;
   margin: 0.8em;
   padding: 0 0.3em;
@@ -71,7 +73,6 @@ main {
 button {
   align-items: center;
   background-color: var(--color-cta);
-  border-radius: 100px;
   border: 0;
   box-sizing: border-box;
   color: var(--color-cta-contrast);
@@ -85,9 +86,9 @@ button {
 
 .result {
   background: var(--color-accent);
+  color: var(--color-accent-contrast);
   bottom: 0;
   box-shadow: 0 0 15px 5px #0006;
-  color: white;
   font-size: 2em;
   left: 0;
   padding: 1em 2em;
@@ -108,8 +109,16 @@ button {
   opacity: 0.5;
 }
 
+body.is-dark {
+  --color-bg-card: #000;
+  --color-bg: #333;
+  --color-cta-contrast: #000;
+  --color-cta: #fff;
+  --color-fg: #fff;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  body:not(.is-light) {
     --color-bg-card: #000;
     --color-bg: #333;
     --color-cta-contrast: #000;

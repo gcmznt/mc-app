@@ -1,4 +1,5 @@
 import { MODES, RANDOM } from "../utils/constants";
+import Option from "./ui/Option";
 
 export default function Mode({ onChange, value }) {
   const handleChange = (e) => onChange(e.target.value);
@@ -6,15 +7,14 @@ export default function Mode({ onChange, value }) {
   return (
     <div>
       {[...MODES, RANDOM].map((mode) => (
-        <label key={mode}>
-          <input
-            checked={mode === value}
-            onChange={handleChange}
-            type="radio"
-            value={mode}
-          />{" "}
-          {mode}
-        </label>
+        <Option
+          key={mode}
+          checked={mode === value}
+          label={mode}
+          value={mode}
+          type="radio"
+          onChange={handleChange}
+        />
       ))}
     </div>
   );

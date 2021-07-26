@@ -19,19 +19,11 @@
   grid-area: value;
   font-size: 1.75em;
   text-align: center;
-  color: #fff;
 }
 
 .counter__value small {
   opacity: 0.5;
 }
-
-/* @supports (-webkit-text-stroke: 1px black) {
-  .counter__value {
-    -webkit-text-stroke: 1px black;
-    -webkit-text-fill-color: white;
-  }
-} */
 
 .counter__next {
   grid-area: next;
@@ -50,10 +42,8 @@
 .counter__prev,
 .counter__add,
 .counter__reduce {
-  box-sizing: border-box;
-  border: 2px solid black;
-  background: #000;
-  color: white;
+  background-color: var(--color-cta);
+  color: var(--color-cta-contrast);
   width: 1em;
   height: 1em;
   display: flex;
@@ -63,15 +53,4 @@
   font-size: 2em;
   line-height: 1;
   padding-bottom: 0.2em;
-}
-
-@media (prefers-color-scheme: dark) {
-  .counter__next,
-  .counter__prev,
-  .counter__add,
-  .counter__reduce {
-    border-color: #fff;
-    background: #fff;
-    color: #000;
-  }
 }

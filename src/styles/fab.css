@@ -5,7 +5,6 @@
   height: 1.4em;
   display: flex;
   padding: 0.8em 1.4em;
-  border-radius: 100px;
   background-color: var(--color-cta);
   color: var(--color-cta-contrast);
   z-index: 1000;

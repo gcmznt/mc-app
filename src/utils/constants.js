@@ -43,6 +43,7 @@ export const STORAGE_KEYS = {
   MATCHES: "matches",
   SELECTION: "selection",
   SETTINGS: "settings",
+  THEME: "theme",
 };
 
 export const ASPECTS = ["Aggression", "Justice", "Leadership", "Protection"];

@@ -21,6 +21,7 @@ export default function App() {
   const [setup, setSetup] = useState(false);
   const [matchId, setMatchId] = useState(false);
   const [wakeLock, setWakeLock] = useState(false);
+  const [mode, setMode] = useState("auto");
 
   const showOptions = () => {
     setOptions(true);
@@ -48,7 +49,12 @@ export default function App() {
     setMatchId(uuid());
   };
 
+  const handleModeChange = (mode) => {
+    setMode(mode);
+  };
+
   useEffect(() => {
+    setMode(load(STORAGE_KEYS.THEME) || "auto");
     setSelection(load(STORAGE_KEYS.SELECTION) || fullSelect);
     const saved = load(STORAGE_KEYS.CURRENT);
     if (saved) {
@@ -56,6 +62,12 @@ export default function App() {
       setSetup(saved.setup);
     }
   }, []);
+
+  useEffect(() => {
+    persist(STORAGE_KEYS.THEME, mode);
+    document.body.classList.remove("is-auto", "is-dark", "is-light");
+    document.body.classList.add(`is-${mode}`);
+  }, [mode]);
 
   useEffect(() => {
     if ("wakeLock" in navigator) {
@@ -86,9 +98,15 @@ export default function App() {
   }, [wakeLock]);
 
   return (
-    <main>
+    <main className={mode !== "auto" ? `is-${mode}` : ""}>
       {options && (
-        <Options data={data} selection={selection} onChange={setSelection} />
+        <Options
+          changeMode={handleModeChange}
+          data={data}
+          mode={mode}
+          selection={selection}
+          onChange={setSelection}
+        />
       )}
       {!options && !matchId && (
         <Generate
