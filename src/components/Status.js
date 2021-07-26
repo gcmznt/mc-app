@@ -367,7 +367,7 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
         </div>
         {!!customCounters.filter(isActive).length && (
           <div className="box__wrapper">
-            <Box title="Custom" flat>
+            <Box title="Extra" flat>
               {customCounters.filter(isActive).map((counter) => (
                 <Counter
                   counter={counter}
@@ -382,7 +382,7 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
           </div>
         )}
         <div className="box__wrapper">
-          <Box title="Other counters" flat flag type="scheme">
+          <Box title="Add counters" flat flag type="scheme">
             {sideSchemes.map((counter) => (
               <Option
                 key={counter.id}
@@ -393,7 +393,7 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
               />
             ))}
             <fieldset>
-              <legend>Add custom counter</legend>
+              <legend>Add extra counter</legend>
               <input
                 placeholder="Name"
                 value={custom}
