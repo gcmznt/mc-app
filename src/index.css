@@ -34,19 +34,29 @@ main {
   --color-accent: #e01414;
 }
 
+.is-tough {
+  --color-accent: #e06614;
+}
+
 .is-scheme,
 .is-justice {
   --color-accent: #f2ca00;
   --color-accent-contrast: #000;
 }
 
-.is-protection {
+.is-protection,
+.is-stunned {
   --color-accent: #00cc4e;
 }
 
 .is-hero,
 .is-leadership {
   --color-accent: #3499eb;
+}
+
+.is-confused {
+  --color-accent: #9b069b;
+  --color-accent-contrast: #fff;
 }
 
 .vs {

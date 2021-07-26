@@ -7,7 +7,9 @@ export function CounterBox({
   lastLabel,
   onComplete,
   onPrevious,
+  onStatusToggle,
   siblings,
+  status = false,
   title,
   type,
 }) {
@@ -18,11 +20,17 @@ export function CounterBox({
         lastLabel={lastLabel}
         onComplete={onComplete}
         onPrevious={onPrevious}
+        onStatusToggle={onStatusToggle}
         title={title}
         {...commonProps}
       />
       {siblings.map((counter) => (
-        <Counter counter={counter} key={counter.id} {...commonProps} />
+        <Counter
+          counter={counter}
+          key={counter.id}
+          title={counter.levels[counter.stage].name}
+          {...commonProps}
+        />
       ))}
     </Box>
   );

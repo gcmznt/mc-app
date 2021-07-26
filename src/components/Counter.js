@@ -8,6 +8,7 @@ export default function Counter({
   onComplete,
   onEnable,
   onPrevious,
+  onStatusToggle,
   onUpdate,
   over = false,
   result,
@@ -61,8 +62,10 @@ export default function Counter({
       onPrev={counter.stage > 0 && previous}
       onReduce={reduce}
       onReduceLimit={decreaseLimit}
+      onStatusToggle={onStatusToggle}
+      status={counter.status}
       over={over}
-      title={title || counter.levels[counter.stage].name}
+      title={title}
       value={counter.levels[counter.stage].value}
     />
   );

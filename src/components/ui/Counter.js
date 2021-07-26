@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../../styles/counter.css";
+import Status from "./Status";
 
 export default function Counter({
   advance,
@@ -14,7 +15,9 @@ export default function Counter({
   onPrev,
   onReduce,
   onReduceLimit,
+  onStatusToggle,
   over,
+  status,
   title,
   value,
 }) {
@@ -24,6 +27,8 @@ export default function Counter({
 
   return (
     <div>
+      {status && <Status status={status} onToggle={onStatusToggle} />}
+
       {title && <div>{title}</div>}
 
       <div className="counter">

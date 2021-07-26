@@ -25,6 +25,8 @@ export const EVENTS = {
   PREVIOUS: "previous",
   RESTART: "restart",
   START: "start",
+  STATUS_ENABLE: "status-enable",
+  STATUS_DISABLE: "status-disable",
 };
 
 export const RESULT_TYPES = {

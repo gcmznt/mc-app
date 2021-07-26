@@ -33,6 +33,10 @@ const getLogString = ({ count = 0, data, event }) => {
       return "Match restarted";
     case EVENTS.START:
       return "Match started";
+    case EVENTS.STATUS_DISABLE:
+      return `${data.name} is no more ${data.status}`;
+    case EVENTS.STATUS_ENABLE:
+      return `${data.name} is ${data.status}`;
 
     default:
       return event;

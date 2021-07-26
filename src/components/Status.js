@@ -8,7 +8,7 @@ import {
   RESULT_TYPES,
   STORAGE_KEYS,
 } from "../utils/constants";
-import { getResText, getStageText } from "../utils/texts";
+import { getResText, getStageName, getStageText } from "../utils/texts";
 import Counter from "./Counter";
 import { CounterBox } from "./CounterBox";
 import Log from "./Log";
@@ -23,12 +23,19 @@ const isVillainCounter = (counter) => counter.type === COUNTER_TYPES.VILLAIN;
 const isMainCounter = (counter) => counter.type === COUNTER_TYPES.SCENARIO;
 const isHeroCounter = (counter) => counter.type === COUNTER_TYPES.HERO;
 
+const statuses = {
+  Confused: false,
+  Stunned: false,
+  Tough: false,
+};
+
 const getCounter = ({
   active = true,
   levels,
   name,
   parent = false,
   stage = 0,
+  status,
   type,
 }) => {
   return {
@@ -38,6 +45,7 @@ const getCounter = ({
     name,
     parent,
     stage,
+    status,
     type,
   };
 };
@@ -66,7 +74,8 @@ const getHeroCounter = (hero) =>
     hero.name,
     COUNTER_TYPES.HERO,
     [{ name: hero.name, limit: hero.hitPoints }],
-    hero.counters
+    hero.counters,
+    { status: statuses }
   );
 
 const getSideCounter = (scheme) =>
@@ -83,7 +92,8 @@ const getVillainCounter = (mode) => (villain) =>
         name: `${villain.name} ${getStageText(stage)}`,
         limit: villain.levels[stage],
       })),
-      villain.counters
+      villain.counters,
+      { status: statuses }
     ),
   ];
 
@@ -144,8 +154,8 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
       );
   };
 
-  const doUpdate = (event, counter, values) => {
-    logEvent(event, counter.id, counter);
+  const doUpdate = (event, counter, values, entity, logData) => {
+    logEvent(event, entity || counter.id, logData || counter);
     updateCounter(counter.id, values);
   };
 
@@ -214,6 +224,21 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
     logEvent(EVENTS.RESTART);
   };
 
+  const handleStatusToggle = (counter) => (status, flag) => {
+    doUpdate(
+      flag ? EVENTS.STATUS_ENABLE : EVENTS.STATUS_DISABLE,
+      counter,
+      {
+        status: { ...counter.status, [status]: flag },
+      },
+      `${counter.id}|${status}`,
+      {
+        name: getStageName(counter),
+        status,
+      }
+    );
+  };
+
   useEffect(() => {
     const saved = load(STORAGE_KEYS.CURRENT);
     if (saved) {
@@ -263,6 +288,7 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
             key={counter.id}
             lastLabel="💀"
             onComplete={handleDefeat}
+            onStatusToggle={handleStatusToggle(counter)}
             siblings={counters.filter(childOf(counter))}
             title="Hits"
             type={counter.type}
@@ -275,6 +301,7 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
             key={counter.id}
             lastLabel="💀"
             onComplete={handleDefeat}
+            onStatusToggle={handleStatusToggle(counter)}
             siblings={counters.filter(childOf(counter))}
             title="Hits"
             type={counter.type}
