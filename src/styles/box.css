@@ -2,15 +2,30 @@
   position: relative;
   text-align: center;
   max-width: 500px;
+  min-width: 340px;
+  margin: 0 auto;
+  padding: 2.5em 0 1em;
+  flex: 0 1 500px;
 }
 
 .box--flag {
   text-align: left;
 }
 
+.box__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.box__wrapper .box {
+  margin: 0 1em;
+}
+
 .box__title {
   position: absolute;
-  top: -1em;
+  top: 1em;
   left: 50%;
   background: var(--color-accent);
   color: var(--color-accent-contrast);
@@ -28,7 +43,6 @@
 .box__content {
   transform: perspective(200px) rotateX(5deg);
   background-color: var(--color-bg-card);
-  margin: 2.5em 0 1em;
   box-shadow: 0 0 15px #0003;
   padding: 0.8em;
   font-size: 1.1em;

@@ -281,65 +281,73 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
   return (
     counters && (
       <div>
-        {heroesCounters.map((counter) => (
-          <CounterBox
-            commonProps={defaultCounterProps}
-            counter={counter}
-            key={counter.id}
-            lastLabel="💀"
-            onComplete={handleDefeat}
-            onStatusToggle={handleStatusToggle(counter)}
-            siblings={counters.filter(childOf(counter))}
-            title="Hits"
-            type={counter.type}
-          />
-        ))}
-        {villainCounters.map((counter) => (
-          <CounterBox
-            commonProps={defaultCounterProps}
-            counter={counter}
-            key={counter.id}
-            lastLabel="💀"
-            onComplete={handleDefeat}
-            onStatusToggle={handleStatusToggle(counter)}
-            siblings={counters.filter(childOf(counter))}
-            title="Hits"
-            type={counter.type}
-          />
-        ))}
-        <CounterBox
-          commonProps={defaultCounterProps}
-          counter={mainScheme}
-          onComplete={handleComplete}
-          onPrevious={handlePrevious}
-          siblings={counters.filter(childOf(mainScheme))}
-          title="Threats"
-          type="scheme"
-        />
-
-        <Box title="Side schemes" flat type="scheme">
-          {sideSchemes.filter(isActive).map((c) => (
-            <Counter
-              counter={c}
-              key={c.id}
-              over={true}
-              onComplete={handleCompleteSide}
-              onEnable={handleEnableSide}
-              {...defaultCounterProps}
-            />
-          ))}
-        </Box>
-        <Box title="Other side schemes" flat flag type="scheme">
-          {sideSchemes.map((counter) => (
-            <Option
+        <div className="box__wrapper">
+          {heroesCounters.map((counter) => (
+            <CounterBox
+              commonProps={defaultCounterProps}
+              counter={counter}
               key={counter.id}
-              checked={counter.active}
-              label={counter.name}
-              onChange={() => handleEnableSide(counter)}
-              value={counter.name}
+              lastLabel="💀"
+              onComplete={handleDefeat}
+              onStatusToggle={handleStatusToggle(counter)}
+              siblings={counters.filter(childOf(counter))}
+              title="Hits"
+              type={counter.type}
             />
           ))}
-        </Box>
+        </div>
+        <div className="box__wrapper">
+          {villainCounters.map((counter) => (
+            <CounterBox
+              commonProps={defaultCounterProps}
+              counter={counter}
+              key={counter.id}
+              lastLabel="💀"
+              onComplete={handleDefeat}
+              onStatusToggle={handleStatusToggle(counter)}
+              siblings={counters.filter(childOf(counter))}
+              title="Hits"
+              type={counter.type}
+            />
+          ))}
+        </div>
+        <div className="box__wrapper">
+          <CounterBox
+            commonProps={defaultCounterProps}
+            counter={mainScheme}
+            onComplete={handleComplete}
+            onPrevious={handlePrevious}
+            siblings={counters.filter(childOf(mainScheme))}
+            title="Threats"
+            type="scheme"
+          />
+          <Box title="Side schemes" flat type="scheme">
+            {sideSchemes.filter(isActive).map((counter) => (
+              <Counter
+                counter={counter}
+                key={counter.id}
+                over={true}
+                onComplete={handleCompleteSide}
+                onEnable={handleEnableSide}
+                title={counter.levels[counter.stage].name}
+                {...defaultCounterProps}
+              />
+            ))}
+          </Box>
+        </div>
+        <div className="box__wrapper">
+          <Box title="Other side schemes" flat flag type="scheme">
+            {sideSchemes.map((counter) => (
+              <Option
+                key={counter.id}
+                checked={counter.active}
+                label={counter.name}
+                onChange={() => handleEnableSide(counter)}
+                value={counter.name}
+              />
+            ))}
+          </Box>
+        </div>
         {result ? (
           <div className={`result is-${result}`}>
             <div>{getResText(result)}</div>
@@ -352,7 +360,9 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
             <button onClick={handleRestart}>Restart</button>
           </div>
         )}
-        <Log log={log} />
+        <div className="box__wrapper">
+          <Log log={log} />
+        </div>
       </div>
     )
   );
