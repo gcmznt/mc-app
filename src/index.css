@@ -25,6 +25,16 @@ main {
   margin: auto;
 }
 
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 1em 0;
+}
+
+legend {
+  margin-bottom: 0.2em;
+}
+
 .is-disabled {
   opacity: 0.3;
   pointer-events: none;

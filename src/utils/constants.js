@@ -1,4 +1,6 @@
 export const COUNTER_TYPES = {
+  ACCELERATION: "acceleration",
+  CUSTOM: "custom",
   HERO: "hero",
   MODULAR_SCHEME: "modular-scheme",
   NEMESIS_SCHEME: "nemesis-scheme",
@@ -15,11 +17,12 @@ export const COUNTERS_SCHEME = [
 
 export const EVENTS = {
   COMPLETE: "complete",
-  DECREASE_LIMIT: "decrease-limit",
+  DEC_LIMIT: "decrease-limit",
   DECREASE: "decrease",
+  DISABLE: "disable",
   END: "end",
   ENTER: "enter",
-  INCREASE_LIMIT: "increase-limit",
+  INC_LIMIT: "increase-limit",
   INCREASE: "increase",
   NEXT: "next",
   PREVIOUS: "previous",
@@ -27,6 +30,7 @@ export const EVENTS = {
   START: "start",
   STATUS_ENABLE: "status-enable",
   STATUS_DISABLE: "status-disable",
+  VILLAIN_PHASE: "villain-phase",
 };
 
 export const RESULT_TYPES = {

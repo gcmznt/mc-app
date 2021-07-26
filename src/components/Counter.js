@@ -2,6 +2,7 @@ import { EVENTS } from "../utils/constants";
 import CounterUI from "./ui/Counter";
 
 export default function Counter({
+  acceleration,
   counter,
   lastLabel,
   logEvent,
@@ -10,11 +11,11 @@ export default function Counter({
   onPrevious,
   onStatusToggle,
   onUpdate,
-  over = false,
+  over = true,
   result,
   title,
 }) {
-  const update = (counter, vOff, lOff = 0) => {
+  const update = (counter, vOff, lOff = 0, event, entity) => {
     const id = counter.id;
     const value = counter.levels[counter.stage].value;
     const limit = counter.levels[counter.stage].limit;
@@ -23,10 +24,26 @@ export default function Counter({
       (over || limit < 0 || value + vOff <= limit + lOff) &&
       value + vOff >= 0
     ) {
-      if (vOff === 1) logEvent(EVENTS.INCREASE, id, counter);
-      else if (vOff === -1) logEvent(EVENTS.DECREASE, id, counter);
-      else if (lOff === 1) logEvent(EVENTS.INCREASE_LIMIT, id, counter);
-      else if (lOff === -1) logEvent(EVENTS.DECREASE_LIMIT, id, counter);
+      if (vOff > 0)
+        logEvent(event || EVENTS.INCREASE, entity || id, {
+          counter,
+          val: vOff,
+        });
+      else if (vOff < 0)
+        logEvent(event || EVENTS.DECREASE, entity || id, {
+          counter,
+          val: -vOff,
+        });
+      else if (lOff > 0)
+        logEvent(event || EVENTS.INC_LIMIT, entity || id, {
+          counter,
+          val: lOff,
+        });
+      else if (lOff < 0)
+        logEvent(event || EVENTS.DEC_LIMIT, entity || id, {
+          counter,
+          val: -lOff,
+        });
 
       onUpdate(id, {
         levels: counter.levels.map((level, i) =>
@@ -38,7 +55,14 @@ export default function Counter({
     }
   };
 
+  const acceleratedStep =
+    counter.levels[counter.stage].step +
+    (acceleration?.levels[acceleration?.stage].value || 0);
+
   const add = () => update(counter, 1);
+  const onStep = () => {
+    update(counter, acceleratedStep, 0, EVENTS.VILLAIN_PHASE, "match");
+  };
   const reduce = () => update(counter, -1);
   const increaseLimit = () => update(counter, 0, 1);
   const decreaseLimit = () => update(counter, 0, -1);
@@ -59,6 +83,7 @@ export default function Counter({
       onAddLimit={increaseLimit}
       onEnable={!result && onEnable && enable}
       onNext={onComplete && next}
+      onStep={counter.levels[counter.stage].step > 0 && onStep}
       onPrev={counter.stage > 0 && previous}
       onReduce={reduce}
       onReduceLimit={decreaseLimit}

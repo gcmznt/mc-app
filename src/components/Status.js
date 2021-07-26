@@ -19,9 +19,11 @@ const isActive = (counter) => counter.active;
 const isNotActive = (counter) => !counter.active;
 const childOf = (parent) => (counter) => counter.parent === parent.id;
 const isSideCounter = (counter) => COUNTERS_SCHEME.includes(counter.type);
+const isAcceleration = (counter) => counter.type === COUNTER_TYPES.ACCELERATION;
 const isVillainCounter = (counter) => counter.type === COUNTER_TYPES.VILLAIN;
 const isMainCounter = (counter) => counter.type === COUNTER_TYPES.SCENARIO;
 const isHeroCounter = (counter) => counter.type === COUNTER_TYPES.HERO;
+const isCustomCounter = (counter) => counter.type === COUNTER_TYPES.CUSTOM;
 
 const statuses = {
   Confused: false,
@@ -41,7 +43,7 @@ const getCounter = ({
   return {
     active,
     id: uuid(),
-    levels,
+    levels: levels || [{ name, start: 0, value: 0, limit: -1 }],
     name,
     parent,
     stage,
@@ -60,7 +62,7 @@ const getFullCounter = (name, type, levels, children, options) => {
   const extra = (children || []).map((c) =>
     getCounter({
       name: `${name} | ${c.name}`,
-      type: `${type}-child`,
+      type: c.type || `${type}-child`,
       levels: [c],
       parent: parentCounter.id,
     })
@@ -98,20 +100,23 @@ const getVillainCounter = (mode) => (villain) =>
   ];
 
 const getMainSchemeCounter = (scenario) =>
-  getFullCounter(
-    scenario.name,
-    COUNTER_TYPES.SCENARIO,
-    scenario.mainScheme,
-    ...scenario.mainScheme.filter((s) => s.counters).map((s) => s.counters)
-  );
+  getFullCounter(scenario.name, COUNTER_TYPES.SCENARIO, scenario.mainScheme, [
+    { name: "Acceleration", type: COUNTER_TYPES.ACCELERATION, limit: -1 },
+    ...scenario.mainScheme
+      .filter((s) => s.counters)
+      .map((s) => s.counters)
+      .flat(),
+  ]);
 
 const multiply = (players) => (counter) => {
   const multiplied = (counter.levels || []).map((level) => ({
     ...level,
-    start: toValue(level.start || 0, players),
-    value: toValue(level.start || 0, players),
-    limit: toValue(level.limit || level.complete || 0, players),
     advance: toValue(level.advance, players),
+    complete: toValue(level.complete || 0, players),
+    limit: toValue(level.limit || level.complete || 0, players),
+    start: toValue(level.start || 0, players),
+    step: toValue(level.step || 0, players),
+    value: toValue(level.start || 0, players),
   }));
   return {
     ...counter,
@@ -138,6 +143,7 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
   const [counters, setCounters] = useState(false);
   const [log, setLog] = useState([]);
   const [interacted, setInteracted] = useState(false);
+  const [custom, setCustom] = useState("");
 
   const logEvent = (event, entity, data) => {
     setLog((l) => [
@@ -155,12 +161,12 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
   };
 
   const doUpdate = (event, counter, values, entity, logData) => {
-    logEvent(event, entity || counter.id, logData || counter);
+    logEvent(event, entity || counter.id, logData || { counter });
     updateCounter(counter.id, values);
   };
 
   const endGame = (event, counter, result) => {
-    logEvent(event, counter.id, counter);
+    logEvent(event, counter.id, { counter });
     onResult(result, counters, log);
   };
 
@@ -177,7 +183,7 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
     if (counter.stage + 1 < counter.levels.length) {
       doUpdate(EVENTS.NEXT, counter, { stage: counter.stage + 1 });
     } else {
-      logEvent(EVENTS.COMPLETE, counter.id, counter);
+      logEvent(EVENTS.COMPLETE, counter.id, { counter });
       [counter, ...counters.filter(childOf(counter))].map(disableCounter);
     }
   };
@@ -191,8 +197,14 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
   const handleComplete = (counter) => {
     const stage = counter.levels[counter.stage];
     const hasAdvance = Number.isInteger(stage.advance);
-    const advance = stage.advance === stage.value;
-    const complete = stage.limit === stage.value;
+    const advance =
+      stage.advance < stage.limit
+        ? stage.value <= stage.advance
+        : stage.value >= stage.advance;
+    const complete =
+      stage.advance > stage.limit
+        ? stage.value <= stage.limit
+        : stage.value >= stage.limit;
     const last = counter.stage + 1 >= counter.levels.length;
 
     if (hasAdvance && advance && last) {
@@ -204,6 +216,10 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
     }
   };
 
+  const handleDisable = (counter) => {
+    doUpdate(EVENTS.DISABLE, counter, { active: false });
+  };
+
   const handleCompleteSide = (counter) => {
     doUpdate(EVENTS.COMPLETE, counter, {
       active: false,
@@ -211,7 +227,7 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
     });
   };
 
-  const handleEnableSide = (counter) => {
+  const handleEnable = (counter) => {
     if (!counter.active) {
       doUpdate(EVENTS.ENTER, counter, { active: true });
     }
@@ -228,15 +244,23 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
     doUpdate(
       flag ? EVENTS.STATUS_ENABLE : EVENTS.STATUS_DISABLE,
       counter,
-      {
-        status: { ...counter.status, [status]: flag },
-      },
+      { status: { ...counter.status, [status]: flag } },
       `${counter.id}|${status}`,
-      {
-        name: getStageName(counter),
-        status,
-      }
+      { name: getStageName(counter), status }
     );
+  };
+
+  const handleAddCounter = () => {
+    if (custom) {
+      const counter = getCounter({
+        active: false,
+        name: custom,
+        type: COUNTER_TYPES.CUSTOM,
+      });
+      setCounters((cs) => [...cs, counter]);
+      setCustom("");
+      handleEnable(counter);
+    }
   };
 
   useEffect(() => {
@@ -277,6 +301,7 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
   const villainCounters = (counters || []).filter(isVillainCounter);
   const mainScheme = (counters || []).find(isMainCounter);
   const sideSchemes = (counters || []).filter(isSideCounter);
+  const customCounters = (counters || []).filter(isCustomCounter);
 
   return (
     counters && (
@@ -313,6 +338,9 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
         </div>
         <div className="box__wrapper">
           <CounterBox
+            acceleration={counters
+              .filter(childOf(mainScheme))
+              .find(isAcceleration)}
             commonProps={defaultCounterProps}
             counter={mainScheme}
             onComplete={handleComplete}
@@ -321,31 +349,58 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
             title="Threats"
             type="scheme"
           />
-          <Box title="Side schemes" flat type="scheme">
-            {sideSchemes.filter(isActive).map((counter) => (
-              <Counter
-                counter={counter}
-                key={counter.id}
-                over={true}
-                onComplete={handleCompleteSide}
-                onEnable={handleEnableSide}
-                title={counter.levels[counter.stage].name}
-                {...defaultCounterProps}
-              />
-            ))}
-          </Box>
+          {!!sideSchemes.filter(isActive).length && (
+            <Box title="Side schemes" flat type="scheme">
+              {sideSchemes.filter(isActive).map((counter) => (
+                <Counter
+                  counter={counter}
+                  key={counter.id}
+                  over={true}
+                  onComplete={handleCompleteSide}
+                  onEnable={handleEnable}
+                  title={counter.levels[counter.stage].name}
+                  {...defaultCounterProps}
+                />
+              ))}
+            </Box>
+          )}
         </div>
+        {!!customCounters.filter(isActive).length && (
+          <div className="box__wrapper">
+            <Box title="Custom" flat>
+              {customCounters.filter(isActive).map((counter) => (
+                <Counter
+                  counter={counter}
+                  key={counter.id}
+                  onComplete={() => handleDisable(counter)}
+                  over={true}
+                  title={counter.levels[counter.stage].name}
+                  {...defaultCounterProps}
+                />
+              ))}
+            </Box>
+          </div>
+        )}
         <div className="box__wrapper">
-          <Box title="Other side schemes" flat flag type="scheme">
+          <Box title="Other counters" flat flag type="scheme">
             {sideSchemes.map((counter) => (
               <Option
                 key={counter.id}
                 checked={counter.active}
                 label={counter.name}
-                onChange={() => handleEnableSide(counter)}
+                onChange={() => handleEnable(counter)}
                 value={counter.name}
               />
             ))}
+            <fieldset>
+              <legend>Add custom counter</legend>
+              <input
+                placeholder="Name"
+                value={custom}
+                onChange={(e) => setCustom(e.target.value)}
+              />{" "}
+              <span onClick={handleAddCounter}>Add</span>
+            </fieldset>
           </Box>
         </div>
         {result ? (

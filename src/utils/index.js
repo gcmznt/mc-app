@@ -34,6 +34,5 @@ export function persist(key, value) {
 
 export function append(key, value) {
   const current = load(key) || [];
-  console.log(current, value, [...current, value]);
   return persist(key, [...current, value]);
 }

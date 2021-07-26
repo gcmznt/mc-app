@@ -13,30 +13,30 @@ export default function Counter({
   onEnable,
   onNext,
   onPrev,
+  onStep,
   onReduce,
   onReduceLimit,
   onStatusToggle,
   over,
   status,
+  stepLabel,
   title,
   value,
 }) {
   const [editMode, setEditMode] = useState(false);
 
-  const toggle = () => disabled || over || setEditMode((m) => !m);
+  const toggle = () => disabled || !limit || setEditMode((m) => !m);
 
   return (
     <div>
       {status && <Status status={status} onToggle={onStatusToggle} />}
 
-      {title && <div>{title}</div>}
+      {title && <div className="counter__title">{title}</div>}
 
       <div className="counter">
         {!disabled && onPrev && (
           <div
-            className={`counter__prev ${
-              editMode || value > 0 ? "is-disabled" : ""
-            }`}
+            className={`counter__prev ${editMode ? "is-disabled" : ""}`}
             onClick={onPrev}
           >
             «
@@ -85,10 +85,24 @@ export default function Counter({
           </div>
         )}
 
+        {!disabled && onStep && (
+          <div
+            className={`counter__step ${
+              !editMode && value >= limit && limit > 0 ? "is-disabled" : ""
+            }`}
+            onClick={onStep}
+          >
+            {stepLabel || "⌂"}
+          </div>
+        )}
         {!disabled && onNext && (
           <div
             className={`counter__next ${
-              !editMode && (value === limit || value === advance)
+              !editMode &&
+              ((limit > 0 && value >= limit) ||
+                (limit === 0 && value === limit) ||
+                value === advance ||
+                limit === -1)
                 ? ""
                 : "is-disabled"
             }`}

@@ -12,23 +12,33 @@ import Box from "./ui/Box";
 const getLogString = ({ count = 0, data, event }) => {
   switch (event) {
     case EVENTS.COMPLETE:
-      return `${getStageName(data)} | ${getCompleteText(data.type)}`;
+      return `${getStageName(data.counter)} | ${getCompleteText(
+        data.counter.type
+      )}`;
     case EVENTS.DECREASE:
-      return `${getStageName(data)} | ${getRemoveTokenText(data.type, count)}`;
-    case EVENTS.DECREASE_LIMIT:
-      return `${getStageName(data)} | ${getDecreaseText(count)}`;
+      return `${getStageName(data.counter)} | ${getRemoveTokenText(
+        data.counter.type,
+        count
+      )}`;
+    case EVENTS.DEC_LIMIT:
+      return `${getStageName(data.counter)} | ${getDecreaseText(count)}`;
+    case EVENTS.DISABLE:
+      return `${getStageName(data.counter)} | Disabled`;
     case EVENTS.END:
       return data.resultText;
     case EVENTS.ENTER:
-      return `${getStageName(data)} | Entered`;
+      return `${getStageName(data.counter)} | Entered`;
     case EVENTS.INCREASE:
-      return `${getStageName(data)} | ${getAddTokenText(data.type, count)}`;
-    case EVENTS.INCREASE_LIMIT:
-      return `${getStageName(data)} | ${getIncreaseText(count)}`;
+      return `${getStageName(data.counter)} | ${getAddTokenText(
+        data.counter.type,
+        count
+      )}`;
+    case EVENTS.INC_LIMIT:
+      return `${getStageName(data.counter)} | ${getIncreaseText(count)}`;
     case EVENTS.NEXT:
-      return `${getStageName(data)} | Next stage`;
+      return `${getStageName(data.counter)} | Next stage`;
     case EVENTS.PREVIOUS:
-      return `${getStageName(data)} | Previous stage`;
+      return `${getStageName(data.counter)} | Previous stage`;
     case EVENTS.RESTART:
       return "Match restarted";
     case EVENTS.START:
@@ -37,6 +47,8 @@ const getLogString = ({ count = 0, data, event }) => {
       return `${data.name} is no more ${data.status}`;
     case EVENTS.STATUS_ENABLE:
       return `${data.name} is ${data.status}`;
+    case EVENTS.VILLAIN_PHASE:
+      return `Villain phase | ${getAddTokenText(data.counter.type, count)}`;
 
     default:
       return event;
@@ -52,9 +64,9 @@ function mergeLog(log) {
     ) {
       const list = [...a];
       const last = list.pop();
-      return [...list, { ...last, count: last.count + 1 }];
+      return [...list, { ...last, count: last.count + (c.data.val || 1) }];
     } else {
-      return [...a, { ...c, count: 1 }];
+      return [...a, { ...c, count: c.data?.val || 1 }];
     }
   }, []);
 }
