@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
-import { toValue } from "../utils";
+import { load, persist, toValue } from "../utils";
 import {
   COUNTERS_SCHEME,
   COUNTER_TYPES,
@@ -124,7 +124,7 @@ const getCounters = (setup) =>
     ...getSideSchemes(setup).map(getSideCounter).flat(),
   ].map(multiply(setup.settings.players));
 
-export default function Status({ onResult, onQuit, result, setup }) {
+export default function Status({ matchId, onResult, onQuit, result, setup }) {
   const [counters, setCounters] = useState(false);
   const [log, setLog] = useState([]);
   const [interacted, setInteracted] = useState(false);
@@ -151,19 +151,11 @@ export default function Status({ onResult, onQuit, result, setup }) {
 
   const endGame = (event, counter, result) => {
     logEvent(event, counter.id, counter);
-    onResult(result, counters);
+    onResult(result, counters, log);
   };
 
-  // const handleDefeat = (counter) => () => {
-  //   if (counter.stage + 1 < counter.levels.length) {
-  //     doUpdate(EVENTS.NEXT, counter, { stage: counter.stage + 1 });
-  //   } else {
-  //     endGame(EVENTS.COMPLETE, counter, RESULT_TYPES.WINNER);
-  //   }
-  // };
-
   const handleGiveUp = () => {
-    onResult(RESULT_TYPES.GIVE_UP, counters);
+    onResult(RESULT_TYPES.GIVE_UP, counters, log);
     onQuit();
   };
 
@@ -223,7 +215,7 @@ export default function Status({ onResult, onQuit, result, setup }) {
   };
 
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEYS.CURRENT));
+    const saved = load(STORAGE_KEYS.CURRENT);
     if (saved) {
       setCounters(saved.counters);
       setLog(saved.log.map((l) => ({ ...l, date: new Date(l.date) })));
@@ -235,20 +227,18 @@ export default function Status({ onResult, onQuit, result, setup }) {
 
   useEffect(() => {
     if (counters && counters.filter(isHeroCounter).every(isNotActive)) {
-      onResult(RESULT_TYPES.DEFEATED, counters);
+      onResult(RESULT_TYPES.DEFEATED, counters, log);
     }
     if (counters && counters.filter(isVillainCounter).every(isNotActive)) {
-      onResult(RESULT_TYPES.WINNER, counters);
+      onResult(RESULT_TYPES.WINNER, counters, log);
     }
-  }, [counters, onResult]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [counters]);
 
   useEffect(() => {
     interacted && window.navigator.vibrate(50);
-    localStorage.setItem(
-      STORAGE_KEYS.CURRENT,
-      JSON.stringify({ counters, log, result, setup })
-    );
-  }, [counters, interacted, log, result, setup]);
+    persist(STORAGE_KEYS.CURRENT, { counters, log, matchId, result, setup });
+  }, [counters, interacted, log, matchId, result, setup]);
 
   useEffect(() => {
     if (interacted && result) {

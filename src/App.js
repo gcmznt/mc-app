@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { v4 as uuid } from "uuid";
 import Generate from "./components/Generate";
 import Match from "./components/Match";
 import Options from "./components/Options";
 import Fab from "./components/ui/Fab";
 import heroes from "./data/heroes.json";
 import scenarios from "./data/scenarios.json";
+import { clear, load, persist } from "./utils";
 import { STORAGE_KEYS } from "./utils/constants";
 
 const data = { heroes, scenarios };
@@ -17,7 +19,7 @@ export default function App() {
   const [options, setOptions] = useState(false);
   const [selection, setSelection] = useState({ heroes: [], scenarios: [] });
   const [setup, setSetup] = useState(false);
-  const [started, setStarted] = useState(false);
+  const [matchId, setMatchId] = useState(false);
   const [wakeLock, setWakeLock] = useState(false);
 
   const showOptions = () => {
@@ -25,41 +27,39 @@ export default function App() {
   };
 
   const saveOptions = () => {
-    localStorage.setItem(STORAGE_KEYS.SELECTION, JSON.stringify(selection));
+    persist(STORAGE_KEYS.SELECTION, selection);
     setSetup(false);
     setOptions(false);
   };
 
   const handleGeneration = (setup) => {
-    setStarted(false);
+    setMatchId(false);
     setSetup(setup);
-    localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(setup.settings));
+    persist(STORAGE_KEYS.SETTINGS, setup.settings);
   };
 
   const handleQuit = () => {
-    setStarted(false);
+    setMatchId(false);
     setSetup(false);
-    localStorage.removeItem(STORAGE_KEYS.CURRENT);
+    clear(STORAGE_KEYS.CURRENT);
   };
 
   const handleStart = () => {
-    setStarted(true);
+    setMatchId(uuid());
   };
 
   useEffect(() => {
-    setSelection(
-      JSON.parse(localStorage.getItem(STORAGE_KEYS.SELECTION)) || fullSelect
-    );
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEYS.CURRENT));
+    setSelection(load(STORAGE_KEYS.SELECTION) || fullSelect);
+    const saved = load(STORAGE_KEYS.CURRENT);
     if (saved) {
-      setStarted(true);
+      setMatchId(saved.matchId);
       setSetup(saved.setup);
     }
   }, []);
 
   useEffect(() => {
     if ("wakeLock" in navigator) {
-      if (started) {
+      if (matchId) {
         navigator.wakeLock
           .request("screen")
           .then(setWakeLock)
@@ -69,7 +69,7 @@ export default function App() {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [started]);
+  }, [matchId]);
 
   useEffect(() => {
     const resetLock = () => {
@@ -90,7 +90,7 @@ export default function App() {
       {options && (
         <Options data={data} selection={selection} onChange={setSelection} />
       )}
-      {!options && !started && (
+      {!options && !matchId && (
         <Generate
           data={data}
           onGenerate={handleGeneration}
@@ -98,10 +98,15 @@ export default function App() {
           selection={selection}
         />
       )}
-      {!options && started && (
-        <Match onQuit={handleQuit} initialSetup={setup} />
+      {!options && matchId && (
+        <Match
+          key={matchId}
+          matchId={matchId}
+          onQuit={handleQuit}
+          setup={setup}
+        />
       )}
-      {!started && (
+      {!matchId && (
         <Fab
           label={options ? "Save" : "Options"}
           onClick={options ? saveOptions : showOptions}

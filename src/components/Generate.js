@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import modularSets from "../data/modular-sets.json";
 import schemes from "../data/schemes.json";
-import { getRandom, getRandomList } from "../utils";
+import { getRandom, getRandomList, load, persist } from "../utils";
 import { ASPECTS, MODES, RANDOM, STORAGE_KEYS } from "../utils/constants";
 import Mode from "./Mode";
 import Players from "./Players";
@@ -92,18 +92,14 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
     });
   };
 
-  const save = (key, value) => {
-    localStorage.setItem(key, JSON.stringify(value));
-  };
-
   const handleStart = () => {
     if (lastHeroes.length + setup.heroes.length <= selection.heroes.length) {
-      save(STORAGE_KEYS.LAST_HEROES, [
+      persist(STORAGE_KEYS.LAST_HEROES, [
         ...lastHeroes,
         ...setup.heroes.map((hero) => hero.name),
       ]);
     } else {
-      save(
+      persist(
         STORAGE_KEYS.LAST_HEROES,
         setup.heroes
           .filter((hero) => lastHeroes.includes(hero.name))
@@ -118,8 +114,8 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
   }, [onGenerate, setup]);
 
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEYS.SETTINGS));
-    const lh = JSON.parse(localStorage.getItem(STORAGE_KEYS.LAST_HEROES));
+    const saved = load(STORAGE_KEYS.SETTINGS);
+    const lh = load(STORAGE_KEYS.LAST_HEROES);
     if (saved) setSettings({ ...initialSetting, ...saved });
     setLastHeroes(lh || []);
   }, []);

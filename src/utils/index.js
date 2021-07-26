@@ -19,3 +19,21 @@ export function toValue(val, count = 1) {
   if (isNaN(val)) return val;
   return +val;
 }
+
+export function load(key) {
+  return JSON.parse(localStorage.getItem(key)) || false;
+}
+
+export function clear(key) {
+  return localStorage.removeItem(key);
+}
+
+export function persist(key, value) {
+  return localStorage.setItem(key, JSON.stringify(value));
+}
+
+export function append(key, value) {
+  const current = load(key) || [];
+  console.log(current, value, [...current, value]);
+  return persist(key, [...current, value]);
+}
