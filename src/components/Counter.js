@@ -2,7 +2,7 @@ import { COUNTER_TYPES, EVENTS } from "../utils/constants";
 import CounterUI from "./ui/Counter";
 
 export default function Counter({
-  accelerators = [],
+  acceleration = 0,
   counter,
   lastLabel,
   logEvent,
@@ -42,12 +42,9 @@ export default function Counter({
     }
   };
 
-  const acceleratedStep =
-    counter.levels[counter.stage].step +
-    (accelerators || []).reduce(
-      (a, cur) => a + cur?.levels[cur?.stage].value || 0,
-      0
-    );
+  const acceleratedStep = counter.levels[counter.stage].step + acceleration;
+
+  console.log(counter.icons, counter.status);
 
   const add = () => update(counter, 1);
   const onStep = () => {
@@ -63,8 +60,10 @@ export default function Counter({
 
   return (
     <CounterUI
+      acceleratedStep={acceleratedStep}
       advance={counter.levels[counter.stage].advance}
       disabled={result || !counter.active}
+      icons={counter.icons}
       last={counter.stage + 1 >= counter.levels.length}
       lastLabel={lastLabel}
       limit={counter.levels[counter.stage].limit}

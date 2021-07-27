@@ -1,5 +1,9 @@
 {
-  "A Mess of Things": { "name": "A Mess of Things", "start": 2 },
+  "A Mess of Things": {
+    "icons": ["Hazard"],
+    "name": "A Mess of Things",
+    "start": 2
+  },
   "Assault on NORAD": {
     "complete": "10p",
     "name": "Assault on NORAD",
@@ -10,25 +14,63 @@
     "name": "Attack on Mount Athena",
     "step": "1p"
   },
-  "Avalanche!": { "name": "Avalanche!", "start": "2p" },
+  "Avalanche!": {
+    "icons": ["Acceleration"],
+    "name": "Avalanche!",
+    "start": "2p"
+  },
   "Blazing Inferno": { "name": "Blazing Inferno", "start": "3p" },
-  "Blockade": { "name": "Blockade", "start": [2, "2p"] },
-  "Bomb Scare": { "name": "Bomb Scare", "start": [2, "1p"] },
+  "Blockade": {
+    "icons": ["Crisis"],
+    "name": "Blockade",
+    "start": [2, "2p"]
+  },
+  "Bomb Scare": {
+    "icons": ["Acceleration"],
+    "name": "Bomb Scare",
+    "start": [2, "1p"]
+  },
   "Bombardment": { "name": "Bombardment", "start": "3p" },
-  "Breakin' & Takin'": { "name": "Breakin' & Takin'", "start": 2 },
+  "Breakin' & Takin'": {
+    "icons": ["Hazard"],
+    "name": "Breakin' & Takin'",
+    "start": 2
+  },
   "Breakout": { "complete": "6p", "name": "Breakout", "step": 1 },
   "Budding Crime Syndicate": {
+    "icons": ["Hazard"],
     "name": "Budding Crime Syndicate",
     "start": [2, "2p"]
   },
-  "Cannonade": { "name": "Cannonade", "start": [1, "3p"] },
-  "Captured by Hydra": { "name": "Captured by Hydra", "start": 5 },
-  "Censor the Past": { "name": "Censor the Past", "start": "3p" },
+  "Cannonade": {
+    "icons": ["Amplify"],
+    "name": "Cannonade",
+    "start": [1, "3p"]
+  },
+  "Captured by Hydra": {
+    "icons": ["Acceleration"],
+    "name": "Captured by Hydra",
+    "start": 5
+  },
+  "Censor the Past": {
+    "icons": ["Acceleration"],
+    "name": "Censor the Past",
+    "start": "3p"
+  },
   "Clear the Road": { "active": true, "name": "Clear the Road", "start": 4 },
-  "Collapsing Bridge": { "name": "Collapsing Bridge", "start": "2p" },
-  "Cornered Staff": { "name": "Cornered Staff", "start": 3 },
+  "Collapsing Bridge": {
+    "icons": ["Crisis"],
+    "name": "Collapsing Bridge",
+    "start": "2p"
+  },
+  "Cornered Staff": {
+    "icons": ["Crisis"],
+    "name": "Cornered Staff",
+    "start": 3
+  },
   "Corporate Acquisition": {
     "complete": "10p",
+    "icons": ["Hazard"],
     "name": "Corporate Acquisition",
     "start": "1p",
     "step": "2p"
@@ -38,28 +80,73 @@
     "name": "Countdown to Oblivion",
     "step": "1p"
   },
-  "Crossbones' Assault": { "name": "Crossbones' Assault", "start": "2p" },
-  "Crowd Control": { "name": "Crowd Control", "start": "2p" },
-  "Crystal Ball": { "name": "Crystal Ball", "start": [3, "2p"] },
+  "Crossbones' Assault": {
+    "icons": ["Acceleration"],
+    "name": "Crossbones' Assault",
+    "start": "2p"
+  },
+  "Crowd Control": {
+    "icons": ["Crisis"],
+    "name": "Crowd Control",
+    "start": "2p"
+  },
+  "Crystal Ball": {
+    "icons": ["Acceleration"],
+    "name": "Crystal Ball",
+    "start": [3, "2p"]
+  },
   "Cull the Weak": { "name": "Cull the Weak", "start": "2p" },
-  "Cut the Power": { "name": "Cut the Power", "start": "3p" },
+  "Cut the Power": {
+    "icons": ["Crisis"],
+    "name": "Cut the Power",
+    "start": "3p"
+  },
   "Day of Reckoning": {
     "active": true,
     "name": "Day of Reckoning",
     "start": 6
   },
-  "Defense Network": { "name": "Defense Network", "start": [2, "1p"] },
-  "Drone Factory": { "name": "Drone Factory", "start": 4 },
+  "Defense Network": {
+    "icons": ["Crisis"],
+    "name": "Defense Network",
+    "start": [2, "1p"]
+  },
+  "Drone Factory": {
+    "icons": ["Acceleration"],
+    "name": "Drone Factory",
+    "start": 4
+  },
   "Extortion of Seismic Proportion": {
+    "icons": ["Crisis"],
     "name": "Extortion of Seismic Proportion",
     "start": "2p"
   },
-  "Family Feud": { "name": "Family Feud", "start": 2 },
-  "Generation Why?": { "name": "Generation Why?", "start": "2p" },
+  "Family Feud": {
+    "icons": ["Acceleration"],
+    "name": "Family Feud",
+    "start": 2
+  },
+  "Generation Why?": {
+    "icons": ["Hazard"],
+    "name": "Generation Why?",
+    "start": "2p"
+  },
   "Goblin Nation": { "name": "Goblin Nation", "start": "2p" },
-  "Goblin Reinforcements": { "name": "Goblin Reinforcements", "start": 2 },
-  "Highway Robbery": { "name": "Highway Robbery", "start": "3p" },
-  "Hit Squad": { "name": "Hit Squad", "start": "3p" },
+  "Goblin Reinforcements": {
+    "icons": ["Hazard"],
+    "name": "Goblin Reinforcements",
+    "start": 2
+  },
+  "Highway Robbery": {
+    "icons": ["Acceleration"],
+    "name": "Highway Robbery",
+    "start": "3p"
+  },
+  "Hit Squad": {
+    "icons": ["Acceleration"],
+    "name": "Hit Squad",
+    "start": "3p"
+  },
   "Hostile Takeover": {
     "complete": "7p",
     "name": "Hostile Takeover",
@@ -67,6 +154,7 @@
     "step": "1p"
   },
   "Hujahdarian Monarch Egg": {
+    "icons": ["Acceleration"],
     "name": "Hujahdarian Monarch Egg",
     "start": [3, "2p"]
   },
@@ -76,29 +164,63 @@
     "start": "1p",
     "step": "1p"
   },
-  "Hydra Patrol": { "name": "Hydra Patrol", "start": "2p" },
+  "Hydra Patrol": {
+    "icons": ["Crisis"],
+    "name": "Hydra Patrol",
+    "start": "2p"
+  },
   "Hydra Prison": { "name": "Hydra Prison", "start": 1 },
-  "Hydra Reinforcements": { "name": "Hydra Reinforcements", "start": "2p" },
+  "Hydra Reinforcements": {
+    "icons": ["Hazard"],
+    "name": "Hydra Reinforcements",
+    "start": "2p"
+  },
   "Illegal Arms Factory": {
+    "icons": ["Hazard"],
     "name": "Illegal Arms Factory",
     "start": [3, "1p"]
   },
-  "Imminent Overload": { "name": "Imminent Overload", "start": [3, "1p"] },
+  "Imminent Overload": {
+    "icons": ["Acceleration"],
+    "name": "Imminent Overload",
+    "start": [3, "1p"]
+  },
   "Interception Imminent": {
     "complete": "7p",
     "name": "Interception Imminent",
     "start": "2p",
     "step": "2p"
   },
-  "Invasive AI": { "name": "Invasive AI", "start": "3p" },
+  "Invasive AI": {
+    "icons": ["Hazard"],
+    "name": "Invasive AI",
+    "start": "3p"
+  },
   "Judge, Jury, Executioner": {
+    "icons": ["Acceleration"],
     "name": "Judge, Jury, Executioner",
     "start": "3p"
   },
-  "Killer for Hire": { "name": "Killer for Hire", "start": [3, "1p"] },
-  "Klyntar Frenzy": { "name": "Klyntar Frenzy", "start": "2p" },
-  "Legions of Hydra": { "name": "Legions of Hydra", "start": 3 },
-  "Lethal Intent": { "name": "Lethal Intent", "start": "2p" },
+  "Killer for Hire": {
+    "icons": ["Acceleration"],
+    "name": "Killer for Hire",
+    "start": [3, "1p"]
+  },
+  "Klyntar Frenzy": {
+    "icons": ["Hazard"],
+    "name": "Klyntar Frenzy",
+    "start": "2p"
+  },
+  "Legions of Hydra": {
+    "icons": ["Hazard"],
+    "name": "Legions of Hydra",
+    "start": 3
+  },
+  "Lethal Intent": {
+    "icons": ["Hazard"],
+    "name": "Lethal Intent",
+    "start": "2p"
+  },
   "Lost in the Museum": {
     "advance": 0,
     "complete": "15p",
@@ -106,9 +228,21 @@
     "start": "11p",
     "step": "1p"
   },
-  "Magical Teapot": { "name": "Magical Teapot", "start": [3, "2p"] },
-  "Marked for Death": { "name": "Marked for Death", "start": 5 },
-  "Mass Chaos": { "name": "Mass Chaos", "start": 0 },
+  "Magical Teapot": {
+    "icons": ["Hazard"],
+    "name": "Magical Teapot",
+    "start": [3, "2p"]
+  },
+  "Marked for Death": {
+    "icons": ["Acceleration"],
+    "name": "Marked for Death",
+    "start": 5
+  },
+  "Mass Chaos": {
+    "icons": ["Crisis"],
+    "name": "Mass Chaos",
+    "start": 0
+  },
   "Mother's Orders": { "name": "Mother's Orders", "start": "2p" },
   "Mutagen Cloud": {
     "complete": "11p",
@@ -129,26 +263,67 @@
     "step": "1p"
   },
   "Open the Dark Dimension": {
+    "icons": ["Acceleration"],
     "name": "Open the Dark Dimension",
     "start": "3p"
   },
-  "Oppressive Armada": { "name": "Oppressive Armada", "start": [1, "3p"] },
-  "Oscorp Manufacturing": { "name": "Oscorp Manufacturing", "start": "2p" },
-  "Overrun": { "name": "Overrun", "start": "1p" },
-  "Payoff": { "name": "Payoff", "start": "2p" },
-  "Personal Challenge": { "name": "Personal Challenge", "start": [3, "1p"] },
-  "Philosopher's Stone": { "name": "Philosopher's Stone", "start": [3, "2p"] },
+  "Oppressive Armada": {
+    "icons": ["Hazard"],
+    "name": "Oppressive Armada",
+    "start": [1, "3p"]
+  },
+  "Oscorp Manufacturing": {
+    "icons": ["Acceleration"],
+    "name": "Oscorp Manufacturing",
+    "start": "2p"
+  },
+  "Overrun": {
+    "icons": ["Acceleration", "Acceleration"],
+    "name": "Overrun",
+    "start": "1p"
+  },
+  "Payoff": {
+    "icons": ["Hazard"],
+    "name": "Payoff",
+    "start": "2p"
+  },
+  "Personal Challenge": {
+    "icons": ["Crisis"],
+    "name": "Personal Challenge",
+    "start": [3, "1p"]
+  },
+  "Philosopher's Stone": {
+    "icons": ["Amplify"],
+    "name": "Philosopher's Stone",
+    "start": [3, "2p"]
+  },
   "Pile It On!": { "active": true, "name": "Pile It On!", "start": 3 },
-  "Pincer Maneuver": { "name": "Pincer Maneuver", "start": [3, "2p"] },
-  "Power Drain": { "name": "Power Drain", "start": "2p" },
-  "Prison Camps": { "name": "Prison Camps", "start": "3p" },
+  "Pincer Maneuver": {
+    "icons": ["Acceleration", "Acceleration"],
+    "name": "Pincer Maneuver",
+    "start": [3, "2p"]
+  },
+  "Power Drain": {
+    "icons": ["Acceleration"],
+    "name": "Power Drain",
+    "start": "2p"
+  },
+  "Prison Camps": {
+    "icons": ["Acceleration"],
+    "name": "Prison Camps",
+    "start": "3p"
+  },
   "Protect the Planet": {
     "complete": "8p",
     "name": "Protect the Planet",
     "start": "4p",
     "step": "2p"
   },
-  "Running Interference": { "name": "Running Interference", "start": "1p" },
+  "Running Interference": {
+    "icons": ["Crisis"],
+    "name": "Running Interference",
+    "start": "1p"
+  },
   "Secret Rendezvous": {
     "complete": "8p",
     "name": "Secret Rendezvous",
@@ -156,7 +331,11 @@
   },
   "Sibling Rivalry": { "name": "Sibling Rivalry", "start": 4 },
   "Sound the Alarms": { "name": "Sound the Alarms", "start": "2p" },
-  "Spatial Positioning": { "name": "Spatial Positioning", "start": "3p" },
+  "Spatial Positioning": {
+    "icons": ["Amplify"],
+    "name": "Spatial Positioning",
+    "start": "3p"
+  },
   "Super Absorbing Power": { "name": "Super Absorbing Power", "start": "3p" },
   "Superior Tactics": { "name": "Superior Tactics", "start": "2p" },
   "Take What Is Mine": {
@@ -166,6 +345,7 @@
     "step": "2p"
   },
   "Taskmaster's Training Camp": {
+    "icons": ["Hazard"],
     "name": "Taskmaster's Training Camp",
     "start": "2p"
   },
@@ -176,8 +356,16 @@
     "start": "2p",
     "step": "2p"
   },
-  "Test Subjects": { "name": "Test Subjects", "start": "2p" },
-  "The \"Immortal\" Klaw": { "name": "The \"Immortal\" Klaw", "start": "3p" },
+  "Test Subjects": {
+    "icons": ["Hazard"],
+    "name": "Test Subjects",
+    "start": "2p"
+  },
+  "The \"Immortal\" Klaw": {
+    "icons": ["Acceleration"],
+    "name": "The \"Immortal\" Klaw",
+    "start": "3p"
+  },
   "The Art of Evasion": {
     "complete": "6p",
     "name": "The Art of Evasion",
@@ -189,7 +377,11 @@
     "name": "The Crimson Cowl",
     "step": "1p"
   },
-  "The Doomsday Chair": { "name": "The Doomsday Chair", "start": 8 },
+  "The Doomsday Chair": {
+    "icons": ["Acceleration"],
+    "name": "The Doomsday Chair",
+    "start": 8
+  },
   "The Gataway": {
     "complete": "5p",
     "name": "The Gataway",
@@ -226,7 +418,11 @@
     "start": "1p",
     "step": "1p"
   },
-  "The Masters of Evil": { "name": "The Masters of Evil", "start": "3p" },
+  "The Masters of Evil": {
+    "icons": ["Acceleration"],
+    "name": "The Masters of Evil",
+    "start": "3p"
+  },
   "The Missing Milano": {
     "advance": 0,
     "complete": "11p",
@@ -236,6 +432,7 @@
   },
   "The Next Evolution": { "name": "The Next Evolution", "start": "2p" },
   "The Psyche-Magnitron": {
+    "icons": ["Hazard"],
     "name": "The Psyche-Magnitron",
     "start": [3, "1p"]
   },
@@ -247,13 +444,26 @@
   },
   "The Sleeper Awakened": { "name": "The Sleeper Awakened", "start": 0 },
   "The Viper's Ambition": {
+    "icons": ["Hazard"],
     "name": "The Viper's Ambition",
     "start": [2, "1p"]
   },
   "Thunderstruck": { "active": true, "name": "Thunderstruck", "start": 5 },
-  "Total Destruction": { "name": "Total Destruction", "start": "2p" },
-  "Ultron's Imperative": { "name": "Ultron's Imperative", "start": "2p" },
-  "Under Attack": { "name": "Under Attack", "start": 3 },
+  "Total Destruction": {
+    "icons": ["Hazard"],
+    "name": "Total Destruction",
+    "start": "2p"
+  },
+  "Ultron's Imperative": {
+    "icons": ["Hazard"],
+    "name": "Ultron's Imperative",
+    "start": "2p"
+  },
+  "Under Attack": {
+    "icons": ["Crisis"],
+    "name": "Under Attack",
+    "start": 3
+  },
   "Underground Distribution": {
     "complete": "6p",
     "name": "Underground Distribution",
@@ -265,12 +475,24 @@
     "start": "2p",
     "step": "1p"
   },
-  "Usurp the Throne": { "name": "Usurp the Throne", "start": "3p" },
-  "Vendetta": { "name": "Vendetta", "start": "2p" },
+  "Usurp the Throne": {
+    "icons": ["Hazard"],
+    "name": "Usurp the Throne",
+    "start": "3p"
+  },
+  "Vendetta": {
+    "icons": ["Amplify"],
+    "name": "Vendetta",
+    "start": "2p"
+  },
   "Warp Drive Initiated": {
     "complete": "9p",
     "name": "Warp Drive Initiated",
     "start": "3p"
   },
-  "Zola's Experiments": { "name": "Zola's Experiments", "start": "3p" }
+  "Zola's Experiments": {
+    "icons": ["Acceleration"],
+    "name": "Zola's Experiments",
+    "start": "3p"
+  }
 }

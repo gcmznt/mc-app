@@ -38,8 +38,7 @@ const getCounter = ({
   name,
   parent = false,
   stage = 0,
-  status,
-  type,
+  ...rest
 }) => {
   return {
     active,
@@ -48,8 +47,7 @@ const getCounter = ({
     name,
     parent,
     stage,
-    status,
-    type,
+    ...rest,
   };
 };
 
@@ -84,6 +82,7 @@ const getHeroCounter = (hero) =>
 const getSideCounter = (scheme) =>
   getFullCounter(scheme.name, COUNTER_TYPES.SIDE_SCHEME, [scheme], [], {
     active: typeof scheme.active === "boolean" ? scheme.active : false,
+    icons: scheme.icons || [],
   });
 
 const getVillainCounter = (mode) => (villain) =>
@@ -274,7 +273,6 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
   };
 
   const handleUndo = () => {
-    console.log(log[0]);
     const counter = log[0].entity
       ? counters.find((c) => c.id === log[0].entity?.split("|")[0])
       : false;
@@ -390,6 +388,19 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
   const mainScheme = (counters || []).find(isMainCounter);
   const sideSchemes = (counters || []).filter(isSideCounter);
   const customCounters = (counters || []).filter(isCustomCounter);
+  const accelerationCounters = (counters || []).filter(isAcceleration);
+
+  const acceleration =
+    accelerationCounters.reduce(
+      (a, cur) => a + cur?.levels[cur?.stage].value || 0,
+      0
+    ) +
+    (counters || [])
+      .filter(isActive)
+      .filter((c) => c.icons?.length)
+      .map((c) => c.icons)
+      .flat()
+      .reduce((a, b) => a + +(b === "Acceleration"), 0);
 
   return (
     counters && (
@@ -424,7 +435,7 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
             />
           ))}
           <CounterBox
-            accelerators={counters.filter(isAcceleration)}
+            acceleration={acceleration}
             commonProps={defaultCounterProps}
             counter={mainScheme}
             onComplete={handleComplete}

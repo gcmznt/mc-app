@@ -1,3 +1,7 @@
+.counter__wrapper + .counter__wrapper {
+  margin-top: 1em;
+}
+
 .counter {
   font-size: 20px;
   display: grid;
@@ -34,6 +38,9 @@
 
 .counter__title {
   font-size: 0.8em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .counter__value {
@@ -63,20 +70,43 @@
   grid-area: reduce;
 }
 
-.counter__step,
-.counter__next,
-.counter__prev,
-.counter__add,
-.counter__reduce {
+.counter__btn {
   background-color: var(--color-cta);
   color: var(--color-cta-contrast);
   width: 1em;
-  height: 1em;
+  height: 1.2em;
   display: flex;
   flex: 0 0 1em;
   align-items: center;
   justify-content: center;
   font-size: 2em;
   line-height: 1;
-  padding-bottom: 0.2em;
+  position: relative;
+}
+
+.counter__badge {
+  position: absolute;
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+  border-radius: 100px;
+  font-size: 0.5em;
+  width: 1.2em;
+  height: 1.2em;
+  line-height: 1.1;
+  text-align: center;
+  display: block;
+  bottom: calc(100% - 0.3em);
+}
+
+.counter__btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+}
+
+.counter__icon svg {
+  width: 2em;
+  height: 2em;
+  margin-left: 1em;
 }
