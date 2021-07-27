@@ -5,19 +5,25 @@ import Match from "./components/Match";
 import Options from "./components/Options";
 import Fab from "./components/ui/Fab";
 import heroes from "./data/heroes.json";
+import modularSets from "./data/modular-sets.json";
 import scenarios from "./data/scenarios.json";
 import { clear, load, persist } from "./utils";
 import { STORAGE_KEYS } from "./utils/constants";
 
-const data = { heroes, scenarios };
+const data = { heroes, modularSets, scenarios };
 const fullSelect = {
   heroes: heroes.map((h) => h.name),
+  modularSets: Object.keys(modularSets),
   scenarios: scenarios.map((h) => h.name),
 };
 
 export default function App() {
   const [options, setOptions] = useState(false);
-  const [selection, setSelection] = useState({ heroes: [], scenarios: [] });
+  const [selection, setSelection] = useState({
+    heroes: [],
+    modularSets: [],
+    scenarios: [],
+  });
   const [setup, setSetup] = useState(false);
   const [matchId, setMatchId] = useState(false);
   const [wakeLock, setWakeLock] = useState(false);
@@ -103,6 +109,7 @@ export default function App() {
         <Options
           changeMode={handleModeChange}
           data={data}
+          fullSelect={fullSelect}
           mode={mode}
           selection={selection}
           onChange={setSelection}

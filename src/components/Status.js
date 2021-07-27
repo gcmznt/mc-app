@@ -433,8 +433,6 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
             title="Threats"
             type="scheme"
           />
-        </div>
-        <div className="box__wrapper">
           {!!sideSchemes.filter(isActive).length && (
             <Box title="Side schemes" flat type="scheme">
               {sideSchemes.filter(isActive).map((counter) => (
@@ -491,17 +489,18 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
             <div>{getResText(result)}</div>
             <button onClick={onQuit}>Exit</button>
             <button onClick={handleRestart}>Restart</button>
+            <button onClick={handleUndo}>Undo</button>
           </div>
         ) : (
           <div>
             <button onClick={handleGiveUp}>Give up</button>
             <button onClick={handleRestart}>Restart</button>
+            <Fab label="Undo" onClick={handleUndo} />
           </div>
         )}
         <div className="box__wrapper">
           <Log log={log} />
         </div>
-        <Fab label="Undo" onClick={handleUndo} />
       </div>
     )
   );

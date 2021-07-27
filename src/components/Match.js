@@ -11,6 +11,10 @@ export default function Match({ matchId, onQuit, setup }) {
   };
 
   const handleQuit = () => {
+    window.gtag("event", "result", {
+      event_category: "match",
+      event_label: result.reason,
+    });
     if (result) append(STORAGE_KEYS.MATCHES, { matchId, setup, ...result });
     onQuit();
   };

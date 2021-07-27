@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import modularSets from "../data/modular-sets.json";
 import schemes from "../data/schemes.json";
 import { getRandom, getRandomList, load, persist } from "../utils";
 import { ASPECTS, MODES, RANDOM, STORAGE_KEYS } from "../utils/constants";
@@ -71,7 +70,7 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
 
     const modular = settings.randomModulars
       ? getRandomList(
-          Object.keys(modularSets),
+          selection.modularSets,
           scenario.modular.length,
           scenario.encounter
         )
@@ -85,7 +84,7 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
         sideSchemes: getSideSchemes(scenario),
         mainScheme: scenario.mainScheme.map((s) => schemes[s]),
         modular: [...(scenario.encounter || []), ...modular]
-          .map((m) => modularSets[m])
+          .map((m) => data.modularSets[m])
           .map(addSideSchemes),
       },
       settings,

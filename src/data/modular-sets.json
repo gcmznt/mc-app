@@ -4,40 +4,10 @@
     "sideSchemes": ["Bomb Scare"],
     "pack": "Core Set"
   },
-  "Goblin Gimmicks": {
-    "name": "Goblin Gimmicks",
-    "sideSchemes": [],
-    "pack": "Green Goblin"
-  },
-  "A Mess of Things": {
-    "name": "A Mess of Things",
-    "sideSchemes": ["A Mess of Things"],
-    "pack": "Green Goblin"
-  },
-  "Power Drain": {
-    "name": "Power Drain",
-    "sideSchemes": ["Power Drain"],
-    "pack": "Green Goblin"
-  },
-  "Running Interference": {
-    "name": "Running Interference",
-    "sideSchemes": ["Running Interference"],
-    "pack": "Green Goblin"
-  },
-  "Hydra Patrol": {
-    "name": "Hydra Patrol",
-    "sideSchemes": ["Hydra Patrol"],
-    "pack": "The Rise of Red Skull"
-  },
-  "Experimental Weapon": {
-    "name": "Experimental Weapon",
-    "sideSchemes": [],
-    "pack": "The Rise of Red Skull"
-  },
   "Legions of Hydra": {
     "name": "Legions of Hydra",
     "sideSchemes": ["Legions of Hydra", "Legions of Hydra"],
-    "pack": "Core set"
+    "pack": "Core Set"
   },
   "Masters of Evil": {
     "name": "Masters of Evil",
@@ -54,13 +24,48 @@
     "sideSchemes": ["Under Attack"],
     "pack": "Core Set"
   },
-  "Weapon Master": {
-    "name": "Weapon Master",
+  "A Mess of Things": {
+    "name": "A Mess of Things",
+    "sideSchemes": ["A Mess of Things"],
+    "pack": "Green Goblin"
+  },
+  "Goblin Gimmicks": {
+    "name": "Goblin Gimmicks",
+    "sideSchemes": [],
+    "pack": "Green Goblin"
+  },
+  "Power Drain": {
+    "name": "Power Drain",
+    "sideSchemes": ["Power Drain"],
+    "pack": "Green Goblin"
+  },
+  "Running Interference": {
+    "name": "Running Interference",
+    "sideSchemes": ["Running Interference"],
+    "pack": "Green Goblin"
+  },
+  "Kree Fanatic": {
+    "name": "Kree Fanatic",
+    "sideSchemes": ["Judge, Jury, Executioner"],
+    "pack": "Print and Play"
+  },
+  "Experimental Weapon": {
+    "name": "Experimental Weapon",
     "sideSchemes": [],
     "pack": "The Rise of Red Skull"
   },
   "Hydra Assault": {
     "name": "Hydra Assault",
+    "sideSchemes": [],
+    "pack": "The Rise of Red Skull"
+  },
+  "Hydra Patrol": {
+    "name": "Hydra Patrol",
+    "sideSchemes": ["Hydra Patrol"],
+    "pack": "The Rise of Red Skull"
+  },
+  "Weapon Master": {
+    "name": "Weapon Master",
     "sideSchemes": [],
     "pack": "The Rise of Red Skull"
   },
@@ -89,9 +94,9 @@
     "sideSchemes": [],
     "pack": "Galaxy’s Most Wanted"
   },
-  "Space Pirates": {
-    "name": "Space Pirates",
-    "sideSchemes": ["Sound the Alarms"],
+  "Power Stone": {
+    "name": "Power Stone",
+    "sideSchemes": [],
     "pack": "Galaxy’s Most Wanted"
   },
   "Ship Command": {
@@ -99,9 +104,9 @@
     "sideSchemes": ["Cannonade"],
     "pack": "Galaxy’s Most Wanted"
   },
-  "Power Stone": {
-    "name": "Power Stone",
-    "sideSchemes": [],
+  "Space Pirates": {
+    "name": "Space Pirates",
+    "sideSchemes": ["Sound the Alarms"],
     "pack": "Galaxy’s Most Wanted"
   }
 }

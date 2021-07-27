@@ -91,6 +91,10 @@
     "step": "2p"
   },
   "Invasive AI": { "name": "Invasive AI", "start": "3p" },
+  "Judge, Jury, Executioner": {
+    "name": "Judge, Jury, Executioner",
+    "start": "3p"
+  },
   "Killer for Hire": { "name": "Killer for Hire", "start": [3, "1p"] },
   "Klyntar Frenzy": { "name": "Klyntar Frenzy", "start": "2p" },
   "Legions of Hydra": { "name": "Legions of Hydra", "start": 3 },

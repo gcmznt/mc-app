@@ -1,9 +1,11 @@
+import { useCallback } from "react";
 import Box from "./ui/Box";
 import Option from "./ui/Option";
 
 export default function Options({
   changeMode,
   data,
+  fullSelect,
   mode,
   onChange,
   selection,
@@ -16,6 +18,26 @@ export default function Options({
         : [...selection[key], el],
     });
   };
+
+  const selectAll = useCallback(
+    (key, unselect) => () => {
+      onChange({
+        ...selection,
+        [key]: unselect ? [] : fullSelect[key],
+      });
+    },
+    [fullSelect, onChange, selection]
+  );
+
+  const SelectAll = useCallback(
+    ({ items }) =>
+      selection[items].length === fullSelect[items].length ? (
+        <div onClick={selectAll(items, true)}>Unselect all</div>
+      ) : (
+        <div onClick={selectAll(items)}>Select all</div>
+      ),
+    [fullSelect, selectAll, selection]
+  );
 
   return (
     <>
@@ -50,6 +72,7 @@ export default function Options({
             value={opt.name}
           />
         ))}
+        <SelectAll items="heroes" />
       </Box>
       <Box title="Scenarios" flag flat>
         {data.scenarios.map((opt) => (
@@ -62,6 +85,20 @@ export default function Options({
             value={opt.name}
           />
         ))}
+        <SelectAll items="scenarios" />
+      </Box>
+      <Box title="Modular" flag flat>
+        {Object.values(data.modularSets).map((opt) => (
+          <Option
+            key={opt.name}
+            checked={selection.modularSets.includes(opt.name)}
+            flag={opt.pack !== opt.name && opt.pack}
+            label={opt.name}
+            onChange={(e) => toggle("modularSets", e.target.value)}
+            value={opt.name}
+          />
+        ))}
+        <SelectAll items="modularSets" />
       </Box>
     </>
   );
