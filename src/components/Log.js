@@ -48,7 +48,7 @@ const getLogString = ({ count = 0, data, event }) => {
     case EVENTS.STATUS_ENABLE:
       return `${data.name} is ${data.status}`;
     case EVENTS.VILLAIN_PHASE:
-      return `Villain phase | ${getAddTokenText(data.counter.type, count)}`;
+      return `Villain phase | ${getAddTokenText(data.counter.type, data.val)}`;
 
     default:
       return event;
@@ -60,7 +60,9 @@ function mergeLog(log) {
     if (
       a.length &&
       a[a.length - 1].event === c.event &&
-      a[a.length - 1].entity === c.entity
+      a[a.length - 1].entity === c.entity &&
+      a[a.length - 1].event !== EVENTS.VILLAIN_PHASE &&
+      a[a.length - 1].entity
     ) {
       const list = [...a];
       const last = list.pop();

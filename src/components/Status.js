@@ -13,6 +13,7 @@ import Counter from "./Counter";
 import { CounterBox } from "./CounterBox";
 import Log from "./Log";
 import Box from "./ui/Box";
+import Fab from "./ui/Fab";
 import Option from "./ui/Option";
 
 const isActive = (counter) => counter.active;
@@ -165,8 +166,17 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
     updateCounter(counter.id, values);
   };
 
-  const endGame = (event, counter, result) => {
-    logEvent(event, counter.id, { counter });
+  const removeLastLog = () => {
+    setLog((l) => [...l].slice(1));
+  };
+
+  const revert = (counter, values) => {
+    removeLastLog();
+    updateCounter(counter.id, values);
+  };
+
+  const endGame = (counter, result) => {
+    logEvent(EVENTS.COMPLETE, counter.id, { counter });
     onResult(result, counters, log);
   };
 
@@ -208,9 +218,9 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
     const last = counter.stage + 1 >= counter.levels.length;
 
     if (hasAdvance && advance && last) {
-      endGame(EVENTS.COMPLETE, counter, RESULT_TYPES.SCHEME_WIN);
+      endGame(counter, RESULT_TYPES.SCHEME_WIN);
     } else if ((hasAdvance && complete) || (complete && last)) {
-      endGame(EVENTS.COMPLETE, counter, RESULT_TYPES.SCHEME);
+      endGame(counter, RESULT_TYPES.SCHEME);
     } else {
       doUpdate(EVENTS.NEXT, counter, { stage: counter.stage + 1 });
     }
@@ -221,15 +231,15 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
   };
 
   const handleCompleteSide = (counter) => {
-    doUpdate(EVENTS.COMPLETE, counter, {
-      active: false,
-      levels: counter.initialLevels,
-    });
+    doUpdate(EVENTS.COMPLETE, counter, { active: false });
   };
 
   const handleEnable = (counter) => {
     if (!counter.active) {
-      doUpdate(EVENTS.ENTER, counter, { active: true });
+      doUpdate(EVENTS.ENTER, counter, {
+        active: true,
+        levels: counter.initialLevels || counter.levels,
+      });
     }
   };
 
@@ -260,6 +270,84 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
       setCounters((cs) => [...cs, counter]);
       setCustom("");
       handleEnable(counter);
+    }
+  };
+
+  const handleUndo = () => {
+    console.log(log[0]);
+    const counter = log[0].entity
+      ? counters.find((c) => c.id === log[0].entity?.split("|")[0])
+      : false;
+
+    switch (log[0].event) {
+      case EVENTS.COMPLETE:
+        return revert(counter, { active: true });
+      case EVENTS.DECREASE:
+        return revert(counter, {
+          levels: counter.levels.map((level, i) =>
+            i === counter.stage
+              ? { ...level, value: level.value + log[0].data.val }
+              : level
+          ),
+        });
+      case EVENTS.DEC_LIMIT:
+        return revert(counter, {
+          levels: counter.levels.map((level, i) =>
+            i === counter.stage
+              ? { ...level, limit: level.limit + log[0].data.val }
+              : level
+          ),
+        });
+      case EVENTS.DISABLE:
+        return revert(counter, { active: true });
+      case EVENTS.END:
+        removeLastLog();
+        return onResult(false);
+      case EVENTS.ENTER:
+        return revert(counter, { active: false });
+      case EVENTS.INCREASE:
+        return revert(counter, {
+          levels: counter.levels.map((level, i) =>
+            i === counter.stage
+              ? { ...level, value: level.value - log[0].data.val }
+              : level
+          ),
+        });
+      case EVENTS.INC_LIMIT:
+        return revert(counter, {
+          levels: counter.levels.map((level, i) =>
+            i === counter.stage
+              ? { ...level, limit: level.limit - log[0].data.val }
+              : level
+          ),
+        });
+      case EVENTS.NEXT:
+        return revert(counter, { stage: counter.stage - 1 });
+      case EVENTS.PREVIOUS:
+        return revert(counter, { stage: counter.stage + 1 });
+      case EVENTS.RESTART:
+        return false;
+      case EVENTS.START:
+        return false;
+      case EVENTS.STATUS_DISABLE:
+        return revert(counter, {
+          status: { ...counter.status, [log[0].entity.split("|")[1]]: true },
+        });
+      case EVENTS.STATUS_ENABLE:
+        return revert(counter, {
+          status: { ...counter.status, [log[0].entity.split("|")[1]]: false },
+        });
+      case EVENTS.VILLAIN_PHASE:
+        return revert(counter, {
+          levels: counter.levels.map((level, i) =>
+            i === counter.stage
+              ? { ...level, value: level.value - log[0].data.val }
+              : level
+          ),
+        });
+
+      default:
+        return false;
     }
   };
 
@@ -335,12 +423,8 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
               type={counter.type}
             />
           ))}
-        </div>
-        <div className="box__wrapper">
           <CounterBox
-            acceleration={counters
-              .filter(childOf(mainScheme))
-              .find(isAcceleration)}
+            accelerators={counters.filter(isAcceleration)}
             commonProps={defaultCounterProps}
             counter={mainScheme}
             onComplete={handleComplete}
@@ -349,6 +433,8 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
             title="Threats"
             type="scheme"
           />
+        </div>
+        <div className="box__wrapper">
           {!!sideSchemes.filter(isActive).length && (
             <Box title="Side schemes" flat type="scheme">
               {sideSchemes.filter(isActive).map((counter) => (
@@ -357,16 +443,13 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
                   key={counter.id}
                   over={true}
                   onComplete={handleCompleteSide}
-                  onEnable={handleEnable}
                   title={counter.levels[counter.stage].name}
                   {...defaultCounterProps}
                 />
               ))}
             </Box>
           )}
-        </div>
-        {!!customCounters.filter(isActive).length && (
-          <div className="box__wrapper">
+          {!!customCounters.filter(isActive).length && (
             <Box title="Extra" flat>
               {customCounters.filter(isActive).map((counter) => (
                 <Counter
@@ -379,8 +462,8 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
                 />
               ))}
             </Box>
-          </div>
-        )}
+          )}
+        </div>
         <div className="box__wrapper">
           <Box title="Add counters" flat flag type="scheme">
             {sideSchemes.map((counter) => (
@@ -418,6 +501,7 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
         <div className="box__wrapper">
           <Log log={log} />
         </div>
+        <Fab label="Undo" onClick={handleUndo} />
       </div>
     )
   );

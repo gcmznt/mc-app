@@ -7,10 +7,12 @@ export default function Match({ matchId, onQuit, setup }) {
   const [result, setResult] = useState(null);
 
   const handleResult = (reason, counters, log) => {
-    if (reason) {
-      append(STORAGE_KEYS.MATCHES, { counters, log, matchId, reason, setup });
-    }
-    setResult(reason);
+    setResult(reason ? { reason, counters, log } : false);
+  };
+
+  const handleQuit = () => {
+    if (result) append(STORAGE_KEYS.MATCHES, { matchId, setup, ...result });
+    onQuit();
   };
 
   useEffect(() => {
@@ -22,8 +24,8 @@ export default function Match({ matchId, onQuit, setup }) {
       <Status
         matchId={matchId}
         onResult={handleResult}
-        onQuit={onQuit}
-        result={result}
+        onQuit={handleQuit}
+        result={result.reason}
         setup={setup}
       />
     )

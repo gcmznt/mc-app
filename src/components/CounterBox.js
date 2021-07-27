@@ -2,7 +2,7 @@ import Counter from "./Counter";
 import Box from "./ui/Box";
 
 export function CounterBox({
-  acceleration,
+  accelerators,
   commonProps,
   counter,
   lastLabel,
@@ -16,7 +16,7 @@ export function CounterBox({
   return (
     <Box title={counter.levels[counter.stage].name} type={type}>
       <Counter
-        acceleration={acceleration}
+        accelerators={accelerators}
         counter={counter}
         lastLabel={lastLabel}
         onComplete={onComplete}

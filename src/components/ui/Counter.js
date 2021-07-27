@@ -17,7 +17,6 @@ export default function Counter({
   onReduce,
   onReduceLimit,
   onStatusToggle,
-  over,
   status,
   stepLabel,
   title,

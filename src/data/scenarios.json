@@ -288,7 +288,9 @@
     "sideSchemes": ["Lethal Intent", "Lethal Intent"],
     "villains": [
       {
-        "counters": [{ "name": "Nebula's Ship", "limit": -1 }],
+        "counters": [
+          { "name": "Nebula's Ship", "limit": -1, "type": "acceleration" }
+        ],
         "levels": { "1": "14p", "2": "17p", "3": "20p" },
         "name": "Nebula",
         "stages": { "expert": [2, 3], "standard": [1, 2] }

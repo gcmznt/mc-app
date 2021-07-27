@@ -1,8 +1,8 @@
 .counter {
   font-size: 20px;
   display: grid;
-  grid-template-columns: 1fr 2em 2em 2em 32% 2em 2em 2em 1fr;
-  grid-template-areas: ". prev . reduce value add step next .";
+  grid-template-columns: 2em 2em 2em 32% 2em 2em 2em;
+  grid-template-areas: "prev . reduce value add step next";
   grid-gap: 0.5em;
   position: relative;
   align-items: center;
@@ -13,10 +13,10 @@
 @media (max-width: 359px) {
   .counter {
     font-size: 14px;
-    grid-template-columns: 1fr 2em 2em 2em 2em 2em 2em 1fr;
+    grid-template-columns: 2em 2em 2em 2em 2em 2em;
     grid-template-areas:
-      ". value value value value value value ."
-      ". prev . reduce add step next .";
+      "value value value value value value"
+      "prev . reduce add step next";
     margin-bottom: 1em;
   }
 }

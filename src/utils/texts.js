@@ -9,7 +9,6 @@ export const getTokenCount = (type, count) => {
       [COUNTER_TYPES.SIDE_SCHEME]: "thread",
     }[type] || "token";
 
-  if (!count) return tokenName;
   if (count === 1) return `1 ${tokenName}`;
   return `${count} ${tokenName}s`;
 };
