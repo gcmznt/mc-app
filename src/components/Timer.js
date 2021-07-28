@@ -13,10 +13,7 @@ export default function Timer({ time, onChange }) {
   }, [active, onChange]);
 
   useEffect(() => {
-    const toggleTimer = () => {
-      console.log(document.visibilityState);
-      setActive(document.visibilityState === "visible");
-    };
+    const toggleTimer = () => setActive(document.visibilityState === "visible");
 
     document.addEventListener("visibilitychange", toggleTimer);
 

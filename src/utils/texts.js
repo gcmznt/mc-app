@@ -23,6 +23,7 @@ export const getRemoveTokenText = (type, count) =>
   ({
     [COUNTER_TYPES.HERO]: `Healed${count > 1 ? ` × ${count}` : ""}`,
     [COUNTER_TYPES.VILLAIN]: `Healed${count > 1 ? ` × ${count}` : ""}`,
+    [COUNTER_TYPES.ROUNDS]: `Back ${count} round${count > 1 ? "s" : ""}`,
   }[type] || `Removed ${getTokenCount(type, count)}`);
 
 export const getIncreaseText = (count) =>

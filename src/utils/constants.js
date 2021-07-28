@@ -4,6 +4,7 @@ export const COUNTER_TYPES = {
   HERO: "hero",
   MODULAR_SCHEME: "modular-scheme",
   NEMESIS_SCHEME: "nemesis-scheme",
+  ROUNDS: "rounds",
   SCENARIO: "scenario",
   SIDE_SCHEME: "side-scheme",
   VILLAIN: "villain",

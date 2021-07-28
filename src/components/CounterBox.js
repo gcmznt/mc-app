@@ -5,6 +5,7 @@ export function CounterBox({
   acceleration,
   commonProps,
   counter,
+  highlight,
   lastLabel,
   onComplete,
   onPrevious,
@@ -14,7 +15,11 @@ export function CounterBox({
   type,
 }) {
   return (
-    <Box title={counter.levels[counter.stage].name} type={type}>
+    <Box
+      title={counter.levels[counter.stage].name}
+      type={type}
+      highlight={highlight}
+    >
       <Counter
         acceleration={acceleration}
         counter={counter}

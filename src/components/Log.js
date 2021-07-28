@@ -1,4 +1,4 @@
-import { EVENTS } from "../utils/constants";
+import { COUNTER_TYPES, EVENTS } from "../utils/constants";
 import {
   getAddTokenText,
   getCompleteText,
@@ -29,6 +29,9 @@ const getLogString = ({ count = 0, data, event }) => {
     case EVENTS.ENTER:
       return `${getStageName(data.counter)} | Entered`;
     case EVENTS.INCREASE:
+      if (data.counter.type === COUNTER_TYPES.ROUNDS) {
+        return "Next round";
+      }
       return `${getStageName(data.counter)} | ${getAddTokenText(
         data.counter.type,
         count
@@ -61,8 +64,10 @@ function mergeLog(log) {
       a.length &&
       a[a.length - 1].event === c.event &&
       a[a.length - 1].entity === c.entity &&
-      a[a.length - 1].event !== EVENTS.VILLAIN_PHASE &&
-      a[a.length - 1].entity
+      c.event !== EVENTS.VILLAIN_PHASE &&
+      (c.event !== EVENTS.INCREASE ||
+        c.data.counter.type !== COUNTER_TYPES.ROUNDS) &&
+      c.entity
     ) {
       const list = [...a];
       const last = list.pop();

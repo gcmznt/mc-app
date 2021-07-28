@@ -31,13 +31,24 @@
   color: var(--color-accent-contrast);
   transform: translateX(-50%);
   font-size: 1.4em;
-  z-index: 100;
+  z-index: 1;
   padding: 0 0.3em;
   text-transform: uppercase;
-  white-space: nowrap;
   max-width: 80%;
+}
+
+.box__title-text {
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.box__highlight {
+  position: absolute;
+  left: 90%;
+  bottom: 50%;
+  width: 2em;
+  height: 2em;
 }
 
 .box__content {

@@ -65,6 +65,7 @@ export default function Counter({
       last={counter.stage + 1 >= counter.levels.length}
       lastLabel={lastLabel}
       limit={counter.levels[counter.stage].limit}
+      min={counter.levels[counter.stage].min || 0}
       key={counter.id}
       onAdd={add}
       onAddLimit={increaseLimit}

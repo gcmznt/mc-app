@@ -17,15 +17,16 @@ import Actions, { Action } from "./ui/Actions";
 import Box from "./ui/Box";
 import Option from "./ui/Option";
 
+const childOf = (parent) => (counter) => counter.parent === parent.id;
 const isActive = (counter) => counter.active;
 const isNotActive = (counter) => !counter.active;
-const childOf = (parent) => (counter) => counter.parent === parent.id;
-const isSideCounter = (counter) => COUNTERS_SCHEME.includes(counter.type);
 const isAcceleration = (counter) => counter.type === COUNTER_TYPES.ACCELERATION;
-const isVillainCounter = (counter) => counter.type === COUNTER_TYPES.VILLAIN;
-const isMainCounter = (counter) => counter.type === COUNTER_TYPES.SCENARIO;
-const isHeroCounter = (counter) => counter.type === COUNTER_TYPES.HERO;
 const isCustomCounter = (counter) => counter.type === COUNTER_TYPES.CUSTOM;
+const isHeroCounter = (counter) => counter.type === COUNTER_TYPES.HERO;
+const isMainCounter = (counter) => counter.type === COUNTER_TYPES.SCENARIO;
+const isRoundCounter = (counter) => counter.type === COUNTER_TYPES.ROUNDS;
+const isSideCounter = (counter) => COUNTERS_SCHEME.includes(counter.type);
+const isVillainCounter = (counter) => counter.type === COUNTER_TYPES.VILLAIN;
 
 const statuses = {
   Confused: false,
@@ -134,6 +135,11 @@ const getSideSchemes = (setup) => [
 
 const getCounters = (setup) =>
   [
+    getCounter({
+      name: "Rounds",
+      levels: [{ name: "Rounds", min: 1, start: 1, limit: -1 }],
+      type: COUNTER_TYPES.ROUNDS,
+    }),
     ...setup.heroes.map(getHeroCounter).flat(),
     ...setup.scenario.villains.map(getVillainCounter(setup.mode)).flat(),
     ...getMainSchemeCounter(setup.scenario),
@@ -400,12 +406,13 @@ export default function Status({
 
   const defaultCounterProps = { logEvent, onUpdate: updateCounter, result };
 
-  const heroesCounters = (counters || []).filter(isHeroCounter);
-  const villainCounters = (counters || []).filter(isVillainCounter);
-  const mainScheme = (counters || []).find(isMainCounter);
-  const sideSchemes = (counters || []).filter(isSideCounter);
-  const customCounters = (counters || []).filter(isCustomCounter);
   const accelerationCounters = (counters || []).filter(isAcceleration);
+  const customCounters = (counters || []).filter(isCustomCounter);
+  const heroesCounters = (counters || []).filter(isHeroCounter);
+  const mainScheme = (counters || []).find(isMainCounter);
+  const roundsCounter = (counters || []).find(isRoundCounter);
+  const sideSchemes = (counters || []).filter(isSideCounter);
+  const villainCounters = (counters || []).filter(isVillainCounter);
 
   const acceleration =
     accelerationCounters.reduce(
@@ -419,14 +426,28 @@ export default function Status({
       .flat()
       .reduce((a, b) => a + +(b === "Acceleration"), 0);
 
+  const firstPlayer =
+    (roundsCounter?.levels[roundsCounter.stage].value - 1) %
+    heroesCounters.length;
+
   return (
     counters && (
       <div>
         <div className="box__wrapper">
-          {heroesCounters.map((counter) => (
+          <Box title="Rounds" type="rounds">
+            <Counter
+              counter={roundsCounter}
+              type={roundsCounter.type}
+              {...defaultCounterProps}
+            />
+          </Box>
+        </div>
+        <div className="box__wrapper">
+          {heroesCounters.map((counter, i) => (
             <CounterBox
               commonProps={defaultCounterProps}
               counter={counter}
+              highlight={firstPlayer === i}
               key={counter.id}
               lastLabel="💀"
               onComplete={handleDefeat}
@@ -467,7 +488,6 @@ export default function Status({
                 <Counter
                   counter={counter}
                   key={counter.id}
-                  over={true}
                   onComplete={handleCompleteSide}
                   title={counter.levels[counter.stage].name}
                   {...defaultCounterProps}
@@ -482,7 +502,6 @@ export default function Status({
                   counter={counter}
                   key={counter.id}
                   onComplete={() => handleDisable(counter)}
-                  over={true}
                   title={counter.levels[counter.stage].name}
                   {...defaultCounterProps}
                 />

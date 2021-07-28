@@ -22,6 +22,7 @@ export default function Counter({
   last = true,
   lastLabel,
   limit,
+  min,
   onAdd,
   onAddLimit,
   onEnable,
@@ -71,7 +72,7 @@ export default function Counter({
         {!disabled && (
           <div
             className={`counter__btn counter__reduce ${
-              (!editMode && value <= 0) || (editMode && value >= limit)
+              (!editMode && value <= min) || (editMode && value >= limit)
                 ? "is-disabled"
                 : ""
             }`}
@@ -102,7 +103,7 @@ export default function Counter({
         {!disabled && (
           <div
             className={`counter__btn counter__add ${
-              !editMode && value >= limit && limit > 0 ? "is-disabled" : ""
+              !editMode && value >= limit && limit > min ? "is-disabled" : ""
             }`}
             onClick={editMode ? onAddLimit : onAdd}
           >
@@ -113,7 +114,7 @@ export default function Counter({
         {!disabled && onStep && (
           <div
             className={`counter__btn counter__step ${
-              !editMode && value >= limit && limit > 0 ? "is-disabled" : ""
+              !editMode && value >= limit && limit > min ? "is-disabled" : ""
             }`}
             onClick={onStep}
           >
