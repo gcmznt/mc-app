@@ -3,11 +3,11 @@ import Box from "./ui/Box";
 import Option from "./ui/Option";
 
 export default function Options({
-  changeMode,
   data,
   fullSelect,
-  mode,
   onChange,
+  onChangeOptions,
+  options,
   selection,
 }) {
   const toggle = (key, el) => {
@@ -43,22 +43,29 @@ export default function Options({
     <>
       <Box title="Theme" flag flat>
         <Option
-          checked={mode === "auto"}
+          checked={options.mode === "auto"}
           label="System default"
           type="radio"
-          onChange={() => changeMode("auto")}
+          onChange={() => onChangeOptions("mode")("auto")}
         />
         <Option
-          checked={mode === "dark"}
+          checked={options.mode === "dark"}
           label="Dark theme"
           type="radio"
-          onChange={() => changeMode("dark")}
+          onChange={() => onChangeOptions("mode")("dark")}
         />
         <Option
-          checked={mode === "light"}
+          checked={options.mode === "light"}
           label="Light theme"
           type="radio"
-          onChange={() => changeMode("light")}
+          onChange={() => onChangeOptions("mode")("light")}
+        />
+      </Box>
+      <Box title="Settings" flag flat>
+        <Option
+          checked={options.timer}
+          label="Timer"
+          onChange={(e) => onChangeOptions("timer")(e.target.checked)}
         />
       </Box>
       <Box title="Heroes" flag flat>

@@ -56,7 +56,9 @@ legend {
 }
 
 .is-protection,
-.is-stunned {
+.is-stunned,
+.is-scheme-win,
+.is-winner {
   --color-accent: #00cc4e;
 }
 
@@ -92,24 +94,6 @@ button {
   justify-content: center;
   margin: 0.3em;
   padding: 0.5em 1em 0.7em;
-}
-
-.result {
-  background: var(--color-accent);
-  color: var(--color-accent-contrast);
-  bottom: 0;
-  box-shadow: 0 0 15px 5px #0006;
-  font-size: 2em;
-  left: 0;
-  padding: 1em 2em;
-  position: fixed;
-  right: 0;
-  z-index: 200;
-}
-
-.result.is-winner,
-.result.is-scheme-win {
-  background: rgb(1, 185, 56);
 }
 
 .fraction {

@@ -49,7 +49,9 @@ export default function Counter({
           {title}{" "}
           {icons &&
             icons.map((icon) => (
-              <span className="counter__icon">{iconsImages[icon]}</span>
+              <span key={icon} className="counter__icon">
+                {iconsImages[icon]}
+              </span>
             ))}
         </div>
       )}

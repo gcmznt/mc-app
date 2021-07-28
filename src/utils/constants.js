@@ -45,9 +45,16 @@ export const STORAGE_KEYS = {
   CURRENT: "current",
   LAST_HEROES: "last-heroes",
   MATCHES: "matches",
+  OPTIONS: "options",
   SELECTION: "selection",
   SETTINGS: "settings",
+  SETUP: "setup",
   THEME: "theme",
+};
+
+export const PAGES = {
+  MAIN: "main",
+  OPTIONS: "options",
 };
 
 export const ASPECTS = ["Aggression", "Justice", "Leadership", "Protection"];

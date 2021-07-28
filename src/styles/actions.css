@@ -1,0 +1,32 @@
+.actions {
+  position: fixed;
+  padding: 2em 0.8em 0.8em;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, var(--color-bg-card), transparent);
+  z-index: 1000;
+}
+
+.actions.is-result {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+.actions__title {
+  padding-bottom: 0.5em;
+  font-size: 1.4em;
+}
+
+.actions__buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.actions__button {
+  padding: 0.5em 0.7em;
+  background-color: var(--color-cta);
+  color: var(--color-cta-contrast);
+  margin: 0.4em;
+}

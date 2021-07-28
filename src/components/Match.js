@@ -3,7 +3,7 @@ import { append, load } from "../utils";
 import { STORAGE_KEYS } from "../utils/constants";
 import Status from "./Status";
 
-export default function Match({ matchId, onQuit, setup }) {
+export default function Match({ matchId, onQuit, options, setup }) {
   const [result, setResult] = useState(null);
 
   const handleResult = (reason, counters, log) => {
@@ -29,6 +29,7 @@ export default function Match({ matchId, onQuit, setup }) {
         matchId={matchId}
         onResult={handleResult}
         onQuit={handleQuit}
+        options={options}
         result={result.reason}
         setup={setup}
       />

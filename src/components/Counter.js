@@ -44,8 +44,6 @@ export default function Counter({
 
   const acceleratedStep = counter.levels[counter.stage].step + acceleration;
 
-  console.log(counter.icons, counter.status);
-
   const add = () => update(counter, 1);
   const onStep = () => {
     update(counter, acceleratedStep, 0, EVENTS.VILLAIN_PHASE);

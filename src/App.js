@@ -3,12 +3,12 @@ import { v4 as uuid } from "uuid";
 import Generate from "./components/Generate";
 import Match from "./components/Match";
 import Options from "./components/Options";
-import Fab from "./components/ui/Fab";
+import Actions, { Action } from "./components/ui/Actions";
 import heroes from "./data/heroes.json";
 import modularSets from "./data/modular-sets.json";
 import scenarios from "./data/scenarios.json";
 import { clear, load, persist } from "./utils";
-import { STORAGE_KEYS } from "./utils/constants";
+import { PAGES, STORAGE_KEYS } from "./utils/constants";
 
 const data = { heroes, modularSets, scenarios };
 const fullSelect = {
@@ -16,9 +16,13 @@ const fullSelect = {
   modularSets: Object.keys(modularSets),
   scenarios: scenarios.map((h) => h.name),
 };
+const defOptions = {
+  mode: "auto",
+  timer: true,
+};
 
 export default function App() {
-  const [options, setOptions] = useState(false);
+  const [page, setPage] = useState(PAGES.MAIN);
   const [selection, setSelection] = useState({
     heroes: [],
     modularSets: [],
@@ -27,16 +31,16 @@ export default function App() {
   const [setup, setSetup] = useState(false);
   const [matchId, setMatchId] = useState(false);
   const [wakeLock, setWakeLock] = useState(false);
-  const [mode, setMode] = useState("auto");
+  const [options, setOptions] = useState(defOptions);
 
   const showOptions = () => {
-    setOptions(true);
+    setPage(PAGES.OPTIONS);
   };
 
   const saveOptions = () => {
     persist(STORAGE_KEYS.SELECTION, selection);
     setSetup(false);
-    setOptions(false);
+    setPage(PAGES.MAIN);
   };
 
   const handleGeneration = (setup) => {
@@ -55,12 +59,12 @@ export default function App() {
     setMatchId(uuid());
   };
 
-  const handleModeChange = (mode) => {
-    setMode(mode);
+  const handleOptionChange = (key) => (val) => {
+    setOptions((opts) => ({ ...opts, [key]: val }));
   };
 
   useEffect(() => {
-    setMode(load(STORAGE_KEYS.THEME) || "auto");
+    setOptions(load(STORAGE_KEYS.OPTIONS) || defOptions);
     setSelection(load(STORAGE_KEYS.SELECTION) || fullSelect);
     const saved = load(STORAGE_KEYS.CURRENT);
     if (saved) {
@@ -70,10 +74,13 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    persist(STORAGE_KEYS.THEME, mode);
     document.body.classList.remove("is-auto", "is-dark", "is-light");
-    document.body.classList.add(`is-${mode}`);
-  }, [mode]);
+    document.body.classList.add(`is-${options.mode}`);
+  }, [options.mode]);
+
+  useEffect(() => {
+    persist(STORAGE_KEYS.OPTIONS, options);
+  }, [options]);
 
   useEffect(() => {
     if ("wakeLock" in navigator) {
@@ -104,18 +111,18 @@ export default function App() {
   }, [wakeLock]);
 
   return (
-    <main className={mode !== "auto" ? `is-${mode}` : ""}>
-      {options && (
+    <main>
+      {page === PAGES.OPTIONS && (
         <Options
-          changeMode={handleModeChange}
+          onChangeOptions={handleOptionChange}
           data={data}
           fullSelect={fullSelect}
-          mode={mode}
+          options={options}
           selection={selection}
           onChange={setSelection}
         />
       )}
-      {!options && !matchId && (
+      {page === PAGES.MAIN && !matchId && (
         <Generate
           data={data}
           onGenerate={handleGeneration}
@@ -123,19 +130,22 @@ export default function App() {
           selection={selection}
         />
       )}
-      {!options && matchId && (
+      {page === PAGES.MAIN && matchId && (
         <Match
           key={matchId}
           matchId={matchId}
           onQuit={handleQuit}
+          options={options}
           setup={setup}
         />
       )}
       {!matchId && (
-        <Fab
-          label={options ? "Save" : "Options"}
-          onClick={options ? saveOptions : showOptions}
-        />
+        <Actions>
+          <Action
+            label={page === PAGES.OPTIONS ? "Save" : "Options"}
+            onClick={page === PAGES.OPTIONS ? saveOptions : showOptions}
+          />
+        </Actions>
       )}
     </main>
   );

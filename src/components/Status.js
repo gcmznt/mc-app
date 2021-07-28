@@ -12,8 +12,9 @@ import { getResText, getStageName, getStageText } from "../utils/texts";
 import Counter from "./Counter";
 import { CounterBox } from "./CounterBox";
 import Log from "./Log";
+import Timer from "./Timer";
+import Actions, { Action } from "./ui/Actions";
 import Box from "./ui/Box";
-import Fab from "./ui/Fab";
 import Option from "./ui/Option";
 
 const isActive = (counter) => counter.active;
@@ -139,11 +140,19 @@ const getCounters = (setup) =>
     ...getSideSchemes(setup).map(getSideCounter).flat(),
   ].map(multiply(setup.settings.players));
 
-export default function Status({ matchId, onResult, onQuit, result, setup }) {
+export default function Status({
+  matchId,
+  onResult,
+  onQuit,
+  options,
+  result,
+  setup,
+}) {
   const [counters, setCounters] = useState(false);
   const [log, setLog] = useState([]);
   const [interacted, setInteracted] = useState(false);
   const [custom, setCustom] = useState("");
+  const [time, setTime] = useState(0);
 
   const logEvent = (event, entity, data) => {
     setLog((l) => [
@@ -353,6 +362,7 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
     const saved = load(STORAGE_KEYS.CURRENT);
     if (saved) {
       setCounters(saved.counters);
+      setTime(saved.time);
       setLog(saved.log.map((l) => ({ ...l, date: new Date(l.date) })));
     } else {
       setCounters(getCounters(setup));
@@ -372,8 +382,15 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
 
   useEffect(() => {
     interacted && window.navigator.vibrate(50);
-    persist(STORAGE_KEYS.CURRENT, { counters, log, matchId, result, setup });
-  }, [counters, interacted, log, matchId, result, setup]);
+    persist(STORAGE_KEYS.CURRENT, {
+      counters,
+      log,
+      matchId,
+      result,
+      setup,
+      time,
+    });
+  }, [counters, interacted, log, matchId, result, setup, time]);
 
   useEffect(() => {
     if (interacted && result) {
@@ -496,18 +513,24 @@ export default function Status({ matchId, onResult, onQuit, result, setup }) {
           </Box>
         </div>
         {result ? (
-          <div className={`result is-${result}`}>
-            <div>{getResText(result)}</div>
-            <button onClick={onQuit}>Exit</button>
-            <button onClick={handleRestart}>Restart</button>
-            <button onClick={handleUndo}>Undo</button>
-          </div>
+          // <div className={`result is-${result}`}>
+          //   <div>{getResText(result)}</div>
+          //   <button onClick={onQuit}>Exit</button>
+          //   <button onClick={handleRestart}>Restart</button>
+          //   <button onClick={handleUndo}>Undo</button>
+          // </div>
+          <Actions title={getResText(result)} types={["result", result]}>
+            <Action label="Undo" onClick={handleUndo} />
+            <Action label="Restart" onClick={handleRestart} />
+            <Action label="Exit" onClick={onQuit} />
+          </Actions>
         ) : (
-          <div>
-            <button onClick={handleGiveUp}>Give up</button>
-            <button onClick={handleRestart}>Restart</button>
-            <Fab label="Undo" onClick={handleUndo} />
-          </div>
+          <Actions>
+            {options.timer && <Timer time={time} onChange={setTime} />}
+            <Action label="Undo" onClick={handleUndo} />
+            <Action label="Restart" onClick={handleRestart} />
+            <Action label="Give up" onClick={handleGiveUp} />
+          </Actions>
         )}
         <div className="box__wrapper">
           <Log log={log} />
