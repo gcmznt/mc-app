@@ -508,8 +508,6 @@ export default function Status({
               ))}
             </Box>
           )}
-        </div>
-        <div className="box__wrapper">
           <Box title="Add counters" flat flag type="scheme">
             {sideSchemes.map((counter) => (
               <Option
@@ -531,13 +529,10 @@ export default function Status({
             </fieldset>
           </Box>
         </div>
+        <div className="box__wrapper">
+          <Log log={log} />
+        </div>
         {result ? (
-          // <div className={`result is-${result}`}>
-          //   <div>{getResText(result)}</div>
-          //   <button onClick={onQuit}>Exit</button>
-          //   <button onClick={handleRestart}>Restart</button>
-          //   <button onClick={handleUndo}>Undo</button>
-          // </div>
           <Actions title={getResText(result)} types={["result", result]}>
             <Action label="Undo" onClick={handleUndo} />
             <Action label="Restart" onClick={handleRestart} />
@@ -551,9 +546,6 @@ export default function Status({
             <Action label="Give up" onClick={handleGiveUp} />
           </Actions>
         )}
-        <div className="box__wrapper">
-          <Log log={log} />
-        </div>
       </div>
     )
   );

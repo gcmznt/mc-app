@@ -35,11 +35,11 @@ export const EVENTS = {
 };
 
 export const RESULT_TYPES = {
-  DEFEATED: "defeated",
-  GIVE_UP: "give-up",
-  SCHEME_WIN: "scheme-win",
-  SCHEME: "scheme",
   WINNER: "winner",
+  SCHEME_WIN: "scheme-win",
+  DEFEATED: "defeated",
+  SCHEME: "scheme",
+  GIVE_UP: "give-up",
 };
 
 export const STORAGE_KEYS = {
@@ -56,6 +56,7 @@ export const STORAGE_KEYS = {
 export const PAGES = {
   MAIN: "main",
   OPTIONS: "options",
+  STATISTICS: "statistics",
 };
 
 export const ASPECTS = ["Aggression", "Justice", "Leadership", "Protection"];

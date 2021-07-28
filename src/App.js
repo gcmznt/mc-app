@@ -3,6 +3,7 @@ import { v4 as uuid } from "uuid";
 import Generate from "./components/Generate";
 import Match from "./components/Match";
 import Options from "./components/Options";
+import Statistics from "./components/Statistics";
 import Actions, { Action } from "./components/ui/Actions";
 import heroes from "./data/heroes.json";
 import modularSets from "./data/modular-sets.json";
@@ -30,7 +31,7 @@ export default function App() {
   });
   const [setup, setSetup] = useState(false);
   const [matchId, setMatchId] = useState(false);
-  const [wakeLock, setWakeLock] = useState(false);
+  // const [wakeLock, setWakeLock] = useState(false);
   const [options, setOptions] = useState(defOptions);
 
   const showOptions = () => {
@@ -82,33 +83,33 @@ export default function App() {
     persist(STORAGE_KEYS.OPTIONS, options);
   }, [options]);
 
-  useEffect(() => {
-    if ("wakeLock" in navigator) {
-      if (matchId) {
-        navigator.wakeLock
-          .request("screen")
-          .then(setWakeLock)
-          .catch(console.error);
-      } else if (wakeLock) {
-        wakeLock.release().then(() => setWakeLock(false));
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [matchId]);
+  // useEffect(() => {
+  //   if ("wakeLock" in navigator) {
+  //     if (matchId) {
+  //       navigator.wakeLock
+  //         .request("screen")
+  //         .then(setWakeLock)
+  //         .catch(console.error);
+  //     } else if (wakeLock) {
+  //       wakeLock.release().then(() => setWakeLock(false));
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [matchId]);
 
-  useEffect(() => {
-    const resetLock = () => {
-      if (wakeLock !== false && document.visibilityState === "visible") {
-        navigator.wakeLock
-          .request("screen")
-          .then(setWakeLock)
-          .catch(console.error);
-      }
-    };
-    document.addEventListener("visibilitychange", resetLock);
+  // useEffect(() => {
+  //   const resetLock = () => {
+  //     if (wakeLock !== false && document.visibilityState === "visible") {
+  //       navigator.wakeLock
+  //         .request("screen")
+  //         .then(setWakeLock)
+  //         .catch(console.error);
+  //     }
+  //   };
+  //   document.addEventListener("visibilitychange", resetLock);
 
-    return () => document.removeEventListener("visibilitychange", resetLock);
-  }, [wakeLock]);
+  //   return () => document.removeEventListener("visibilitychange", resetLock);
+  // }, [wakeLock]);
 
   return (
     <main>
@@ -122,6 +123,7 @@ export default function App() {
           onChange={setSelection}
         />
       )}
+      {page === PAGES.STATISTICS && <Statistics />}
       {page === PAGES.MAIN && !matchId && (
         <Generate
           data={data}
@@ -139,12 +141,23 @@ export default function App() {
           setup={setup}
         />
       )}
-      {!matchId && (
+      {page === PAGES.MAIN && !matchId && (
         <Actions>
           <Action
-            label={page === PAGES.OPTIONS ? "Save" : "Options"}
-            onClick={page === PAGES.OPTIONS ? saveOptions : showOptions}
+            label="Statistics"
+            onClick={() => setPage(PAGES.STATISTICS)}
           />
+          <Action label="Options" onClick={showOptions} />
+        </Actions>
+      )}
+      {page === PAGES.OPTIONS && (
+        <Actions>
+          <Action label="Save" onClick={saveOptions} />
+        </Actions>
+      )}
+      {page === PAGES.STATISTICS && (
+        <Actions>
+          <Action label="Back" onClick={() => setPage(PAGES.MAIN)} />
         </Actions>
       )}
     </main>

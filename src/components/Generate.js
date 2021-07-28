@@ -7,6 +7,7 @@ import Players from "./Players";
 import Box from "./ui/Box";
 import Option from "./ui/Option";
 import Setup from "./ui/Setup";
+import logo from "../images/logo.svg";
 
 const initialSetting = {
   mode: "Standard",
@@ -121,6 +122,7 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
 
   return (
     <>
+      <img src={logo} alt="logo" style={{ height: 140 }} />
       <Box title="Players">
         <Players
           onChange={handleChange("players")}

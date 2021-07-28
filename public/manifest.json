@@ -3,9 +3,8 @@
   "name": "MC App",
   "icons": [
     {
-      "src": "logo.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "logo.svg",
+      "sizes": "any"
     }
   ],
   "start_url": ".",
