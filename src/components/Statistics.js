@@ -181,9 +181,8 @@ export default function Statistics() {
           </table>
         </Box>
       )}
-      {!!data.length && <button onClick={handleDeleteAll}>Delete all</button>}
       {!!data.length && (
-        <Box title="Matches" flag flat>
+        <Box title="Matches" flag flat type="log">
           {getMatches(data)
             .sort(byDate)
             .map((match) => (
@@ -191,6 +190,7 @@ export default function Statistics() {
             ))}
         </Box>
       )}
+      {!!data.length && <button onClick={handleDeleteAll}>Delete all</button>}
     </div>
   );
 }

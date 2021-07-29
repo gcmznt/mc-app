@@ -97,6 +97,10 @@ button {
   padding: 0.5em 1em 0.7em;
 }
 
+form {
+  margin: 0.2em 0;
+}
+
 .fraction {
   display: inline-block;
   font-size: 0.6em;

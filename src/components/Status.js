@@ -559,6 +559,18 @@ export default function Status({
                 onChange={() => handleAddCustomCounter("Minion")}
                 type={false}
               />
+              <Option
+                checked={false}
+                label="Add support counter"
+                onChange={() => handleAddCustomCounter("Support")}
+                type={false}
+              />
+              <Option
+                checked={false}
+                label="Add upgrade counter"
+                onChange={() => handleAddCustomCounter("Upgrade")}
+                type={false}
+              />
               <form onSubmit={handleAddCounterSubmit}>
                 <input
                   placeholder="Custom name"

@@ -66,6 +66,6 @@
 }
 
 .box.is-log .box__content {
-  max-height: 400px;
+  max-height: 40vh;
   overflow: auto;
 }
