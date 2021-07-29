@@ -7,13 +7,14 @@ export default function Players({ max, onChange, value }) {
     <div>
       {[1, 2, 3, 4].map((num) => (
         <Option
-          key={num}
           checked={+num === +value}
-          label={num}
-          value={num}
-          type="radio"
           disabled={num > max}
+          key={num}
+          label={num}
           onChange={handleChange}
+          type="radio"
+          value={num}
+          variant="inline"
         />
       ))}
     </div>

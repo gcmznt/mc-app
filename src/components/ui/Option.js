@@ -8,16 +8,18 @@ export default function Option({
   onChange,
   type = "checkbox",
   value,
+  variant = false,
 }) {
   return (
-    <label className="option">
+    <label className={`option ${variant ? `option--${variant}` : ""}`}>
       <span>
         <input
           checked={checked}
           disabled={disabled}
           onChange={onChange}
-          type={type}
+          type={type || "checkbox"}
           value={value}
+          style={!type ? { display: "none" } : {}}
         />{" "}
         {label}
       </span>

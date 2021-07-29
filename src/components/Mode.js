@@ -8,12 +8,13 @@ export default function Mode({ onChange, value }) {
     <div>
       {[...MODES, RANDOM].map((mode) => (
         <Option
-          key={mode}
           checked={mode === value}
+          key={mode}
           label={mode}
-          value={mode}
-          type="radio"
           onChange={handleChange}
+          type="radio"
+          value={mode}
+          variant="inline"
         />
       ))}
     </div>

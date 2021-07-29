@@ -122,7 +122,7 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
 
   return (
     <>
-      <img src={logo} alt="logo" style={{ height: 140 }} />
+      <img src={logo} alt="logo" style={{ height: 140, width: 140 }} />
       <Box title="Players">
         <Players
           onChange={handleChange("players")}

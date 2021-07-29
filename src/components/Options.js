@@ -32,39 +32,42 @@ export default function Options({
   const SelectAll = useCallback(
     ({ items }) =>
       selection[items].length === fullSelect[items].length ? (
-        <div onClick={selectAll(items, true)}>Unselect all</div>
+        <p onClick={selectAll(items, true)}>Unselect all</p>
       ) : (
-        <div onClick={selectAll(items)}>Select all</div>
+        <p onClick={selectAll(items)}>Select all</p>
       ),
     [fullSelect, selectAll, selection]
   );
 
   return (
     <>
-      <Box title="Theme" flag flat>
+      <Box title="Settings" flag flat>
+        <p>Theme</p>
         <Option
           checked={options.mode === "auto"}
-          label="System default"
+          label="System"
           type="radio"
           onChange={() => onChangeOptions("mode")("auto")}
+          variant="inline"
         />
         <Option
           checked={options.mode === "dark"}
-          label="Dark theme"
+          label="Dark"
           type="radio"
           onChange={() => onChangeOptions("mode")("dark")}
+          variant="inline"
         />
         <Option
           checked={options.mode === "light"}
-          label="Light theme"
+          label="Light"
           type="radio"
           onChange={() => onChangeOptions("mode")("light")}
+          variant="inline"
         />
-      </Box>
-      <Box title="Settings" flag flat>
+        <p>Timer</p>
         <Option
           checked={options.timer}
-          label="Timer"
+          label="Show match timer"
           onChange={(e) => onChangeOptions("timer")(e.target.checked)}
         />
       </Box>

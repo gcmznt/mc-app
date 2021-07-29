@@ -404,7 +404,6 @@ export default function Status({
   }, [counters]);
 
   useEffect(() => {
-    interacted && console.info("vibrate");
     interacted && window.navigator.vibrate(50);
   }, [counters, interacted, result]);
 
@@ -544,12 +543,18 @@ export default function Status({
             </fieldset>
             <fieldset>
               <legend>- Extra counters</legend>
-              <div onClick={() => handleAddCustomCounter("Ally")}>
-                Add ally counter
-              </div>
-              <div onClick={() => handleAddCustomCounter("Minion")}>
-                Add minion counter
-              </div>
+              <Option
+                checked={false}
+                label="Add ally counter"
+                onChange={() => handleAddCustomCounter("Ally")}
+                type={false}
+              />
+              <Option
+                checked={false}
+                label="Add minion counter"
+                onChange={() => handleAddCustomCounter("Minion")}
+                type={false}
+              />
               <form onSubmit={handleAddCounterSubmit}>
                 <input
                   placeholder="Custom name"
