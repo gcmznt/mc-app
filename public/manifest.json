@@ -1,6 +1,6 @@
 {
-  "short_name": "Marvel Champions App",
-  "name": "MC App",
+  "name": "First Player | Counter for Marvel Champions LCG",
+  "short_name": "First Player MC",
   "icons": [
     {
       "src": "logo.svg",
