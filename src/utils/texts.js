@@ -15,16 +15,16 @@ export const getTokenCount = (type, count) => {
 
 export const getAddTokenText = (type, count) =>
   ({
-    [COUNTER_TYPES.HERO]: `Hitted${count > 1 ? ` × ${count}` : ""}`,
-    [COUNTER_TYPES.VILLAIN]: `Hitted${count > 1 ? ` × ${count}` : ""}`,
-  }[type] || `Added ${getTokenCount(type, count)}`);
+    [COUNTER_TYPES.HERO]: `Hit${count > 1 ? ` × ${count}` : ""}`,
+    [COUNTER_TYPES.VILLAIN]: `Hit${count > 1 ? ` × ${count}` : ""}`,
+  }[type] || `+${getTokenCount(type, count)}`);
 
 export const getRemoveTokenText = (type, count) =>
   ({
-    [COUNTER_TYPES.HERO]: `Healed${count > 1 ? ` × ${count}` : ""}`,
-    [COUNTER_TYPES.VILLAIN]: `Healed${count > 1 ? ` × ${count}` : ""}`,
+    [COUNTER_TYPES.HERO]: `Heal${count > 1 ? ` × ${count}` : ""}`,
+    [COUNTER_TYPES.VILLAIN]: `Heal${count > 1 ? ` × ${count}` : ""}`,
     [COUNTER_TYPES.ROUNDS]: `Back ${count} round${count > 1 ? "s" : ""}`,
-  }[type] || `Removed ${getTokenCount(type, count)}`);
+  }[type] || `−${getTokenCount(type, count)}`);
 
 export const getIncreaseText = (count) =>
   `Increased limit${count > 1 ? ` × ${count}` : ""}`;
@@ -41,7 +41,22 @@ export const getCompleteText = (type) =>
     [COUNTER_TYPES.VILLAIN]: "Defeated",
   }[type] || "Complete");
 
-export const getStageName = (counter) => counter.levels[counter.stage].name;
+export const getStageName = (counter) => {
+  const types = {
+    [COUNTER_TYPES.HERO]: "is-hero",
+    [COUNTER_TYPES.SCENARIO]: "is-scheme",
+    [COUNTER_TYPES.SIDE_SCHEME]: "is-scheme",
+    [COUNTER_TYPES.VILLAIN]: "is-villain",
+  };
+  if (types[counter.type]) {
+    return (
+      <span className={types[counter.type]}>
+        {counter.levels[counter.stage].name}
+      </span>
+    );
+  }
+  return <>{counter.levels[counter.stage].name}</>;
+};
 export const getStageText = (level) =>
   isNaN(level) ? level : new Array(level).fill("I").join("");
 

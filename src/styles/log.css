@@ -1,0 +1,17 @@
+.log {
+  display: flex;
+  line-height: 1;
+  margin-bottom: 0.4em;
+  justify-content: space-between;
+}
+
+.log__text span {
+  color: var(--color-accent);
+}
+
+.log__time {
+  opacity: 0.6;
+  display: inline-block;
+  margin-left: 0.5em;
+  margin-top: 0.15em;
+}

@@ -280,17 +280,28 @@ export default function Status({
     );
   };
 
-  const handleAddCounter = () => {
-    if (custom) {
+  const handleAddCustomCounter = (name, type) => {
+    if (name) {
       const counter = getCounter({
         active: false,
-        name: custom,
-        type: COUNTER_TYPES.CUSTOM,
+        name: name,
+        type: type || COUNTER_TYPES.CUSTOM,
       });
       setCounters((cs) => [...cs, counter]);
-      setCustom("");
       handleEnable(counter);
     }
+  };
+
+  const handleAddCounter = () => {
+    if (custom) {
+      handleAddCustomCounter(custom);
+      setCustom("");
+    }
+  };
+
+  const handleAddCounterSubmit = (e) => {
+    e.preventDefault();
+    handleAddCounter();
   };
 
   const handleUndo = () => {
@@ -519,23 +530,34 @@ export default function Status({
             </Box>
           )}
           <Box title="Add counters" flat flag type="scheme">
-            {sideSchemes.map((counter) => (
-              <Option
-                key={counter.id}
-                checked={counter.active}
-                label={counter.name}
-                onChange={() => handleEnable(counter)}
-                value={counter.name}
-              />
-            ))}
             <fieldset>
-              <legend>Add extra counter</legend>
-              <input
-                placeholder="Name"
-                value={custom}
-                onChange={(e) => setCustom(e.target.value)}
-              />{" "}
-              <span onClick={handleAddCounter}>Add</span>
+              <legend>- Side schemes</legend>
+              {sideSchemes.map((counter) => (
+                <Option
+                  key={counter.id}
+                  checked={counter.active}
+                  label={counter.name}
+                  onChange={() => handleEnable(counter)}
+                  value={counter.name}
+                />
+              ))}
+            </fieldset>
+            <fieldset>
+              <legend>- Extra counters</legend>
+              <div onClick={() => handleAddCustomCounter("Ally")}>
+                Add ally counter
+              </div>
+              <div onClick={() => handleAddCustomCounter("Minion")}>
+                Add minion counter
+              </div>
+              <form onSubmit={handleAddCounterSubmit}>
+                <input
+                  placeholder="Custom name"
+                  value={custom}
+                  onChange={(e) => setCustom(e.target.value)}
+                />{" "}
+                <span onClick={handleAddCounter}>Add</span>
+              </form>
             </fieldset>
           </Box>
         </div>
