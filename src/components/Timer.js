@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import "../styles/timer.css";
 
-export default function Timer({ time, onChange }) {
+export default function Timer({ disabled, time, onChange }) {
   const [active, setActive] = useState(true);
 
   useEffect(() => {
     const advance = () => onChange((t) => t + 100);
 
-    if (active) {
+    if (active && !disabled) {
       const to = setInterval(advance, 100);
       return () => clearInterval(to);
     }
-  }, [active, onChange]);
+  }, [active, disabled, onChange]);
 
   useEffect(() => {
     const toggleTimer = () => setActive(document.visibilityState === "visible");

@@ -3,6 +3,7 @@
   --color-accent-contrast: #fff;
   --color-bg-card: #fff;
   --color-bg: #ddd;
+  --color-bg-contrast: #333;
   --color-cta-contrast: #fff;
   --color-cta: #000;
   --color-fg: #000;
@@ -106,6 +107,7 @@ button {
 body.is-dark {
   --color-bg-card: #000;
   --color-bg: #333;
+  --color-bg-contrast: #ddd;
   --color-cta-contrast: #000;
   --color-cta: #fff;
   --color-fg: #fff;
@@ -115,6 +117,7 @@ body.is-dark {
   body:not(.is-light) {
     --color-bg-card: #000;
     --color-bg: #333;
+    --color-bg-contrast: #ddd;
     --color-cta-contrast: #000;
     --color-cta: #fff;
     --color-fg: #fff;

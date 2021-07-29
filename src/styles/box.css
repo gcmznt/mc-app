@@ -54,6 +54,7 @@
 
 .box__content {
   transform: perspective(200px) rotateX(5deg);
+  transform-style: preserve-3d;
   background-color: var(--color-bg-card);
   box-shadow: 0 0 15px #0003;
   padding: 0.8em;

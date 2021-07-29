@@ -10,6 +10,9 @@ import modularSets from "./data/modular-sets.json";
 import scenarios from "./data/scenarios.json";
 import { clear, load, persist } from "./utils";
 import { PAGES, STORAGE_KEYS } from "./utils/constants";
+import { ReactComponent as HomeIcon } from "./images/home.svg";
+import { ReactComponent as SettingsIcon } from "./images/settings.svg";
+import { ReactComponent as StatsIcon } from "./images/stats.svg";
 
 const data = { heroes, modularSets, scenarios };
 const fullSelect = {
@@ -34,14 +37,15 @@ export default function App() {
   // const [wakeLock, setWakeLock] = useState(false);
   const [options, setOptions] = useState(defOptions);
 
-  const showOptions = () => {
-    setPage(PAGES.OPTIONS);
-  };
-
   const saveOptions = () => {
     persist(STORAGE_KEYS.SELECTION, selection);
     setSetup(false);
     setPage(PAGES.MAIN);
+  };
+
+  const goTo = (pageId) => () => {
+    if (page === PAGES.OPTIONS) saveOptions();
+    setPage(pageId);
   };
 
   const handleGeneration = (setup) => {
@@ -143,18 +147,26 @@ export default function App() {
           setup={setup}
         />
       )}
-      {page === PAGES.MAIN && !matchId && (
+      {!matchId && (
         <Actions>
           <Action
-            label="Statistics"
-            onClick={() => setPage(PAGES.STATISTICS)}
+            icon={<HomeIcon />}
+            label="Home"
+            active={page === PAGES.MAIN}
+            onClick={goTo(PAGES.MAIN)}
           />
-          <Action label="Options" onClick={showOptions} />
-        </Actions>
-      )}
-      {page === PAGES.OPTIONS && (
-        <Actions>
-          <Action label="Save" onClick={saveOptions} />
+          <Action
+            icon={<StatsIcon />}
+            label="Stats"
+            active={page === PAGES.STATISTICS}
+            onClick={goTo(PAGES.STATISTICS)}
+          />
+          <Action
+            icon={<SettingsIcon />}
+            label="Options"
+            active={page === PAGES.OPTIONS}
+            onClick={goTo(PAGES.OPTIONS)}
+          />
         </Actions>
       )}
     </main>

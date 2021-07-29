@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { load, persist } from "../utils";
 import { RESULT_TYPES, STORAGE_KEYS } from "../utils/constants";
-import Actions, { Action } from "./ui/Actions";
 import Box from "./ui/Box";
 import Match from "./ui/Match";
 
@@ -98,7 +97,7 @@ function Row({ label, values }) {
 const byName = (a, b) => a[0].localeCompare(b[0]);
 const byDate = (a, b) => b.date - a.date;
 
-export default function Statistics({ onBack }) {
+export default function Statistics() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -182,6 +181,7 @@ export default function Statistics({ onBack }) {
           </table>
         </Box>
       )}
+      {!!data.length && <button onClick={handleDeleteAll}>Delete all</button>}
       {!!data.length && (
         <Box title="Matches" flag flat>
           {getMatches(data)
@@ -191,10 +191,6 @@ export default function Statistics({ onBack }) {
             ))}
         </Box>
       )}
-      <Actions>
-        <Action label="Back" onClick={onBack} />
-        <Action label="Delete all" onClick={handleDeleteAll} />
-      </Actions>
     </div>
   );
 }

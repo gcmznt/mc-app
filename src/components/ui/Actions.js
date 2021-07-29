@@ -1,9 +1,15 @@
 import "../../styles/actions.css";
 
-export function Action({ label, onClick }) {
+export function Action({ active, disabled, icon, label, onClick }) {
   return (
-    <div className="actions__button" onClick={onClick}>
-      {label}
+    <div
+      className={`actions__button ${active ? "is-active" : ""} ${
+        disabled ? "is-disabled" : ""
+      }`}
+      onClick={!disabled && onClick}
+    >
+      {icon}
+      {icon ? <small>{label}</small> : label}
     </div>
   );
 }

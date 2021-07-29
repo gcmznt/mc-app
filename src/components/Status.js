@@ -270,6 +270,10 @@ export default function Status({
     logEvent(EVENTS.RESTART);
   };
 
+  const handleQuit = () => {
+    onQuit();
+  };
+
   const handleStatusToggle = (counter) => (status, flag) => {
     doUpdate(
       flag ? EVENTS.STATUS_ENABLE : EVENTS.STATUS_DISABLE,
@@ -569,21 +573,25 @@ export default function Status({
         <div className="box__wrapper">
           <Log log={log} />
         </div>
-        {options.timer && <Timer time={time} onChange={setTime} />}
-        {result ? (
-          <Actions title={getResText(result)} types={["result", result]}>
-            <Action label="Undo" onClick={handleUndo} />
-            <Action label="Restart" onClick={handleRestart} />
-            <Action label="Exit" onClick={() => onQuit()} />
-          </Actions>
-        ) : (
-          <Actions>
-            <Action label="Round" onClick={() => nextRound(roundsCounter)} />
-            <Action label="Undo" onClick={handleUndo} />
-            <Action label="Restart" onClick={handleRestart} />
-            <Action label="Give up" onClick={handleGiveUp} />
-          </Actions>
+        {options.timer && (
+          <Timer time={time} onChange={setTime} disabled={result} />
         )}
+        <Actions
+          title={result && getResText(result)}
+          types={result && ["result", result]}
+        >
+          <Action
+            label="Round"
+            onClick={() => nextRound(roundsCounter)}
+            disabled={!!result}
+          />
+          <Action label="Undo" onClick={handleUndo} />
+          <Action label="Restart" onClick={handleRestart} />
+          <Action
+            label="Give up"
+            onClick={result ? handleQuit : handleGiveUp}
+          />
+        </Actions>
       </div>
     )
   );

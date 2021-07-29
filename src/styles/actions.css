@@ -1,11 +1,15 @@
 .actions {
   position: fixed;
-  padding: 2em 0.8em 0.8em;
+  padding: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, var(--color-bg-card), transparent);
+  background: var(--color-bg-card);
+  color: var(--color-fg);
   z-index: 1000;
+  transform: translateZ(100px);
+  opacity: 0.9;
+  box-shadow: 0 0 15px #0003;
 }
 
 .actions.is-result {
@@ -14,19 +18,31 @@
 }
 
 .actions__title {
-  padding-bottom: 0.5em;
+  padding: 0.5em;
   font-size: 1.4em;
 }
 
 .actions__buttons {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
 .actions__button {
-  padding: 0.5em 0.7em;
-  background-color: var(--color-cta);
-  color: var(--color-cta-contrast);
-  margin: 0.4em;
+  padding: 0.7em;
+  flex: 0 1 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.8em;
+}
+
+.actions__button svg {
+  height: 2.2em;
+  width: 2.2em;
+}
+
+.actions__button.is-active {
+  color: var(--color-accent);
 }
