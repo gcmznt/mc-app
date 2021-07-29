@@ -8,6 +8,11 @@
   flex: 1 1 460px;
 }
 
+.use-compact .box {
+  padding-top: 0.5em;
+  padding-bottom: 0;
+}
+
 .box--flag {
   text-align: left;
 }
@@ -37,6 +42,15 @@
   max-width: 80%;
 }
 
+.use-compact .box__title {
+  top: 0.25em;
+  position: static;
+  font-size: 1em;
+  transform: none;
+  max-width: 100%;
+  box-shadow: 0 0 15px #0003;
+}
+
 .box__title-text {
   white-space: nowrap;
   overflow: hidden;
@@ -52,6 +66,14 @@
   height: 2em;
 }
 
+.use-compact .box__highlight {
+  width: 1.75em;
+  height: 1.75em;
+  bottom: 100%;
+  left: 100%;
+  transform: translateY(110%);
+}
+
 .box__content {
   transform: perspective(200px) rotateX(5deg);
   transform-style: preserve-3d;
@@ -59,6 +81,11 @@
   box-shadow: 0 0 15px #0003;
   padding: 0.8em;
   font-size: 1.1em;
+}
+
+.use-compact .box__content {
+  transform: none;
+  padding: 0.2em 0.5em;
 }
 
 .box--flat .box__content {

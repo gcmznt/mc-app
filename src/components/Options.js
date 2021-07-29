@@ -64,11 +64,16 @@ export default function Options({
           onChange={() => onChangeOptions("mode")("light")}
           variant="inline"
         />
-        <p>Timer</p>
+        <p>Layout</p>
         <Option
           checked={options.timer}
           label="Show match timer"
           onChange={(e) => onChangeOptions("timer")(e.target.checked)}
+        />
+        <Option
+          checked={options.compact}
+          label="Use compact layout"
+          onChange={(e) => onChangeOptions("compact")(e.target.checked)}
         />
       </Box>
       <Box title="Heroes" flag flat>

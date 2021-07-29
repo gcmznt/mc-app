@@ -2,6 +2,10 @@
   margin-top: 1em;
 }
 
+.use-compact .counter__wrapper + .counter__wrapper {
+  margin-top: 0.2em;
+}
+
 .counter {
   font-size: 20px;
   display: grid;

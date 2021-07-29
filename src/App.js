@@ -21,6 +21,7 @@ const fullSelect = {
   scenarios: scenarios.map((h) => h.name),
 };
 const defOptions = {
+  compact: false,
   mode: "auto",
   timer: true,
 };
@@ -116,7 +117,7 @@ export default function App() {
   // }, [wakeLock]);
 
   return (
-    <main>
+    <main className={options.compact ? "use-compact" : ""}>
       {page === PAGES.OPTIONS && (
         <Options
           onChangeOptions={handleOptionChange}

@@ -4,9 +4,18 @@
   margin-bottom: 1em;
 }
 
+.use-compact .status {
+  margin-bottom: 0.2em;
+}
+
 .status__toggle {
   margin: 0.5em;
   padding: 0.2em 0.5em;
+}
+
+.use-compact .status__toggle {
+  margin: 0.2em;
+  padding: 0.1em 0.2em;
 }
 
 .status__toggle.is-active {
