@@ -623,7 +623,7 @@ export default function Status({
           <Action label="Undo" onClick={handleUndo} />
           <Action label="Restart" onClick={handleRestart} />
           <Action
-            label="Give up"
+            label={result ? "Exit" : "Give up"}
             onClick={result ? handleQuit : handleGiveUp}
           />
         </Actions>

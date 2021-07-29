@@ -6,7 +6,7 @@ export function Action({ active, disabled, icon, label, onClick }) {
       className={`actions__button ${active ? "is-active" : ""} ${
         disabled ? "is-disabled" : ""
       }`}
-      onClick={!disabled && onClick}
+      onClick={!disabled ? onClick : undefined}
     >
       {icon}
       {icon ? <small>{label}</small> : label}
