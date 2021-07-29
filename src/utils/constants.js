@@ -34,6 +34,10 @@ export const EVENTS = {
   VILLAIN_PHASE: "villain-phase",
 };
 
+export const TRIGGERS = {
+  ENTER_SCHEME: "enter-scheme",
+};
+
 export const RESULT_TYPES = {
   WINNER: "winner",
   SCHEME_WIN: "scheme-win",

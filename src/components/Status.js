@@ -7,6 +7,7 @@ import {
   EVENTS,
   RESULT_TYPES,
   STORAGE_KEYS,
+  TRIGGERS,
 } from "../utils/constants";
 import { getResText, getStageName, getStageText } from "../utils/texts";
 import Counter from "./Counter";
@@ -133,8 +134,22 @@ const getSideSchemes = (setup) => [
   ...setup.scenario.modular.map((mod) => mod.sideSchemes).flat(),
 ];
 
-const getCounters = (setup) =>
-  [
+const runTrigger = (triggers) => (counter) => {
+  triggers
+    .filter((t) => t.entity === counter.name)
+    .forEach((t) => {
+      switch (t.action) {
+        case TRIGGERS.ENTER_SCHEME:
+          return (counter.active = true);
+        default:
+          break;
+      }
+    });
+  return counter;
+};
+
+const getCounters = (setup) => {
+  const counters = [
     getCounter({
       name: "Rounds",
       levels: [{ name: "Rounds", min: 1, start: 1, limit: -1 }],
@@ -145,6 +160,14 @@ const getCounters = (setup) =>
     ...getMainSchemeCounter(setup.scenario),
     ...getSideSchemes(setup).map(getSideCounter).flat(),
   ].map(multiply(setup.settings.players));
+
+  const triggers = counters
+    .filter((c) => c.active && c.levels[c.stage].triggers)
+    .map((c) => c.levels[c.stage].triggers)
+    .flat();
+
+  return counters.map(runTrigger(triggers));
+};
 
 export default function Status({
   matchId,

@@ -162,7 +162,8 @@
     "complete": "12p",
     "name": "Hunting Down Heroes",
     "start": "1p",
-    "step": "1p"
+    "step": "1p",
+    "triggers": [{ "action": "enter-scheme", "entity": "Hydra Patrol" }]
   },
   "Hydra Patrol": {
     "icons": ["Crisis"],
