@@ -119,9 +119,7 @@ export default function Counter({
             onClick={onStep}
           >
             {stepLabel || <AdvanceImg />}
-            {acceleratedStep && (
-              <span className="counter__badge">{acceleratedStep}</span>
-            )}
+            <span className="counter__badge">{acceleratedStep}</span>
           </div>
         )}
         {!disabled && onNext && (

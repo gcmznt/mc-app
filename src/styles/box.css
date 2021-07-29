@@ -45,7 +45,8 @@
 
 .box__highlight {
   position: absolute;
-  left: 90%;
+  margin-left: -12px;
+  left: 100%;
   bottom: 50%;
   width: 2em;
   height: 2em;

@@ -6,16 +6,24 @@ import Status from "./Status";
 export default function Match({ matchId, onQuit, options, setup }) {
   const [result, setResult] = useState(null);
 
-  const handleResult = (reason, counters, log) => {
+  const handleResult = (reason, counters, log, quit = false) => {
     setResult(reason ? { reason, counters, log } : false);
+    if (quit) handleQuit(reason ? { reason, counters, log } : false);
   };
 
-  const handleQuit = () => {
+  const handleQuit = (res) => {
     window.gtag("event", "result", {
       event_category: "match",
       event_label: result.reason,
     });
-    if (result) append(STORAGE_KEYS.MATCHES, { matchId, setup, ...result });
+
+    if (res || result)
+      append(STORAGE_KEYS.MATCHES, {
+        date: new Date(),
+        matchId,
+        setup,
+        ...(res || result),
+      });
     onQuit();
   };
 

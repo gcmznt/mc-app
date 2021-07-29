@@ -123,7 +123,9 @@ export default function App() {
           onChange={setSelection}
         />
       )}
-      {page === PAGES.STATISTICS && <Statistics />}
+      {page === PAGES.STATISTICS && (
+        <Statistics onBack={() => setPage(PAGES.MAIN)} />
+      )}
       {page === PAGES.MAIN && !matchId && (
         <Generate
           data={data}
@@ -153,11 +155,6 @@ export default function App() {
       {page === PAGES.OPTIONS && (
         <Actions>
           <Action label="Save" onClick={saveOptions} />
-        </Actions>
-      )}
-      {page === PAGES.STATISTICS && (
-        <Actions>
-          <Action label="Back" onClick={() => setPage(PAGES.MAIN)} />
         </Actions>
       )}
     </main>

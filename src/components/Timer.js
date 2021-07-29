@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "../styles/timer.css";
 
 export default function Timer({ time, onChange }) {
   const [active, setActive] = useState(true);
@@ -25,7 +26,7 @@ export default function Timer({ time, onChange }) {
   const seconds = Math.floor(time / 1000);
 
   return (
-    <div>
+    <div className="timer">
       {Math.floor(seconds / 60)}:
       {seconds % 60 < 10 ? `0${seconds % 60}` : seconds % 60}
     </div>

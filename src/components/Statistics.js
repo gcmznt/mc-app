@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { load } from "../utils";
+import { load, persist } from "../utils";
 import { RESULT_TYPES, STORAGE_KEYS } from "../utils/constants";
+import Actions, { Action } from "./ui/Actions";
 import Box from "./ui/Box";
+import Match from "./ui/Match";
 
 const ellipsis = {
   overflow: "hidden",
@@ -40,14 +42,8 @@ const getPerc = (values) => {
   return w + l ? ((w / (w + l)) * 100).toFixed(1) : "-";
 };
 
-export default function Statistics() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    setData(load(STORAGE_KEYS.MATCHES) || []);
-  }, []);
-
-  const results = data.reduce(
+const getMatchesStats = (data) =>
+  (data || []).reduce(
     (acc, match) => ({
       ...acc,
       [match.reason]: (acc[match.reason] || 0) + 1,
@@ -55,37 +51,76 @@ export default function Statistics() {
     { ...emptyResults }
   );
 
-  const heroes = (data || [])
+const reducer = (acc, match) => ({
+  ...acc,
+  [match.entry]: {
+    ...(acc[match.entry] || emptyResults),
+    [match.result]: (acc[match.entry]?.[match.result] || 0) + 1,
+  },
+});
+
+const getHeroesStats = (data) =>
+  (data || [])
     .map((match) =>
-      match.setup.heroes.map((h) => ({ hero: h.name, result: match.reason }))
+      match.setup.heroes.map((h) => ({ entry: h.name, result: match.reason }))
     )
     .flat()
-    .reduce(
-      (acc, match) => ({
-        ...acc,
-        [match.hero]: {
-          ...(acc[match.hero] || emptyResults),
-          [match.result]: (acc[match.hero]?.[match.result] || 0) + 1,
-        },
-      }),
-      {}
-    );
+    .reduce(reducer, {});
 
-  const scenarios = (data || [])
+const getScenariosStats = (data) =>
+  (data || [])
     .map((match) => ({
-      scenario: match.setup.scenario.name,
+      entry: match.setup.scenario.name,
       result: match.reason,
     }))
-    .reduce(
-      (acc, match) => ({
-        ...acc,
-        [match.scenario]: {
-          ...(acc[match.scenario] || emptyResults),
-          [match.result]: (acc[match.scenario]?.[match.result] || 0) + 1,
-        },
-      }),
-      {}
-    );
+    .reduce(reducer, {});
+
+const getMatches = (data) =>
+  data.map((match) => ({
+    date: new Date(match.date),
+    heroes: match.setup.heroes.map((h) => h.name),
+    id: match.matchId,
+    result: result_text[match.reason],
+    scenario: match.setup.scenario.name,
+  }));
+
+function Row({ label, values }) {
+  return (
+    <tr>
+      <td style={ellipsis}>{label}</td>
+      <td>{getWins(values)}</td>
+      <td>{getLost(values)}</td>
+      <td>{getPerc(values)}</td>
+    </tr>
+  );
+}
+
+const byName = (a, b) => a[0].localeCompare(b[0]);
+const byDate = (a, b) => b.date - a.date;
+
+export default function Statistics({ onBack }) {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    setData(load(STORAGE_KEYS.MATCHES) || []);
+  }, []);
+
+  const handleDelete = (match) => {
+    if (
+      window.confirm(`Delete ${match.heroes.join(" + ")} VS ${match.scenario}?`)
+    ) {
+      const newData = data.filter((m) => m.matchId !== match.id);
+      setData(newData);
+      persist(STORAGE_KEYS.MATCHES, newData);
+    }
+  };
+
+  const handleDeleteAll = () => {
+    if (window.confirm("Delete all matches?")) {
+      setData([]);
+      persist(STORAGE_KEYS.MATCHES, []);
+    }
+  };
 
   return (
     <div>
@@ -96,7 +131,7 @@ export default function Statistics() {
               <td>Total</td>
               <td>{data.length}</td>
             </tr>
-            {Object.entries(results).map(([k, v]) => (
+            {Object.entries(getMatchesStats(data)).map(([k, v]) => (
               <tr key={k}>
                 <td>{result_text[k]}</td>
                 <td>{v}</td>
@@ -105,50 +140,61 @@ export default function Statistics() {
           </tbody>
         </table>
       </Box>
-      <Box title="Heroes" flag flat>
-        <table style={tableStyle}>
-          <thead>
-            <tr>
-              <td></td>
-              <td>Winner</td>
-              <td>Loser</td>
-              <td>Win %</td>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(heroes).map(([k, v]) => (
-              <tr key={k}>
-                <td style={ellipsis}>{k}</td>
-                <td>{getWins(v)}</td>
-                <td>{getLost(v)}</td>
-                <td>{getPerc(v)}</td>
+      {!!data.length && (
+        <Box title="Heroes" flag flat>
+          <table style={tableStyle}>
+            <thead>
+              <tr>
+                <td></td>
+                <td>Winner</td>
+                <td>Loser</td>
+                <td>Win %</td>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </Box>
-      <Box title="Scenarios" flag flat>
-        <table style={tableStyle}>
-          <thead>
-            <tr>
-              <td></td>
-              <td>Success</td>
-              <td>Fails</td>
-              <td>Success %</td>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(scenarios).map(([k, v]) => (
-              <tr key={k}>
-                <td style={ellipsis}>{k}</td>
-                <td>{getWins(v)}</td>
-                <td>{getLost(v)}</td>
-                <td>{getPerc(v)}</td>
+            </thead>
+            <tbody>
+              {Object.entries(getHeroesStats(data))
+                .sort(byName)
+                .map(([k, v]) => (
+                  <Row key={k} label={k} values={v} />
+                ))}
+            </tbody>
+          </table>
+        </Box>
+      )}
+      {!!data.length && (
+        <Box title="Scenarios" flag flat>
+          <table style={tableStyle}>
+            <thead>
+              <tr>
+                <td></td>
+                <td>Success</td>
+                <td>Fails</td>
+                <td>Success %</td>
               </tr>
+            </thead>
+            <tbody>
+              {Object.entries(getScenariosStats(data))
+                .sort(byName)
+                .map(([k, v]) => (
+                  <Row key={k} label={k} values={v} />
+                ))}
+            </tbody>
+          </table>
+        </Box>
+      )}
+      {!!data.length && (
+        <Box title="Matches" flag flat>
+          {getMatches(data)
+            .sort(byDate)
+            .map((match) => (
+              <Match key={match.id} match={match} onDelete={handleDelete} />
             ))}
-          </tbody>
-        </table>
-      </Box>
+        </Box>
+      )}
+      <Actions>
+        <Action label="Back" onClick={onBack} />
+        <Action label="Delete all" onClick={handleDeleteAll} />
+      </Actions>
     </div>
   );
 }

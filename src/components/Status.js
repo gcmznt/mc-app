@@ -175,6 +175,13 @@ export default function Status({
       );
   };
 
+  const nextRound = (counter) => {
+    logEvent(EVENTS.INCREASE, counter.id, { counter, val: 1 });
+    updateCounter(counter.id, {
+      levels: [{ ...counter.levels[0], value: counter.levels[0].value + 1 }],
+    });
+  };
+
   const doUpdate = (event, counter, values, entity, logData) => {
     logEvent(event, entity || counter.id, logData || { counter });
     updateCounter(counter.id, values);
@@ -195,8 +202,7 @@ export default function Status({
   };
 
   const handleGiveUp = () => {
-    onResult(RESULT_TYPES.GIVE_UP, counters, log);
-    onQuit();
+    onResult(RESULT_TYPES.GIVE_UP, counters, log, true);
   };
 
   const disableCounter = (counter) => {
@@ -536,15 +542,16 @@ export default function Status({
         <div className="box__wrapper">
           <Log log={log} />
         </div>
+        {options.timer && <Timer time={time} onChange={setTime} />}
         {result ? (
           <Actions title={getResText(result)} types={["result", result]}>
             <Action label="Undo" onClick={handleUndo} />
             <Action label="Restart" onClick={handleRestart} />
-            <Action label="Exit" onClick={onQuit} />
+            <Action label="Exit" onClick={() => onQuit()} />
           </Actions>
         ) : (
           <Actions>
-            {options.timer && <Timer time={time} onChange={setTime} />}
+            <Action label="Round" onClick={() => nextRound(roundsCounter)} />
             <Action label="Undo" onClick={handleUndo} />
             <Action label="Restart" onClick={handleRestart} />
             <Action label="Give up" onClick={handleGiveUp} />

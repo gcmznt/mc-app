@@ -1,0 +1,24 @@
+.match {
+  margin-bottom: 0.5em;
+  padding: 0.2em 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.match:hover {
+  background: #fff4;
+}
+
+.match__info {
+  text-align: right;
+}
+
+.match__date {
+  opacity: 0.6;
+  display: block;
+}
+
+.match__vs {
+  color: var(--color-accent);
+}
