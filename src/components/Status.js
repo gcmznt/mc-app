@@ -387,7 +387,11 @@ export default function Status({
   }, [counters]);
 
   useEffect(() => {
+    interacted && console.info("vibrate");
     interacted && window.navigator.vibrate(50);
+  }, [counters, interacted, result]);
+
+  useEffect(() => {
     persist(STORAGE_KEYS.CURRENT, {
       counters,
       log,
@@ -396,7 +400,7 @@ export default function Status({
       setup,
       time,
     });
-  }, [counters, interacted, log, matchId, result, setup, time]);
+  }, [counters, log, matchId, result, setup, time]);
 
   useEffect(() => {
     if (interacted && result) {
