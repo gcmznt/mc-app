@@ -123,7 +123,7 @@ export default function Statistics() {
 
   return (
     <div>
-      <Box title="Matches" flag flat>
+      <Box key="Results" title="Results" flag flat>
         <table style={tableStyle}>
           <tbody>
             <tr>
@@ -140,7 +140,7 @@ export default function Statistics() {
         </table>
       </Box>
       {!!data.length && (
-        <Box title="Heroes" flag flat>
+        <Box key="Heroes" title="Heroes" flag flat>
           <table style={tableStyle}>
             <thead>
               <tr>
@@ -161,7 +161,7 @@ export default function Statistics() {
         </Box>
       )}
       {!!data.length && (
-        <Box title="Scenarios" flag flat>
+        <Box key="Scenarios" title="Scenarios" flag flat>
           <table style={tableStyle}>
             <thead>
               <tr>
@@ -182,7 +182,7 @@ export default function Statistics() {
         </Box>
       )}
       {!!data.length && (
-        <Box title="Matches" flag flat type="log">
+        <Box key="Matches" title="Matches" flag flat type="log">
           {getMatches(data)
             .sort(byDate)
             .map((match) => (

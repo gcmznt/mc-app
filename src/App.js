@@ -13,6 +13,7 @@ import { PAGES, STORAGE_KEYS } from "./utils/constants";
 import { ReactComponent as HomeIcon } from "./images/home.svg";
 import { ReactComponent as SettingsIcon } from "./images/settings.svg";
 import { ReactComponent as StatsIcon } from "./images/stats.svg";
+import logo from "./images/logo.svg";
 
 const data = { heroes, modularSets, scenarios };
 const fullSelect = {
@@ -118,6 +119,9 @@ export default function App() {
 
   return (
     <main className={options.compact ? "use-compact" : ""}>
+      {!matchId && (
+        <img src={logo} alt="logo" style={{ height: 140, width: 140 }} />
+      )}
       {page === PAGES.OPTIONS && (
         <Options
           onChangeOptions={handleOptionChange}

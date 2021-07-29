@@ -41,7 +41,7 @@ export default function Options({
 
   return (
     <>
-      <Box title="Settings" flag flat>
+      <Box key="Settings" title="Settings" flag flat>
         <p>Theme</p>
         <Option
           checked={options.mode === "auto"}
@@ -76,7 +76,7 @@ export default function Options({
           onChange={(e) => onChangeOptions("compact")(e.target.checked)}
         />
       </Box>
-      <Box title="Heroes" flag flat>
+      <Box key="Heroes" title="Heroes" flag flat>
         {data.heroes.map((opt) => (
           <Option
             key={opt.name}
@@ -89,7 +89,7 @@ export default function Options({
         ))}
         <SelectAll items="heroes" />
       </Box>
-      <Box title="Scenarios" flag flat>
+      <Box key="Scenarios" title="Scenarios" flag flat>
         {data.scenarios.map((opt) => (
           <Option
             key={opt.name}
@@ -102,7 +102,7 @@ export default function Options({
         ))}
         <SelectAll items="scenarios" />
       </Box>
-      <Box title="Modular" flag flat>
+      <Box key="Modular" title="Modular" flag flat>
         {Object.values(data.modularSets).map((opt) => (
           <Option
             key={opt.name}

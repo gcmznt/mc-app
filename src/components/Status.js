@@ -481,7 +481,7 @@ export default function Status({
     counters && (
       <div>
         <div className="box__wrapper">
-          <Box title="Rounds" type="rounds">
+          <Box key="Rounds" title="Rounds" type="rounds">
             <Counter
               counter={roundsCounter}
               type={roundsCounter.type}
@@ -530,7 +530,7 @@ export default function Status({
             type="scheme"
           />
           {!!sideSchemes.filter(isActive).length && (
-            <Box title="Side schemes" flat type="scheme">
+            <Box key="Side schemes" title="Side schemes" flat type="scheme">
               {sideSchemes.filter(isActive).map((counter) => (
                 <Counter
                   counter={counter}
@@ -543,7 +543,7 @@ export default function Status({
             </Box>
           )}
           {!!customCounters.filter(isActive).length && (
-            <Box title="Extra" flat>
+            <Box key="Extra" title="Extra" flat>
               {customCounters.filter(isActive).map((counter) => (
                 <Counter
                   counter={counter}
@@ -555,7 +555,7 @@ export default function Status({
               ))}
             </Box>
           )}
-          <Box title="Add counters" flat flag type="scheme">
+          <Box key="Add counters" title="Add counters" flat flag type="scheme">
             <fieldset>
               <legend>- Side schemes</legend>
               {sideSchemes.map((counter) => (

@@ -109,7 +109,7 @@ function mergeLog(log) {
 
 export default function Log({ log }) {
   return (
-    <Box title="Log" flat flag type="log">
+    <Box key="Log" title="Log" flat flag type="log">
       {mergeLog(log).map((entry) => (
         <LogItem key={entry.id} time={entry.date} text={getLogString(entry)} />
       ))}

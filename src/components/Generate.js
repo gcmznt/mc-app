@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import schemes from "../data/schemes.json";
 import { getRandom, getRandomList, load, persist } from "../utils";
 import { ASPECTS, MODES, RANDOM, STORAGE_KEYS } from "../utils/constants";
@@ -7,7 +7,6 @@ import Players from "./Players";
 import Box from "./ui/Box";
 import Option from "./ui/Option";
 import Setup from "./ui/Setup";
-import logo from "../images/logo.svg";
 
 const initialSetting = {
   mode: "Standard",
@@ -21,6 +20,7 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
   const [lastHeroes, setLastHeroes] = useState(false);
   const [setup, setSetup] = useState(false);
   const [settings, setSettings] = useState(initialSetting);
+  const generateBtn = useRef(null);
 
   const handleChange = (key) => (val) => {
     setSettings((s) => ({ ...s, [key]: val }));
@@ -90,6 +90,18 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
       },
       settings,
     });
+
+    if (!setup) {
+      setTimeout(
+        () =>
+          generateBtn.current.scrollIntoView({
+            block: "start",
+            inline: "nearest",
+            behavior: "smooth",
+          }),
+        0
+      );
+    }
   };
 
   const handleStart = () => {
@@ -122,18 +134,17 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
 
   return (
     <>
-      <img src={logo} alt="logo" style={{ height: 140, width: 140 }} />
-      <Box title="Players">
+      <Box title="Players" key="Players">
         <Players
           onChange={handleChange("players")}
           value={settings.players}
           max={selection.heroes.length}
         />
       </Box>
-      <Box title="Mode">
+      <Box title="Mode" key="Mode">
         <Mode onChange={handleChange("mode")} value={settings.mode} />
       </Box>
-      <Box title="Random">
+      <Box title="Random" key="Random">
         <Option
           checked={settings.randomAspects}
           label="Get random aspect"
@@ -150,17 +161,15 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
           onChange={(e) => handleChange("randomCumulative")(e.target.checked)}
         />
       </Box>
-      <button onClick={randomize}>Generate</button>
+      <button ref={generateBtn} onClick={randomize}>
+        Generate
+      </button>
       {setup && (
-        <>
-          <Box>
-            <Setup setup={setup} />
-          </Box>
-          <div>
-            <button onClick={handleStart}>Start</button>
-          </div>
-        </>
+        <Box key="Setup">
+          <Setup setup={setup} />
+        </Box>
       )}
+      {setup && <button onClick={handleStart}>Start</button>}
     </>
   );
 }
