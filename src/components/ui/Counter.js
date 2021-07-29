@@ -114,7 +114,7 @@ export default function Counter({
         {!disabled && onStep && (
           <div
             className={`counter__btn counter__step ${
-              !editMode && value >= limit && limit > min ? "is-disabled" : ""
+              editMode || (value >= limit && limit > min) ? "is-disabled" : ""
             }`}
             onClick={onStep}
           >
