@@ -82,6 +82,7 @@ export default function Counter({
   const canAdd = editMode || limit <= 0 || (value < limit && limit > min);
   const canStep = onStep && !editMode && value < limit && limit > min;
   const canAdvance =
+    onNext &&
     !editMode &&
     ((limit > 0 && value >= limit) ||
       (limit === 0 && value === 0) ||
@@ -127,7 +128,7 @@ export default function Counter({
             type="add"
           />
         )}
-        {!disabled && canStep && (
+        {!disabled && !canAdvance && canStep && (
           <Button
             action={onStep}
             counter={acceleratedStep}
@@ -136,7 +137,7 @@ export default function Counter({
             type="next"
           />
         )}
-        {!disabled && onNext && !canStep && (
+        {!disabled && canAdvance && (
           <Button
             action={onNext}
             disabled={!canAdvance}

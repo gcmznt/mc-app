@@ -18,3 +18,10 @@
   margin-left: 0.5em;
   opacity: 0.6;
 }
+
+.option input.is-hidden {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  margin: 0;
+}

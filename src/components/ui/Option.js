@@ -19,7 +19,7 @@ export default function Option({
           onChange={onChange}
           type={type || "checkbox"}
           value={value}
-          style={!type ? { display: "none" } : {}}
+          className={!type ? "is-hidden" : ""}
         />{" "}
         {label}
       </span>

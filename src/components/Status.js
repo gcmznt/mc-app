@@ -308,28 +308,48 @@ export default function Status({
     );
   };
 
-  const handleAddCustomCounter = (name, type) => {
+  const updateScroll = (target, fn) => {
+    const offY = target.getBoundingClientRect().y;
+    fn();
+    setTimeout(() =>
+      window.scrollBy(0, target.getBoundingClientRect().y - offY)
+    );
+  };
+
+  const handleAddCustomCounter = (name, type) => (e) => {
     if (name) {
-      const counter = getCounter({
-        active: false,
-        name: name,
-        type: type || COUNTER_TYPES.CUSTOM,
+      updateScroll(e.target, () => {
+        const count = counters.filter((c) => c.name.startsWith(name));
+        console.log(count);
+        const counter = getCounter({
+          active: false,
+          name: `${name} ${count.length + 1}`,
+          type: type || COUNTER_TYPES.CUSTOM,
+        });
+        setCounters((cs) => [...cs, counter]);
+        handleEnable(counter);
       });
-      setCounters((cs) => [...cs, counter]);
-      handleEnable(counter);
     }
   };
 
-  const handleAddCounter = () => {
+  const handleAddSide = (counter) => (e) => {
+    if (!counter.active && !result) {
+      updateScroll(e.target, () => {
+        handleEnable(counter);
+      });
+    }
+  };
+
+  const handleAddCounter = (e) => {
     if (custom) {
-      handleAddCustomCounter(custom);
+      handleAddCustomCounter(custom)(e);
       setCustom("");
     }
   };
 
   const handleAddCounterSubmit = (e) => {
     e.preventDefault();
-    handleAddCounter();
+    handleAddCounter(e);
   };
 
   const handleUndo = () => {
@@ -564,7 +584,7 @@ export default function Status({
                   key={counter.id}
                   checked={counter.active}
                   label={counter.name}
-                  onChange={() => handleEnable(counter)}
+                  onChange={handleAddSide(counter)}
                   value={counter.name}
                 />
               ))}
@@ -574,25 +594,25 @@ export default function Status({
               <Option
                 checked={false}
                 label="Add ally counter"
-                onChange={() => handleAddCustomCounter("Ally")}
+                onChange={handleAddCustomCounter("Ally")}
                 type={false}
               />
               <Option
                 checked={false}
                 label="Add minion counter"
-                onChange={() => handleAddCustomCounter("Minion")}
+                onChange={handleAddCustomCounter("Minion")}
                 type={false}
               />
               <Option
                 checked={false}
                 label="Add support counter"
-                onChange={() => handleAddCustomCounter("Support")}
+                onChange={handleAddCustomCounter("Support")}
                 type={false}
               />
               <Option
                 checked={false}
                 label="Add upgrade counter"
-                onChange={() => handleAddCustomCounter("Upgrade")}
+                onChange={handleAddCustomCounter("Upgrade")}
                 type={false}
               />
               <form onSubmit={handleAddCounterSubmit}>
