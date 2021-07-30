@@ -17,6 +17,7 @@ import Timer from "./Timer";
 import Actions, { Action } from "./ui/Actions";
 import Box from "./ui/Box";
 import Option from "./ui/Option";
+import Report from "./ui/Report";
 
 const childOf = (parent) => (counter) => counter.parent === parent.id;
 const isActive = (counter) => counter.active;
@@ -477,6 +478,12 @@ export default function Status({
     (roundsCounter?.levels[roundsCounter.stage].value - 1) %
     heroesCounters.length;
 
+  const activeIcons = (counters || [])
+    .filter(isActive)
+    .map((c) => c.icons || [])
+    .flat()
+    .sort((a, b) => a.localeCompare(b));
+
   return (
     counters && (
       <div>
@@ -513,12 +520,15 @@ export default function Status({
               key={counter.id}
               lastLabel="💀"
               onComplete={handleDefeat}
+              onPrevious={handlePrevious}
               onStatusToggle={handleStatusToggle(counter)}
               siblings={counters.filter(childOf(counter))}
               title="Hits"
               type={counter.type}
             />
           ))}
+        </div>
+        <div className="box__wrapper">
           <CounterBox
             acceleration={acceleration}
             commonProps={defaultCounterProps}
@@ -612,7 +622,13 @@ export default function Status({
           <Timer time={time} onChange={setTime} disabled={result} />
         )}
         <Actions
-          title={result && getResText(result)}
+          title={
+            <Report
+              result={result && getResText(result)}
+              round={roundsCounter?.levels[roundsCounter.stage].value}
+              icons={activeIcons}
+            />
+          }
           types={result && ["result", result]}
         >
           <Action

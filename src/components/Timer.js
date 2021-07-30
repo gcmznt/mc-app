@@ -22,6 +22,10 @@ export default function Timer({ disabled, time, onChange }) {
     return () => document.removeEventListener("visibilitychange", toggleTimer);
   }, []);
 
+  useEffect(() => {
+    window.navigator.vibrate([50, 100, 50, 100, 200]);
+  }, [active]);
+
   const seconds = Math.floor(time / 1000);
 
   return (

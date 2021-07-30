@@ -14,6 +14,56 @@ const iconsImages = {
   Crisis: <CrisisImg />,
 };
 
+function Title({ title, icons = [] }) {
+  return (
+    <div className="counter__title">
+      {title}{" "}
+      <span className="counter__icons">
+        {(icons || []).map((icon, i) => (
+          <span key={i}>{iconsImages[icon]}</span>
+        ))}
+      </span>
+    </div>
+  );
+}
+
+function Button({ action, counter, disabled, label, type }) {
+  const classList = [
+    "counter__btn",
+    type && `counter__${type}`,
+    disabled && "is-disabled",
+  ]
+    .filter((c) => c)
+    .join(" ");
+
+  return (
+    <div className={classList} onClick={action}>
+      {label}
+      {counter && <span className="counter__badge">{counter}</span>}
+    </div>
+  );
+}
+
+function Value({ editMode, limit, toggle, value }) {
+  return limit === -1 ? (
+    <div className="counter__value">
+      <big>{value}</big>
+    </div>
+  ) : editMode ? (
+    <div className="counter__value" onClick={toggle}>
+      <small>{value}</small>
+      <span className="fraction">/</span>
+      <big>{limit}</big>
+    </div>
+  ) : (
+    <div className="counter__value" onClick={toggle}>
+      <big>{value}</big>
+      <span className="fraction">/</span>
+      <small>{limit}</small>
+    </div>
+  );
+}
+
 export default function Counter({
   acceleratedStep,
   advance,
@@ -41,107 +91,68 @@ export default function Counter({
 
   const toggle = () => disabled || !limit || setEditMode((m) => !m);
 
+  const canReduce = (!editMode && value > min) || (editMode && value < limit);
+  const canAdd = editMode || limit <= 0 || (value < limit && limit > min);
+  const canStep = onStep && !editMode && value < limit && limit > min;
+  const canAdvance =
+    !editMode &&
+    ((limit > 0 && value >= limit) ||
+      (limit === 0 && value === 0) ||
+      value === advance ||
+      limit === -1);
+
   return (
     <div className="counter__wrapper">
       {status && <Status status={status} onToggle={onStatusToggle} />}
-
-      {title && (
-        <div className="counter__title">
-          {title}{" "}
-          {icons &&
-            icons.map((icon) => (
-              <span key={icon} className="counter__icon">
-                {iconsImages[icon]}
-              </span>
-            ))}
-        </div>
-      )}
+      {title && <Title title={title} icons={icons} />}
 
       <div className="counter">
         {!disabled && onPrev && (
-          <div
-            className={`counter__btn counter__prev ${
-              editMode ? "is-disabled" : ""
-            }`}
-            onClick={onPrev}
-          >
-            «
-          </div>
+          <Button action={onPrev} disabled={editMode} label="«" type="prev" />
         )}
+        {!disabled && (
+          <Button
+            action={editMode ? onReduceLimit : onReduce}
+            disabled={!canReduce}
+            label="&minus;"
+            type="reduce"
+          />
+        )}
+
+        <Value
+          editMode={editMode}
+          limit={limit}
+          toggle={toggle}
+          value={value}
+        />
 
         {!disabled && (
-          <div
-            className={`counter__btn counter__reduce ${
-              (!editMode && value <= min) || (editMode && value >= limit)
-                ? "is-disabled"
-                : ""
-            }`}
-            onClick={editMode ? onReduceLimit : onReduce}
-          >
-            &minus;
-          </div>
+          <Button
+            action={editMode ? onAddLimit : onAdd}
+            disabled={!canAdd}
+            label="+"
+            type="add"
+          />
         )}
-
-        {limit === -1 ? (
-          <div className="counter__value">
-            <big>{value}</big>
-          </div>
-        ) : editMode ? (
-          <div className="counter__value" onClick={toggle}>
-            <small>{value}</small>
-            <span className="fraction">/</span>
-            <big>{limit}</big>
-          </div>
-        ) : (
-          <div className="counter__value" onClick={toggle}>
-            <big>{value}</big>
-            <span className="fraction">/</span>
-            <small>{limit}</small>
-          </div>
+        {!disabled && canStep && (
+          <Button
+            action={onStep}
+            counter={acceleratedStep}
+            disabled={!canStep}
+            label={stepLabel || <AdvanceImg />}
+            type="next"
+          />
         )}
-
-        {!disabled && (
-          <div
-            className={`counter__btn counter__add ${
-              !editMode && value >= limit && limit > min ? "is-disabled" : ""
-            }`}
-            onClick={editMode ? onAddLimit : onAdd}
-          >
-            +
-          </div>
-        )}
-
-        {!disabled && onStep && (
-          <div
-            className={`counter__btn counter__step ${
-              editMode || (value >= limit && limit > min) ? "is-disabled" : ""
-            }`}
-            onClick={onStep}
-          >
-            {stepLabel || <AdvanceImg />}
-            <span className="counter__badge">{acceleratedStep}</span>
-          </div>
-        )}
-        {!disabled && onNext && (
-          <div
-            className={`counter__btn counter__next ${
-              !editMode &&
-              ((limit > 0 && value >= limit) ||
-                (limit === 0 && value === limit) ||
-                value === advance ||
-                limit === -1)
-                ? ""
-                : "is-disabled"
-            }`}
-            onClick={onNext}
-          >
-            {last ? lastLabel || "✓" : "»"}
-          </div>
+        {!disabled && onNext && !canStep && (
+          <Button
+            action={onNext}
+            disabled={!canAdvance}
+            label={last ? lastLabel || "✓" : "»"}
+            type="next"
+          />
         )}
         {disabled && onEnable && (
-          <div className={`counter__btn counter__next`} onClick={onEnable}>
-            +
-          </div>
+          <Button action={onEnable} label="+" type="next" />
         )}
       </div>
     </div>

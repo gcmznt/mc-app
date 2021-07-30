@@ -37,7 +37,8 @@
   transform: translateX(-50%);
   font-size: 1.4em;
   z-index: 1;
-  padding: 0 0.3em;
+  padding: 0 0.3em 0.1em;
+  line-height: 1.05;
   text-transform: uppercase;
   max-width: 80%;
 }
@@ -76,7 +77,6 @@
 
 .box__content {
   transform: perspective(200px) rotateX(5deg);
-  transform-style: preserve-3d;
   background-color: var(--color-bg-card);
   box-shadow: 0 0 15px #0003;
   padding: 0.8em;

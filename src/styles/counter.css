@@ -1,5 +1,12 @@
+.counter__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.2em;
+}
+
 .counter__wrapper + .counter__wrapper {
-  margin-top: 1em;
+  margin-top: 0.8em;
 }
 
 .use-compact .counter__wrapper + .counter__wrapper {
@@ -9,8 +16,8 @@
 .counter {
   font-size: 20px;
   display: grid;
-  grid-template-columns: 2em 2em 2em 32% 2em 2em 2em;
-  grid-template-areas: "prev . reduce value add step next";
+  grid-template-columns: 2.2em 2.2em 32% 2.2em 2.2em;
+  grid-template-areas: "prev reduce value add next";
   grid-gap: 0.5em;
   position: relative;
   align-items: center;
@@ -21,17 +28,16 @@
 @media (max-width: 359px) {
   .counter {
     font-size: 14px;
-    grid-template-columns: 2em 2em 2em 2em 2em 2em;
+    grid-template-columns: 2.2em 2.2em 2.2em 2.2em;
     grid-template-areas:
-      "value value value value value value"
-      "prev . reduce add step next";
+      "value value value value"
+      "prev reduce add next";
     margin-bottom: 1em;
   }
 }
 
 @media (max-width: 559px) {
   .counter {
-    grid-gap: 0.2em;
     font-size: 16px;
   }
 }
@@ -45,6 +51,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .counter__value {
@@ -58,9 +65,6 @@
   opacity: 0.5;
 }
 
-.counter__step {
-  grid-area: step;
-}
 .counter__next {
   grid-area: next;
 }
@@ -77,15 +81,12 @@
 .counter__btn {
   background-color: var(--color-cta);
   color: var(--color-cta-contrast);
-  width: 1em;
+  width: 1.1em;
   height: 1.2em;
-  display: flex;
-  flex: 0 0 1em;
-  align-items: center;
-  justify-content: center;
   font-size: 2em;
   line-height: 1;
   position: relative;
+  text-align: center;
 }
 
 .counter__badge {
@@ -100,17 +101,27 @@
   text-align: center;
   display: block;
   bottom: calc(100% - 0.3em);
+  left: calc(50% - 0.6em);
 }
 
-.counter__btn img {
+.counter__btn svg {
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center center;
 }
 
-.counter__icon svg {
-  width: 2em;
-  height: 2em;
-  margin-left: 1em;
+.counter__icons {
+  position: absolute;
+  left: 100%;
+  margin-left: 0.5em;
+  bottom: 0;
+  display: flex;
+  color: var(--color-accent);
+}
+
+.counter__icons svg {
+  width: 1.6em;
+  height: 1.6em;
+  margin-left: 0.1em;
 }

@@ -1,7 +1,7 @@
 .status {
   display: flex;
   justify-content: center;
-  margin-bottom: 1em;
+  margin-bottom: 0.4em;
 }
 
 .use-compact .status {
@@ -9,12 +9,11 @@
 }
 
 .status__toggle {
-  margin: 0.5em;
+  margin: 0.2em;
   padding: 0.2em 0.5em;
 }
 
 .use-compact .status__toggle {
-  margin: 0.2em;
   padding: 0.1em 0.2em;
 }
 
