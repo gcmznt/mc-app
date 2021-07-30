@@ -488,15 +488,6 @@ export default function Status({
     counters && (
       <div>
         <div className="box__wrapper">
-          <Box key="Rounds" title="Rounds" type="rounds">
-            <Counter
-              counter={roundsCounter}
-              type={roundsCounter.type}
-              {...defaultCounterProps}
-            />
-          </Box>
-        </div>
-        <div className="box__wrapper">
           {heroesCounters.map((counter, i) => (
             <CounterBox
               commonProps={defaultCounterProps}
@@ -619,23 +610,24 @@ export default function Status({
           <Log log={log} />
         </div>
         {options.timer && (
-          <Timer time={time} onChange={setTime} disabled={result} />
+          <Timer
+            interacted={interacted}
+            time={time}
+            onChange={setTime}
+            disabled={result}
+          />
         )}
         <Actions
           title={
             <Report
               result={result && getResText(result)}
               round={roundsCounter?.levels[roundsCounter.stage].value}
+              nextRound={() => nextRound(roundsCounter)}
               icons={activeIcons}
             />
           }
           types={result && ["result", result]}
         >
-          <Action
-            label="Round"
-            onClick={() => nextRound(roundsCounter)}
-            disabled={!!result}
-          />
           <Action label="Undo" onClick={handleUndo} />
           <Action label="Restart" onClick={handleRestart} />
           <Action

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "../../styles/counter.css";
 import { ReactComponent as AccelerationImg } from "../../images/acceleration.svg";
 import { ReactComponent as AdvanceImg } from "../../images/advance.svg";
@@ -13,19 +13,6 @@ const iconsImages = {
   Hazard: <HazardImg />,
   Crisis: <CrisisImg />,
 };
-
-function Title({ title, icons = [] }) {
-  return (
-    <div className="counter__title">
-      {title}{" "}
-      <span className="counter__icons">
-        {(icons || []).map((icon, i) => (
-          <span key={i}>{iconsImages[icon]}</span>
-        ))}
-      </span>
-    </div>
-  );
-}
 
 function Button({ action, counter, disabled, label, type }) {
   const classList = [
@@ -104,7 +91,13 @@ export default function Counter({
   return (
     <div className="counter__wrapper">
       {status && <Status status={status} onToggle={onStatusToggle} />}
-      {title && <Title title={title} icons={icons} />}
+      {title && <div className="counter__title">{title}</div>}
+
+      <span className="counter__icons">
+        {(icons || []).map((icon, i) => (
+          <React.Fragment key={i}>{iconsImages[icon]}</React.Fragment>
+        ))}
+      </span>
 
       <div className="counter">
         {!disabled && onPrev && (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../styles/timer.css";
 
-export default function Timer({ disabled, time, onChange }) {
+export default function Timer({ disabled, interacted, time, onChange }) {
   const [active, setActive] = useState(true);
 
   const toggleTimer = () => setActive((f) => !f);
@@ -23,8 +23,8 @@ export default function Timer({ disabled, time, onChange }) {
   }, []);
 
   useEffect(() => {
-    window.navigator.vibrate([50, 100, 50, 100, 200]);
-  }, [active]);
+    interacted && window.navigator.vibrate([50, 100, 50, 100, 200]);
+  }, [active, interacted]);
 
   const seconds = Math.floor(time / 1000);
 
