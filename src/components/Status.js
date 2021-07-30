@@ -308,35 +308,23 @@ export default function Status({
     );
   };
 
-  const updateScroll = (target, fn) => {
-    const offY = target.getBoundingClientRect().y;
-    fn();
-    setTimeout(() =>
-      window.scrollBy(0, target.getBoundingClientRect().y - offY)
-    );
-  };
-
   const handleAddCustomCounter = (name, type) => (e) => {
     if (name) {
-      updateScroll(e.target, () => {
-        const count = counters.filter((c) => c.name.startsWith(name));
-        console.log(count);
-        const counter = getCounter({
-          active: false,
-          name: `${name} ${count.length + 1}`,
-          type: type || COUNTER_TYPES.CUSTOM,
-        });
-        setCounters((cs) => [...cs, counter]);
-        handleEnable(counter);
+      const count = counters.filter((c) => c.name.startsWith(name));
+      console.log(count);
+      const counter = getCounter({
+        active: false,
+        name: `${name} ${count.length + 1}`,
+        type: type || COUNTER_TYPES.CUSTOM,
       });
+      setCounters((cs) => [...cs, counter]);
+      handleEnable(counter);
     }
   };
 
   const handleAddSide = (counter) => (e) => {
     if (!counter.active && !result) {
-      updateScroll(e.target, () => {
-        handleEnable(counter);
-      });
+      handleEnable(counter);
     }
   };
 
