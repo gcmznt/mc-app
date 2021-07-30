@@ -279,7 +279,7 @@ export default function Status({
   };
 
   const handleEnable = (counter) => {
-    if (!counter.active) {
+    if (!counter.active && !result) {
       doUpdate(EVENTS.ENTER, counter, {
         active: true,
         levels: counter.initialLevels || counter.levels,
