@@ -50,6 +50,7 @@ legend {
   --color-accent: #e06614;
 }
 
+.is-scenario,
 .is-scheme,
 .is-justice {
   --color-accent: #f2ca00;

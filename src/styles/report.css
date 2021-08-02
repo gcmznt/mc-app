@@ -2,6 +2,48 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+.report__progress {
+  flex: 1 0 100%;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 0.5em;
+  align-items: end;
+  margin-bottom: 0.4em;
+}
+
+.report__bar {
+  width: 100%;
+  height: 3px;
+  margin-bottom: 0.1em;
+  position: relative;
+}
+
+.report__bar::before,
+.report__bar::after {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  background: var(--color-accent);
+  transform-origin: left center;
+  transition: all ease 50ms;
+}
+
+.report__bar.is-revert::after {
+  transform-origin: right center;
+}
+
+.report__bar::before {
+  opacity: 0.5;
+}
+
+.report__bar::after {
+  transform: scaleX(var(--val));
 }
 
 .report__btn {

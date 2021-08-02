@@ -110,7 +110,6 @@ const getVillainCounter = (mode) => (villain) =>
 
 const getMainSchemeCounter = (scenario) =>
   getFullCounter(scenario.name, COUNTER_TYPES.SCENARIO, scenario.mainScheme, [
-    { name: "Acceleration", type: COUNTER_TYPES.ACCELERATION, limit: -1 },
     ...scenario.mainScheme
       .filter((s) => s.counters)
       .map((s) => s.counters)
@@ -119,6 +118,7 @@ const getMainSchemeCounter = (scenario) =>
       .filter((s) => s.children)
       .map((s) => s.children)
       .flat(),
+    { name: "Acceleration", type: COUNTER_TYPES.ACCELERATION, limit: -1 },
   ]);
 
 const multiply = (players) => (counter) => {
@@ -687,10 +687,13 @@ export default function Status({
         <Actions
           title={
             <Report
+              heroes={heroesCounters}
+              icons={activeIcons}
+              mainScheme={mainScheme}
+              nextRound={() => nextRound(roundsCounter)}
               result={result && getResText(result)}
               round={roundsCounter?.levels[roundsCounter.stage].value}
-              nextRound={() => nextRound(roundsCounter)}
-              icons={activeIcons}
+              villains={villainCounters}
             />
           }
           types={result && ["result", result]}
