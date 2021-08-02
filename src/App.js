@@ -78,9 +78,20 @@ export default function App() {
   };
 
   useEffect(() => {
-    setOptions(load(STORAGE_KEYS.OPTIONS) || defOptions);
-    setSelection(load(STORAGE_KEYS.SELECTION) || fullSelect);
+    const sel = load(STORAGE_KEYS.SELECTION);
     const saved = load(STORAGE_KEYS.CURRENT);
+    setOptions(load(STORAGE_KEYS.OPTIONS) || defOptions);
+
+    const check = (k) => fullSelect[k].filter((el) => sel[k].includes(el));
+    setSelection(
+      sel
+        ? {
+            heroes: check("heroes"),
+            modularSets: check("modularSets"),
+            scenarios: check("scenarios"),
+          }
+        : fullSelect
+    );
     if (saved) {
       setMatchId(saved.matchId);
       setSetup(saved.setup);

@@ -447,7 +447,10 @@
   "The Rise of Red Skull": {
     "complete": "8p",
     "name": "The Rise of Red Skull",
-    "step": "1p"
+    "step": "1p",
+    "triggers": {
+      "enter": [{ "action": "enter-scheme", "entity": "The Red House" }]
+    }
   },
   "The Sleeper Awakened": { "name": "The Sleeper Awakened", "start": 0 },
   "The Viper's Ambition": {
@@ -474,7 +477,10 @@
   "Underground Distribution": {
     "complete": "6p",
     "name": "Underground Distribution",
-    "step": "1p"
+    "step": "1p",
+    "triggers": {
+      "enter": [{ "action": "enter-scheme", "entity": "Defense Network" }]
+    }
   },
   "Unleashing the Mutagen": {
     "complete": "7p",
