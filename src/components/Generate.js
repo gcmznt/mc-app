@@ -83,7 +83,10 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
       scenario: {
         ...scenario,
         sideSchemes: getSideSchemes(scenario),
-        mainScheme: scenario.mainScheme.map((s) => schemes[s]),
+        mainScheme: scenario.mainScheme.map((s) => ({
+          ...schemes[s],
+          children: (schemes[s].children || []).map((c) => schemes[c]),
+        })),
         modular: [...(scenario.encounter || []), ...modular]
           .map((m) => data.modularSets[m])
           .map(addSideSchemes),

@@ -197,7 +197,6 @@
     ],
     "villains": [
       {
-        "counters": [{ "name": "Test counters", "limit": 3 }],
         "levels": { "1": "12p", "2": "14p", "3": "16p" },
         "name": "Zola",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
@@ -222,6 +221,53 @@
         "levels": { "1": "12p", "2": "16p", "3": "20p" },
         "stages": { "expert": [2, 3], "standard": [1, 2] },
         "name": "Red Skull"
+      }
+    ]
+  },
+  {
+    "disabled": true,
+    "mainScheme": ["Kang's Arrival", "The Master of Time", "Kang's Wrath"],
+    "modular": ["Temporal"],
+    "name": "The Once and Future Kang",
+    "pack": "The Once and Future Kang",
+    "sideSchemes": [
+      "Corrupted Timestream",
+      "Kang's Dominion",
+      "Kang's Dominion",
+      "Kang's Dominion",
+      "Kang's Dominion",
+      "Pinned Down",
+      "Rampage",
+      "Rampage"
+    ],
+    "villains": [
+      {
+        "levels": {
+          "1": {
+            "complete": "12p",
+            "triggers": {
+              "defeat": [
+                { "action": "next-scenario" },
+                {
+                  "action": "enter-scheme-per-player",
+                  "entity": [
+                    "The Chronopolis",
+                    "Inexorable Fate",
+                    "The Realm of Rama-Tut",
+                    "The Present Future War"
+                  ]
+                }
+              ]
+            }
+          },
+          "2": 18,
+          "3": "20p",
+          "1e": "15p",
+          "2e": 22,
+          "3e": "25p"
+        },
+        "stages": { "expert": [1, 2, 3], "standard": [1, 2, 3] },
+        "name": "Kang"
       }
     ]
   },

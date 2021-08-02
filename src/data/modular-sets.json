@@ -69,6 +69,21 @@
     "sideSchemes": [],
     "pack": "The Rise of Red Skull"
   },
+  "Temporal": {
+    "name": "Temporal",
+    "sideSchemes": ["Time Portal"],
+    "pack": "The Once and Future Kang"
+  },
+  "Anachronauts": {
+    "name": "Anachronauts",
+    "sideSchemes": ["The Anachronauts", "The Anachronauts"],
+    "pack": "The Once and Future Kang"
+  },
+  "Master of Time": {
+    "name": "Master of Time",
+    "sideSchemes": ["Light of Centuries Sphere"],
+    "pack": "The Once and Future Kang"
+  },
   "Band of Badoon": {
     "name": "Band of Badoon",
     "sideSchemes": [],

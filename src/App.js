@@ -15,11 +15,18 @@ import { ReactComponent as SettingsIcon } from "./images/settings.svg";
 import { ReactComponent as StatsIcon } from "./images/stats.svg";
 import logo from "./images/logo.svg";
 
-const data = { heroes, modularSets, scenarios };
+const isEnabled = (el) =>
+  !el.disabled || window.location.hostname === "localhost";
+
+const data = {
+  heroes: heroes.filter(isEnabled),
+  modularSets,
+  scenarios: scenarios.filter(isEnabled),
+};
 const fullSelect = {
-  heroes: heroes.map((h) => h.name),
-  modularSets: Object.keys(modularSets),
-  scenarios: scenarios.map((h) => h.name),
+  heroes: data.heroes.map((h) => h.name),
+  modularSets: Object.keys(data.modularSets),
+  scenarios: data.scenarios.map((h) => h.name),
 };
 const defOptions = {
   compact: false,

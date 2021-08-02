@@ -163,7 +163,9 @@
     "name": "Hunting Down Heroes",
     "start": "1p",
     "step": "1p",
-    "triggers": [{ "action": "enter-scheme", "entity": "Hydra Patrol" }]
+    "triggers": {
+      "enter": [{ "action": "enter-scheme", "entity": "Hydra Patrol" }]
+    }
   },
   "Hydra Patrol": {
     "icons": ["Crisis"],
@@ -409,9 +411,13 @@
     "step": "1p"
   },
   "The Island of Dr. Zola": {
+    "counters": [{ "name": "Test counters", "limit": -1 }],
     "complete": "6p",
     "name": "The Island of Dr. Zola",
-    "step": "1p"
+    "step": "1p",
+    "triggers": {
+      "enter": [{ "action": "enter-scheme", "entity": "Hydra Prison" }]
+    }
   },
   "The Mad Doctor": {
     "complete": "8p",
@@ -494,6 +500,90 @@
   "Zola's Experiments": {
     "icons": ["Acceleration"],
     "name": "Zola's Experiments",
+    "start": "3p"
+  },
+  "Kang's Arrival": {
+    "advance": -1,
+    "complete": "7p",
+    "name": "Kang's Arrival",
+    "step": "1p"
+  },
+  "The Master of Time": {
+    "advance": false,
+    "complete": -1,
+    "name": "The Master of Time",
+    "children": [
+      "The Chronopolis",
+      "Inexorable Fate",
+      "The Realm of Rama-Tut",
+      "The Present Future War"
+    ]
+  },
+  "The Chronopolis": {
+    "active": false,
+    "complete": 9,
+    "name": "The Chronopolis",
+    "step": 1
+  },
+  "Inexorable Fate": {
+    "active": false,
+    "complete": 9,
+    "name": "Inexorable Fate",
+    "start": 1,
+    "step": 1
+  },
+  "The Realm of Rama-Tut": {
+    "active": false,
+    "complete": 9,
+    "name": "The Realm of Rama-Tut",
+    "start": 1,
+    "step": 1
+  },
+  "The Present Future War": {
+    "active": false,
+    "complete": 9,
+    "name": "The Present Future War",
+    "start": 2,
+    "step": 1
+  },
+  "Kang's Wrath": {
+    "advance": -1,
+    "complete": "10p",
+    "name": "Kang's Wrath",
+    "step": "3p"
+  },
+  "Corrupted Timestream": {
+    "name": "Corrupted Timestream",
+    "start": 2
+  },
+  "Kang's Dominion": {
+    "icons": ["Acceleration"],
+    "name": "Kang's Dominion",
+    "start": "3p"
+  },
+  "Pinned Down": {
+    "icons": ["Crisis"],
+    "name": "Pinned Down",
+    "start": 2
+  },
+  "Rampage": {
+    "icons": ["Acceleration"],
+    "name": "Rampage",
+    "start": 4
+  },
+  "Time Portal": {
+    "icons": ["Hazard"],
+    "name": "Time Portal",
+    "start": "2p"
+  },
+  "The Anachronauts": {
+    "icons": ["Hazard"],
+    "name": "The Anachronauts",
+    "start": "3p"
+  },
+  "Light of Centuries Sphere": {
+    "icons": ["Hazard"],
+    "name": "Light of Centuries Sphere",
     "start": "3p"
   }
 }

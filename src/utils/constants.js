@@ -35,7 +35,14 @@ export const EVENTS = {
 };
 
 export const TRIGGERS = {
+  ENTER: "enter",
+  DEFEAT: "defeat",
+};
+
+export const TRIGGERS_ACTIONS = {
+  NEXT_SCENARIO: "next-scenario",
   ENTER_SCHEME: "enter-scheme",
+  ENTER_SCHEME_PER_PLAYER: "enter-scheme-per-player",
 };
 
 export const RESULT_TYPES = {

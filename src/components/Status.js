@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
-import { load, persist, toValue } from "../utils";
+import { getRandomList, load, persist, toValue } from "../utils";
 import {
   COUNTERS_SCHEME,
   COUNTER_TYPES,
@@ -8,6 +8,7 @@ import {
   RESULT_TYPES,
   STORAGE_KEYS,
   TRIGGERS,
+  TRIGGERS_ACTIONS,
 } from "../utils/constants";
 import { getResText, getStageName, getStageText } from "../utils/texts";
 import Counter from "./Counter";
@@ -68,6 +69,7 @@ const getFullCounter = (name, type, levels, children, options) => {
       type: c.type || `${type}-child`,
       levels: [c],
       parent: parentCounter.id,
+      ...c,
     })
   );
 
@@ -95,8 +97,11 @@ const getVillainCounter = (mode) => (villain) =>
       villain.name,
       COUNTER_TYPES.VILLAIN,
       villain.stages[mode.toLowerCase()].map((stage) => ({
-        name: `${villain.name} ${getStageText(stage)}`,
-        limit: villain.levels[stage],
+        name:
+          villain.levels[stage].name ||
+          `${villain.name} ${getStageText(stage)}`,
+        limit: villain.levels[stage].complete || villain.levels[stage],
+        triggers: villain.levels[stage].triggers,
       })),
       villain.counters,
       { status: statuses }
@@ -110,12 +115,18 @@ const getMainSchemeCounter = (scenario) =>
       .filter((s) => s.counters)
       .map((s) => s.counters)
       .flat(),
+    ...scenario.mainScheme
+      .filter((s) => s.children)
+      .map((s) => s.children)
+      .flat(),
   ]);
 
 const multiply = (players) => (counter) => {
   const multiplied = (counter.levels || []).map((level) => ({
     ...level,
-    advance: toValue(level.advance, players),
+    advance: ["string", "number"].includes(typeof level.advance)
+      ? toValue(level.advance, players)
+      : level.advance,
     complete: toValue(level.complete || 0, players),
     limit: toValue(level.limit || level.complete || 0, players),
     start: toValue(level.start || 0, players),
@@ -140,7 +151,7 @@ const runTrigger = (triggers) => (counter) => {
     .filter((t) => t.entity === counter.name)
     .forEach((t) => {
       switch (t.action) {
-        case TRIGGERS.ENTER_SCHEME:
+        case TRIGGERS_ACTIONS.ENTER_SCHEME:
           return (counter.active = true);
         default:
           break;
@@ -163,8 +174,8 @@ const getCounters = (setup) => {
   ].map(multiply(setup.settings.players));
 
   const triggers = counters
-    .filter((c) => c.active && c.levels[c.stage].triggers)
-    .map((c) => c.levels[c.stage].triggers)
+    .filter(isActive)
+    .map((c) => c.levels[c.stage].triggers?.[TRIGGERS.ENTER] || [])
     .flat();
 
   return counters.map(runTrigger(triggers));
@@ -183,6 +194,15 @@ export default function Status({
   const [interacted, setInteracted] = useState(false);
   const [custom, setCustom] = useState("");
   const [time, setTime] = useState(0);
+  const [firstPlayer, setFirstPlayer] = useState(0);
+
+  const accelerationCounters = (counters || []).filter(isAcceleration);
+  const customCounters = (counters || []).filter(isCustomCounter);
+  const heroesCounters = (counters || []).filter(isHeroCounter);
+  const mainScheme = (counters || []).find(isMainCounter);
+  const roundsCounter = (counters || []).find(isRoundCounter);
+  const sideSchemes = (counters || []).filter(isSideCounter);
+  const villainCounters = (counters || []).filter(isVillainCounter);
 
   const logEvent = (event, entity, data) => {
     setLog((l) => [
@@ -199,8 +219,29 @@ export default function Status({
       );
   };
 
+  const nextPlayer = () => {
+    setFirstPlayer((fp) => {
+      for (let index = fp; index < heroesCounters.length + fp; index++) {
+        const next = (index + 1) % heroesCounters.length;
+        if (heroesCounters[next].active) return next;
+      }
+      return fp;
+    });
+  };
+
+  const revertFirstPlayer = () => {
+    setFirstPlayer((fp) => {
+      for (let index = heroesCounters.length + fp; index > fp; index--) {
+        const prev = (index - 1) % heroesCounters.length;
+        if (heroesCounters[prev].active) return prev;
+      }
+      return fp;
+    });
+  };
+
   const nextRound = (counter) => {
     logEvent(EVENTS.INCREASE, counter.id, { counter, val: 1 });
+    nextPlayer();
     updateCounter(counter.id, {
       levels: [{ ...counter.levels[0], value: counter.levels[0].value + 1 }],
     });
@@ -234,6 +275,34 @@ export default function Status({
   };
 
   const handleDefeat = (counter) => {
+    (counter.levels[counter.stage].triggers?.[TRIGGERS.DEFEAT] || []).forEach(
+      (trigger) => {
+        switch (trigger.action) {
+          case TRIGGERS_ACTIONS.NEXT_SCENARIO:
+            return doUpdate(EVENTS.NEXT, mainScheme, {
+              stage: mainScheme.stage + 1,
+            });
+          case TRIGGERS_ACTIONS.ENTER_SCHEME:
+            return handleEnable(
+              counters.find((c) => c.name === trigger.entity)
+            );
+          case TRIGGERS_ACTIONS.ENTER_SCHEME_PER_PLAYER:
+            return getRandomList(
+              trigger.entity,
+              setup.settings.players
+            ).forEach((counter) => {
+              console.log(
+                counter,
+                counters.find((c) => c.name === counter)
+              );
+              handleEnable(counters.find((c) => c.name === counter));
+            });
+
+          default:
+            break;
+        }
+      }
+    );
     if (counter.stage + 1 < counter.levels.length) {
       doUpdate(EVENTS.NEXT, counter, { stage: counter.stage + 1 });
     } else {
@@ -311,7 +380,6 @@ export default function Status({
   const handleAddCustomCounter = (name, type) => (e) => {
     if (name) {
       const count = counters.filter((c) => c.name.startsWith(name));
-      console.log(count);
       const counter = getCounter({
         active: false,
         name: `${name} ${count.length + 1}`,
@@ -372,6 +440,7 @@ export default function Status({
       case EVENTS.ENTER:
         return revert(counter, { active: false });
       case EVENTS.INCREASE:
+        if (counter.type === COUNTER_TYPES.ROUNDS) revertFirstPlayer();
         return revert(counter, {
           levels: counter.levels.map((level, i) =>
             i === counter.stage
@@ -421,6 +490,7 @@ export default function Status({
     const saved = load(STORAGE_KEYS.CURRENT);
     if (saved) {
       setCounters(saved.counters);
+      setFirstPlayer(saved.firstPlayer);
       setTime(saved.time);
       setLog(saved.log.map((l) => ({ ...l, date: new Date(l.date) })));
     } else {
@@ -446,29 +516,20 @@ export default function Status({
   useEffect(() => {
     persist(STORAGE_KEYS.CURRENT, {
       counters,
+      firstPlayer,
       log,
       matchId,
       result,
       setup,
       time,
     });
-  }, [counters, log, matchId, result, setup, time]);
+  }, [counters, firstPlayer, log, matchId, result, setup, time]);
 
   useEffect(() => {
     if (interacted && result) {
       logEvent(EVENTS.END, false, { result, resultText: getResText(result) });
     }
   }, [interacted, result]);
-
-  const defaultCounterProps = { logEvent, onUpdate: updateCounter, result };
-
-  const accelerationCounters = (counters || []).filter(isAcceleration);
-  const customCounters = (counters || []).filter(isCustomCounter);
-  const heroesCounters = (counters || []).filter(isHeroCounter);
-  const mainScheme = (counters || []).find(isMainCounter);
-  const roundsCounter = (counters || []).find(isRoundCounter);
-  const sideSchemes = (counters || []).filter(isSideCounter);
-  const villainCounters = (counters || []).filter(isVillainCounter);
 
   const acceleration =
     accelerationCounters.reduce(
@@ -482,15 +543,13 @@ export default function Status({
       .flat()
       .reduce((a, b) => a + +(b === "Acceleration"), 0);
 
-  const firstPlayer =
-    (roundsCounter?.levels[roundsCounter.stage].value - 1) %
-    heroesCounters.length;
-
   const activeIcons = (counters || [])
     .filter(isActive)
     .map((c) => c.icons || [])
     .flat()
     .sort((a, b) => a.localeCompare(b));
+
+  const defaultCounterProps = { logEvent, onUpdate: updateCounter, result };
 
   return (
     counters && (
@@ -534,7 +593,7 @@ export default function Status({
             counter={mainScheme}
             onComplete={handleComplete}
             onPrevious={handlePrevious}
-            siblings={counters.filter(childOf(mainScheme))}
+            siblings={counters.filter(isActive).filter(childOf(mainScheme))}
             title="Threats"
             type="scheme"
           />

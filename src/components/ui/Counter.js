@@ -87,7 +87,10 @@ export default function Counter({
     ((limit > 0 && value >= limit) ||
       (limit === 0 && value === 0) ||
       value === advance ||
-      limit === -1);
+      limit === -1) &&
+    (typeof advance !== "boolean" || advance);
+
+  // console.log(value, title, limit, min, advance);
 
   return (
     <div className="counter__wrapper">
