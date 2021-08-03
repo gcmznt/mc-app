@@ -1,16 +1,13 @@
 .status {
   display: flex;
   justify-content: center;
-  margin-bottom: 0.4em;
-}
-
-.use-compact .status {
-  margin-bottom: 0.2em;
+  margin-left: 0.4em;
 }
 
 .status__toggle {
   margin: 0.2em;
   padding: 0.2em 0.5em;
+  opacity: 0.5;
 }
 
 .use-compact .status__toggle {
@@ -18,6 +15,7 @@
 }
 
 .status__toggle.is-active {
+  opacity: 1;
   background-color: var(--color-accent);
   color: var(--color-accent-contrast);
 }

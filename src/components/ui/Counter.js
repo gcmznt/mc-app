@@ -94,8 +94,10 @@ export default function Counter({
 
   return (
     <div className="counter__wrapper">
-      {status && <Status status={status} onToggle={onStatusToggle} />}
-      {title && <div className="counter__title">{title}</div>}
+      <div className="counter__title">
+        {title && <span>{title}</span>}
+        {status && <Status status={status} onToggle={onStatusToggle} />}
+      </div>
 
       <span className="counter__icons">
         {(icons || []).map((icon, i) => (

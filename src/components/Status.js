@@ -31,6 +31,8 @@ const isRoundCounter = (counter) => counter.type === COUNTER_TYPES.ROUNDS;
 const isSideCounter = (counter) => COUNTERS_SCHEME.includes(counter.type);
 const isVillainCounter = (counter) => counter.type === COUNTER_TYPES.VILLAIN;
 
+const byName = (a, b) => a.name.localeCompare(b.name);
+
 const statuses = {
   Confused: false,
   Stunned: false,
@@ -384,6 +386,7 @@ export default function Status({
         active: false,
         name: `${name} ${count.length + 1}`,
         type: type || COUNTER_TYPES.CUSTOM,
+        status: ["Ally", "Minion"].includes(name) && statuses,
       });
       setCounters((cs) => [...cs, counter]);
       handleEnable(counter);
@@ -488,7 +491,6 @@ export default function Status({
 
   useEffect(() => {
     const saved = load(STORAGE_KEYS.CURRENT);
-    console.log(saved);
     if (saved) {
       setCounters(saved.counters);
       setFirstPlayer(saved.firstPlayer);
@@ -566,7 +568,6 @@ export default function Status({
               onComplete={handleDefeat}
               onStatusToggle={handleStatusToggle(counter)}
               siblings={counters.filter(childOf(counter))}
-              title="Hits"
               type={counter.type}
             />
           ))}
@@ -582,7 +583,6 @@ export default function Status({
               onPrevious={handlePrevious}
               onStatusToggle={handleStatusToggle(counter)}
               siblings={counters.filter(childOf(counter))}
-              title="Hits"
               type={counter.type}
             />
           ))}
@@ -613,15 +613,19 @@ export default function Status({
           )}
           {!!customCounters.filter(isActive).length && (
             <Box key="Extra" title="Extra" flat>
-              {customCounters.filter(isActive).map((counter) => (
-                <Counter
-                  counter={counter}
-                  key={counter.id}
-                  onComplete={() => handleDisable(counter)}
-                  title={counter.levels[counter.stage].name}
-                  {...defaultCounterProps}
-                />
-              ))}
+              {customCounters
+                .filter(isActive)
+                .sort(byName)
+                .map((counter) => (
+                  <Counter
+                    counter={counter}
+                    key={counter.id}
+                    onComplete={() => handleDisable(counter)}
+                    onStatusToggle={handleStatusToggle(counter)}
+                    title={counter.levels[counter.stage].name}
+                    {...defaultCounterProps}
+                  />
+                ))}
             </Box>
           )}
           <Box key="Add counters" title="Add counters" flat flag type="scheme">

@@ -48,11 +48,10 @@
 }
 
 .counter__title {
-  font-size: 0.8em;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  margin-bottom: 0.4em;
 }
 
 .counter__value {
