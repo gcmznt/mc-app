@@ -64,7 +64,7 @@ const getLogString = ({ count = 0, data, event }) => {
     case EVENTS.STATUS_DISABLE:
       return (
         <>
-          {data.name} is no more{" "}
+          {getStageName(data.counter)} is no more{" "}
           <span className={`is-${data.status.toLowerCase()}`}>
             {data.status}
           </span>
@@ -73,7 +73,7 @@ const getLogString = ({ count = 0, data, event }) => {
     case EVENTS.STATUS_ENABLE:
       return (
         <>
-          {data.name} is{" "}
+          {getStageName(data.counter)} is{" "}
           <span className={`is-${data.status.toLowerCase()}`}>
             {data.status}
           </span>

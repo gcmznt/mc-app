@@ -10,7 +10,7 @@ import {
   TRIGGERS,
   TRIGGERS_ACTIONS,
 } from "../utils/constants";
-import { getResText, getStageName, getStageText } from "../utils/texts";
+import { getResText, getStageText } from "../utils/texts";
 import Counter from "./Counter";
 import { CounterBox } from "./CounterBox";
 import Log from "./Log";
@@ -373,7 +373,7 @@ export default function Status({
       counter,
       { status: { ...counter.status, [status]: flag } },
       `${counter.id}|${status}`,
-      { name: getStageName(counter), status }
+      { counter, status }
     );
   };
 
@@ -488,6 +488,7 @@ export default function Status({
 
   useEffect(() => {
     const saved = load(STORAGE_KEYS.CURRENT);
+    console.log(saved);
     if (saved) {
       setCounters(saved.counters);
       setFirstPlayer(saved.firstPlayer);
