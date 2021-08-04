@@ -513,7 +513,7 @@ export default function Status({
   }, [counters]);
 
   useEffect(() => {
-    interacted && window.navigator.vibrate(50);
+    if (interacted && window.navigator.vibrate) window.navigator.vibrate(50);
   }, [counters, interacted, result]);
 
   useEffect(() => {

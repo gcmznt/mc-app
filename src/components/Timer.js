@@ -23,7 +23,9 @@ export default function Timer({ disabled, interacted, time, onChange }) {
   }, []);
 
   useEffect(() => {
-    interacted && window.navigator.vibrate([50, 100, 50, 100, 200]);
+    if (interacted && window.navigator.vibrate) {
+      window.navigator.vibrate([50, 100, 50, 100, 200]);
+    }
   }, [active, interacted]);
 
   const seconds = Math.floor(time / 1000);
