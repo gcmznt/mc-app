@@ -67,6 +67,7 @@ export default function App() {
     setMatchId(false);
     setSetup(false);
     clear(STORAGE_KEYS.CURRENT);
+    document.body.classList.remove("no-scroll");
   };
 
   const handleStart = () => {
