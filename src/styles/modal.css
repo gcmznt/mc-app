@@ -12,4 +12,5 @@
   background: #000c;
   z-index: 11000;
   overflow: auto;
+  transform: translateZ(1000px);
 }

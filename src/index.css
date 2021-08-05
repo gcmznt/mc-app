@@ -22,6 +22,10 @@ body {
   user-select: none;
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
+
 main {
   margin: auto;
 }

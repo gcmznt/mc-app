@@ -520,6 +520,10 @@ export default function Status({
   }, [counters, interacted, result]);
 
   useEffect(() => {
+    document.body.classList.toggle("no-scroll", quit);
+  }, [quit]);
+
+  useEffect(() => {
     persist(STORAGE_KEYS.CURRENT, {
       counters,
       firstPlayer,
@@ -562,14 +566,13 @@ export default function Status({
       <div>
         {quit && (
           <Modal>
-            <h2>Reason</h2>
             <button onClick={handleGiveUp}>Give up</button>
-            <button onClick={handleDiscard}>Discard match</button>
             <button onClick={handleLostByScheme}>Lost by scheme</button>
             <button onClick={handleHeroesDead}>All heroes dead</button>
             <button onClick={handleVillainsDead}>Villain defeated</button>
             <button onClick={handleWonByScheme}>Won by scheme</button>
-            <button onClick={() => setQuit(false)}>Continue the match</button>
+            <button onClick={handleDiscard}>Discard match</button>
+            <button onClick={() => setQuit(false)}>Return to the match</button>
           </Modal>
         )}
         <div className="box__wrapper">
