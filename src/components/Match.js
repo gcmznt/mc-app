@@ -17,13 +17,14 @@ export default function Match({ matchId, onQuit, options, setup }) {
       event_label: result.reason,
     });
 
-    if (res || result)
+    if (res || result) {
       append(STORAGE_KEYS.MATCHES, {
         date: new Date(),
         matchId,
         setup,
         ...(res || result),
       });
+    }
     onQuit();
   };
 

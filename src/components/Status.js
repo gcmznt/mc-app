@@ -17,6 +17,7 @@ import Log from "./Log";
 import Timer from "./Timer";
 import Actions, { Action } from "./ui/Actions";
 import Box from "./ui/Box";
+import Modal from "./ui/Modal";
 import Option from "./ui/Option";
 import Report from "./ui/Report";
 
@@ -194,6 +195,7 @@ export default function Status({
   const [counters, setCounters] = useState(false);
   const [log, setLog] = useState([]);
   const [interacted, setInteracted] = useState(false);
+  const [quit, setQuit] = useState(false);
   const [custom, setCustom] = useState("");
   const [time, setTime] = useState(0);
   const [firstPlayer, setFirstPlayer] = useState(0);
@@ -268,9 +270,14 @@ export default function Status({
     onResult(result, counters, log);
   };
 
-  const handleGiveUp = () => {
-    onResult(RESULT_TYPES.GIVE_UP, counters, log, true);
-  };
+  const handleQuit = () => (result ? onQuit() : setQuit(true));
+  const handleEndGame = (reason) => onResult(reason, counters, log, true);
+  const handleDiscard = () => onQuit();
+  const handleGiveUp = () => handleEndGame(RESULT_TYPES.GIVE_UP);
+  const handleLostByScheme = () => handleEndGame(RESULT_TYPES.SCHEME);
+  const handleHeroesDead = () => handleEndGame(RESULT_TYPES.DEFEATED);
+  const handleVillainsDead = () => handleEndGame(RESULT_TYPES.WINNER);
+  const handleWonByScheme = () => handleEndGame(RESULT_TYPES.SCHEME_WIN);
 
   const disableCounter = (counter) => {
     updateCounter(counter.id, { active: false });
@@ -363,10 +370,6 @@ export default function Status({
     setLog([]);
     setCounters(getCounters(setup));
     logEvent(EVENTS.RESTART);
-  };
-
-  const handleQuit = () => {
-    onQuit();
   };
 
   const handleStatusToggle = (counter) => (status, flag) => {
@@ -557,6 +560,18 @@ export default function Status({
   return (
     counters && (
       <div>
+        {quit && (
+          <Modal>
+            <h2>Reason</h2>
+            <button onClick={handleGiveUp}>Give up</button>
+            <button onClick={handleDiscard}>Discard match</button>
+            <button onClick={handleLostByScheme}>Lost by scheme</button>
+            <button onClick={handleHeroesDead}>All heroes dead</button>
+            <button onClick={handleVillainsDead}>Villain defeated</button>
+            <button onClick={handleWonByScheme}>Won by scheme</button>
+            <button onClick={() => setQuit(false)}>Continue the match</button>
+          </Modal>
+        )}
         <div className="box__wrapper">
           {heroesCounters.map((counter, i) => (
             <CounterBox
@@ -705,10 +720,7 @@ export default function Status({
         >
           <Action label="Undo" onClick={handleUndo} />
           <Action label="Restart" onClick={handleRestart} />
-          <Action
-            label={result ? "Exit" : "Give up"}
-            onClick={result ? handleQuit : handleGiveUp}
-          />
+          <Action label={result ? "Exit" : "End match"} onClick={handleQuit} />
         </Actions>
       </div>
     )
