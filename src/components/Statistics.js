@@ -32,7 +32,9 @@ const getWins = (values) =>
   values[RESULT_TYPES.SCHEME_WIN] + values[RESULT_TYPES.WINNER];
 
 const getLost = (values) =>
-  values[RESULT_TYPES.DEFEATED] + values[RESULT_TYPES.SCHEME];
+  values[RESULT_TYPES.DEFEATED] +
+  values[RESULT_TYPES.SCHEME] +
+  values[RESULT_TYPES.GIVE_UP];
 
 const getPerc = (values) => {
   const w = getWins(values);
