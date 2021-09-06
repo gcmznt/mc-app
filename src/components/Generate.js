@@ -5,7 +5,7 @@ import { ASPECTS, MODES, RANDOM, STORAGE_KEYS } from "../utils/constants";
 import Heroic from "./Heroic";
 import Mode from "./Mode";
 import Players from "./Players";
-// import Skirmish from "./Skirmish";
+import Skirmish from "./Skirmish";
 import Box from "./ui/Box";
 import Option from "./ui/Option";
 import Setup from "./ui/Setup";
@@ -157,10 +157,10 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
       <Box title="Mode" key="Mode">
         <Mode onChange={handleChange("mode")} value={settings.mode} />
         <Heroic onChange={handleChange("heroic")} value={settings.heroic} />
-        {/* <Skirmish
+        <Skirmish
           onChange={handleChange("skirmish")}
           value={settings.skirmish}
-        /> */}
+        />
       </Box>
       <Box title="Random" key="Random">
         <Option

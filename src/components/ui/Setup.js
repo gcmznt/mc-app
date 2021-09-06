@@ -16,7 +16,7 @@ export default function Setup({ setup }) {
       <div>{setup.scenario.modular.map((m) => m.name).join(" + ")}</div>
       <div>
         {setup.mode} | Heroic: {setup.heroic}
-        {/* {setup.skirmish !== "None" ? ` | Skirmish level ${setup.skirmish}` : ""} */}
+        {setup.skirmish !== "None" ? ` | Skirmish level ${setup.skirmish}` : ""}
       </div>
     </>
   );

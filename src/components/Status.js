@@ -94,12 +94,15 @@ const getSideCounter = (scheme) =>
     icons: scheme.icons || [],
   });
 
-const getVillainCounter = (mode) => (villain) =>
-  [
+const getVillainCounter = (setup) => (villain) => {
+  const stages = isNaN(setup.skirmish)
+    ? villain.stages[setup.mode.toLowerCase()]
+    : [setup.skirmish];
+  return [
     ...getFullCounter(
       villain.name,
       COUNTER_TYPES.VILLAIN,
-      villain.stages[mode.toLowerCase()].map((stage) => ({
+      stages.map((stage) => ({
         name:
           villain.levels[stage].name ||
           `${villain.name} ${getStageText(stage)}`,
@@ -110,6 +113,7 @@ const getVillainCounter = (mode) => (villain) =>
       { status: statuses }
     ),
   ];
+};
 
 const getMainSchemeCounter = (scenario) =>
   getFullCounter(scenario.name, COUNTER_TYPES.SCENARIO, scenario.mainScheme, [
@@ -171,7 +175,7 @@ const getCounters = (setup) => {
       type: COUNTER_TYPES.ROUNDS,
     }),
     ...setup.heroes.map(getHeroCounter).flat(),
-    ...setup.scenario.villains.map(getVillainCounter(setup.mode)).flat(),
+    ...setup.scenario.villains.map(getVillainCounter(setup)).flat(),
     ...getMainSchemeCounter(setup.scenario),
     ...getSideSchemes(setup).map(getSideCounter).flat(),
   ].map(multiply(setup.settings.players));
