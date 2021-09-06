@@ -357,7 +357,8 @@
     "complete": "8p",
     "name": "Terrestrial Invasion",
     "start": "2p",
-    "step": "2p"
+    "step": "2p",
+    "counters": [{ "name": "Badoon Ship", "limit": -1 }]
   },
   "Test Subjects": {
     "icons": ["Hazard"],
@@ -529,7 +530,10 @@
     "active": false,
     "complete": 9,
     "name": "The Chronopolis",
-    "step": 1
+    "step": 1,
+    "___triggers": {
+      "enter": [{ "action": "enter-villain", "entity": "Hydra Patrol" }]
+    }
   },
   "Inexorable Fate": {
     "active": false,

@@ -81,6 +81,7 @@ const getMatches = (data) =>
     date: new Date(match.date),
     heroes: match.setup.heroes.map((h) => h.name),
     id: match.matchId,
+    mode: match.setup.mode,
     result: result_text[match.reason],
     scenario: match.setup.scenario.name,
   }));
@@ -99,7 +100,7 @@ function Row({ label, values }) {
 const byName = (a, b) => a[0].localeCompare(b[0]);
 const byDate = (a, b) => b.date - a.date;
 
-export default function Statistics() {
+export default function Statistics({ onLoad }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -114,6 +115,10 @@ export default function Statistics() {
       setData(newData);
       persist(STORAGE_KEYS.MATCHES, newData);
     }
+  };
+
+  const handleReplay = (match) => {
+    onLoad(data.find((m) => m.matchId === match.id).setup);
   };
 
   const handleDeleteAll = () => {
@@ -188,7 +193,12 @@ export default function Statistics() {
           {getMatches(data)
             .sort(byDate)
             .map((match) => (
-              <Match key={match.id} match={match} onDelete={handleDelete} />
+              <Match
+                key={match.id}
+                match={match}
+                onDelete={handleDelete}
+                onReplay={handleReplay}
+              />
             ))}
         </Box>
       )}

@@ -12,10 +12,12 @@ export default function Setup({ setup }) {
         </div>
       ))}
       <div className="vs">VS</div>
-      <div>
-        {setup.scenario.name} [{setup.mode}]
-      </div>
+      <div>{setup.scenario.name}</div>
       <div>{setup.scenario.modular.map((m) => m.name).join(" + ")}</div>
+      <div>
+        {setup.mode} | Heroic: {setup.heroic}
+        {/* {setup.skirmish !== "None" ? ` | Skirmish level ${setup.skirmish}` : ""} */}
+      </div>
     </>
   );
 }

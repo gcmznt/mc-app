@@ -2,18 +2,22 @@ import { useEffect, useRef, useState } from "react";
 import schemes from "../data/schemes.json";
 import { getRandom, getRandomList, load, persist } from "../utils";
 import { ASPECTS, MODES, RANDOM, STORAGE_KEYS } from "../utils/constants";
+import Heroic from "./Heroic";
 import Mode from "./Mode";
 import Players from "./Players";
+// import Skirmish from "./Skirmish";
 import Box from "./ui/Box";
 import Option from "./ui/Option";
 import Setup from "./ui/Setup";
 
 const initialSetting = {
+  heroic: 0,
   mode: "Standard",
   players: 1,
   randomAspects: true,
   randomCumulative: true,
   randomModulars: true,
+  skirmish: "None",
 };
 
 export default function Generate({ data, onGenerate, onStart, selection }) {
@@ -80,6 +84,10 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
     setSetup({
       heroes,
       mode: settings.mode === RANDOM ? getRandom(MODES) : settings.mode,
+      heroic:
+        settings.heroic === RANDOM
+          ? getRandom([0, 1, 2, 3, 4])
+          : settings.heroic,
       scenario: {
         ...scenario,
         sideSchemes: getSideSchemes(scenario),
@@ -92,6 +100,8 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
           .map(addSideSchemes),
       },
       settings,
+      skirmish:
+        settings.skirmish === RANDOM ? getRandom([1, 2, 3]) : settings.skirmish,
     });
 
     if (!setup) {
@@ -146,6 +156,11 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
       </Box>
       <Box title="Mode" key="Mode">
         <Mode onChange={handleChange("mode")} value={settings.mode} />
+        <Heroic onChange={handleChange("heroic")} value={settings.heroic} />
+        {/* <Skirmish
+          onChange={handleChange("skirmish")}
+          value={settings.skirmish}
+        /> */}
       </Box>
       <Box title="Random" key="Random">
         <Option

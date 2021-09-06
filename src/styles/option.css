@@ -10,6 +10,10 @@
   display: inline-flex;
 }
 
+span + .option--inline {
+  margin-left: 0.4em;
+}
+
 .option--inline + .option--inline {
   margin-left: 1em;
 }

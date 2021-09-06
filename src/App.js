@@ -63,6 +63,13 @@ export default function App() {
     persist(STORAGE_KEYS.SETTINGS, setup.settings);
   };
 
+  const handleLoad = (setup) => {
+    setPage(PAGES.MAIN);
+    setMatchId(uuid());
+    setSetup(setup);
+    persist(STORAGE_KEYS.SETTINGS, setup.settings);
+  };
+
   const handleQuit = () => {
     setMatchId(false);
     setSetup(false);
@@ -151,9 +158,7 @@ export default function App() {
           onChange={setSelection}
         />
       )}
-      {page === PAGES.STATISTICS && (
-        <Statistics onBack={() => setPage(PAGES.MAIN)} />
-      )}
+      {page === PAGES.STATISTICS && <Statistics onLoad={handleLoad} />}
       {page === PAGES.MAIN && !matchId && (
         <Generate
           data={data}
