@@ -10,12 +10,8 @@
   display: inline-flex;
 }
 
-span + .option--inline {
-  margin-left: 0.4em;
-}
-
 .option--inline + .option--inline {
-  margin-left: 1em;
+  margin-left: 0.5em;
 }
 
 .option__flag {

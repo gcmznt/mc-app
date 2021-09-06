@@ -6,7 +6,7 @@ export default function Skirmish({ onChange, value }) {
 
   return (
     <div>
-      <span>Skirmish:</span>
+      <legend className="box__legend">Skirmish</legend>
       {["None", 1, 2, 3, RANDOM].map((skirmish) => (
         <Option
           checked={`${skirmish}` === value}

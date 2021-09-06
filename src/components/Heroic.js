@@ -6,7 +6,7 @@ export default function Heroic({ onChange, value }) {
 
   return (
     <div>
-      <span>Heroic:</span>
+      <legend className="box__legend">Heroic</legend>
       {[0, 1, 2, 3, 4, RANDOM].map((heroic) => (
         <Option
           checked={`${heroic}` === value}

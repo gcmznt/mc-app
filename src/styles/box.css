@@ -96,3 +96,7 @@
   max-height: 40vh;
   overflow: auto;
 }
+
+.box__legend {
+  margin-top: 1.5em;
+}
