@@ -123,5 +123,40 @@
     "name": "Space Pirates",
     "sideSchemes": ["Sound the Alarms"],
     "pack": "Galaxy’s Most Wanted"
+  },
+  "Enchantress": {
+    "name": "Enchantress",
+    "sideSchemes": [],
+    "pack": "The Mad Titan’s Shadow"
+  },
+  "Frost Giants": {
+    "name": "Frost Giants",
+    "sideSchemes": ["Unnatural Storm"],
+    "pack": "The Mad Titan’s Shadow"
+  },
+  "Legions of Hel": {
+    "name": "Legions of Hel",
+    "sideSchemes": ["Legions of Hel", "Legions of Hel"],
+    "pack": "The Mad Titan’s Shadow"
+  },
+  "Infinity Gauntlet": {
+    "name": "Infinity Gauntlet",
+    "sideSchemes": [],
+    "pack": "The Mad Titan’s Shadow"
+  },
+  "Children of Thanos": {
+    "name": "Children of Thanos",
+    "sideSchemes": ["Tribute"],
+    "pack": "The Mad Titan’s Shadow"
+  },
+  "Armies of Titan": {
+    "name": "Armies of Titan",
+    "sideSchemes": ["Landing Craft", "Landing Craft"],
+    "pack": "The Mad Titan’s Shadow"
+  },
+  "The Black Order": {
+    "name": "The Black Order",
+    "sideSchemes": ["The Black Order"],
+    "pack": "The Mad Titan’s Shadow"
   }
 }

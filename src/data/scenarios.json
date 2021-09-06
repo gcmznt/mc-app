@@ -362,5 +362,94 @@
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
+  },
+  {
+    "encounter": [],
+    "mainScheme": ["Attack on Knowhere", "The Power Stone"],
+    "modular": ["Armies of Titan", "The Black Order"],
+    "name": "Ebony Maw",
+    "pack": "The Mad Titan’s Shadow",
+    "sideSchemes": ["Reactor Overload", "Reactor Overload"],
+    "villains": [
+      {
+        "levels": { "1": "14p", "2": "18p", "3": "23p" },
+        "name": "Ebony Maw",
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
+      }
+    ]
+  },
+  {
+    "encounter": [],
+    "mainScheme": ["Under Siege"],
+    "modular": ["Armies of Titan"],
+    "name": "Tower Defense",
+    "pack": "The Mad Titan’s Shadow",
+    "sideSchemes": [
+      "The Armies of Thanos",
+      "City Under Attack",
+      "City Under Attack"
+    ],
+    "villains": [
+      {
+        "levels": { "1": "9p", "2": "12p", "3": "15p" },
+        "name": "Proxima Midnight",
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
+      },
+      {
+        "levels": { "1": "8p", "2": "11p", "3": "14p" },
+        "name": "Corvus Glaive",
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
+      }
+    ]
+  },
+  {
+    "encounter": ["Infinity Gauntlet"],
+    "mainScheme": ["The Infinity Stones", "Balance the Scales"],
+    "modular": ["The Black Order", "Children of Thanos"],
+    "name": "Thanos",
+    "pack": "The Mad Titan’s Shadow",
+    "sideSchemes": ["Sanctuary", "The Titan's Throne"],
+    "villains": [
+      {
+        "levels": { "1": "16p", "2": "23p", "3": "28p" },
+        "name": "Thanos",
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
+      }
+    ]
+  },
+  {
+    "encounter": [],
+    "mainScheme": ["Odin's Torment"],
+    "modular": ["Legions of Hel", "Frost Giants"],
+    "name": "Hela",
+    "pack": "The Mad Titan’s Shadow",
+    "sideSchemes": ["Gnipahellir", "Hall of Nastrond", "Gjallerbru"],
+    "villains": [
+      {
+        "levels": { "A": "8p", "B": "9p" },
+        "name": "Hela",
+        "stages": { "expert": ["B"], "standard": ["A"] }
+      }
+    ]
+  },
+  {
+    "encounter": ["Infinity Gauntlet"],
+    "mainScheme": ["All Hail King Loki"],
+    "modular": ["Enchantress", "Frost Giants"],
+    "name": "Loki",
+    "pack": "The Mad Titan’s Shadow",
+    "sideSchemes": [
+      "Open the Bifrost",
+      "Madness on Midgard",
+      "War in Asgard",
+      "Casket of Ancient Winters"
+    ],
+    "villains": [
+      {
+        "levels": { "1": "20p" },
+        "name": "Loki",
+        "stages": { "expert": [1], "standard": [1] }
+      }
+    ]
   }
 ]

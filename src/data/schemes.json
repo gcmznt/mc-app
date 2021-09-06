@@ -595,5 +595,153 @@
     "icons": ["Hazard"],
     "name": "Light of Centuries Sphere",
     "start": "3p"
+  },
+  "Reactor Meltdown": {
+    "icons": ["Crisis"],
+    "name": "Reactor Meltdown",
+    "start": "2p"
+  },
+  "Universal Church of Truth": {
+    "icons": ["Acceleration"],
+    "name": "Universal Church of Truth",
+    "start": "2p"
+  },
+  "Unnatural Storm": {
+    "icons": [],
+    "name": "Unnatural Storm",
+    "start": "2p"
+  },
+  "Legions of Hel": {
+    "icons": ["Crisis"],
+    "name": "Legions of Hel",
+    "start": 2
+  },
+  "Tribute": {
+    "icons": ["Crisis"],
+    "name": "Tribute",
+    "start": "2p"
+  },
+  "Landing Craft": {
+    "icons": ["Acceleration"],
+    "name": "Landing Craft",
+    "start": "2p"
+  },
+  "The Black Order": {
+    "icons": ["Hazard"],
+    "name": "The Black Order",
+    "start": "2p"
+  },
+  "Open the Bifrost": {
+    "icons": ["Hazard"],
+    "name": "Open the Bifrost",
+    "start": [3, "1p"]
+  },
+  "Madness on Midgard": {
+    "icons": ["Crisis"],
+    "name": "Madness on Midgard",
+    "start": [5, "1p"]
+  },
+  "War in Asgard": {
+    "icons": ["Acceleration"],
+    "name": "War in Asgard",
+    "start": [6, "1p"]
+  },
+  "Casket of Ancient Winters": {
+    "icons": ["Amplify"],
+    "name": "Casket of Ancient Winters",
+    "start": [4, "1p"]
+  },
+  "Gnipahellir": {
+    "icons": ["Amplify"],
+    "name": "Gnipahellir",
+    "start": [2, "1p"]
+  },
+  "Hall of Nastrond": {
+    "icons": ["Hazard"],
+    "name": "Hall of Nastrond",
+    "start": [4, "1p"]
+  },
+  "Gjallerbru": {
+    "icons": ["Amplify"],
+    "name": "Gjallerbru",
+    "start": [3, "1p"]
+  },
+  "The Titan's Throne": {
+    "icons": ["Amplify"],
+    "name": "The Titan's Throne",
+    "start": "2p"
+  },
+  "Sanctuary": {
+    "icons": [],
+    "name": "Sanctuary",
+    "start": [3, "1p"]
+  },
+  "City Under Attack": {
+    "icons": ["Crisis"],
+    "name": "City Under Attack",
+    "start": [2, "1p"]
+  },
+  "Reactor Overload": {
+    "icons": ["Crisis"],
+    "name": "Reactor Overload",
+    "start": 3
+  },
+  "Attack on Knowhere": {
+    "complete": "6p",
+    "name": "Attack on Knowhere",
+    "start": "1p",
+    "step": "1p"
+  },
+  "The Power Stone": {
+    "complete": "9p",
+    "name": "The Power Stone",
+    "start": "1p",
+    "step": "1p"
+  },
+  "Under Siege": {
+    "complete": "6p",
+    "counters": [{ "name": "Avengers Tower", "limit": "9p" }],
+    "name": "Under Siege",
+    "start": "1p",
+    "step": "1p",
+    "triggers": {
+      "enter": [{ "action": "enter-scheme", "entity": "The Armies of Thanos" }]
+    }
+  },
+  "The Armies of Thanos": {
+    "complete": "6p",
+    "name": "The Armies of Thanos",
+    "start": "1p",
+    "step": "1p"
+  },
+  "The Infinity Stones": {
+    "complete": "12p",
+    "name": "The Infinity Stones",
+    "start": 0,
+    "step": "1p"
+  },
+  "Balance the Scales": {
+    "complete": "12p",
+    "name": "Balance the Scales",
+    "start": 0,
+    "step": "1p"
+  },
+  "Odin's Torment": {
+    "complete": "18p",
+    "name": "Odin's Torment",
+    "start": "1p",
+    "step": "1p",
+    "triggers": {
+      "enter": [{ "action": "enter-scheme", "entity": "Gnipahellir" }]
+    }
+  },
+  "All Hail King Loki": {
+    "complete": "12p",
+    "name": "All Hail King Loki",
+    "start": "1p",
+    "step": "1p",
+    "triggers": {
+      "enter": [{ "action": "enter-scheme", "entity": "War in Asgard" }]
+    }
   }
 }

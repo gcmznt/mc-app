@@ -11,7 +11,7 @@ import Option from "./ui/Option";
 import Setup from "./ui/Setup";
 
 const initialSetting = {
-  heroic: 0,
+  heroic: "0",
   mode: "Standard",
   players: 1,
   randomAspects: true,

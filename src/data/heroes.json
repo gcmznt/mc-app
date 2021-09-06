@@ -184,5 +184,21 @@
     "name": "Venom",
     "nemesisSchemes": ["Klyntar Frenzy"],
     "pack": "Venom"
+  },
+  {
+    "alterEgo": "Monica Rambeau",
+    "aspects": ["Leadership"],
+    "hitPoints": 11,
+    "name": "Spectrum",
+    "nemesisSchemes": ["Reactor Meltdown"],
+    "pack": "The Mad Titan’s Shadow"
+  },
+  {
+    "alterEgo": "Adam Warlock",
+    "aspects": ["Aggression", "Justice", "Leadership", "Protection"],
+    "hitPoints": 11,
+    "name": "Adam Warlock",
+    "nemesisSchemes": ["Universal Church of Truth"],
+    "pack": "The Mad Titan’s Shadow"
   }
 ]
