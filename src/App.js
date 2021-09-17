@@ -81,6 +81,13 @@ export default function App() {
     setMatchId(uuid());
   };
 
+  const handleReplay = () => {
+    setMatchId(false);
+    clear(STORAGE_KEYS.CURRENT);
+    document.body.classList.remove("no-scroll");
+    handleStart();
+  };
+
   const handleOptionChange = (key) => (val) => {
     setOptions((opts) => ({ ...opts, [key]: val }));
   };
@@ -171,6 +178,7 @@ export default function App() {
         <Match
           key={matchId}
           matchId={matchId}
+          onReplay={handleReplay}
           onQuit={handleQuit}
           options={options}
           setup={setup}

@@ -190,6 +190,7 @@ const getCounters = (setup) => {
 
 export default function Status({
   matchId,
+  onReplay,
   onResult,
   onQuit,
   options,
@@ -370,10 +371,13 @@ export default function Status({
   };
 
   const handleRestart = () => {
-    onResult(false);
-    setLog([]);
-    setCounters(getCounters(setup));
-    logEvent(EVENTS.RESTART);
+    if (result) {
+      onReplay();
+    } else {
+      setLog([]);
+      setCounters(getCounters(setup));
+      logEvent(EVENTS.RESTART);
+    }
   };
 
   const handleStatusToggle = (counter) => (status, flag) => {
@@ -726,7 +730,10 @@ export default function Status({
           types={result && ["result", result]}
         >
           <Action label="Undo" onClick={handleUndo} />
-          <Action label="Restart" onClick={handleRestart} />
+          <Action
+            label={result ? "Replay" : "Restart"}
+            onClick={handleRestart}
+          />
           <Action label={result ? "Exit" : "End match"} onClick={handleQuit} />
         </Actions>
       </div>
