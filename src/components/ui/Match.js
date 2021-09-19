@@ -1,7 +1,6 @@
 import "../../styles/match.css";
 
 export default function Match({ match, onDelete, onReplay }) {
-  console.log(match);
   return (
     <div className="match">
       <div>

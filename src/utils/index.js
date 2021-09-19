@@ -1,12 +1,37 @@
 export function getRandomList(list, count = 1, exclude) {
-  return list
-    .filter((el) => !(exclude || []).includes(el))
-    .sort(() => 0.5 - Math.random())
-    .slice(0, count);
+  return [
+    ...new Set(
+      list
+        .filter((el) => !(exclude || []).includes(el))
+        .sort(() => 0.5 - Math.random())
+    ),
+  ]
+    .slice(0, count)
+    .sort(() => 0.5 - Math.random());
 }
 
 export function getRandom(list, exclude) {
   return getRandomList(list, 1, exclude)[0];
+}
+
+function count(acc, curr) {
+  return typeof acc[curr] !== "undefined"
+    ? { ...acc, [curr]: (acc[curr] || 0) + 1 }
+    : acc;
+}
+
+export function getBalancedList(selection, stats) {
+  const counted = stats.reduce(
+    count,
+    Object.fromEntries(selection.map((el) => [el, 0]))
+  );
+
+  const max = Math.max(...Object.values(counted));
+  const balanced = Object.entries(counted).map((el) =>
+    new Array((max - el[1] + 1) ** 2).fill(el[0])
+  );
+
+  return balanced.flat();
 }
 
 function valReducer(moltiplier) {

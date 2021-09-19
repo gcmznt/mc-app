@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import schemes from "../data/schemes.json";
-import { getRandom, getRandomList, load, persist } from "../utils";
+import {
+  getBalancedList,
+  getRandom,
+  getRandomList,
+  load,
+  persist,
+} from "../utils";
 import { ASPECTS, MODES, RANDOM, STORAGE_KEYS } from "../utils/constants";
 import Heroic from "./Heroic";
 import Mode from "./Mode";
@@ -15,13 +21,14 @@ const initialSetting = {
   mode: "Standard",
   players: 1,
   randomAspects: true,
-  randomCumulative: true,
+  randomWeighted: true,
   randomModulars: true,
   skirmish: "None",
 };
 
 export default function Generate({ data, onGenerate, onStart, selection }) {
   const [lastHeroes, setLastHeroes] = useState(false);
+  const [stats, setStats] = useState([]);
   const [setup, setSetup] = useState(false);
   const [settings, setSettings] = useState(initialSetting);
   const generateBtn = useRef(null);
@@ -45,33 +52,43 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
     sideSchemes: getSideSchemes(el),
   });
 
-  const getHeroes = () => {
-    const possible = settings.randomCumulative
-      ? selection.heroes.filter((hero) => !lastHeroes.includes(hero))
-      : selection.heroes;
+  const getHeroes = (scenario) => {
+    const bestHeroes = getBalancedList(
+      selection.heroes,
+      stats
+        .map((match) =>
+          new Array(match.setup.scenario.name === scenario ? 2 : 1)
+            .fill(match.setup.heroes)
+            .flat()
+        )
+        .map((heroes) => heroes.map((h) => h.name))
+        .flat()
+    );
 
     return getRandomList(
-      possible.length >= settings.players
-        ? possible
-        : [
-            ...possible,
-            ...getRandomList(
-              selection.heroes,
-              settings.players - possible.length,
-              possible
-            ),
-          ],
+      settings.randomWeighted ? bestHeroes : selection.heroes,
       settings.players
     );
   };
 
+  const getScenario = () => {
+    const bestScenarios = getBalancedList(
+      selection.scenarios,
+      stats.map((match) => match.setup.scenario.name)
+    );
+
+    return getRandom(
+      settings.randomWeighted ? bestScenarios : selection.scenarios
+    );
+  };
+
   const randomize = () => {
-    const heroes = getHeroes()
+    const scenarioName = getScenario();
+    const scenario = data.scenarios.find((s) => s.name === scenarioName);
+    const heroes = getHeroes(scenario.name)
       .map((hero) => data.heroes.find((h) => h.name === hero))
       .map((hero) => (settings.randomAspects ? getAspects(hero) : hero))
       .map(addSideSchemes);
-    const scenarioName = getRandom(selection.scenarios);
-    const scenario = data.scenarios.find((s) => s.name === scenarioName);
 
     const modular = settings.randomModulars
       ? getRandomList(
@@ -135,6 +152,10 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
   };
 
   useEffect(() => {
+    setStats(load(STORAGE_KEYS.MATCHES) || []);
+  }, []);
+
+  useEffect(() => {
     if (setup) onGenerate(setup);
   }, [onGenerate, setup]);
 
@@ -174,9 +195,9 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
           onChange={(e) => handleChange("randomModulars")(e.target.checked)}
         />
         <Option
-          checked={settings.randomCumulative}
-          label="Exclude last used heroes"
-          onChange={(e) => handleChange("randomCumulative")(e.target.checked)}
+          checked={settings.randomWeighted}
+          label="Weighted random"
+          onChange={(e) => handleChange("randomWeighted")(e.target.checked)}
         />
       </Box>
       <button ref={generateBtn} onClick={randomize}>

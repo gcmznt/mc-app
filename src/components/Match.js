@@ -28,13 +28,11 @@ export default function Match({ matchId, onReplay, onQuit, options, setup }) {
   };
 
   const handleQuit = (res) => {
-    console.log("handleQuit", res, result, setup);
     save(res);
     onQuit();
   };
 
   const handleReplay = (res) => {
-    console.log("handleReplay", res, result, setup);
     save(res);
     onReplay();
   };
@@ -42,8 +40,6 @@ export default function Match({ matchId, onReplay, onQuit, options, setup }) {
   useEffect(() => {
     setResult(load(STORAGE_KEYS.CURRENT)?.result || false);
   }, []);
-
-  console.log(matchId, setup);
 
   return (
     result !== null && (
