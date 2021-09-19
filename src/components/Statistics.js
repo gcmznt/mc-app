@@ -90,9 +90,10 @@ function Row({ label, values }) {
   return (
     <tr>
       <td style={ellipsis}>{label}</td>
+      <td>{Object.values(values).reduce((a, b) => a + b)}</td>
+      <td>{getPerc(values)}</td>
       <td>{getWins(values)}</td>
       <td>{getLost(values)}</td>
-      <td>{getPerc(values)}</td>
     </tr>
   );
 }
@@ -152,9 +153,10 @@ export default function Statistics({ onLoad }) {
             <thead>
               <tr>
                 <td></td>
-                <td>Winner</td>
-                <td>Loser</td>
+                <td>P</td>
                 <td>Win %</td>
+                <td>W</td>
+                <td>L</td>
               </tr>
             </thead>
             <tbody>
@@ -173,9 +175,10 @@ export default function Statistics({ onLoad }) {
             <thead>
               <tr>
                 <td></td>
-                <td>Success</td>
-                <td>Fails</td>
-                <td>Success %</td>
+                <td>P</td>
+                <td>Win %</td>
+                <td>W</td>
+                <td>L</td>
               </tr>
             </thead>
             <tbody>
