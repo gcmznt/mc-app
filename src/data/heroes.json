@@ -200,5 +200,13 @@
     "name": "Adam Warlock",
     "nemesisSchemes": ["Universal Church of Truth"],
     "pack": "The Mad Titan’s Shadow"
+  },
+  {
+    "alterEgo": "Nebula",
+    "aspects": ["Justice"],
+    "hitPoints": 9,
+    "name": "Nebula",
+    "nemesisSchemes": ["Self-Preservation"],
+    "pack": "Nebula"
   }
 ]

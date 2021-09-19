@@ -743,5 +743,10 @@
     "triggers": {
       "enter": [{ "action": "enter-scheme", "entity": "War in Asgard" }]
     }
+  },
+  "Self-Preservation": {
+    "icons": [],
+    "name": "Self-Preservation",
+    "start": "2p"
   }
 }
