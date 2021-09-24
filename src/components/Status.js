@@ -214,7 +214,7 @@ export default function Status({
   const villainCounters = (counters || []).filter(isVillainCounter);
 
   const logEvent = (event, entity, data) => {
-    setLog((l) => [{ date: new Date(), event, entity, data }, ...l]);
+    setLog((l) => [{ date: new Date(), time, event, entity, data }, ...l]);
   };
 
   const updateCounter = (id, values) => {
@@ -488,6 +488,7 @@ export default function Status({
       setCounters(getCounters(setup));
       logEvent(EVENTS.START);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setup]);
 
   useEffect(() => {
@@ -522,6 +523,7 @@ export default function Status({
 
   useEffect(() => {
     if (interacted && result) logEvent(EVENTS.END, false, result);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [interacted, result]);
 
   const acceleration =
@@ -682,14 +684,13 @@ export default function Status({
         <div className="box__wrapper">
           <Log counters={counters} log={log} />
         </div>
-        {options.timer && (
-          <Timer
-            interacted={interacted}
-            time={time}
-            onChange={setTime}
-            disabled={result}
-          />
-        )}
+        <Timer
+          disabled={result}
+          interacted={interacted}
+          onChange={setTime}
+          time={time}
+          visible={options.timer}
+        />
         <Actions
           title={
             <Report

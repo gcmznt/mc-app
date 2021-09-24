@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react";
 import "../styles/timer.css";
+import { msToTime } from "../utils";
 
-export default function Timer({ disabled, interacted, time, onChange }) {
+const UPDATE_INTERVAL = 250;
+
+export default function Timer({
+  disabled,
+  interacted,
+  onChange,
+  time,
+  visible,
+}) {
   const [active, setActive] = useState(true);
 
-  const toggleTimer = () => setActive((f) => !f);
-
   useEffect(() => {
-    const advance = () => onChange((t) => t + 100);
+    const advance = () => onChange((t) => t + UPDATE_INTERVAL);
 
     if (active && !disabled) {
-      const to = setInterval(advance, 100);
+      const to = setInterval(advance, UPDATE_INTERVAL);
       return () => clearInterval(to);
     }
   }, [active, disabled, onChange]);
@@ -28,12 +35,5 @@ export default function Timer({ disabled, interacted, time, onChange }) {
     }
   }, [active, interacted]);
 
-  const seconds = Math.floor(time / 1000);
-
-  return (
-    <div className="timer" onClick={toggleTimer}>
-      {Math.floor(seconds / 60)}:
-      {seconds % 60 < 10 ? `0${seconds % 60}` : seconds % 60}
-    </div>
-  );
+  return visible ? <div className="timer">{msToTime(time)}</div> : null;
 }

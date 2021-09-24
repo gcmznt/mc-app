@@ -1,7 +1,5 @@
 import "../../styles/log.css";
-
-const minutes = (time) => `${Math.floor(time / 1000 / 60)}`;
-const seconds = (time) => `${Math.floor(time / 1000) % 60}`;
+import { msToTime } from "../../utils";
 
 export default function Log({ time, text }) {
   return (
@@ -11,7 +9,7 @@ export default function Log({ time, text }) {
         <small className="log__time">
           {time instanceof Date
             ? time.toLocaleTimeString()
-            : `+ ${minutes(time)}:${seconds(time).padStart(2, "0")}`}
+            : `+ ${msToTime(time)}`}
         </small>
       )}
     </div>

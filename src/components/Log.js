@@ -107,12 +107,12 @@ function mergeLog(counters, log) {
   }, []);
 }
 
-const getTime = (entry, startDate) => {
+const getTime = (entry) => {
   switch (entry.event) {
     case EVENTS.NEW_ROUND:
     case EVENTS.VILLAIN_PHASE:
     case EVENTS.END:
-      return entry.date - startDate;
+      return entry.time;
     case EVENTS.START:
       return entry.date;
 
@@ -129,7 +129,7 @@ export default function Log({ counters, log }) {
       {mergedLog.map((entry) => (
         <LogItem
           key={entry.date.toISOString()}
-          time={getTime(entry, mergedLog[mergedLog.length - 1].date)}
+          time={getTime(entry)}
           text={getLogString(entry)}
         />
       ))}
