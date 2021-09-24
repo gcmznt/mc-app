@@ -1,12 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import schemes from "../data/schemes.json";
-import {
-  getBalancedList,
-  getRandom,
-  getRandomList,
-  load,
-  persist,
-} from "../utils";
+import { useData } from "../context/data";
+import { getBalancedList, getRandom, getRandomList, load } from "../utils";
 import { ASPECTS, MODES, RANDOM, STORAGE_KEYS } from "../utils/constants";
 import Heroic from "./Heroic";
 import Mode from "./Mode";
@@ -26,8 +20,8 @@ const initialSetting = {
   skirmish: "None",
 };
 
-export default function Generate({ data, onGenerate, onStart, selection }) {
-  const [lastHeroes, setLastHeroes] = useState(false);
+export default function Generate({ onGenerate, onStart, selection }) {
+  const { data } = useData();
   const [stats, setStats] = useState([]);
   const [setup, setSetup] = useState(false);
   const [settings, setSettings] = useState(initialSetting);
@@ -40,16 +34,6 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
   const getAspects = (hero) => ({
     ...hero,
     aspects: getRandomList(ASPECTS, hero.aspects.length),
-  });
-
-  const getSideSchemes = (el) => [
-    ...(el?.sideSchemes || []).map((s) => schemes[s]),
-    ...(el?.nemesisSchemes || []).map((s) => schemes[s]),
-  ];
-
-  const addSideSchemes = (el) => ({
-    ...el,
-    sideSchemes: getSideSchemes(el),
   });
 
   const getHeroes = (scenario) => {
@@ -85,10 +69,10 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
   const randomize = () => {
     const scenarioName = getScenario();
     const scenario = data.scenarios.find((s) => s.name === scenarioName);
-    const heroes = getHeroes(scenario.name)
+    const heroesAndAspects = getHeroes(scenario.name)
       .map((hero) => data.heroes.find((h) => h.name === hero))
       .map((hero) => (settings.randomAspects ? getAspects(hero) : hero))
-      .map(addSideSchemes);
+      .map((hero) => ({ name: hero.name, aspects: hero.aspects }));
 
     const modular = settings.randomModulars
       ? getRandomList(
@@ -98,27 +82,19 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
         )
       : scenario.modular;
 
+    const heroic =
+      settings.heroic === RANDOM ? getRandom([0, 1, 2, 3, 4]) : settings.heroic;
+    const skirmish =
+      settings.skirmish === RANDOM ? getRandom([1, 2, 3]) : settings.skirmish;
+
     setSetup({
-      heroes,
+      heroesAndAspects,
       mode: settings.mode === RANDOM ? getRandom(MODES) : settings.mode,
-      heroic:
-        settings.heroic === RANDOM
-          ? getRandom([0, 1, 2, 3, 4])
-          : settings.heroic,
-      scenario: {
-        ...scenario,
-        sideSchemes: getSideSchemes(scenario),
-        mainScheme: scenario.mainScheme.map((s) => ({
-          ...schemes[s],
-          children: (schemes[s].children || []).map((c) => schemes[c]),
-        })),
-        modular: [...(scenario.encounter || []), ...modular]
-          .map((m) => data.modularSets[m])
-          .map(addSideSchemes),
-      },
+      heroic,
+      scenarioName,
+      modularSets: [...(scenario.encounter || []), ...modular],
       settings,
-      skirmish:
-        settings.skirmish === RANDOM ? getRandom([1, 2, 3]) : settings.skirmish,
+      skirmish,
     });
 
     if (!setup) {
@@ -135,19 +111,6 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
   };
 
   const handleStart = () => {
-    if (lastHeroes.length + setup.heroes.length <= selection.heroes.length) {
-      persist(STORAGE_KEYS.LAST_HEROES, [
-        ...lastHeroes,
-        ...setup.heroes.map((hero) => hero.name),
-      ]);
-    } else {
-      persist(
-        STORAGE_KEYS.LAST_HEROES,
-        setup.heroes
-          .filter((hero) => lastHeroes.includes(hero.name))
-          .map((hero) => hero.name)
-      );
-    }
     onStart();
   };
 
@@ -161,9 +124,7 @@ export default function Generate({ data, onGenerate, onStart, selection }) {
 
   useEffect(() => {
     const saved = load(STORAGE_KEYS.SETTINGS);
-    const lh = load(STORAGE_KEYS.LAST_HEROES);
     if (saved) setSettings({ ...initialSetting, ...saved });
-    setLastHeroes(lh || []);
   }, []);
 
   return (

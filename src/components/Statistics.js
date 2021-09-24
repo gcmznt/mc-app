@@ -63,7 +63,10 @@ const reducer = (acc, match) => ({
 const getHeroesStats = (data) =>
   (data || [])
     .map((match) =>
-      match.setup.heroes.map((h) => ({ entry: h.name, result: match.reason }))
+      (match.setup.heroesAndAspects || match.setup.heroes).map((h) => ({
+        entry: h.name,
+        result: match.reason,
+      }))
     )
     .flat()
     .reduce(reducer, {});
@@ -71,7 +74,7 @@ const getHeroesStats = (data) =>
 const getScenariosStats = (data) =>
   (data || [])
     .map((match) => ({
-      entry: match.setup.scenario.name,
+      entry: match.setup.scenarioName || match.setup.scenario.name,
       result: match.reason,
     }))
     .reduce(reducer, {});
@@ -79,11 +82,13 @@ const getScenariosStats = (data) =>
 const getMatches = (data) =>
   data.map((match) => ({
     date: new Date(match.date),
-    heroes: match.setup.heroes.map((h) => h.name),
+    heroes: (match.setup.heroesAndAspects || match.setup.heroes).map(
+      (h) => h.name
+    ),
     id: match.matchId,
     mode: match.setup.mode,
     result: result_text[match.reason],
-    scenario: match.setup.scenario.name,
+    scenario: match.setup.scenarioName || match.setup.scenario.name,
   }));
 
 function Row({ label, values }) {

@@ -5,12 +5,15 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { FirebaseProvider } from "./context/firebase";
+import { DataProvider } from "./context/data";
 
 ReactDOM.render(
   <React.StrictMode>
-    <FirebaseProvider>
-      <App />
-    </FirebaseProvider>
+    <DataProvider>
+      <FirebaseProvider>
+        <App />
+      </FirebaseProvider>
+    </DataProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

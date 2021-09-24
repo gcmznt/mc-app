@@ -5,29 +5,14 @@ import Match from "./components/Match";
 import Options from "./components/Options";
 import Statistics from "./components/Statistics";
 import Actions, { Action } from "./components/ui/Actions";
-import heroes from "./data/heroes.json";
-import modularSets from "./data/modular-sets.json";
-import scenarios from "./data/scenarios.json";
 import { clear, load, persist } from "./utils";
 import { PAGES, STORAGE_KEYS } from "./utils/constants";
 import { ReactComponent as HomeIcon } from "./images/home.svg";
 import { ReactComponent as SettingsIcon } from "./images/settings.svg";
 import { ReactComponent as StatsIcon } from "./images/stats.svg";
 import logo from "./images/logo.svg";
+import { useData } from "./context/data";
 
-const isEnabled = (el) =>
-  !el.disabled || window.location.hostname === "localhost";
-
-const data = {
-  heroes: heroes.filter(isEnabled),
-  modularSets,
-  scenarios: scenarios.filter(isEnabled),
-};
-const fullSelect = {
-  heroes: data.heroes.map((h) => h.name),
-  modularSets: Object.keys(data.modularSets),
-  scenarios: data.scenarios.map((h) => h.name),
-};
 const defOptions = {
   compact: false,
   mode: "auto",
@@ -35,6 +20,7 @@ const defOptions = {
 };
 
 export default function App() {
+  const { fullSelect } = useData();
   const [page, setPage] = useState(PAGES.MAIN);
   const [selection, setSelection] = useState({
     heroes: [],
@@ -111,7 +97,7 @@ export default function App() {
       setMatchId(saved.matchId);
       setSetup(saved.setup);
     }
-  }, []);
+  }, [fullSelect]);
 
   useEffect(() => {
     document.body.classList.remove("is-auto", "is-dark", "is-light");
@@ -158,8 +144,6 @@ export default function App() {
       {page === PAGES.OPTIONS && (
         <Options
           onChangeOptions={handleOptionChange}
-          data={data}
-          fullSelect={fullSelect}
           options={options}
           selection={selection}
           onChange={setSelection}
@@ -168,7 +152,6 @@ export default function App() {
       {page === PAGES.STATISTICS && <Statistics onLoad={handleLoad} />}
       {page === PAGES.MAIN && !matchId && (
         <Generate
-          data={data}
           onGenerate={handleGeneration}
           onStart={handleStart}
           selection={selection}

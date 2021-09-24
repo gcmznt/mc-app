@@ -3,7 +3,7 @@ import Dot from "./Dot";
 export default function Setup({ setup }) {
   return (
     <>
-      {setup.heroes.map((hero, i) => (
+      {setup.heroesAndAspects.map((hero, i) => (
         <div key={hero.name}>
           {hero.aspects.map((a) => (
             <Dot key={a} type={a.toLowerCase()} />
@@ -12,8 +12,8 @@ export default function Setup({ setup }) {
         </div>
       ))}
       <div className="vs">VS</div>
-      <div>{setup.scenario.name}</div>
-      <div>{setup.scenario.modular.map((m) => m.name).join(" + ")}</div>
+      <div>{setup.scenarioName}</div>
+      <div>{setup.modularSets.join(" + ")}</div>
       <div>
         {setup.mode} | Heroic: {setup.heroic}
         {setup.skirmish !== "None" ? ` | Skirmish level ${setup.skirmish}` : ""}

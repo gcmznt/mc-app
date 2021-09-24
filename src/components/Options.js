@@ -1,11 +1,10 @@
 import { useCallback, useState } from "react";
+import { useData } from "../context/data";
 import { useFirebase } from "../context/firebase";
 import Box from "./ui/Box";
 import Option from "./ui/Option";
 
 export default function Options({
-  data,
-  fullSelect,
   onChange,
   onChangeOptions,
   options,
@@ -13,6 +12,7 @@ export default function Options({
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { data, fullSelect } = useData();
 
   const { logout, register, save, signIn, user } = useFirebase();
 
