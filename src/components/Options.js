@@ -1,4 +1,5 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
+import { useFirebase } from "../context/firebase";
 import Box from "./ui/Box";
 import Option from "./ui/Option";
 
@@ -10,6 +11,13 @@ export default function Options({
   options,
   selection,
 }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { logout, register, save, signIn, user } = useFirebase();
+
+  console.log(user);
+
   const toggle = (key, el) => {
     onChange({
       ...selection,
@@ -39,8 +47,65 @@ export default function Options({
     [fullSelect, selectAll, selection]
   );
 
+  const handlesubmit = (fn) => (e) => {
+    e.preventDefault();
+    fn();
+  };
+
+  const handleRegister = handlesubmit(() => register(email, password));
+  const handleSignIn = handlesubmit(() => signIn(email, password));
+  const handleLogout = handlesubmit(() => logout());
+  const handleSave = handlesubmit(() => save({ test: "Funziona" }));
+
   return (
     <>
+      <Box key="Sync" title="Sync" flag flat>
+        {user ? (
+          <>
+            <form onSubmit={handleLogout}>
+              <button type="submit">Logout</button>
+            </form>
+            <form onSubmit={handleSave}>
+              <button type="submit">Salva</button>
+            </form>
+          </>
+        ) : (
+          <>
+            <form onSubmit={handleRegister}>
+              Register:
+              <input
+                placeholder="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <input
+                placeholder="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button type="submit">Register</button>
+            </form>
+            <form onSubmit={handleSignIn}>
+              SignIn:
+              <input
+                placeholder="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <input
+                placeholder="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button type="submit">SignIn</button>
+            </form>
+          </>
+        )}
+      </Box>
       <Box key="Settings" title="Settings" flag flat>
         <p>Theme</p>
         <Option
