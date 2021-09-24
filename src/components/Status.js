@@ -214,10 +214,7 @@ export default function Status({
   const villainCounters = (counters || []).filter(isVillainCounter);
 
   const logEvent = (event, entity, data) => {
-    setLog((l) => [
-      { id: uuid(), date: new Date(), event, entity, data },
-      ...l,
-    ]);
+    setLog((l) => [{ date: new Date(), event, entity, data }, ...l]);
   };
 
   const updateCounter = (id, values) => {
@@ -228,37 +225,57 @@ export default function Status({
       );
   };
 
-  const nextPlayer = () => {
+  const changePlayer = (direction) => {
     setFirstPlayer((fp) => {
-      for (let index = fp; index < heroesCounters.length + fp; index++) {
-        const next = (index + 1) % heroesCounters.length;
+      for (let offset = 1; offset <= heroesCounters.length; ++offset) {
+        const next =
+          (offset * direction + fp + heroesCounters.length) %
+          heroesCounters.length;
         if (heroesCounters[next].active) return next;
       }
       return fp;
     });
   };
 
-  const revertFirstPlayer = () => {
-    setFirstPlayer((fp) => {
-      for (let index = heroesCounters.length + fp; index > fp; index--) {
-        const prev = (index - 1) % heroesCounters.length;
-        if (heroesCounters[prev].active) return prev;
-      }
-      return fp;
+  const nextPlayer = () => changePlayer(1);
+
+  const revertNextRound = (counter, value) => {
+    changePlayer(-1);
+    return revertValue(counter, value);
+  };
+
+  const revertEnd = () => {
+    removeLastLog();
+    return onResult(false);
+  };
+
+  const revertStatus = (counter, status, value) => {
+    return revert(counter, {
+      status: { ...counter.status, [status]: value },
     });
   };
 
+  const revertLevel = (counter, key, val) => {
+    return revert(counter, {
+      levels: counter.levels.map((level, i) =>
+        i === counter.stage ? { ...level, [key]: level[key] + val } : level
+      ),
+    });
+  };
+  const revertValue = (counter, val) => revertLevel(counter, "value", val);
+  const revertLimit = (counter, val) => revertLevel(counter, "limit", val);
+
   const nextRound = (counter) => {
-    logEvent(EVENTS.INCREASE, counter.id, { counter, val: 1 });
+    logEvent(EVENTS.NEW_ROUND, counter.id, 1);
     nextPlayer();
     updateCounter(counter.id, {
       levels: [{ ...counter.levels[0], value: counter.levels[0].value + 1 }],
     });
   };
 
-  const doUpdate = (event, counter, values, entity, logData) => {
-    logEvent(event, entity || counter.id, logData || { counter });
-    updateCounter(counter.id, values);
+  const doUpdate = (event, entity, values, data) => {
+    logEvent(event, entity, data || values);
+    updateCounter(entity, values);
   };
 
   const removeLastLog = () => {
@@ -271,7 +288,7 @@ export default function Status({
   };
 
   const endGame = (counter, result) => {
-    logEvent(EVENTS.COMPLETE, counter.id, { counter });
+    logEvent(EVENTS.COMPLETE, counter.id);
     onResult(result, counters, log);
   };
 
@@ -293,7 +310,7 @@ export default function Status({
       (trigger) => {
         switch (trigger.action) {
           case TRIGGERS_ACTIONS.NEXT_SCENARIO:
-            return doUpdate(EVENTS.NEXT, mainScheme, {
+            return doUpdate(EVENTS.NEXT, mainScheme.id, {
               stage: mainScheme.stage + 1,
             });
           case TRIGGERS_ACTIONS.ENTER_SCHEME:
@@ -318,16 +335,16 @@ export default function Status({
       }
     );
     if (counter.stage + 1 < counter.levels.length) {
-      doUpdate(EVENTS.NEXT, counter, { stage: counter.stage + 1 });
+      doUpdate(EVENTS.NEXT, counter.id, { stage: counter.stage + 1 });
     } else {
-      logEvent(EVENTS.COMPLETE, counter.id, { counter });
+      logEvent(EVENTS.COMPLETE, counter.id);
       [counter, ...counters.filter(childOf(counter))].map(disableCounter);
     }
   };
 
   const handlePrevious = (counter) => {
     if (counter.stage > 0) {
-      doUpdate(EVENTS.PREVIOUS, counter, { stage: counter.stage - 1 });
+      doUpdate(EVENTS.PREVIOUS, counter.id, { stage: counter.stage - 1 });
     }
   };
 
@@ -349,21 +366,21 @@ export default function Status({
     } else if ((hasAdvance && complete) || (complete && last)) {
       endGame(counter, RESULT_TYPES.SCHEME);
     } else {
-      doUpdate(EVENTS.NEXT, counter, { stage: counter.stage + 1 });
+      doUpdate(EVENTS.NEXT, counter.id, { stage: counter.stage + 1 });
     }
   };
 
   const handleDisable = (counter) => {
-    doUpdate(EVENTS.DISABLE, counter, { active: false });
+    doUpdate(EVENTS.DISABLE, counter.id, { active: false });
   };
 
   const handleCompleteSide = (counter) => {
-    doUpdate(EVENTS.COMPLETE, counter, { active: false });
+    doUpdate(EVENTS.COMPLETE, counter.id, { active: false });
   };
 
   const handleEnable = (counter) => {
     if (!counter.active && !result) {
-      doUpdate(EVENTS.ENTER, counter, {
+      doUpdate(EVENTS.ENTER, counter.id, {
         active: true,
         levels: counter.initialLevels || counter.levels,
       });
@@ -383,10 +400,9 @@ export default function Status({
   const handleStatusToggle = (counter) => (status, flag) => {
     doUpdate(
       flag ? EVENTS.STATUS_ENABLE : EVENTS.STATUS_DISABLE,
-      counter,
+      counter.id,
       { status: { ...counter.status, [status]: flag } },
-      `${counter.id}|${status}`,
-      { counter, status }
+      status
     );
   };
 
@@ -423,78 +439,39 @@ export default function Status({
   };
 
   const handleUndo = () => {
-    const counter = log[0].entity
-      ? counters.find((c) => c.id === log[0].entity?.split("|")[0])
-      : false;
+    const lastLog = log[0];
+    const counter = counters.find((c) => c.id === lastLog.entity);
 
-    switch (log[0].event) {
+    switch (lastLog.event) {
       case EVENTS.COMPLETE:
-        return revert(counter, { active: true });
-      case EVENTS.DECREASE:
-        return revert(counter, {
-          levels: counter.levels.map((level, i) =>
-            i === counter.stage
-              ? { ...level, value: level.value + log[0].data.val }
-              : level
-          ),
-        });
-      case EVENTS.DEC_LIMIT:
-        return revert(counter, {
-          levels: counter.levels.map((level, i) =>
-            i === counter.stage
-              ? { ...level, limit: level.limit + log[0].data.val }
-              : level
-          ),
-        });
       case EVENTS.DISABLE:
         return revert(counter, { active: true });
+      case EVENTS.DECREASE:
+        return revertValue(counter, lastLog.data);
+      case EVENTS.DEC_LIMIT:
+        return revertLimit(counter, lastLog.data);
       case EVENTS.END:
-        removeLastLog();
-        return onResult(false);
+        return revertEnd();
       case EVENTS.ENTER:
         return revert(counter, { active: false });
       case EVENTS.INCREASE:
-        if (counter.type === COUNTER_TYPES.ROUNDS) revertFirstPlayer();
-        return revert(counter, {
-          levels: counter.levels.map((level, i) =>
-            i === counter.stage
-              ? { ...level, value: level.value - log[0].data.val }
-              : level
-          ),
-        });
+      case EVENTS.VILLAIN_PHASE:
+        return revertValue(counter, -lastLog.data);
       case EVENTS.INC_LIMIT:
-        return revert(counter, {
-          levels: counter.levels.map((level, i) =>
-            i === counter.stage
-              ? { ...level, limit: level.limit - log[0].data.val }
-              : level
-          ),
-        });
+        return revertLimit(counter, -lastLog.data);
+      case EVENTS.NEW_ROUND:
+        return revertNextRound(counter, -lastLog.data);
       case EVENTS.NEXT:
         return revert(counter, { stage: counter.stage - 1 });
       case EVENTS.PREVIOUS:
         return revert(counter, { stage: counter.stage + 1 });
-      case EVENTS.RESTART:
-        return false;
-      case EVENTS.START:
-        return false;
       case EVENTS.STATUS_DISABLE:
-        return revert(counter, {
-          status: { ...counter.status, [log[0].entity.split("|")[1]]: true },
-        });
+        return revertStatus(counter, lastLog.data, true);
       case EVENTS.STATUS_ENABLE:
-        return revert(counter, {
-          status: { ...counter.status, [log[0].entity.split("|")[1]]: false },
-        });
-      case EVENTS.VILLAIN_PHASE:
-        return revert(counter, {
-          levels: counter.levels.map((level, i) =>
-            i === counter.stage
-              ? { ...level, value: level.value - log[0].data.val }
-              : level
-          ),
-        });
+        return revertStatus(counter, lastLog.data, false);
 
+      case EVENTS.RESTART:
+      case EVENTS.START:
       default:
         return false;
     }
@@ -544,9 +521,7 @@ export default function Status({
   }, [counters, firstPlayer, log, matchId, result, setup, time]);
 
   useEffect(() => {
-    if (interacted && result) {
-      logEvent(EVENTS.END, false, { result, resultText: getResText(result) });
-    }
+    if (interacted && result) logEvent(EVENTS.END, false, result);
   }, [interacted, result]);
 
   const acceleration =
@@ -705,7 +680,7 @@ export default function Status({
           </Box>
         </div>
         <div className="box__wrapper">
-          <Log log={log} />
+          <Log counters={counters} log={log} />
         </div>
         {options.timer && (
           <Timer

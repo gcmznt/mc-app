@@ -34,11 +34,11 @@ export const getDecreaseText = (count) =>
 
 export const getCompleteText = (type) =>
   ({
-    [COUNTER_TYPES.HERO]: "Defeated",
+    [COUNTER_TYPES.HERO]: "💀",
     [COUNTER_TYPES.MODULAR_SCHEME]: "Cleared",
     [COUNTER_TYPES.NEMESIS_SCHEME]: "Cleared",
     [COUNTER_TYPES.SIDE_SCHEME]: "Cleared",
-    [COUNTER_TYPES.VILLAIN]: "Defeated",
+    [COUNTER_TYPES.VILLAIN]: "💀",
   }[type] || "Complete");
 
 export const getStageName = (counter) => {

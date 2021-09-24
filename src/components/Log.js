@@ -1,117 +1,137 @@
-import { COUNTER_TYPES, EVENTS } from "../utils/constants";
+import { EVENTS } from "../utils/constants";
 import {
   getAddTokenText,
   getCompleteText,
   getDecreaseText,
   getIncreaseText,
   getRemoveTokenText,
+  getResText,
   getStageName,
 } from "../utils/texts";
 import Box from "./ui/Box";
 import LogItem from "./ui/Log";
 
-const getLogString = ({ count = 0, data, event }) => {
+const getLogString = ({ count = 0, counter, data, event }) => {
   switch (event) {
     case EVENTS.COMPLETE:
       return (
         <>
-          {getStageName(data.counter)}: {getCompleteText(data.counter.type)}
+          {getStageName(counter)}: {getCompleteText(counter.type)}
         </>
       );
     case EVENTS.DECREASE:
       return (
         <>
-          {getStageName(data.counter)}:{" "}
-          {getRemoveTokenText(data.counter.type, count)}
+          {getStageName(counter)}: {getRemoveTokenText(counter.type, count)}
         </>
       );
     case EVENTS.DEC_LIMIT:
       return (
         <>
-          {getStageName(data.counter)}: {getDecreaseText(count)}
+          {getStageName(counter)}: {getDecreaseText(count)}
         </>
       );
     case EVENTS.DISABLE:
-      return <>{getStageName(data.counter)}: Disabled</>;
+      return <>{getStageName(counter)}: Disabled</>;
     case EVENTS.END:
-      return data.resultText;
+      return `---- ${getResText(data)} ----`;
     case EVENTS.ENTER:
-      return <>{getStageName(data.counter)}: Entered</>;
+      return <>{getStageName(counter)}: Entered</>;
     case EVENTS.INCREASE:
-      if (data.counter.type === COUNTER_TYPES.ROUNDS) {
-        return "---- New round ----";
-      }
       return (
         <>
-          {getStageName(data.counter)}:{" "}
-          {getAddTokenText(data.counter.type, count)}
+          {getStageName(counter)}: {getAddTokenText(counter.type, count)}
         </>
       );
     case EVENTS.INC_LIMIT:
       return (
         <>
-          {getStageName(data.counter)}: {getIncreaseText(count)}
+          {getStageName(counter)}: {getIncreaseText(count)}
         </>
       );
+    case EVENTS.NEW_ROUND:
+      return "---- New round ----";
     case EVENTS.NEXT:
-      return <>{getStageName(data.counter)}: Next stage</>;
+      return <>{getStageName(counter)}: Next stage</>;
     case EVENTS.PREVIOUS:
-      return <>{getStageName(data.counter)}: Previous stage</>;
+      return <>{getStageName(counter)}: Previous stage</>;
     case EVENTS.RESTART:
-      return "Match restarted";
+      return "---- Match restarted ----";
     case EVENTS.START:
-      return "Match started";
+      return "---- Match started ----";
     case EVENTS.STATUS_DISABLE:
       return (
         <>
-          {getStageName(data.counter)} is no more{" "}
-          <span className={`is-${data.status.toLowerCase()}`}>
-            {data.status}
-          </span>
+          {getStageName(counter)} is no more{" "}
+          <span className={`is-${data.toLowerCase()}`}>{data}</span>
         </>
       );
     case EVENTS.STATUS_ENABLE:
       return (
         <>
-          {getStageName(data.counter)} is{" "}
-          <span className={`is-${data.status.toLowerCase()}`}>
-            {data.status}
-          </span>
+          {getStageName(counter)} is{" "}
+          <span className={`is-${data.toLowerCase()}`}>{data}</span>
         </>
       );
     case EVENTS.VILLAIN_PHASE:
-      return `Villain phase: ${getAddTokenText(data.counter.type, data.val)}`;
+      return `---- Villain phase: ${getAddTokenText(counter.type, data)}`;
 
     default:
       return event;
   }
 };
 
-function mergeLog(log) {
-  return log.reduce((a, c) => {
+function mergeLog(counters, log) {
+  return log.reduce((acc, current) => {
+    const counter = counters.find((c) => c.id === current.entity);
+
     if (
-      a.length &&
-      a[a.length - 1].event === c.event &&
-      a[a.length - 1].entity === c.entity &&
-      c.event !== EVENTS.VILLAIN_PHASE &&
-      (c.event !== EVENTS.INCREASE ||
-        c.data.counter.type !== COUNTER_TYPES.ROUNDS) &&
-      c.entity
+      acc.length &&
+      acc[acc.length - 1].event === current.event &&
+      acc[acc.length - 1].entity === current.entity &&
+      current.event !== EVENTS.VILLAIN_PHASE &&
+      current.event !== EVENTS.NEW_ROUND &&
+      current.event !== EVENTS.STATUS_DISABLE &&
+      current.event !== EVENTS.STATUS_ENABLE &&
+      current.entity
     ) {
-      const list = [...a];
+      const list = [...acc];
       const last = list.pop();
-      return [...list, { ...last, count: last.count + (c.data.val || 1) }];
+      return [
+        ...list,
+        { ...last, counter, count: last.count + (current.data || 1) },
+      ];
     } else {
-      return [...a, { ...c, count: c.data?.val || 1 }];
+      return [...acc, { ...current, counter, count: current.data || 1 }];
     }
   }, []);
 }
 
-export default function Log({ log }) {
+const getTime = (entry, startDate) => {
+  switch (entry.event) {
+    case EVENTS.NEW_ROUND:
+    case EVENTS.VILLAIN_PHASE:
+    case EVENTS.END:
+      return entry.date - startDate;
+    case EVENTS.START:
+      return entry.date;
+
+    default:
+      return "";
+  }
+};
+
+export default function Log({ counters, log }) {
+  const mergedLog = mergeLog(counters, log);
+
   return (
     <Box key="Log" title="Log" flat flag type="log">
-      {mergeLog(log).map((entry) => (
-        <LogItem key={entry.id} time={entry.date} text={getLogString(entry)} />
+      {mergedLog.map((entry) => (
+        <LogItem
+          key={entry.date.toISOString()}
+          time={getTime(entry, mergedLog[mergedLog.length - 1].date)}
+          text={getLogString(entry)}
+        />
       ))}
     </Box>
   );

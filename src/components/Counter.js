@@ -15,13 +15,12 @@ export default function Counter({
   result,
   title,
 }) {
-  const update = (counter, vOff, lOff = 0, event, entity) => {
+  const update = (counter, vOff, lOff = 0, event) => {
     const id = counter.id;
     const value = counter.levels[counter.stage].value;
     const limit = counter.levels[counter.stage].limit;
 
-    const log = (evt, val) =>
-      logEvent(event || evt, entity || id, { counter, val });
+    const log = (evt, val) => logEvent(event || evt, id, val);
 
     if (
       (over || limit < 0 || value + vOff <= limit + lOff) &&

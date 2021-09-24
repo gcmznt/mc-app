@@ -25,6 +25,7 @@ export const EVENTS = {
   ENTER: "enter",
   INC_LIMIT: "increase-limit",
   INCREASE: "increase",
+  NEW_ROUND: "new-round",
   NEXT: "next",
   PREVIOUS: "previous",
   RESTART: "restart",
