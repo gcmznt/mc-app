@@ -41,8 +41,12 @@ export default function Generate({ onGenerate, onStart, selection }) {
       selection.heroes,
       stats
         .map((match) =>
-          new Array(match.setup.scenario.name === scenario ? 2 : 1)
-            .fill(match.setup.heroes)
+          new Array(
+            (match.setup.scenarioName || match.setup.scenario.name) === scenario
+              ? 10
+              : 1
+          )
+            .fill(match.setup.heroesAndAspects || match.setup.heroes)
             .flat()
         )
         .map((heroes) => heroes.map((h) => h.name))
@@ -58,7 +62,9 @@ export default function Generate({ onGenerate, onStart, selection }) {
   const getScenario = () => {
     const bestScenarios = getBalancedList(
       selection.scenarios,
-      stats.map((match) => match.setup.scenario.name)
+      stats.map(
+        (match) => match.setup.scenarioName || match.setup.scenario.name
+      )
     );
 
     return getRandom(
@@ -69,7 +75,7 @@ export default function Generate({ onGenerate, onStart, selection }) {
   const randomize = () => {
     const scenarioName = getScenario();
     const scenario = data.scenarios.find((s) => s.name === scenarioName);
-    const heroesAndAspects = getHeroes(scenario.name)
+    const heroesAndAspects = getHeroes(scenarioName)
       .map((hero) => data.heroes.find((h) => h.name === hero))
       .map((hero) => (settings.randomAspects ? getAspects(hero) : hero))
       .map((hero) => ({ name: hero.name, aspects: hero.aspects }));
