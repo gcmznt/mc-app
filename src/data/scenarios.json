@@ -357,7 +357,23 @@
     ],
     "villains": [
       {
-        "levels": { "1": "14p", "2": "18p", "3": "25p" },
+        "levels": {
+          "1": {
+            "complete": "14p",
+            "name": "Ronan the Accuser I",
+            "status": ["Tough"]
+          },
+          "2": {
+            "complete": "18p",
+            "name": "Ronan the Accuser II",
+            "status": ["Tough"]
+          },
+          "3": {
+            "complete": "25p",
+            "name": "Ronan the Accuser III",
+            "status": ["Tough"]
+          }
+        },
         "name": "Ronan the Accuser",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }

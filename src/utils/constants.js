@@ -16,6 +16,8 @@ export const COUNTERS_SCHEME = [
   COUNTER_TYPES.SIDE_SCHEME,
 ];
 
+export const STATUSES = ["Confused", "Stunned", "Tough"];
+
 export const EVENTS = {
   COMPLETE: "complete",
   DEC_LIMIT: "decrease-limit",

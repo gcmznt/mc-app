@@ -62,6 +62,13 @@ export function append(key, value) {
   return persist(key, [...current, value]);
 }
 
+export function getStatusObj(statuses, enabled = []) {
+  return statuses.reduce(
+    (acc, st) => ({ ...acc, [st]: (enabled || []).includes(st) }),
+    {}
+  );
+}
+
 export const minutes = (time) => `${Math.floor(time / 1000 / 60)}`;
 export const seconds = (time) => `${Math.floor(time / 1000) % 60}`;
 export const msToTime = (time) =>

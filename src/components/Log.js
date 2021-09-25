@@ -126,9 +126,9 @@ export default function Log({ counters, log }) {
 
   return (
     <Box key="Log" title="Log" flat flag type="log">
-      {mergedLog.map((entry) => (
+      {mergedLog.map((entry, i) => (
         <LogItem
-          key={entry.date.toISOString()}
+          key={mergedLog.length - i}
           time={getTime(entry)}
           text={getLogString(entry)}
         />

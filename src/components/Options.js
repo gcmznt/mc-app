@@ -59,53 +59,55 @@ export default function Options({
 
   return (
     <>
-      <Box key="Sync" title="Sync" flag flat>
-        {user ? (
-          <>
-            <form onSubmit={handleLogout}>
-              <button type="submit">Logout</button>
-            </form>
-            <form onSubmit={handleSave}>
-              <button type="submit">Salva</button>
-            </form>
-          </>
-        ) : (
-          <>
-            <form onSubmit={handleRegister}>
-              Register:
-              <input
-                placeholder="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <input
-                placeholder="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button type="submit">Register</button>
-            </form>
-            <form onSubmit={handleSignIn}>
-              SignIn:
-              <input
-                placeholder="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <input
-                placeholder="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button type="submit">SignIn</button>
-            </form>
-          </>
-        )}
-      </Box>
+      {window.location.hostname === "localhost" && (
+        <Box key="Sync" title="Sync" flag flat>
+          {user ? (
+            <>
+              <form onSubmit={handleLogout}>
+                <button type="submit">Logout</button>
+              </form>
+              <form onSubmit={handleSave}>
+                <button type="submit">Salva</button>
+              </form>
+            </>
+          ) : (
+            <>
+              <form onSubmit={handleRegister}>
+                Register:
+                <input
+                  placeholder="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <input
+                  placeholder="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button type="submit">Register</button>
+              </form>
+              <form onSubmit={handleSignIn}>
+                SignIn:
+                <input
+                  placeholder="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <input
+                  placeholder="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button type="submit">SignIn</button>
+              </form>
+            </>
+          )}
+        </Box>
+      )}
       <Box key="Settings" title="Settings" flag flat>
         <p>Theme</p>
         <Option
