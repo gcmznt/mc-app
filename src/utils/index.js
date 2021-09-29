@@ -1,37 +1,39 @@
-export function getRandomList(list, count = 1, exclude) {
-  return [
-    ...new Set(
-      list
-        .filter((el) => !(exclude || []).includes(el))
-        .sort(() => 0.5 - Math.random())
-    ),
-  ]
-    .slice(0, count)
-    .sort(() => 0.5 - Math.random());
-}
-
-export function getRandom(list, exclude) {
-  return getRandomList(list, 1, exclude)[0];
-}
-
-function count(acc, curr) {
-  return typeof acc[curr] !== "undefined"
-    ? { ...acc, [curr]: (acc[curr] || 0) + 1 }
-    : acc;
-}
-
-export function getBalancedList(selection, stats) {
-  const counted = stats.reduce(
-    count,
-    Object.fromEntries(selection.map((el) => [el, 0]))
+export function countOccurrence(selection, stats) {
+  return Object.fromEntries(
+    selection.map((el) => [el, stats.filter((s) => s === el).length])
   );
+}
 
-  const max = Math.max(...Object.values(counted));
-  const balanced = Object.entries(counted).map((el) =>
-    new Array((max - el[1] + 1) ** 2).fill(el[0])
+function getWeigth(val, coeff = 2) {
+  return 1 / (val ** 2 * coeff + 1);
+}
+
+export function getWeigths(data) {
+  const stats = Array.isArray(data) ? countOccurrence(data, []) : data;
+  const min = Math.min(...Object.values(stats));
+  return Object.fromEntries(
+    Object.entries(stats)
+      .map((m) => [m[0], getWeigth(m[1] - min)])
+      .map((w, i, l) => [w[0], w[1] / l.filter((v) => v[1] >= w[1]).length])
   );
+}
 
-  return balanced.flat();
+export function getRandom(data) {
+  const weigths = Array.isArray(data) ? getWeigths(data) : data;
+  let n = Math.random() * Object.values(weigths).reduce((a, b) => a + b);
+  for (const property in weigths) {
+    if (n < weigths[property]) return property;
+    n -= weigths[property];
+  }
+  return weigths[0];
+}
+
+export function getRandomList(data, count = 1) {
+  const l = new Set();
+  while (l.size < count) {
+    l.add(getRandom(data));
+  }
+  return [...l];
 }
 
 function valReducer(moltiplier) {

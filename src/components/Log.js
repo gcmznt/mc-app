@@ -114,6 +114,7 @@ const getTime = (entry) => {
     case EVENTS.END:
       return entry.time;
     case EVENTS.START:
+    case EVENTS.RESTART:
       return entry.date;
 
     default:

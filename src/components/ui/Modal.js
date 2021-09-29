@@ -1,5 +1,9 @@
 import "../../styles/modal.css";
 
-export default function Modal({ children }) {
-  return <div className="modal">{children}</div>;
+export default function Modal({ children, ...props }) {
+  return (
+    <div className="modal" {...props}>
+      {children}
+    </div>
+  );
 }

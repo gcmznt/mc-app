@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getRandomList, getStatusObj, load, persist } from "../utils";
+import { getStatusObj, load, persist } from "../utils";
 import {
   COUNTERS_SCHEME,
   COUNTER_TYPES,
@@ -164,17 +164,17 @@ export default function Status({
             return handleEnable(
               counters.find((c) => c.name === trigger.entity)
             );
-          case TRIGGERS_ACTIONS.ENTER_SCHEME_PER_PLAYER:
-            return getRandomList(
-              trigger.entity,
-              setup.settings.players
-            ).forEach((counter) => {
-              console.log(
-                counter,
-                counters.find((c) => c.name === counter)
-              );
-              handleEnable(counters.find((c) => c.name === counter));
-            });
+          // case TRIGGERS_ACTIONS.ENTER_SCHEME_PER_PLAYER:
+          //   return getRandomList(
+          //     trigger.entity,
+          //     setup.settings.players
+          //   ).forEach((counter) => {
+          //     console.log(
+          //       counter,
+          //       counters.find((c) => c.name === counter)
+          //     );
+          //     handleEnable(counters.find((c) => c.name === counter));
+          //   });
 
           default:
             break;
@@ -400,14 +400,14 @@ export default function Status({
     counters && (
       <div>
         {quit && (
-          <Modal>
+          <Modal onClick={() => setQuit(false)}>
             <button onClick={handleGiveUp}>Give up</button>
             <button onClick={handleLostByScheme}>Lost by scheme</button>
             <button onClick={handleHeroesDead}>All heroes dead</button>
             <button onClick={handleVillainsDead}>Villain defeated</button>
             <button onClick={handleWonByScheme}>Won by scheme</button>
             <button onClick={handleDiscard}>Discard match</button>
-            <button onClick={() => setQuit(false)}>Return to the match</button>
+            <button onClick={() => setQuit(false)}>Close menu</button>
           </Modal>
         )}
         <div className="box__wrapper">
@@ -535,7 +535,7 @@ export default function Status({
           <Log counters={counters} log={log} />
         </div>
         <Timer
-          disabled={result}
+          disabled={result || quit}
           interacted={interacted}
           onChange={setTime}
           time={time}
@@ -560,7 +560,7 @@ export default function Status({
             label={result ? "Replay" : "Restart"}
             onClick={handleRestart}
           />
-          <Action label={result ? "Exit" : "End match"} onClick={handleQuit} />
+          <Action label={result ? "Exit" : "Menu"} onClick={handleQuit} />
         </Actions>
       </div>
     )
