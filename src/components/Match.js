@@ -6,7 +6,7 @@ import Status from "./Status";
 
 export default function Match({ matchId, onReplay, onQuit, options, setup }) {
   const [result, setResult] = useState(null);
-  const { data } = useData();
+  const { data, saveMatch } = useData();
 
   const handleResult = (reason, counters, log, quit = false) => {
     setResult(reason ? { reason, counters, log } : false);
@@ -20,12 +20,13 @@ export default function Match({ matchId, onReplay, onQuit, options, setup }) {
         event_label: result.reason,
       });
 
-      append(STORAGE_KEYS.MATCHES, {
+      saveMatch({
         date: new Date(),
         matchId,
         setup,
         ...(res || result),
       });
+      append(STORAGE_KEYS.TO_SYNC, matchId);
     }
   };
 

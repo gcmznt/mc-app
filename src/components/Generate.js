@@ -31,12 +31,12 @@ const getAspects = (hero, random) => ({
   aspects: random ? getRandomList(ASPECTS, hero.aspects.length) : hero.aspects,
 });
 
-const getHeroes = (scenario, selection, stats, settings) => {
+const getHeroes = (scenario, selection, matches, settings) => {
   const getBestHeroes = () =>
     getWeigths(
       countOccurrence(
         selection,
-        stats
+        matches
           .map((match) =>
             new Array(
               (match.setup.scenarioName || match.setup.scenario.name) ===
@@ -58,12 +58,12 @@ const getHeroes = (scenario, selection, stats, settings) => {
   );
 };
 
-const getScenario = (selection, stats, settings, data) => {
+const getScenario = (selection, matches, settings, data) => {
   const getBestScenarios = () =>
     getWeigths(
       countOccurrence(
         selection,
-        stats.map(
+        matches.map(
           (match) => match.setup.scenarioName || match.setup.scenario.name
         )
       )
@@ -85,8 +85,7 @@ const getModular = (scenario, selection, settings) => {
 };
 
 export default function Generate({ onGenerate, onStart, selection }) {
-  const { data } = useData();
-  const [stats, setStats] = useState([]);
+  const { data, matches } = useData();
   const [setup, setSetup] = useState(false);
   const [settings, setSettings] = useState(initialSetting);
   const generateBtn = useRef(null);
@@ -96,12 +95,12 @@ export default function Generate({ onGenerate, onStart, selection }) {
   };
 
   const randomize = () => {
-    const scenario = getScenario(selection.scenarios, stats, settings, data);
+    const scenario = getScenario(selection.scenarios, matches, settings, data);
     const modular = getModular(scenario, selection.modularSets, settings);
     const heroesAndAspects = getHeroes(
       scenario.name,
       selection.heroes,
-      stats,
+      matches,
       settings
     )
       .map((hero) => data.heroes.find((h) => h.name === hero))
@@ -139,10 +138,6 @@ export default function Generate({ onGenerate, onStart, selection }) {
   const handleStart = () => {
     onStart();
   };
-
-  useEffect(() => {
-    setStats(load(STORAGE_KEYS.MATCHES) || []);
-  }, []);
 
   useEffect(() => {
     if (setup) onGenerate(setup);

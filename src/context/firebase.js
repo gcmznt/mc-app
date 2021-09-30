@@ -14,14 +14,25 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  getFirestore,
+  setDoc,
+} from "firebase/firestore";
+import { useData } from "./data";
+import { load as loadUtil, persist } from "../utils";
+import { STORAGE_KEYS } from "../utils/constants";
 
 const FirebaseContext = createContext(null);
 
 export const FirebaseProvider = ({ children }) => {
   const [user, setUser] = useState();
+  const { matches, saveMatch } = useData();
 
-  const app = initializeApp({
+  initializeApp({
     apiKey: "AIzaSyC9NWj7eUejvekKggLpdP__It58sKwzjPk",
     authDomain: "first-player-marvel-champions.firebaseapp.com",
     projectId: "first-player-marvel-champions",
@@ -35,48 +46,70 @@ export const FirebaseProvider = ({ children }) => {
   const auth = getAuth();
 
   const register = useCallback(
-    (email, password) => {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          console.log(userCredential, userCredential.user);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
+    (email, password) => createUserWithEmailAndPassword(auth, email, password),
     [auth]
   );
 
   const signIn = useCallback(
-    (email, password) => {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          console.log(userCredential, userCredential.user);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
+    (email, password) => signInWithEmailAndPassword(auth, email, password),
     [auth]
   );
 
   const logout = useCallback(() => {
-    signOut(auth)
+    return signOut(auth)
       .then(() => setUser(null))
       .catch(console.error);
   }, [auth]);
 
   const save = useCallback(
-    async (data) => {
+    (id, data) => {
       const db = getFirestore();
-      const docRef = await addDoc(collection(db, "matches"), {
-        uid: user.uid,
-        ...data,
-      });
-      console.log("Document written", docRef);
+      return setDoc(
+        doc(db, "users", user.uid, "matches", id),
+        JSON.parse(JSON.stringify(data))
+      );
     },
     [user]
   );
+
+  const remove = useCallback(
+    (id) => {
+      const db = getFirestore();
+      return deleteDoc(doc(db, "users", user.uid, "matches", id));
+    },
+    [user]
+  );
+
+  const load = useCallback(() => {
+    const db = getFirestore();
+    return getDocs(collection(db, "users", user.uid, "matches"));
+  }, [user]);
+
+  const upload = useCallback(() => {
+    const device = loadUtil(STORAGE_KEYS.DEVICE);
+    const toSync = loadUtil(STORAGE_KEYS.TO_SYNC);
+    persist(STORAGE_KEYS.TO_SYNC, []);
+    return Promise.all(
+      matches
+        .filter((match) => toSync.includes(match.matchId))
+        .map((match) => save(match.matchId, { ...match, device }))
+    );
+  }, [matches, save]);
+
+  const download = useCallback(() => {
+    return load().then((qs) =>
+      qs.forEach((doc) => {
+        const matchData = doc.data();
+        saveMatch(matchData);
+      })
+    );
+  }, [load, saveMatch]);
+
+  const sync = useCallback(() => {
+    return upload()
+      .then(() => download())
+      .then(() => persist(STORAGE_KEYS.LAST_SYNC, new Date()));
+  }, [download, upload]);
 
   useEffect(() => {
     onAuthStateChanged(auth, setUser);
@@ -84,7 +117,7 @@ export const FirebaseProvider = ({ children }) => {
 
   return (
     <FirebaseContext.Provider
-      value={{ app, logout, register, save, signIn, user }}
+      value={{ logout, register, remove, signIn, sync, user }}
     >
       {children}
     </FirebaseContext.Provider>

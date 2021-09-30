@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { load, persist } from "../utils";
-import { RESULT_TYPES, STORAGE_KEYS } from "../utils/constants";
+import { useMemo } from "react";
+import { useData } from "../context/data";
+import { RESULT_TYPES } from "../utils/constants";
 import Box from "./ui/Box";
 import Match from "./ui/Match";
 
@@ -85,7 +85,7 @@ const getMatches = (data) =>
     heroes: (match.setup.heroesAndAspects || match.setup.heroes).map(
       (h) => h.name
     ),
-    id: match.matchId,
+    matchId: match.matchId,
     mode: match.setup.mode,
     result: result_text[match.reason],
     scenario: match.setup.scenarioName || match.setup.scenario.name,
@@ -107,31 +107,20 @@ const byName = (a, b) => a[0].localeCompare(b[0]);
 const byDate = (a, b) => b.date - a.date;
 
 export default function Statistics({ onLoad }) {
-  const [data, setData] = useState([]);
+  const { deleteMatch, matches: stats } = useData();
 
-  useEffect(() => {
-    setData(load(STORAGE_KEYS.MATCHES) || []);
-  }, []);
+  const matches = useMemo(() => stats.filter((m) => !m.trash), [stats]);
 
   const handleDelete = (match) => {
-    if (
-      window.confirm(`Delete ${match.heroes.join(" + ")} VS ${match.scenario}?`)
-    ) {
-      const newData = data.filter((m) => m.matchId !== match.id);
-      setData(newData);
-      persist(STORAGE_KEYS.MATCHES, newData);
-    }
+    const msg = match
+      ? `Delete ${match.heroes.join(" + ")} VS ${match.scenario}?`
+      : "Delete all matches?";
+
+    if (window.confirm(msg)) deleteMatch(match);
   };
 
   const handleReplay = (match) => {
-    onLoad(data.find((m) => m.matchId === match.id).setup);
-  };
-
-  const handleDeleteAll = () => {
-    if (window.confirm("Delete all matches?")) {
-      setData([]);
-      persist(STORAGE_KEYS.MATCHES, []);
-    }
+    onLoad(matches.find((m) => m.matchId === match.matchId).setup);
   };
 
   return (
@@ -141,9 +130,9 @@ export default function Statistics({ onLoad }) {
           <tbody>
             <tr>
               <td>Total</td>
-              <td>{data.length}</td>
+              <td>{matches.length}</td>
             </tr>
-            {Object.entries(getMatchesStats(data)).map(([k, v]) => (
+            {Object.entries(getMatchesStats(matches)).map(([k, v]) => (
               <tr key={k}>
                 <td>{result_text[k]}</td>
                 <td>{v}</td>
@@ -152,7 +141,7 @@ export default function Statistics({ onLoad }) {
           </tbody>
         </table>
       </Box>
-      {!!data.length && (
+      {!!matches.length && (
         <Box key="Heroes" title="Heroes" flag flat>
           <table style={tableStyle}>
             <thead>
@@ -165,7 +154,7 @@ export default function Statistics({ onLoad }) {
               </tr>
             </thead>
             <tbody>
-              {Object.entries(getHeroesStats(data))
+              {Object.entries(getHeroesStats(matches))
                 .sort(byName)
                 .map(([k, v]) => (
                   <Row key={k} label={k} values={v} />
@@ -174,7 +163,7 @@ export default function Statistics({ onLoad }) {
           </table>
         </Box>
       )}
-      {!!data.length && (
+      {!!matches.length && (
         <Box key="Scenarios" title="Scenarios" flag flat>
           <table style={tableStyle}>
             <thead>
@@ -187,7 +176,7 @@ export default function Statistics({ onLoad }) {
               </tr>
             </thead>
             <tbody>
-              {Object.entries(getScenariosStats(data))
+              {Object.entries(getScenariosStats(matches))
                 .sort(byName)
                 .map(([k, v]) => (
                   <Row key={k} label={k} values={v} />
@@ -196,13 +185,13 @@ export default function Statistics({ onLoad }) {
           </table>
         </Box>
       )}
-      {!!data.length && (
+      {!!matches.length && (
         <Box key="Matches" title="Matches" flag flat type="log">
-          {getMatches(data)
+          {getMatches(matches)
             .sort(byDate)
             .map((match) => (
               <Match
-                key={match.id}
+                key={match.matchId}
                 match={match}
                 onDelete={handleDelete}
                 onReplay={handleReplay}
@@ -210,7 +199,9 @@ export default function Statistics({ onLoad }) {
             ))}
         </Box>
       )}
-      {!!data.length && <button onClick={handleDeleteAll}>Delete all</button>}
+      {!!matches.length && (
+        <button onClick={() => handleDelete()}>Delete all</button>
+      )}
     </div>
   );
 }

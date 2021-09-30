@@ -58,13 +58,15 @@ export const RESULT_TYPES = {
 
 export const STORAGE_KEYS = {
   CURRENT: "current",
-  LAST_HEROES: "last-heroes",
+  DEVICE: "device",
+  LAST_SYNC: "last-sync",
   MATCHES: "matches",
   OPTIONS: "options",
   SELECTION: "selection",
   SETTINGS: "settings",
   SETUP: "setup",
   THEME: "theme",
+  TO_SYNC: "to-sync",
 };
 
 export const PAGES = {

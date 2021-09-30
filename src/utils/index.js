@@ -56,12 +56,18 @@ export function clear(key) {
 }
 
 export function persist(key, value) {
-  return localStorage.setItem(key, JSON.stringify(value));
+  localStorage.setItem(key, JSON.stringify(value));
+  return value;
 }
 
 export function append(key, value) {
   const current = load(key) || [];
   return persist(key, [...current, value]);
+}
+
+export function appendList(key, list) {
+  const current = load(key) || [];
+  return persist(key, [...current, ...list]);
 }
 
 export function getStatusObj(statuses, enabled = []) {
