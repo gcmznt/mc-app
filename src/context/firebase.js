@@ -87,7 +87,8 @@ export const FirebaseProvider = ({ children }) => {
 
   const upload = useCallback(() => {
     const device = loadUtil(STORAGE_KEYS.DEVICE);
-    const toSync = loadUtil(STORAGE_KEYS.TO_SYNC);
+    const toSync =
+      loadUtil(STORAGE_KEYS.TO_SYNC) || matches.map((m) => m.matchId);
     persist(STORAGE_KEYS.TO_SYNC, []);
     return Promise.all(
       matches
