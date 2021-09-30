@@ -8,6 +8,7 @@
   background: var(--color-accent);
   transform-origin: left center;
   animation: load 2000ms infinite linear;
+  z-index: 1;
 }
 
 .login-form.is-loading::after {
