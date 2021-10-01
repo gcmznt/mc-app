@@ -1,19 +1,12 @@
 import { useCallback, useMemo, useState } from "react";
 import { useData } from "../context/data";
-import { RESULT_TYPES } from "../utils/constants";
+import { FILTERS, RESULT_TYPES } from "../utils/constants";
 import Box from "./ui/Box";
 import Match from "./ui/Match";
 import "../styles/statistics.css";
 import { resultText } from "../utils/texts";
 import Dot from "./ui/Dot";
-
-const FILTERS = {
-  ASPECT: "aspect",
-  HERO: "hero",
-  PLAYERS: "PLAYERS",
-  RESULT: "result",
-  SCENARIO: "scenario",
-};
+import Filters from "./ui/Filters";
 
 const EMPTY_RESULTS = Object.fromEntries(
   Object.values(RESULT_TYPES).map((v) => [v, 0])
@@ -198,7 +191,7 @@ export default function Statistics({ onLoad }) {
 
   const stats = useMemo(() => getStats(matchesLog), [matchesLog]);
 
-  const toggleFilter = (k, v) => {
+  const toggleFilter = ([k, v]) => {
     setFilters((fs) => {
       return fs.some((f) => f[0] === k && f[1] === v)
         ? fs.filter((f) => f[0] !== k || f[1] !== v)
@@ -224,7 +217,7 @@ export default function Statistics({ onLoad }) {
             {Object.entries(stats.results).map(([k, v]) => (
               <tr key={k}>
                 <th
-                  onClick={() => toggleFilter(FILTERS.RESULT, k)}
+                  onClick={() => toggleFilter([FILTERS.RESULT, k])}
                   className={
                     filters.some((f) => f[0] === FILTERS.RESULT && f[1] === k)
                       ? "is-filter"
@@ -271,7 +264,7 @@ export default function Statistics({ onLoad }) {
                     key={k}
                     label={k}
                     values={v}
-                    onClick={() => toggleFilter(el.filter, k)}
+                    onClick={() => toggleFilter([el.filter, k])}
                     type={el.key}
                     filter={filters.some(
                       (f) => f[0] === el.filter && f[1] === k
@@ -315,6 +308,7 @@ export default function Statistics({ onLoad }) {
           <button onClick={() => handleDelete()}>Delete all</button>
         </>
       )}
+      <Filters filters={filters} onToggle={toggleFilter} />
     </div>
   );
 }

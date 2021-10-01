@@ -1,0 +1,21 @@
+.filters {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-bg-card);
+  color: var(--color-fg);
+  z-index: 1000;
+  transform: translateZ(100px);
+  opacity: 0.9;
+  box-shadow: 0 0 15px #0003;
+}
+
+.filters__element {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  display: inline-block;
+  padding: 1px 5px 3px;
+  border-radius: 100px;
+  margin: 10px 5px;
+}

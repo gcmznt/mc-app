@@ -78,3 +78,11 @@ export const PAGES = {
 export const ASPECTS = ["Aggression", "Justice", "Leadership", "Protection"];
 export const MODES = ["Standard", "Expert"];
 export const RANDOM = "Random";
+
+export const FILTERS = {
+  ASPECT: "aspect",
+  HERO: "hero",
+  PLAYERS: "players",
+  RESULT: "result",
+  SCENARIO: "scenario",
+};
