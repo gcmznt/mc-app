@@ -71,9 +71,9 @@ export const getResText = (result) =>
 
 export const resultText = (result) =>
   ({
-    [RESULT_TYPES.DEFEATED]: "Lost by heroes defeat",
-    [RESULT_TYPES.GIVE_UP]: "Gave up",
-    [RESULT_TYPES.SCHEME_WIN]: "Win by scheme",
-    [RESULT_TYPES.SCHEME]: "Lost by scheme",
-    [RESULT_TYPES.WINNER]: "Villain defeated",
+    [RESULT_TYPES.DEFEATED]: "Lost | All Heroes Defeated",
+    [RESULT_TYPES.GIVE_UP]: "Lost | Gave up",
+    [RESULT_TYPES.SCHEME_WIN]: "Won | Main scheme",
+    [RESULT_TYPES.SCHEME]: "Lost | Main Scheme",
+    [RESULT_TYPES.WINNER]: "Won | Villain defeated",
   }[result]);

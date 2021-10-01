@@ -51,6 +51,13 @@ function getHeroesAndAspects(match) {
   return match.setup.heroesAndAspects || match.setup.heroes;
 }
 
+function getModularSets(match) {
+  return (
+    match.setup.modularSets ||
+    (match.setup.scenario.modular || []).map((m) => m.name)
+  );
+}
+
 function getMatchesStats(res, match) {
   return {
     ...res,
@@ -76,8 +83,18 @@ function getHeroes(heroes, match) {
     .reduce(addToObj, heroes);
 }
 
+function getModular(modularSets, match) {
+  return (getModularSets(match) || [])
+    .map((mod) => [mod, match.reason])
+    .reduce(addToObj, modularSets);
+}
+
 function getScenario(scenario, match) {
   return addToObj(scenario, [getScenarioName(match), match.reason]);
+}
+
+function getModes(modes, match) {
+  return addToObj(modes, [match.setup.mode, match.reason]);
 }
 
 function getPlayersStats(players, match) {
@@ -103,6 +120,8 @@ function getStats(matches = []) {
       fastest: getFastest(stats.fastest, match),
       heroes: getHeroes(stats.heroes, match),
       longest: getLongest(stats.longest, match),
+      modes: getModes(stats.modes, match),
+      modular: getModular(stats.modular, match),
       players: getPlayersStats(stats.players, match),
       results: getMatchesStats(stats.results, match),
       scenario: getScenario(stats.scenario, match),
@@ -112,6 +131,8 @@ function getStats(matches = []) {
       fastest: false,
       heroes: {},
       longest: false,
+      modes: {},
+      modular: {},
       played: matches.length,
       players: {},
       results: EMPTY_RESULTS,
@@ -137,6 +158,10 @@ const isVisible = (match) => (filter) => {
         .includes(filter[1]);
     case FILTERS.SCENARIO:
       return getScenarioName(match).includes(filter[1]);
+    case FILTERS.MODES:
+      return match.setup.mode === filter[1];
+    case FILTERS.MODULAR:
+      return (getModularSets(match) || []).includes(filter[1]);
     default:
       return true;
   }
@@ -251,8 +276,10 @@ export default function Statistics({ onLoad }) {
       </Box>
       {[
         { title: "Players", filter: FILTERS.PLAYERS, key: "players" },
+        { title: "Modes", filter: FILTERS.MODES, key: "modes" },
         { title: "Heroes", filter: FILTERS.HERO, key: "heroes" },
         { title: "Scenarios", filter: FILTERS.SCENARIO, key: "scenario" },
+        { title: "Modular sets", filter: FILTERS.MODULAR, key: "modular" },
         { title: "Aspects", filter: FILTERS.ASPECT, key: "aspects" },
       ].map((el) => (
         <Box key={el.key} title={el.title} flag flat>

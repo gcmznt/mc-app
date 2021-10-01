@@ -82,6 +82,8 @@ export const RANDOM = "Random";
 export const FILTERS = {
   ASPECT: "aspect",
   HERO: "hero",
+  MODES: "modes",
+  MODULAR: "modularSets",
   PLAYERS: "players",
   RESULT: "result",
   SCENARIO: "scenario",
