@@ -4,6 +4,28 @@
   white-space: nowrap;
 }
 
+.statistics__table th,
+.statistics__table td {
+  padding: 3px 0;
+}
+
 .statistics__table th {
   text-align: left;
+  padding-right: 10px;
+  width: 50%;
+}
+
+.statistics__bar {
+  width: 100%;
+}
+
+.statistics__bar::after {
+  width: 100%;
+  content: "";
+  height: 10px;
+  margin-left: 10px;
+  display: block;
+  background-color: var(--color-accent);
+  transform-origin: left center;
+  transform: scaleX(var(--val, 1));
 }

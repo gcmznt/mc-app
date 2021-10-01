@@ -16,9 +16,7 @@ export default function Match({ match, onDelete, onReplay }) {
             <React.Fragment key={h.name}>
               <span>{h.name}</span>{" "}
               {h.aspects.map((a) => (
-                <small key={a}>
-                  <Dot type={a.toLowerCase()} />
-                </small>
+                <Dot key={a} type={a.toLowerCase()} small />
               ))}
             </React.Fragment>
           ))}

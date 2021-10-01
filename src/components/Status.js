@@ -35,15 +35,7 @@ const isVillainCounter = (counter) => counter.type === COUNTER_TYPES.VILLAIN;
 
 const byName = (a, b) => a.name.localeCompare(b.name);
 
-export default function Status({
-  matchId,
-  onReplay,
-  onResult,
-  onQuit,
-  options,
-  result,
-  setup,
-}) {
+export default function Status({ matchId, onReplay, onQuit, options, setup }) {
   const [counters, setCounters] = useState(false);
   const [log, setLog] = useState([]);
   const [interacted, setInteracted] = useState(false);
@@ -51,6 +43,7 @@ export default function Status({
   const [custom, setCustom] = useState("");
   const [time, setTime] = useState(0);
   const [firstPlayer, setFirstPlayer] = useState(0);
+  const [result, setResult] = useState(null);
 
   const accelerationCounters = (counters || []).filter(isAcceleration);
   const customCounters = (counters || []).filter(isCustomCounter);
@@ -64,9 +57,9 @@ export default function Status({
     setLog((l) => [{ date: new Date(), time, event, entity, data }, ...l]);
   };
 
-  const updateCounter = (id, values) => {
+  const updateCounter = (id, values, force = false) => {
     setInteracted(true);
-    if (!result && id)
+    if ((force || !result) && id)
       setCounters((cs) =>
         cs.map((c) => (c.id === id ? { ...c, ...values } : c))
       );
@@ -92,8 +85,9 @@ export default function Status({
   };
 
   const revertEnd = () => {
+    setResult(false);
     removeLastLog();
-    return onResult(false);
+    handleUndo(log[1]);
   };
 
   const revertStatus = (counter, status, value) => {
@@ -131,22 +125,26 @@ export default function Status({
 
   const revert = (counter, values) => {
     removeLastLog();
-    updateCounter(counter.id, values);
+    updateCounter(counter.id, values, true);
   };
 
   const endGame = (counter, result) => {
     logEvent(EVENTS.COMPLETE, counter.id);
-    onResult(result, counters, log);
+    logEvent(EVENTS.END, false, result);
+    setResult(result);
   };
 
-  const handleQuit = () => (result ? onQuit() : setQuit(true));
-  const handleEndGame = (reason) => onResult(reason, counters, time, log, true);
-  const handleDiscard = () => onQuit();
-  const handleGiveUp = () => handleEndGame(RESULT_TYPES.GIVE_UP);
-  const handleLostByScheme = () => handleEndGame(RESULT_TYPES.SCHEME);
-  const handleHeroesDead = () => handleEndGame(RESULT_TYPES.DEFEATED);
-  const handleVillainsDead = () => handleEndGame(RESULT_TYPES.WINNER);
-  const handleWonByScheme = () => handleEndGame(RESULT_TYPES.SCHEME_WIN);
+  const handleQuit = (reason) => {
+    onQuit({ reason, counters, time, log });
+  };
+
+  const handleMenu = () => (result ? handleQuit(result) : setQuit(true));
+  const handleDiscard = () => onQuit(false);
+  const handleGiveUp = () => handleQuit(RESULT_TYPES.GIVE_UP);
+  const handleLostByScheme = () => handleQuit(RESULT_TYPES.SCHEME);
+  const handleHeroesDead = () => handleQuit(RESULT_TYPES.DEFEATED);
+  const handleVillainsDead = () => handleQuit(RESULT_TYPES.WINNER);
+  const handleWonByScheme = () => handleQuit(RESULT_TYPES.SCHEME_WIN);
 
   const disableCounter = (counter) => {
     updateCounter(counter.id, { active: false });
@@ -164,17 +162,6 @@ export default function Status({
             return handleEnable(
               counters.find((c) => c.name === trigger.entity)
             );
-          // case TRIGGERS_ACTIONS.ENTER_SCHEME_PER_PLAYER:
-          //   return getRandomList(
-          //     trigger.entity,
-          //     setup.settings.players
-          //   ).forEach((counter) => {
-          //     console.log(
-          //       counter,
-          //       counters.find((c) => c.name === counter)
-          //     );
-          //     handleEnable(counters.find((c) => c.name === counter));
-          //   });
 
           default:
             break;
@@ -239,7 +226,7 @@ export default function Status({
 
   const handleRestart = () => {
     if (result) {
-      onReplay();
+      onReplay({ reason: result, counters, time, log });
     } else {
       setLog([]);
       setCounters(getCounters(setup));
@@ -256,7 +243,7 @@ export default function Status({
     );
   };
 
-  const handleAddCustomCounter = (name, type) => (e) => {
+  const handleAddCustomCounter = (name, type) => () => {
     if (name) {
       const count = counters.filter((c) => c.name.startsWith(name));
       const counter = getCounter({
@@ -270,15 +257,15 @@ export default function Status({
     }
   };
 
-  const handleAddSide = (counter) => (e) => {
+  const handleAddSide = (counter) => () => {
     if (!counter.active && !result) {
       handleEnable(counter);
     }
   };
 
-  const handleAddCounter = (e) => {
+  const handleAddCounter = () => {
     if (custom) {
-      handleAddCustomCounter(custom)(e);
+      handleAddCustomCounter(custom)();
       setCustom("");
     }
   };
@@ -288,8 +275,8 @@ export default function Status({
     handleAddCounter(e);
   };
 
-  const handleUndo = () => {
-    const lastLog = log[0];
+  const handleUndo = (entry) => {
+    const lastLog = entry || log[0];
     const counter = counters.find((c) => c.id === lastLog.entity);
 
     switch (lastLog.event) {
@@ -330,6 +317,7 @@ export default function Status({
   useEffect(() => {
     const saved = load(STORAGE_KEYS.CURRENT);
     if (saved) {
+      setResult(saved.result || false);
       setCounters(saved.counters);
       setFirstPlayer(saved.firstPlayer);
       setTime(saved.time);
@@ -342,11 +330,15 @@ export default function Status({
   }, [setup]);
 
   useEffect(() => {
-    if (counters && counters.filter(isHeroCounter).every(isNotActive)) {
-      onResult(RESULT_TYPES.DEFEATED, counters, log);
-    }
-    if (counters && counters.filter(isVillainCounter).every(isNotActive)) {
-      onResult(RESULT_TYPES.WINNER, counters, log);
+    if (counters && !result) {
+      if (counters.filter(isHeroCounter).every(isNotActive)) {
+        setResult(RESULT_TYPES.DEFEATED);
+        logEvent(EVENTS.END, false, RESULT_TYPES.DEFEATED);
+      }
+      if (counters.filter(isVillainCounter).every(isNotActive)) {
+        setResult(RESULT_TYPES.WINNER);
+        logEvent(EVENTS.END, false, RESULT_TYPES.WINNER);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [counters]);
@@ -370,11 +362,6 @@ export default function Status({
       time,
     });
   }, [counters, firstPlayer, log, matchId, result, setup, time]);
-
-  useEffect(() => {
-    if (interacted && result) logEvent(EVENTS.END, false, result);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [interacted, result]);
 
   const acceleration =
     accelerationCounters.reduce(
@@ -555,12 +542,12 @@ export default function Status({
           }
           types={result && ["result", result]}
         >
-          <Action label="Undo" onClick={handleUndo} />
+          <Action label="Undo" onClick={() => handleUndo()} />
           <Action
             label={result ? "Replay" : "Restart"}
             onClick={handleRestart}
           />
-          <Action label={result ? "Exit" : "Menu"} onClick={handleQuit} />
+          <Action label={result ? "Exit" : "Menu"} onClick={handleMenu} />
         </Actions>
       </div>
     )

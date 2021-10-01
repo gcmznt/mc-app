@@ -1,5 +1,5 @@
 scenarios: kang, tower defence 
 
-statistics
+statistics [round/phases counter]
 add minions in db
 multi language

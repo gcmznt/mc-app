@@ -11,3 +11,8 @@
 .dot + .dot {
   margin-left: -0.5em;
 }
+
+.dot.is-small {
+  font-size: 0.65em;
+  vertical-align: baseline;
+}

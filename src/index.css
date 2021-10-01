@@ -127,6 +127,10 @@ body.is-dark {
   text-overflow: ellipsis;
 }
 
+.is-filter {
+  color: var(--color-accent);
+}
+
 @media (prefers-color-scheme: dark) {
   body:not(.is-light) {
     --color-bg-card: #000;

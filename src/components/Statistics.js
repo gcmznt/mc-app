@@ -1,10 +1,19 @@
-import { useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useData } from "../context/data";
 import { RESULT_TYPES } from "../utils/constants";
 import Box from "./ui/Box";
 import Match from "./ui/Match";
 import "../styles/statistics.css";
 import { resultText } from "../utils/texts";
+import Dot from "./ui/Dot";
+
+const FILTERS = {
+  ASPECT: "aspect",
+  HERO: "hero",
+  PLAYERS: "PLAYERS",
+  RESULT: "result",
+  SCENARIO: "scenario",
+};
 
 const EMPTY_RESULTS = Object.fromEntries(
   Object.values(RESULT_TYPES).map((v) => [v, 0])
@@ -80,6 +89,17 @@ function getScenario(scenario, match) {
   return addToObj(scenario, [getScenarioName(match), match.reason]);
 }
 
+function getPlayersStats(players, match) {
+  return addToObj(players, [getHeroesAndAspects(match).length, match.reason]);
+}
+
+function getFastest(fastest, match) {
+  return match.complete &&
+    (!fastest || getMatchTime(match) < getMatchTime(fastest))
+    ? match
+    : fastest;
+}
+
 function getLongest(longest, match) {
   return (getMatchTime(match) || 0) > getMatchTime(longest) ? match : longest;
 }
@@ -89,26 +109,59 @@ function getStats(matches = []) {
     (stats, match) => ({
       ...stats,
       aspects: getAspects(stats.aspects, match),
+      fastest: getFastest(stats.fastest, match),
       heroes: getHeroes(stats.heroes, match),
-      scenario: getScenario(stats.scenario, match),
       longest: getLongest(stats.longest, match),
+      players: getPlayersStats(stats.players, match),
       results: getMatchesStats(stats.results, match),
+      scenario: getScenario(stats.scenario, match),
     }),
     {
-      results: EMPTY_RESULTS,
       aspects: {},
+      fastest: false,
       heroes: {},
-      scenario: {},
       longest: false,
       played: matches.length,
+      players: {},
+      results: EMPTY_RESULTS,
+      scenario: {},
     }
   );
 }
 
-function Row({ label, values }) {
+const isVisible = (match) => (filter) => {
+  switch (filter[0]) {
+    case FILTERS.RESULT:
+      return match.reason === filter[1];
+    case FILTERS.PLAYERS:
+      return getHeroesAndAspects(match).length === +filter[1];
+    case FILTERS.HERO:
+      return getHeroesAndAspects(match)
+        .map((h) => h.name)
+        .includes(filter[1]);
+    case FILTERS.ASPECT:
+      return getHeroesAndAspects(match)
+        .map((h) => h.aspects)
+        .flat()
+        .includes(filter[1]);
+    case FILTERS.SCENARIO:
+      return getScenarioName(match).includes(filter[1]);
+    default:
+      return true;
+  }
+};
+
+function Row({ filter, label, type, values, onClick }) {
   return (
     <tr>
-      <th className="u-ellipsis">{label}</th>
+      <th
+        className={`u-ellipsis ${filter ? "is-filter" : ""}`}
+        onClick={onClick}
+      >
+        {type === "aspects" && <Dot type={label.toLowerCase()} small />}
+        {label}
+        {type === "players" && ` player${label === "1" ? "" : "s"}`}
+      </th>
       <td>{Object.values(values).reduce((a, b) => a + b)}</td>
       <td>{getPerc(values)}</td>
       <td>{getWins(values)}</td>
@@ -119,25 +172,39 @@ function Row({ label, values }) {
 
 export default function Statistics({ onLoad }) {
   const { deleteMatch, matches } = useData();
-
-  const stats = useMemo(
-    () => getStats(matches.filter((m) => !m.trash)),
-    [matches]
-  );
+  const [filters, setFilters] = useState([]);
 
   const handleDelete = (match) => {
     const msg = match
-      ? `Delete ${match.heroes.join(" + ")} VS ${match.scenario}?`
+      ? `Delete ${getHeroesAndAspects(match)
+          .map((h) => h.name)
+          .join(" + ")} VS ${getScenarioName(match)}?`
       : "Delete all matches?";
 
     if (window.confirm(msg)) deleteMatch(match);
   };
 
-  const handleReplay = (match) => {
-    onLoad(matches.find((m) => m.matchId === match.matchId).setup);
-  };
+  const handleReplay = (match) => onLoad(match.setup);
 
-  console.log(stats, matches.sort(byDate)[0]);
+  const matchFilters = useCallback(
+    (match) => filters.length === 0 || filters.every(isVisible(match)),
+    [filters]
+  );
+
+  const matchesLog = useMemo(
+    () => matches.filter((m) => !m.trash).filter(matchFilters),
+    [matchFilters, matches]
+  );
+
+  const stats = useMemo(() => getStats(matchesLog), [matchesLog]);
+
+  const toggleFilter = (k, v) => {
+    setFilters((fs) => {
+      return fs.some((f) => f[0] === k && f[1] === v)
+        ? fs.filter((f) => f[0] !== k || f[1] !== v)
+        : [...fs, [k, v]];
+    });
+  };
 
   return (
     <div className="statistics">
@@ -147,67 +214,96 @@ export default function Statistics({ onLoad }) {
             <tr>
               <th>Total</th>
               <td>{stats.played}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <th>-</th>
+              <td></td>
+              <td></td>
             </tr>
             {Object.entries(stats.results).map(([k, v]) => (
               <tr key={k}>
-                <th>{resultText(k)}</th>
+                <th
+                  onClick={() => toggleFilter(FILTERS.RESULT, k)}
+                  className={
+                    filters.some((f) => f[0] === FILTERS.RESULT && f[1] === k)
+                      ? "is-filter"
+                      : ""
+                  }
+                >
+                  {resultText(k)}
+                </th>
                 <td>{v}</td>
+                <td
+                  className={`statistics__bar is-${k}`}
+                  style={{
+                    "--val":
+                      v / Math.max(...Object.values(stats.results)) || 0.005,
+                  }}
+                ></td>
               </tr>
             ))}
           </tbody>
         </table>
       </Box>
-      {!!matches.length && (
+      {[
+        { title: "Players", filter: FILTERS.PLAYERS, key: "players" },
+        { title: "Heroes", filter: FILTERS.HERO, key: "heroes" },
+        { title: "Scenarios", filter: FILTERS.SCENARIO, key: "scenario" },
+        { title: "Aspects", filter: FILTERS.ASPECT, key: "aspects" },
+      ].map((el) => (
+        <Box key={el.key} title={el.title} flag flat>
+          <table className="statistics__table">
+            <thead>
+              <tr>
+                <td></td>
+                <td>P</td>
+                <td>Win %</td>
+                <td>W</td>
+                <td>L</td>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(stats[el.key])
+                .sort(byName)
+                .map(([k, v]) => (
+                  <Row
+                    key={k}
+                    label={k}
+                    values={v}
+                    onClick={() => toggleFilter(el.filter, k)}
+                    type={el.key}
+                    filter={filters.some(
+                      (f) => f[0] === el.filter && f[1] === k
+                    )}
+                  />
+                ))}
+            </tbody>
+          </table>
+        </Box>
+      ))}
+      {!!matchesLog.length && (
         <>
-          <Box key="Heroes" title="Heroes" flag flat>
-            <table className="statistics__table">
-              <thead>
-                <tr>
-                  <td></td>
-                  <td>P</td>
-                  <td>Win %</td>
-                  <td>W</td>
-                  <td>L</td>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.entries(stats.heroes)
-                  .sort(byName)
-                  .map(([k, v]) => (
-                    <Row key={k} label={k} values={v} />
-                  ))}
-              </tbody>
-            </table>
-          </Box>
-          <Box key="Scenarios" title="Scenarios" flag flat>
-            <table className="statistics__table">
-              <thead>
-                <tr>
-                  <td></td>
-                  <td>P</td>
-                  <td>Win %</td>
-                  <td>W</td>
-                  <td>L</td>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.entries(stats.scenario)
-                  .sort(byName)
-                  .map(([k, v]) => (
-                    <Row key={k} label={k} values={v} />
-                  ))}
-              </tbody>
-            </table>
-          </Box>
-          <Box key="Longest Match" title="Longest Match" flag flat type="log">
-            <Match
-              match={stats.longest}
-              onDelete={handleDelete}
-              onReplay={handleReplay}
-            />
-          </Box>
+          {stats.longest && (
+            <Box key="Longest Match" title="Longest Match" flag flat type="log">
+              <Match
+                match={stats.longest}
+                onDelete={handleDelete}
+                onReplay={handleReplay}
+              />
+            </Box>
+          )}
+          {stats.fastest && (
+            <Box key="Fastest Match" title="Fastest Match" flag flat type="log">
+              <Match
+                match={stats.fastest}
+                onDelete={handleDelete}
+                onReplay={handleReplay}
+              />
+            </Box>
+          )}
           <Box key="Matches" title="Matches" flag flat type="log">
-            {matches.sort(byDate).map((match) => (
+            {matchesLog.sort(byDate).map((match) => (
               <Match
                 key={match.matchId}
                 match={match}
