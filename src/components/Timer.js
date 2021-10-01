@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import "../styles/timer.css";
 import { msToTime } from "../utils";
 
-const UPDATE_INTERVAL = window.location.hostname === "localhost" ? 25000 : 250;
+const UPDATE_INTERVAL =
+  new URL(document.location).searchParams.get("debug") === "" ? 25000 : 250;
 
 export default function Timer({
   disabled,

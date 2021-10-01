@@ -1,20 +1,44 @@
+import React from "react";
 import "../../styles/match.css";
+import { msToTime } from "../../utils";
+import { resultText } from "../../utils/texts";
+import { getMatchTime } from "../Statistics";
+import Dot from "./Dot";
 
 export default function Match({ match, onDelete, onReplay }) {
+  const matchTime = getMatchTime(match);
+
   return (
     <div className="match">
       <div>
-        <div>{match.heroes.join(" + ")}</div>
         <div>
-          <span className="match__vs">VS</span> {match.scenario}{" "}
-          <small className="match__mode">[{match.mode}]</small>
+          {(match.setup.heroesAndAspects || match.setup.heroes).map((h) => (
+            <React.Fragment key={h.name}>
+              <span>{h.name}</span>{" "}
+              {h.aspects.map((a) => (
+                <small key={a}>
+                  <Dot type={a.toLowerCase()} />
+                </small>
+              ))}
+            </React.Fragment>
+          ))}
         </div>
-        <div>{match.result}</div>
+        <div>
+          <span className="match__vs">VS</span>{" "}
+          {match.setup.scenarioName || match.setup.scenario.name}{" "}
+          <small className="match__mode">[{match.setup.mode}]</small>
+        </div>
+        <div>
+          {resultText(match.reason)}
+          {matchTime ? ` in ${msToTime(matchTime)}` : ""}
+        </div>
       </div>
       <div className="match__info">
-        <small className="match__date">{match.date.toLocaleDateString()}</small>
         <small className="match__date">
-          {match.date.toLocaleTimeString().slice(0, -3)}
+          {new Date(match.date).toLocaleDateString()}
+        </small>
+        <small className="match__date">
+          {new Date(match.date).toLocaleTimeString().slice(0, -3)}
         </small>
         <span className="match__delete" onClick={() => onDelete(match)}>
           Delete

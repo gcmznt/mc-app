@@ -35,9 +35,11 @@ export default function LoginForm() {
           <button onClick={handleSync}>Sync</button>
           <button onClick={handleLogout}>Logout</button>
           <p>
-            {lastSync
-              ? `Last sync: ${new Date(lastSync).toLocaleString()}`
-              : "Never synced"}
+            <small>
+              {lastSync
+                ? `Last sync: ${new Date(lastSync).toLocaleString()}`
+                : "Never synced"}
+            </small>
           </p>
         </>
       ) : (

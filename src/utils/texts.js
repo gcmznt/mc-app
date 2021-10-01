@@ -68,3 +68,12 @@ export const getResText = (result) =>
     [RESULT_TYPES.SCHEME]: "You lost by scheme.",
     [RESULT_TYPES.WINNER]: "You won!",
   }[result]);
+
+export const resultText = (result) =>
+  ({
+    [RESULT_TYPES.DEFEATED]: "Lost by heroes defeat",
+    [RESULT_TYPES.GIVE_UP]: "Gave up",
+    [RESULT_TYPES.SCHEME_WIN]: "Win by scheme",
+    [RESULT_TYPES.SCHEME]: "Lost by scheme",
+    [RESULT_TYPES.WINNER]: "Villain defeated",
+  }[result]);

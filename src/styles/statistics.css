@@ -1,0 +1,9 @@
+.statistics__table {
+  width: 100%;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.statistics__table th {
+  text-align: left;
+}

@@ -125,8 +125,8 @@ export default function Status({
     updateCounter(entity, values);
   };
 
-  const removeLastLog = () => {
-    setLog((l) => [...l].slice(1));
+  const removeLastLog = (count = 1) => {
+    setLog((l) => [...l].slice(count));
   };
 
   const revert = (counter, values) => {
@@ -140,7 +140,7 @@ export default function Status({
   };
 
   const handleQuit = () => (result ? onQuit() : setQuit(true));
-  const handleEndGame = (reason) => onResult(reason, counters, log, true);
+  const handleEndGame = (reason) => onResult(reason, counters, time, log, true);
   const handleDiscard = () => onQuit();
   const handleGiveUp = () => handleEndGame(RESULT_TYPES.GIVE_UP);
   const handleLostByScheme = () => handleEndGame(RESULT_TYPES.SCHEME);

@@ -122,6 +122,11 @@ body.is-dark {
   --color-fg: #fff;
 }
 
+.u-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @media (prefers-color-scheme: dark) {
   body:not(.is-light) {
     --color-bg-card: #000;
