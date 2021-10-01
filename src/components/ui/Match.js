@@ -2,11 +2,11 @@ import React from "react";
 import "../../styles/match.css";
 import { msToTime } from "../../utils";
 import { resultText } from "../../utils/texts";
-import { getMatchTime } from "../Statistics";
+import { getMatchLength } from "../Statistics";
 import Dot from "./Dot";
 
 export default function Match({ match, onDelete, onReplay }) {
-  const matchTime = getMatchTime(match);
+  const matchTime = getMatchLength(match);
 
   return (
     <div className="match">

@@ -1,5 +1,8 @@
 scenarios: kang, tower defence 
 
+routes
 statistics [round/phases counter]
+match detailed stats
+
 add minions in db
 multi language

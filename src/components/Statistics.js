@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { useData } from "../context/data";
-import { FILTERS, RESULT_TYPES } from "../utils/constants";
+import { EVENTS, FILTERS, RESULT_TYPES } from "../utils/constants";
 import Box from "./ui/Box";
 import Match from "./ui/Match";
 import "../styles/statistics.css";
@@ -34,15 +34,13 @@ function getPerc(values) {
   return w + l ? ((w / (w + l)) * 100).toFixed(1) : "-";
 }
 
-export function getMatchTime(match) {
+function getMatchTime(match) {
   return match ? match.time || match.log[0].time : 0;
 }
 
 export function getMatchLength(match) {
-  return match
-    ? new Date(match.log[0].date) -
-        new Date(match.log[match.log.length - 1].date)
-    : 0;
+  if (match.log[0].event === EVENTS.END) return getMatchTime(match);
+  return new Date(match.date) - new Date(match.log[match.log.length - 1].date);
 }
 
 function getScenarioName(match) {
@@ -147,13 +145,16 @@ const isVisible = (match) => (filter) => {
 function Row({ filter, label, type, values, onClick }) {
   return (
     <tr>
-      <th
-        className={`u-ellipsis ${filter ? "is-filter" : ""}`}
-        onClick={onClick}
-      >
+      <th>
+        <input type="checkbox" checked={filter} onChange={onClick} />
         {type === "aspects" && <Dot type={label.toLowerCase()} small />}
-        {label}
-        {type === "players" && ` player${label === "1" ? "" : "s"}`}
+        <span
+          className={`u-ellipsis ${filter ? "is-filter" : ""}`}
+          onClick={onClick}
+        >
+          {label}
+          {type === "players" && ` player${label === "1" ? "" : "s"}`}
+        </span>
       </th>
       <td>{Object.values(values).reduce((a, b) => a + b)}</td>
       <td>{getPerc(values)}</td>
@@ -216,15 +217,24 @@ export default function Statistics({ onLoad }) {
             </tr>
             {Object.entries(stats.results).map(([k, v]) => (
               <tr key={k}>
-                <th
-                  onClick={() => toggleFilter([FILTERS.RESULT, k])}
-                  className={
-                    filters.some((f) => f[0] === FILTERS.RESULT && f[1] === k)
-                      ? "is-filter"
-                      : ""
-                  }
-                >
-                  {resultText(k)}
+                <th>
+                  <input
+                    type="checkbox"
+                    checked={filters.some(
+                      (f) => f[0] === FILTERS.RESULT && f[1] === k
+                    )}
+                    onChange={() => toggleFilter([FILTERS.RESULT, k])}
+                  />
+                  <span
+                    className={`u-ellipsis ${
+                      filters.some((f) => f[0] === FILTERS.RESULT && f[1] === k)
+                        ? "is-filter"
+                        : ""
+                    }`}
+                    onClick={() => toggleFilter([FILTERS.RESULT, k])}
+                  >
+                    {resultText(k)}
+                  </span>
                 </th>
                 <td>{v}</td>
                 <td

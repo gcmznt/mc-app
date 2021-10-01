@@ -15,6 +15,10 @@
   width: 50%;
 }
 
+.statistics__table input {
+  margin-right: 10px;
+}
+
 .statistics__bar {
   width: 100%;
 }
