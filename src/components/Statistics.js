@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { useData } from "../context/data";
-import { EVENTS, FILTERS, RESULT_TYPES } from "../utils/constants";
+import { FILTERS, RESULT_TYPES } from "../utils/constants";
 import Box from "./ui/Box";
 import Match from "./ui/Match";
 import "../styles/statistics.css";
@@ -32,15 +32,6 @@ function getPerc(values) {
   const l = getLost(values);
 
   return w + l ? ((w / (w + l)) * 100).toFixed(1) : "-";
-}
-
-function getMatchTime(match) {
-  return match ? match.time || match.log[0].time : 0;
-}
-
-export function getMatchLength(match) {
-  if (match.log[0].event === EVENTS.END) return getMatchTime(match);
-  return new Date(match.date) - new Date(match.log[match.log.length - 1].date);
 }
 
 function getScenarioName(match) {
@@ -102,14 +93,13 @@ function getPlayersStats(players, match) {
 }
 
 function getFastest(fastest, match) {
-  return match.complete &&
-    (!fastest || getMatchTime(match) < getMatchTime(fastest))
+  return match.complete && (!fastest || match.time < fastest.time)
     ? match
     : fastest;
 }
 
 function getLongest(longest, match) {
-  return (getMatchTime(match) || 0) > getMatchTime(longest) ? match : longest;
+  return match.complete && match.time > longest.time ? match : longest;
 }
 
 function getStats(matches = []) {

@@ -41,7 +41,7 @@ const getHeroes = (scenario, selection, matches, settings) => {
             new Array(
               (match.setup.scenarioName || match.setup.scenario.name) ===
               scenario
-                ? 10
+                ? matches.length
                 : 1
             )
               .fill(match.setup.heroesAndAspects || match.setup.heroes)

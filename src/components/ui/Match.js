@@ -2,14 +2,11 @@ import React from "react";
 import "../../styles/match.css";
 import { msToTime } from "../../utils";
 import { resultText } from "../../utils/texts";
-import { getMatchLength } from "../Statistics";
 import Dot from "./Dot";
 
 export default function Match({ match, onDelete, onReplay }) {
-  const matchTime = getMatchLength(match);
-
   return (
-    <div className="match">
+    <div className="match" data-id={match.matchId}>
       <div>
         <div>
           {(match.setup.heroesAndAspects || match.setup.heroes).map((h) => (
@@ -28,7 +25,7 @@ export default function Match({ match, onDelete, onReplay }) {
         </div>
         <div>
           {resultText(match.reason)}
-          {matchTime ? ` in ${msToTime(matchTime)}` : ""}
+          {match.complete ? ` in ${msToTime(match.time)}` : ""}
         </div>
       </div>
       <div className="match__info">
