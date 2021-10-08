@@ -1,8 +1,11 @@
 scenarios: kang, tower defence 
 
 routes
-statistics [round/phases counter]
-match detailed stats
+match detailed stats [round/phases counter]
+
+online/offline sync
+auto-start counters
+
 
 add minions in db
 multi language
