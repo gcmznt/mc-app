@@ -1,45 +1,37 @@
-import { useCallback } from "react";
 import { useData } from "../context/data";
+import Layout from "./inputs/Layout";
+import Theme from "./inputs/Theme";
 import LoginForm from "./LoginForm";
 import Box from "./ui/Box";
 import Option from "./ui/Option";
 
-export default function Options({
-  onChange,
-  onChangeOptions,
-  options,
-  selection,
-}) {
-  const { data, fullSelect } = useData();
+function SelectAll({ section }) {
+  const { fullSelection, selection, updateSelection } = useData();
 
-  const toggle = (key, el) => {
-    onChange({
-      ...selection,
-      [key]: selection[key].includes(el)
-        ? selection[key].filter((e) => e !== el)
-        : [...selection[key], el],
-    });
+  const selectAll = (key, unselect) => {
+    updateSelection(key, unselect ? [] : fullSelection[key]);
   };
 
-  const selectAll = useCallback(
-    (key, unselect) => () => {
-      onChange({
-        ...selection,
-        [key]: unselect ? [] : fullSelect[key],
-      });
-    },
-    [fullSelect, onChange, selection]
-  );
+  const isFull = selection[section].length === fullSelection[section].length;
 
-  const SelectAll = useCallback(
-    ({ items }) =>
-      selection[items].length === fullSelect[items].length ? (
-        <p onClick={selectAll(items, true)}>Unselect all</p>
-      ) : (
-        <p onClick={selectAll(items)}>Select all</p>
-      ),
-    [fullSelect, selectAll, selection]
+  return (
+    <p onClick={() => selectAll(section, isFull)}>
+      {isFull ? "Unselect all" : "Select all"}
+    </p>
   );
+}
+
+export default function Options() {
+  const { data, options, selection, updateOption, updateSelection } = useData();
+
+  const toggle = (key, el) => {
+    updateSelection(
+      key,
+      selection[key].includes(el)
+        ? selection[key].filter((e) => e !== el)
+        : [...selection[key], el]
+    );
+  };
 
   return (
     <>
@@ -48,79 +40,36 @@ export default function Options({
       </Box>
 
       <Box key="Settings" title="Settings" flag flat>
-        <p>Theme</p>
-        <Option
-          checked={options.mode === "auto"}
-          label="System"
-          type="radio"
-          onChange={() => onChangeOptions("mode")("auto")}
-          variant="inline"
-        />
-        <Option
-          checked={options.mode === "dark"}
-          label="Dark"
-          type="radio"
-          onChange={() => onChangeOptions("mode")("dark")}
-          variant="inline"
-        />
-        <Option
-          checked={options.mode === "light"}
-          label="Light"
-          type="radio"
-          onChange={() => onChangeOptions("mode")("light")}
-          variant="inline"
-        />
-        <p>Layout</p>
-        <Option
-          checked={options.timer}
-          label="Show match timer"
-          onChange={(e) => onChangeOptions("timer")(e.target.checked)}
-        />
-        <Option
-          checked={options.compact}
-          label="Use compact layout"
-          onChange={(e) => onChangeOptions("compact")(e.target.checked)}
-        />
+        <legend className="box__legend">Theme</legend>
+        <Theme onChange={updateOption} value={options.mode} />
+
+        <legend className="box__legend">Layout</legend>
+        <Layout onChange={updateOption} values={options} />
       </Box>
-      <Box key="Heroes" title="Heroes" flag flat>
-        {data.heroes.map((opt) => (
-          <Option
-            key={opt.name}
-            checked={selection.heroes.includes(opt.name)}
-            flag={opt.pack !== opt.name && opt.pack}
-            label={opt.name}
-            onChange={(e) => toggle("heroes", e.target.value)}
-            value={opt.name}
-          />
-        ))}
-        <SelectAll items="heroes" />
-      </Box>
-      <Box key="Scenarios" title="Scenarios" flag flat>
-        {data.scenarios.map((opt) => (
-          <Option
-            key={opt.name}
-            checked={selection.scenarios.includes(opt.name)}
-            flag={opt.pack !== opt.name && opt.pack}
-            label={opt.name}
-            onChange={(e) => toggle("scenarios", e.target.value)}
-            value={opt.name}
-          />
-        ))}
-        <SelectAll items="scenarios" />
-      </Box>
-      <Box key="Modular" title="Modular" flag flat>
-        {Object.values(data.modularSets).map((opt) => (
-          <Option
-            key={opt.name}
-            checked={selection.modularSets.includes(opt.name)}
-            flag={opt.pack !== opt.name && opt.pack}
-            label={opt.name}
-            onChange={(e) => toggle("modularSets", e.target.value)}
-            value={opt.name}
-          />
-        ))}
-        <SelectAll items="modularSets" />
-      </Box>
+
+      {[
+        { key: "heroes", title: "Heroes", options: data.heroes },
+        { key: "scenarios", title: "Scenarios", options: data.scenarios },
+        {
+          key: "modularSets",
+          title: "Modular",
+          options: Object.values(data.modularSets),
+        },
+      ].map((section) => (
+        <Box key={section.key} title={section.title} flag flat>
+          {section.options.map((opt) => (
+            <Option
+              key={opt.name}
+              checked={selection[section.key].includes(opt.name)}
+              flag={opt.pack !== opt.name && opt.pack}
+              label={opt.name}
+              onChange={(e) => toggle(section.key, e.target.value)}
+              value={opt.name}
+            />
+          ))}
+          <SelectAll section={section.key} />
+        </Box>
+      ))}
     </>
   );
 }

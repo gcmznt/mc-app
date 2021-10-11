@@ -360,17 +360,14 @@
         "levels": {
           "1": {
             "complete": "14p",
-            "name": "Ronan the Accuser I",
             "status": ["Tough"]
           },
           "2": {
             "complete": "18p",
-            "name": "Ronan the Accuser II",
             "status": ["Tough"]
           },
           "3": {
             "complete": "25p",
-            "name": "Ronan the Accuser III",
             "status": ["Tough"]
           }
         },
@@ -427,7 +424,17 @@
     "sideSchemes": ["Sanctuary", "The Titan's Throne"],
     "villains": [
       {
-        "levels": { "1": "16p", "2": "23p", "3": "28p" },
+        "levels": {
+          "1": "16p",
+          "2": {
+            "complete": "23p",
+            "status": ["Tough"]
+          },
+          "3": {
+            "complete": "28p",
+            "status": ["Tough"]
+          }
+        },
         "name": "Thanos",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }

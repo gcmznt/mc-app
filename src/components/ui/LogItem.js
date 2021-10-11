@@ -1,7 +1,7 @@
 import "../../styles/log.css";
 import { msToTime } from "../../utils";
 
-export default function Log({ time, text }) {
+export default function LogItem({ text, time }) {
   return (
     <div className="log">
       <div className="log__text">{text}</div>

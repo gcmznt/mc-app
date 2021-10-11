@@ -70,9 +70,15 @@ export const STORAGE_KEYS = {
 };
 
 export const PAGES = {
-  MAIN: "main",
-  OPTIONS: "options",
-  STATISTICS: "statistics",
+  MAIN: "/",
+  OPTIONS: "/options",
+  STATISTICS: "/statistics",
+};
+
+export const DEFAULT_OPTIONS = {
+  compact: false,
+  mode: "auto",
+  timer: true,
 };
 
 export const ASPECTS = ["Aggression", "Justice", "Leadership", "Protection"];

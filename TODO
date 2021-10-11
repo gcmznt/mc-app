@@ -1,6 +1,5 @@
 scenarios: kang, tower defence 
 
-routes
 match detailed stats [round/phases counter]
 
 online/offline sync

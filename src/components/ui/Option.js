@@ -1,4 +1,5 @@
 import "../../styles/option.css";
+import { getClassName } from "../../utils";
 
 export default function Option({
   checked,
@@ -10,8 +11,10 @@ export default function Option({
   value,
   variant = false,
 }) {
+  const classList = ["option", variant && `option--${variant}`];
+
   return (
-    <label className={`option ${variant ? `option--${variant}` : ""}`}>
+    <label className={getClassName(classList)}>
       <span>
         <input
           checked={checked}

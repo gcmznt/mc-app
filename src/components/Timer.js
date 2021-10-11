@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
+import { useData } from "../context/data";
 import "../styles/timer.css";
 import { msToTime } from "../utils";
 
 const UPDATE_INTERVAL =
   new URL(document.location).searchParams.get("debug") === "" ? 25000 : 250;
 
-export default function Timer({
-  disabled,
-  interacted,
-  onChange,
-  time,
-  visible,
-}) {
+export default function Timer({ disabled, interacted, onChange, time }) {
   const [active, setActive] = useState(true);
+  const { options } = useData();
 
   useEffect(() => {
     const advance = () => onChange((t) => t + UPDATE_INTERVAL);
@@ -36,5 +32,5 @@ export default function Timer({
     }
   }, [active, interacted]);
 
-  return visible ? <div className="timer">{msToTime(time)}</div> : null;
+  return options.timer ? <div className="timer">{msToTime(time)}</div> : null;
 }

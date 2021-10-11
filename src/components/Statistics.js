@@ -7,6 +7,7 @@ import "../styles/statistics.css";
 import { resultText } from "../utils/texts";
 import Dot from "./ui/Dot";
 import Filters from "./ui/Filters";
+import Option from "./ui/Option";
 
 const EMPTY_RESULTS = Object.fromEntries(
   Object.values(RESULT_TYPES).map((v) => [v, 0])
@@ -161,15 +162,17 @@ function Row({ filter, label, type, values, onClick }) {
   return (
     <tr>
       <th>
-        <input type="checkbox" checked={filter} onChange={onClick} />
-        {type === "aspects" && <Dot type={label.toLowerCase()} small />}
-        <span
-          className={`u-ellipsis ${filter ? "is-filter" : ""}`}
-          onClick={onClick}
-        >
-          {label}
-          {type === "players" && ` player${label === "1" ? "" : "s"}`}
-        </span>
+        <Option
+          checked={filter}
+          label={
+            <span>
+              {type === "aspects" && <Dot type={label.toLowerCase()} small />}
+              {label}
+              {type === "players" && ` player${label === "1" ? "" : "s"}`}
+            </span>
+          }
+          onChange={onClick}
+        />
       </th>
       <td>{Object.values(values).reduce((a, b) => a + b)}</td>
       <td>{getPerc(values)}</td>
@@ -201,7 +204,7 @@ export default function Statistics({ onLoad }) {
   );
 
   const matchesLog = useMemo(
-    () => matches.filter((m) => !m.trash).filter(matchFilters),
+    () => matches.filter(matchFilters),
     [matchFilters, matches]
   );
 
@@ -215,8 +218,17 @@ export default function Statistics({ onLoad }) {
     });
   };
 
+  const MatchEl = ({ match }) => (
+    <Match match={match} onDelete={handleDelete} onReplay={handleReplay} />
+  );
+
+  const isActive = (k) => (f) => f[0] === FILTERS.RESULT && f[1] === k;
+  const statsMax = Math.max(...Object.values(stats.results));
+
   return (
     <div className="statistics">
+      <Filters filters={filters} onToggle={toggleFilter} />
+
       <Box key="Results" title="Results" flag flat>
         <table className="statistics__table">
           <tbody>
@@ -233,31 +245,16 @@ export default function Statistics({ onLoad }) {
             {Object.entries(stats.results).map(([k, v]) => (
               <tr key={k}>
                 <th>
-                  <input
-                    type="checkbox"
-                    checked={filters.some(
-                      (f) => f[0] === FILTERS.RESULT && f[1] === k
-                    )}
+                  <Option
+                    checked={filters.some(isActive(k))}
+                    label={resultText(k)}
                     onChange={() => toggleFilter([FILTERS.RESULT, k])}
                   />
-                  <span
-                    className={`u-ellipsis ${
-                      filters.some((f) => f[0] === FILTERS.RESULT && f[1] === k)
-                        ? "is-filter"
-                        : ""
-                    }`}
-                    onClick={() => toggleFilter([FILTERS.RESULT, k])}
-                  >
-                    {resultText(k)}
-                  </span>
                 </th>
                 <td>{v}</td>
                 <td
                   className={`statistics__bar is-${k}`}
-                  style={{
-                    "--val":
-                      v / Math.max(...Object.values(stats.results)) || 0.005,
-                  }}
+                  style={{ "--val": v / statsMax || 0.005 }}
                 ></td>
               </tr>
             ))}
@@ -302,40 +299,25 @@ export default function Statistics({ onLoad }) {
           </table>
         </Box>
       ))}
-      {!!matchesLog.length && (
-        <>
-          {stats.longest && (
-            <Box key="Longest Match" title="Longest Match" flag flat type="log">
-              <Match
-                match={stats.longest}
-                onDelete={handleDelete}
-                onReplay={handleReplay}
-              />
-            </Box>
-          )}
-          {stats.fastest && (
-            <Box key="Fastest Match" title="Fastest Match" flag flat type="log">
-              <Match
-                match={stats.fastest}
-                onDelete={handleDelete}
-                onReplay={handleReplay}
-              />
-            </Box>
-          )}
-          <Box key="Matches" title="Matches" flag flat type="log">
-            {matchesLog.sort(byDate).map((match) => (
-              <Match
-                key={match.matchId}
-                match={match}
-                onDelete={handleDelete}
-                onReplay={handleReplay}
-              />
-            ))}
-          </Box>
-          <button onClick={() => handleDelete()}>Delete all</button>
-        </>
+
+      {stats.longest && (
+        <Box key="Longest Match" title="Longest Match" flag flat type="log">
+          <MatchEl match={stats.longest} />
+        </Box>
       )}
-      <Filters filters={filters} onToggle={toggleFilter} />
+
+      {stats.fastest && (
+        <Box key="Fastest Match" title="Fastest Match" flag flat type="log">
+          <MatchEl match={stats.fastest} />
+        </Box>
+      )}
+
+      <Box key="Matches" title="Matches" flag flat type="log">
+        {(matchesLog || []).sort(byDate).map((match) => (
+          <MatchEl key={match.matchId} match={match} />
+        ))}
+      </Box>
+      <button onClick={() => handleDelete()}>Delete all</button>
     </div>
   );
 }

@@ -33,6 +33,8 @@ export function CounterBox({
       {siblings.map((counter) => (
         <Counter
           counter={counter}
+          onComplete={onComplete}
+          onPrevious={onPrevious}
           key={counter.id}
           title={counter.levels[counter.stage].name}
           {...commonProps}

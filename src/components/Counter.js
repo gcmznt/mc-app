@@ -41,12 +41,10 @@ export default function Counter({
     }
   };
 
-  const acceleratedStep = counter.levels[counter.stage].step + acceleration;
+  const fullStep = counter.levels[counter.stage].step + acceleration;
 
   const add = () => update(counter, 1);
-  const onStep = () => {
-    update(counter, acceleratedStep, 0, EVENTS.VILLAIN_PHASE);
-  };
+  const onStep = () => update(counter, fullStep, 0, EVENTS.VILLAIN_PHASE);
   const reduce = () => update(counter, -1);
   const increaseLimit = () => update(counter, 0, 1);
   const decreaseLimit = () => update(counter, 0, -1);
@@ -57,7 +55,7 @@ export default function Counter({
 
   return (
     <CounterUI
-      acceleratedStep={acceleratedStep}
+      acceleratedStep={fullStep}
       advance={counter.levels[counter.stage].advance}
       disabled={result || !counter.active}
       icons={counter.icons}
@@ -69,7 +67,7 @@ export default function Counter({
       onAdd={add}
       onAddLimit={increaseLimit}
       onEnable={!result && onEnable && enable}
-      onNext={onComplete && next}
+      onNext={onComplete && counter.levels[counter.stage].limit > 0 && next}
       onStep={[COUNTER_TYPES.SCENARIO].includes(counter.type) && onStep}
       onPrev={counter.stage > 0 && previous}
       onReduce={reduce}

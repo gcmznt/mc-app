@@ -1,11 +1,16 @@
 import "../../styles/actions.css";
+import { getClassName } from "../../utils";
 
 export function Action({ active, disabled, icon, label, onClick }) {
+  const classList = [
+    "actions__button",
+    active && "is-active",
+    disabled && "is-disabled",
+  ];
+
   return (
     <div
-      className={`actions__button ${active ? "is-active" : ""} ${
-        disabled ? "is-disabled" : ""
-      }`}
+      className={getClassName(classList)}
       onClick={!disabled ? onClick : undefined}
     >
       {icon}
@@ -14,11 +19,6 @@ export function Action({ active, disabled, icon, label, onClick }) {
   );
 }
 
-export default function Actions({ children, title, types }) {
-  return (
-    <div className={`actions ${(types || []).map((t) => `is-${t}`).join(" ")}`}>
-      {title && <div className="actions__title">{title}</div>}
-      <div className="actions__buttons">{children}</div>
-    </div>
-  );
+export default function Actions({ children }) {
+  return <div className="actions">{children}</div>;
 }

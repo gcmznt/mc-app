@@ -1,4 +1,4 @@
-import Option from "./ui/Option";
+import Option from "../ui/Option";
 
 export default function Players({ max, onChange, value }) {
   const handleChange = (e) => onChange(e.target.value);

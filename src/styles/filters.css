@@ -15,7 +15,25 @@
   background: var(--color-accent);
   color: var(--color-accent-contrast);
   display: inline-block;
-  padding: 1px 5px 3px;
+  padding: 1px 20px 3px 5px;
   border-radius: 100px;
   margin: 10px 5px;
+  position: relative;
+  cursor: pointer;
+}
+
+.filters__element::after,
+.filters__element::before {
+  content: "";
+  width: 0.6em;
+  height: 2px;
+  background: currentColor;
+  position: absolute;
+  top: 50%;
+  right: 0.3em;
+  transform: translateY(-1px) rotate(var(--deg, 45deg));
+}
+
+.filters__element::before {
+  --deg: -45deg;
 }

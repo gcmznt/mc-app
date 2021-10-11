@@ -1,193 +1,74 @@
 import { useEffect, useState } from "react";
+import { Route } from "wouter";
 import { v4 as uuid } from "uuid";
+
 import Generate from "./components/Generate";
 import Match from "./components/Match";
 import Options from "./components/Options";
 import Statistics from "./components/Statistics";
-import Actions, { Action } from "./components/ui/Actions";
-import { clear, load, persist } from "./utils";
-import { PAGES, STORAGE_KEYS } from "./utils/constants";
-import { ReactComponent as HomeIcon } from "./images/home.svg";
-import { ReactComponent as SettingsIcon } from "./images/settings.svg";
-import { ReactComponent as StatsIcon } from "./images/stats.svg";
-import logo from "./images/logo.svg";
-import { useData } from "./context/data";
 
-const defOptions = {
-  compact: false,
-  mode: "auto",
-  timer: true,
-};
+import { useData } from "./context/data";
+import { clear, load } from "./utils";
+import { PAGES, STORAGE_KEYS } from "./utils/constants";
+
+import Logo from "./components/ui/Logo";
+import Menu from "./components/ui/Menu";
 
 export default function App() {
-  const { fullSelect } = useData();
-  const [page, setPage] = useState(PAGES.MAIN);
-  const [selection, setSelection] = useState({
-    heroes: [],
-    modularSets: [],
-    scenarios: [],
-  });
+  const { options } = useData();
   const [setup, setSetup] = useState(false);
   const [matchId, setMatchId] = useState(false);
-  // const [wakeLock, setWakeLock] = useState(false);
-  const [options, setOptions] = useState(defOptions);
 
-  const saveOptions = () => {
-    persist(STORAGE_KEYS.SELECTION, selection);
-    setSetup(false);
-    setPage(PAGES.MAIN);
-  };
-
-  const goTo = (pageId) => () => {
-    if (page === PAGES.OPTIONS) saveOptions();
-    setPage(pageId);
-  };
-
-  const handleGeneration = (setup) => {
-    setMatchId(false);
-    setSetup(setup);
-    persist(STORAGE_KEYS.SETTINGS, setup.settings);
-  };
-
-  const handleLoad = (setup) => {
-    setPage(PAGES.MAIN);
-    setMatchId(uuid());
-    setSetup(setup);
-    persist(STORAGE_KEYS.SETTINGS, setup.settings);
-  };
-
-  const handleQuit = () => {
-    setMatchId(false);
-    setSetup(false);
-    clear(STORAGE_KEYS.CURRENT);
-    document.body.classList.remove("no-scroll");
-  };
-
-  const handleStart = () => {
+  const handleStart = (setup) => {
+    setup && setSetup(setup);
     setMatchId(uuid());
   };
 
-  const handleReplay = () => {
+  const handleQuit = (replay = false) => {
     setMatchId(false);
     clear(STORAGE_KEYS.CURRENT);
-    document.body.classList.remove("no-scroll");
-    handleStart();
-  };
-
-  const handleOptionChange = (key) => (val) => {
-    setOptions((opts) => ({ ...opts, [key]: val }));
+    replay ? handleStart() : setSetup(false);
   };
 
   useEffect(() => {
-    const sel = load(STORAGE_KEYS.SELECTION);
     const saved = load(STORAGE_KEYS.CURRENT);
-    setOptions(load(STORAGE_KEYS.OPTIONS) || defOptions);
-
-    const check = (k) => fullSelect[k].filter((el) => sel[k].includes(el));
-    setSelection(
-      sel
-        ? {
-            heroes: check("heroes"),
-            modularSets: check("modularSets"),
-            scenarios: check("scenarios"),
-          }
-        : fullSelect
-    );
     if (saved) {
-      setMatchId(saved.matchId);
       setSetup(saved.setup);
+      setMatchId(saved.matchId);
     }
-  }, [fullSelect]);
+  }, []);
 
   useEffect(() => {
     document.body.classList.remove("is-auto", "is-dark", "is-light");
     document.body.classList.add(`is-${options.mode}`);
   }, [options.mode]);
 
-  useEffect(() => {
-    persist(STORAGE_KEYS.OPTIONS, options);
-  }, [options]);
-
-  // useEffect(() => {
-  //   if ("wakeLock" in navigator) {
-  //     if (matchId) {
-  //       navigator.wakeLock
-  //         .request("screen")
-  //         .then(setWakeLock)
-  //         .catch(console.error);
-  //     } else if (wakeLock) {
-  //       wakeLock.release().then(() => setWakeLock(false));
-  //     }
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [matchId]);
-
-  // useEffect(() => {
-  //   const resetLock = () => {
-  //     if (wakeLock !== false && document.visibilityState === "visible") {
-  //       navigator.wakeLock
-  //         .request("screen")
-  //         .then(setWakeLock)
-  //         .catch(console.error);
-  //     }
-  //   };
-  //   document.addEventListener("visibilitychange", resetLock);
-
-  //   return () => document.removeEventListener("visibilitychange", resetLock);
-  // }, [wakeLock]);
-
   return (
     <main className={options.compact ? "use-compact" : ""}>
-      {!matchId && (
-        <img src={logo} alt="logo" style={{ height: 140, width: 140 }} />
-      )}
-      {page === PAGES.OPTIONS && (
-        <Options
-          onChangeOptions={handleOptionChange}
-          options={options}
-          selection={selection}
-          onChange={setSelection}
-        />
-      )}
-      {page === PAGES.STATISTICS && <Statistics onLoad={handleLoad} />}
-      {page === PAGES.MAIN && !matchId && (
-        <Generate
-          onGenerate={handleGeneration}
-          onStart={handleStart}
-          selection={selection}
-        />
-      )}
-      {page === PAGES.MAIN && matchId && (
+      {matchId ? (
         <Match
           key={matchId}
           matchId={matchId}
-          onReplay={handleReplay}
           onQuit={handleQuit}
-          options={options}
           setup={setup}
         />
-      )}
-      {!matchId && (
-        <Actions>
-          <Action
-            icon={<HomeIcon />}
-            label="Home"
-            active={page === PAGES.MAIN}
-            onClick={goTo(PAGES.MAIN)}
-          />
-          <Action
-            icon={<StatsIcon />}
-            label="Stats"
-            active={page === PAGES.STATISTICS}
-            onClick={goTo(PAGES.STATISTICS)}
-          />
-          <Action
-            icon={<SettingsIcon />}
-            label="Options"
-            active={page === PAGES.OPTIONS}
-            onClick={goTo(PAGES.OPTIONS)}
-          />
-        </Actions>
+      ) : (
+        <>
+          <Logo />
+          <Menu />
+
+          <Route path={PAGES.MAIN}>
+            <Generate onStart={handleStart} />
+          </Route>
+
+          <Route path={PAGES.STATISTICS}>
+            <Statistics onLoad={handleStart} />
+          </Route>
+
+          <Route path={PAGES.OPTIONS}>
+            <Options />
+          </Route>
+        </>
       )}
     </main>
   );

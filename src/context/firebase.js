@@ -6,7 +6,6 @@ import {
   useState,
 } from "react";
 import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -22,6 +21,7 @@ import {
   getFirestore,
   setDoc,
 } from "firebase/firestore";
+
 import { useData } from "./data";
 import { load as loadUtil, persist } from "../utils";
 import { STORAGE_KEYS } from "../utils/constants";
@@ -42,7 +42,6 @@ export const FirebaseProvider = ({ children }) => {
     measurementId: "G-YWNFB2JD3R",
   });
 
-  // const analytics = getAnalytics(app);
   const auth = getAuth();
 
   const register = useCallback(
@@ -66,7 +65,7 @@ export const FirebaseProvider = ({ children }) => {
       const db = getFirestore();
       return setDoc(
         doc(db, "users", user.uid, "matches", id),
-        JSON.parse(JSON.stringify(data))
+        JSON.parse(JSON.stringify(data)) // Filter undefined values
       );
     },
     [user]

@@ -700,7 +700,15 @@
   },
   "Under Siege": {
     "complete": "6p",
-    "counters": [{ "name": "Avengers Tower", "limit": "9p" }],
+    "counters": [
+      {
+        "name": "Avengers Tower",
+        "levels": [
+          { "name": "Avengers Tower Stronghold", "complete": "9p" },
+          { "name": "Avengers Tower Damaged", "complete": "9p" }
+        ]
+      }
+    ],
     "name": "Under Siege",
     "start": "1p",
     "step": "1p",
@@ -718,7 +726,10 @@
     "complete": "12p",
     "name": "The Infinity Stones",
     "start": 0,
-    "step": "1p"
+    "step": "1p",
+    "triggers": {
+      "enter": [{ "action": "enter-scheme", "entity": "Sanctuary" }]
+    }
   },
   "Balance the Scales": {
     "complete": "12p",

@@ -1,5 +1,6 @@
 import highlightImg from "../../images/first.svg";
 import "../../styles/box.css";
+import { getClassName } from "../../utils";
 
 export default function Box({ children, flag, flat, highlight, title, type }) {
   const classList = [
@@ -8,8 +9,9 @@ export default function Box({ children, flag, flat, highlight, title, type }) {
     flat && "box--flat",
     type && `is-${type}`,
   ];
+
   return (
-    <div className={classList.filter((c) => c).join(" ")}>
+    <div className={getClassName(classList)}>
       {title && (
         <div className="box__title">
           <div className="box__title-text">{title}</div>

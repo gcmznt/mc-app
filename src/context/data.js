@@ -1,11 +1,12 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 import heroes from "../data/heroes.json";
 import modularSets from "../data/modular-sets.json";
 import scenarios from "../data/scenarios.json";
 import schemes from "../data/schemes.json";
+
 import { appendList, load, persist } from "../utils";
-import { STORAGE_KEYS } from "../utils/constants";
+import { DEFAULT_OPTIONS, STORAGE_KEYS } from "../utils/constants";
 
 const isEnabled = (el) =>
   !el.disabled || window.location.hostname === "localhost";
@@ -16,7 +17,8 @@ const data = {
   scenarios: scenarios.filter(isEnabled),
   schemes,
 };
-const fullSelect = {
+
+const fullSelection = {
   heroes: data.heroes.map((h) => h.name),
   modularSets: Object.keys(data.modularSets),
   scenarios: data.scenarios.map((h) => h.name),
@@ -25,17 +27,27 @@ const fullSelect = {
 const DataContext = createContext(null);
 
 export const DataProvider = ({ children }) => {
-  const [matches, setMatches] = useState([]);
+  const [allMatches, setAllMatches] = useState([]);
+  const [selection, setSelection] = useState(fullSelection);
+  const [options, setOptions] = useState(DEFAULT_OPTIONS);
+
+  const updateSelection = (key, value) => {
+    setSelection({ ...selection, [key]: value });
+  };
+
+  const updateOption = (key, value) => {
+    setOptions((opts) => ({ ...opts, [key]: value }));
+  };
 
   const deleteMatch = (match) => {
     appendList(
       STORAGE_KEYS.TO_SYNC,
-      match ? [match.matchId] : matches.map((m) => m.matchId)
+      match ? [match.matchId] : allMatches.map((m) => m.matchId)
     );
-    setMatches(
+    setAllMatches(
       persist(
         STORAGE_KEYS.MATCHES,
-        matches.map((m) =>
+        allMatches.map((m) =>
           !match || m.matchId === match.matchId ? { ...m, trash: true } : m
         )
       )
@@ -43,21 +55,53 @@ export const DataProvider = ({ children }) => {
   };
 
   const saveMatch = (match) => {
-    setMatches((matches) =>
+    setAllMatches((allMatches) =>
       persist(STORAGE_KEYS.MATCHES, [
-        ...matches.filter((m) => m.matchId !== match.matchId),
+        ...allMatches.filter((m) => m.matchId !== match.matchId),
         match,
       ])
     );
   };
 
   useEffect(() => {
-    setMatches(load(STORAGE_KEYS.MATCHES) || []);
+    setAllMatches(load(STORAGE_KEYS.MATCHES) || []);
+    setOptions(load(STORAGE_KEYS.OPTIONS) || DEFAULT_OPTIONS);
+
+    const sel = load(STORAGE_KEYS.SELECTION) || fullSelection;
+    const check = (k) => fullSelection[k].filter((el) => sel[k].includes(el));
+    setSelection({
+      heroes: check("heroes"),
+      modularSets: check("modularSets"),
+      scenarios: check("scenarios"),
+    });
   }, []);
+
+  useEffect(() => {
+    persist(STORAGE_KEYS.SELECTION, selection);
+  }, [selection]);
+
+  useEffect(() => {
+    persist(STORAGE_KEYS.OPTIONS, options);
+  }, [options]);
+
+  const matches = useMemo(
+    () => allMatches.filter((m) => !m.trash),
+    [allMatches]
+  );
 
   return (
     <DataContext.Provider
-      value={{ data, deleteMatch, fullSelect, matches, saveMatch }}
+      value={{
+        data,
+        deleteMatch,
+        fullSelection,
+        matches,
+        options,
+        saveMatch,
+        selection,
+        updateOption,
+        updateSelection,
+      }}
     >
       {children}
     </DataContext.Provider>

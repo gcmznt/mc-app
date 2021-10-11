@@ -38,7 +38,7 @@ const getFullCounter = (name, type, levels, children, options) => {
     getCounter({
       name: `${name} | ${c.name}`,
       type: c.type || `${type}-child`,
-      levels: [c],
+      levels: c.levels || [c],
       parent: parentCounter.id,
       ...c,
     })

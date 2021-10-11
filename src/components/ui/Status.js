@@ -1,9 +1,7 @@
 import "../../styles/status.css";
 
 export default function Status({ onToggle, status }) {
-  const toggle = (key) => {
-    onToggle && onToggle(key, !status[key]);
-  };
+  const toggle = (key) => onToggle && onToggle(key, !status[key]);
 
   return (
     <div className="status">

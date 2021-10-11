@@ -81,3 +81,5 @@ export const minutes = (time) => `${Math.floor(time / 1000 / 60)}`;
 export const seconds = (time) => `${Math.floor(time / 1000) % 60}`;
 export const msToTime = (time) =>
   `${minutes(time)}:${seconds(time).padStart(2, "0")}`;
+
+export const getClassName = (list) => list.filter((c) => c).join(" ");

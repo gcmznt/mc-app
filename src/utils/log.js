@@ -1,4 +1,4 @@
-import { EVENTS } from "../utils/constants";
+import { EVENTS } from "./constants";
 import {
   getAddTokenText,
   getCompleteText,
@@ -7,11 +7,50 @@ import {
   getRemoveTokenText,
   getResText,
   getStageName,
-} from "../utils/texts";
-import Box from "./ui/Box";
-import LogItem from "./ui/Log";
+} from "./texts";
 
-const getLogString = ({ count = 0, counter, data, event }) => {
+export function mergeLog(counters, log) {
+  return log.reduce((acc, current) => {
+    const counter = counters.find((c) => c.id === current.entity);
+
+    if (
+      acc.length &&
+      acc[acc.length - 1].event === current.event &&
+      acc[acc.length - 1].entity === current.entity &&
+      current.event !== EVENTS.VILLAIN_PHASE &&
+      current.event !== EVENTS.NEW_ROUND &&
+      current.event !== EVENTS.STATUS_DISABLE &&
+      current.event !== EVENTS.STATUS_ENABLE &&
+      current.entity
+    ) {
+      const list = [...acc];
+      const last = list.pop();
+      return [
+        ...list,
+        { ...last, counter, count: last.count + (current.data || 1) },
+      ];
+    } else {
+      return [...acc, { ...current, counter, count: current.data || 1 }];
+    }
+  }, []);
+}
+
+export const getEntryTime = (entry) => {
+  switch (entry.event) {
+    case EVENTS.NEW_ROUND:
+    case EVENTS.VILLAIN_PHASE:
+    case EVENTS.END:
+      return entry.time;
+    case EVENTS.START:
+    case EVENTS.RESTART:
+      return entry.date;
+
+    default:
+      return "";
+  }
+};
+
+export const getLogString = ({ count = 0, counter, data, event }) => {
   switch (event) {
     case EVENTS.COMPLETE:
       return (
@@ -80,60 +119,3 @@ const getLogString = ({ count = 0, counter, data, event }) => {
       return event;
   }
 };
-
-function mergeLog(counters, log) {
-  return log.reduce((acc, current) => {
-    const counter = counters.find((c) => c.id === current.entity);
-
-    if (
-      acc.length &&
-      acc[acc.length - 1].event === current.event &&
-      acc[acc.length - 1].entity === current.entity &&
-      current.event !== EVENTS.VILLAIN_PHASE &&
-      current.event !== EVENTS.NEW_ROUND &&
-      current.event !== EVENTS.STATUS_DISABLE &&
-      current.event !== EVENTS.STATUS_ENABLE &&
-      current.entity
-    ) {
-      const list = [...acc];
-      const last = list.pop();
-      return [
-        ...list,
-        { ...last, counter, count: last.count + (current.data || 1) },
-      ];
-    } else {
-      return [...acc, { ...current, counter, count: current.data || 1 }];
-    }
-  }, []);
-}
-
-const getTime = (entry) => {
-  switch (entry.event) {
-    case EVENTS.NEW_ROUND:
-    case EVENTS.VILLAIN_PHASE:
-    case EVENTS.END:
-      return entry.time;
-    case EVENTS.START:
-    case EVENTS.RESTART:
-      return entry.date;
-
-    default:
-      return "";
-  }
-};
-
-export default function Log({ counters, log }) {
-  const mergedLog = mergeLog(counters, log);
-
-  return (
-    <Box key="Log" title="Log" flat flag type="log">
-      {mergedLog.map((entry, i) => (
-        <LogItem
-          key={mergedLog.length - i}
-          time={getTime(entry)}
-          text={getLogString(entry)}
-        />
-      ))}
-    </Box>
-  );
-}

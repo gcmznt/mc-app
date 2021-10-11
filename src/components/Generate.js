@@ -6,12 +6,13 @@ import {
   getRandomList,
   getWeigths,
   load,
+  persist,
 } from "../utils";
 import { ASPECTS, MODES, RANDOM, STORAGE_KEYS } from "../utils/constants";
-import Heroic from "./Heroic";
-import Mode from "./Mode";
-import Players from "./Players";
-import Skirmish from "./Skirmish";
+import Heroic from "./inputs/Heroic";
+import Mode from "./inputs/Mode";
+import Players from "./inputs/Players";
+import Skirmish from "./inputs/Skirmish";
 import Box from "./ui/Box";
 import Option from "./ui/Option";
 import Setup from "./ui/Setup";
@@ -84,8 +85,8 @@ const getModular = (scenario, selection, settings) => {
     : scenario.modular;
 };
 
-export default function Generate({ onGenerate, onStart, selection }) {
-  const { data, matches } = useData();
+export default function Generate({ onStart }) {
+  const { data, matches, selection } = useData();
   const [setup, setSetup] = useState(false);
   const [settings, setSettings] = useState(initialSetting);
   const generateBtn = useRef(null);
@@ -135,13 +136,9 @@ export default function Generate({ onGenerate, onStart, selection }) {
     }
   };
 
-  const handleStart = () => {
-    onStart();
-  };
-
   useEffect(() => {
-    if (setup) onGenerate(setup);
-  }, [onGenerate, setup]);
+    setup.settings && persist(STORAGE_KEYS.SETTINGS, setup.settings);
+  }, [setup.settings]);
 
   useEffect(() => {
     const saved = load(STORAGE_KEYS.SETTINGS);
@@ -190,7 +187,7 @@ export default function Generate({ onGenerate, onStart, selection }) {
           <Setup setup={setup} />
         </Box>
       )}
-      {setup && <button onClick={handleStart}>Start</button>}
+      {setup && <button onClick={() => onStart(setup)}>Start</button>}
     </>
   );
 }

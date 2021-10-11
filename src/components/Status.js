@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getStatusObj, load, persist } from "../utils";
 import {
   COUNTERS_SCHEME,
@@ -11,14 +11,16 @@ import {
   TRIGGERS_ACTIONS,
 } from "../utils/constants";
 import { getCounter, getCounters } from "../utils/counters";
+import { getEntryTime, getLogString, mergeLog } from "../utils/log";
 import { getResText } from "../utils/texts";
 import Counter from "./Counter";
 import { CounterBox } from "./CounterBox";
-import Log from "./Log";
 import Timer from "./Timer";
 import Actions, { Action } from "./ui/Actions";
 import Box from "./ui/Box";
+import LogItem from "./ui/LogItem";
 import Modal from "./ui/Modal";
+import Navbar from "./ui/NavBar";
 import Option from "./ui/Option";
 import Report from "./ui/Report";
 
@@ -35,7 +37,7 @@ const isVillainCounter = (counter) => counter.type === COUNTER_TYPES.VILLAIN;
 
 const byName = (a, b) => a.name.localeCompare(b.name);
 
-export default function Status({ matchId, onReplay, onQuit, options, setup }) {
+export default function Status({ matchId, onQuit, setup }) {
   const [counters, setCounters] = useState(false);
   const [log, setLog] = useState([]);
   const [interacted, setInteracted] = useState(false);
@@ -59,13 +61,13 @@ export default function Status({ matchId, onReplay, onQuit, options, setup }) {
 
   const updateCounter = (id, values, force = false) => {
     setInteracted(true);
-    if ((force || !result) && id)
-      setCounters((cs) =>
-        cs.map((c) => (c.id === id ? { ...c, ...values } : c))
-      );
+    if ((force || !result) && id) {
+      const upCounter = (c) => (c.id === id ? { ...c, ...values } : c);
+      setCounters((cs) => cs.map(upCounter));
+    }
   };
 
-  const changePlayer = (direction) => {
+  const changePlayer = (direction = 1) => {
     setFirstPlayer((fp) => {
       for (let offset = 1; offset <= heroesCounters.length; ++offset) {
         const next =
@@ -77,38 +79,9 @@ export default function Status({ matchId, onReplay, onQuit, options, setup }) {
     });
   };
 
-  const nextPlayer = () => changePlayer(1);
-
-  const revertNextRound = (counter, value) => {
-    changePlayer(-1);
-    return revertValue(counter, value);
-  };
-
-  const revertEnd = () => {
-    setResult(false);
-    removeLastLog();
-    handleUndo(log[1]);
-  };
-
-  const revertStatus = (counter, status, value) => {
-    return revert(counter, {
-      status: { ...counter.status, [status]: value },
-    });
-  };
-
-  const revertLevel = (counter, key, val) => {
-    return revert(counter, {
-      levels: counter.levels.map((level, i) =>
-        i === counter.stage ? { ...level, [key]: level[key] + val } : level
-      ),
-    });
-  };
-  const revertValue = (counter, val) => revertLevel(counter, "value", val);
-  const revertLimit = (counter, val) => revertLevel(counter, "limit", val);
-
   const nextRound = (counter) => {
     logEvent(EVENTS.NEW_ROUND, counter.id, 1);
-    nextPlayer();
+    changePlayer();
     updateCounter(counter.id, {
       levels: [{ ...counter.levels[0], value: counter.levels[0].value + 1 }],
     });
@@ -123,21 +96,13 @@ export default function Status({ matchId, onReplay, onQuit, options, setup }) {
     setLog((l) => [...l].slice(count));
   };
 
-  const revert = (counter, values) => {
-    removeLastLog();
-    updateCounter(counter.id, values, true);
-  };
-
   const endGame = (counter, result) => {
     logEvent(EVENTS.COMPLETE, counter.id);
     logEvent(EVENTS.END, false, result);
     setResult(result);
   };
 
-  const handleQuit = (reason) => {
-    onQuit({ reason, counters, time, log });
-  };
-
+  const handleQuit = (reason) => onQuit({ reason, counters, time, log });
   const handleMenu = () => (result ? handleQuit(result) : setQuit(true));
   const handleDiscard = () => onQuit(false);
   const handleGiveUp = () => handleQuit(RESULT_TYPES.GIVE_UP);
@@ -226,7 +191,7 @@ export default function Status({ matchId, onReplay, onQuit, options, setup }) {
 
   const handleRestart = () => {
     if (result) {
-      onReplay({ reason: result, counters, time, log });
+      onQuit({ reason: result, counters, time, log }, true);
     } else {
       setLog([]);
       setCounters(getCounters(setup));
@@ -273,6 +238,36 @@ export default function Status({ matchId, onReplay, onQuit, options, setup }) {
   const handleAddCounterSubmit = (e) => {
     e.preventDefault();
     handleAddCounter(e);
+  };
+
+  const revert = (counter, values) => {
+    removeLastLog();
+    updateCounter(counter.id, values, true);
+  };
+
+  const revertLevel = (counter, key, val) => {
+    return revert(counter, {
+      levels: counter.levels.map((level, i) =>
+        i === counter.stage ? { ...level, [key]: level[key] + val } : level
+      ),
+    });
+  };
+  const revertValue = (counter, val) => revertLevel(counter, "value", val);
+  const revertLimit = (counter, val) => revertLevel(counter, "limit", val);
+
+  const revertNextRound = (counter, value) => {
+    changePlayer(-1);
+    return revertValue(counter, value);
+  };
+
+  const revertEnd = () => {
+    setResult(false);
+    removeLastLog();
+    handleUndo(log[1]);
+  };
+
+  const revertStatus = (counter, status, value) => {
+    return revert(counter, { status: { ...counter.status, [status]: value } });
   };
 
   const handleUndo = (entry) => {
@@ -349,6 +344,7 @@ export default function Status({ matchId, onReplay, onQuit, options, setup }) {
 
   useEffect(() => {
     document.body.classList.toggle("no-scroll", quit);
+    return () => document.body.classList.remove("no-scroll");
   }, [quit]);
 
   useEffect(() => {
@@ -362,6 +358,8 @@ export default function Status({ matchId, onReplay, onQuit, options, setup }) {
       time,
     });
   }, [counters, firstPlayer, log, matchId, result, setup, time]);
+
+  const mergedLog = useMemo(() => mergeLog(counters, log), [counters, log]);
 
   const acceleration =
     accelerationCounters.reduce(
@@ -519,36 +517,46 @@ export default function Status({ matchId, onReplay, onQuit, options, setup }) {
           </Box>
         </div>
         <div className="box__wrapper">
-          <Log counters={counters} log={log} />
+          <Box key="Log" title="Log" flat flag type="log">
+            {mergedLog.map((entry, i) => (
+              <LogItem
+                key={log.length - i}
+                time={getEntryTime(entry)}
+                text={getLogString(entry)}
+              />
+            ))}
+          </Box>
         </div>
         <Timer
           disabled={result || quit}
           interacted={interacted}
           onChange={setTime}
           time={time}
-          visible={options.timer}
         />
-        <Actions
-          title={
+
+        <Navbar types={result && ["result", result]}>
+          {result ? (
+            getResText(result)
+          ) : (
             <Report
               heroes={heroesCounters}
               icons={activeIcons}
+              log={mergedLog}
               mainScheme={mainScheme}
               nextRound={() => nextRound(roundsCounter)}
-              result={result && getResText(result)}
               round={roundsCounter?.levels[roundsCounter.stage].value}
               villains={villainCounters}
             />
-          }
-          types={result && ["result", result]}
-        >
-          <Action label="Undo" onClick={() => handleUndo()} />
-          <Action
-            label={result ? "Replay" : "Restart"}
-            onClick={handleRestart}
-          />
-          <Action label={result ? "Exit" : "Menu"} onClick={handleMenu} />
-        </Actions>
+          )}
+          <Actions>
+            <Action label="Undo" onClick={() => handleUndo()} />
+            <Action
+              label={result ? "Replay" : "Restart"}
+              onClick={handleRestart}
+            />
+            <Action label={result ? "Exit" : "Menu"} onClick={handleMenu} />
+          </Actions>
+        </Navbar>
       </div>
     )
   );

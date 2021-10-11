@@ -1,5 +1,5 @@
-import { RANDOM } from "../utils/constants";
-import Option from "./ui/Option";
+import { RANDOM } from "../../utils/constants";
+import Option from "../ui/Option";
 
 export default function Skirmish({ onChange, value }) {
   const handleChange = (e) => onChange(e.target.value);

@@ -4,6 +4,9 @@ import { ReactComponent as AmplifyImg } from "../../images/amplify.svg";
 import { ReactComponent as CrisisImg } from "../../images/crisis.svg";
 import { ReactComponent as HazardImg } from "../../images/hazard.svg";
 import "../../styles/report.css";
+import { getClassName } from "../../utils";
+import { getLogString } from "../../utils/log";
+import LogItem from "./LogItem";
 
 const iconsImages = {
   Acceleration: <AccelerationImg />,
@@ -13,14 +16,21 @@ const iconsImages = {
 };
 
 function Bar({ counter, inverse, revert }) {
-  const val = inverse
-    ? counter.levels[counter.stage].value
-    : counter.levels[counter.stage].limit - counter.levels[counter.stage].value;
+  const stage = counter.levels[counter.stage];
+
+  const val = inverse ? stage.value : stage.limit - stage.value;
+
+  const classList = [
+    "report__bar",
+    `is-${counter.type}`,
+    revert && "is-revert",
+  ];
+
   return (
     <div
-      className={`report__bar is-${counter.type} ${revert ? "is-revert" : ""}`}
-      key={counter.levels[counter.stage].name}
-      style={{ "--val": val / counter.levels[counter.stage].limit }}
+      className={getClassName(classList)}
+      key={stage.name}
+      style={{ "--val": val / stage.limit }}
     />
   );
 }
@@ -28,15 +38,13 @@ function Bar({ counter, inverse, revert }) {
 export default function Report({
   heroes,
   icons,
+  log,
   mainScheme,
   nextRound,
-  result,
   round,
   villains,
 }) {
-  return result ? (
-    result
-  ) : (
+  return (
     <div className="report">
       <div className="report__progress">
         <div>
@@ -60,6 +68,11 @@ export default function Report({
       <div className="report__icons">
         {(icons || []).map((icon, i) => (
           <React.Fragment key={i}>{iconsImages[icon]}</React.Fragment>
+        ))}
+      </div>
+      <div className="report__log">
+        {log.slice(0, 7).map((entry, i) => (
+          <LogItem key={log.length - i} text={getLogString(entry)} />
         ))}
       </div>
     </div>

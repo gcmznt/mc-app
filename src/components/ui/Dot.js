@@ -1,9 +1,8 @@
 import "../../styles/dot.css";
+import { getClassName } from "../../utils";
 
 export default function Dot({ small, type }) {
-  return (
-    <div
-      className={`dot is-${type.toLowerCase()} ${small ? "is-small" : ""}`}
-    />
-  );
+  const classList = ["dot", `is-${type.toLowerCase()}`, small && "is-small"];
+
+  return <div className={getClassName(classList)} />;
 }
