@@ -1,763 +1,1045 @@
-{
-  "A Mess of Things": {
+[
+  {
     "icons": ["Hazard"],
     "name": "A Mess of Things",
     "start": 2
   },
-  "Assault on NORAD": {
+  {
     "complete": "10p",
     "name": "Assault on NORAD",
-    "step": "1p"
+    "step": "1p",
+    "triggers": {
+      "enter": [
+        {
+          "event": "enter-minion",
+          "targets": "Ultron's Drone",
+          "perPlayer": true
+        }
+      ]
+    }
   },
-  "Attack on Mount Athena": {
+  {
     "complete": "3p",
     "name": "Attack on Mount Athena",
     "step": "1p"
   },
-  "Avalanche!": {
+  {
     "icons": ["Acceleration"],
     "name": "Avalanche!",
     "start": "2p"
   },
-  "Blazing Inferno": { "name": "Blazing Inferno", "start": "3p" },
-  "Blockade": {
+  {
+    "name": "Blazing Inferno",
+    "start": "3p"
+  },
+  {
     "icons": ["Crisis"],
     "name": "Blockade",
     "start": [2, "2p"]
   },
-  "Bomb Scare": {
+  {
     "icons": ["Acceleration"],
     "name": "Bomb Scare",
     "start": [2, "1p"]
   },
-  "Bombardment": { "name": "Bombardment", "start": "3p" },
-  "Breakin' & Takin'": {
+  {
+    "name": "Bombardment",
+    "start": "3p"
+  },
+  {
     "icons": ["Hazard"],
     "name": "Breakin' & Takin'",
     "start": 2
   },
-  "Breakout": { "complete": "6p", "name": "Breakout", "step": 1 },
-  "Budding Crime Syndicate": {
+  {
+    "complete": "6p",
+    "name": "Breakout",
+    "step": 1,
+    "triggers": {
+      "enter": [
+        { "event": "enter-scheme", "targets": "Day of Reckoning" },
+        { "event": "enter-scheme", "targets": "Thunderstruck" },
+        { "event": "enter-scheme", "targets": "Pile It On!" },
+        { "event": "enter-scheme", "targets": "Clear the Road" }
+      ],
+      "villain-phase": [
+        { "event": "increase", "targets": "Day of Reckoning" },
+        { "event": "increase", "targets": "Thunderstruck" },
+        { "event": "increase", "targets": "Pile It On!" },
+        { "event": "increase", "targets": "Clear the Road" }
+      ]
+    }
+  },
+  {
     "icons": ["Hazard"],
     "name": "Budding Crime Syndicate",
     "start": [2, "2p"]
   },
-  "Cannonade": {
+  {
     "icons": ["Amplify"],
     "name": "Cannonade",
     "start": [1, "3p"]
   },
-  "Captured by Hydra": {
+  {
     "icons": ["Acceleration"],
     "name": "Captured by Hydra",
     "start": 5
   },
-  "Censor the Past": {
+  {
     "icons": ["Acceleration"],
     "name": "Censor the Past",
     "start": "3p"
   },
-  "Clear the Road": { "active": true, "name": "Clear the Road", "start": 4 },
-  "Collapsing Bridge": {
+  {
+    "complete": -1,
+    "name": "Clear the Road",
+    "start": 4
+  },
+  {
     "icons": ["Crisis"],
     "name": "Collapsing Bridge",
     "start": "2p"
   },
-  "Cornered Staff": {
+  {
     "icons": ["Crisis"],
     "name": "Cornered Staff",
     "start": 3
   },
-  "Corporate Acquisition": {
+  {
     "complete": "10p",
     "icons": ["Hazard"],
     "name": "Corporate Acquisition",
     "start": "1p",
     "step": "2p"
   },
-  "Countdown to Oblivion": {
+  {
     "complete": "5p",
     "name": "Countdown to Oblivion",
-    "step": "1p"
+    "step": "1p",
+    "triggers": {
+      "enter": [
+        {
+          "event": "enter-minion",
+          "targets": "Ultron's Drone",
+          "perPlayer": true
+        }
+      ]
+    }
   },
-  "Crossbones' Assault": {
+  {
     "icons": ["Acceleration"],
     "name": "Crossbones' Assault",
     "start": "2p"
   },
-  "Crowd Control": {
+  {
     "icons": ["Crisis"],
     "name": "Crowd Control",
     "start": "2p"
   },
-  "Crystal Ball": {
+  {
     "icons": ["Acceleration"],
     "name": "Crystal Ball",
     "start": [3, "2p"]
   },
-  "Cull the Weak": { "name": "Cull the Weak", "start": "2p" },
-  "Cut the Power": {
+  {
+    "name": "Cull the Weak",
+    "start": "2p"
+  },
+  {
     "icons": ["Crisis"],
     "name": "Cut the Power",
     "start": "3p"
   },
-  "Day of Reckoning": {
-    "active": true,
+  {
+    "complete": -1,
     "name": "Day of Reckoning",
     "start": 6
   },
-  "Defense Network": {
+  {
     "icons": ["Crisis"],
     "name": "Defense Network",
     "start": [2, "1p"]
   },
-  "Drone Factory": {
+  {
     "icons": ["Acceleration"],
     "name": "Drone Factory",
     "start": 4
   },
-  "Extortion of Seismic Proportion": {
+  {
     "icons": ["Crisis"],
     "name": "Extortion of Seismic Proportion",
     "start": "2p"
   },
-  "Family Feud": {
+  {
     "icons": ["Acceleration"],
     "name": "Family Feud",
     "start": 2
   },
-  "Generation Why?": {
+  {
     "icons": ["Hazard"],
     "name": "Generation Why?",
     "start": "2p"
   },
-  "Goblin Nation": { "name": "Goblin Nation", "start": "2p" },
-  "Goblin Reinforcements": {
+  {
+    "name": "Goblin Nation",
+    "start": "2p"
+  },
+  {
     "icons": ["Hazard"],
     "name": "Goblin Reinforcements",
     "start": 2
   },
-  "Highway Robbery": {
+  {
     "icons": ["Acceleration"],
     "name": "Highway Robbery",
     "start": "3p"
   },
-  "Hit Squad": {
+  {
     "icons": ["Acceleration"],
     "name": "Hit Squad",
     "start": "3p"
   },
-  "Hostile Takeover": {
+  {
     "complete": "7p",
+    "counters": [
+      {
+        "name": "Criminal Enterprise",
+        "next": "State of Madness",
+        "value": "2p",
+        "triggers": {
+          "complete": [
+            { "event": "flip-counter", "targets": "State of Madness" }
+          ]
+        }
+      },
+      {
+        "active": false,
+        "name": "State of Madness",
+        "value": "2p",
+        "triggers": {
+          "complete": [
+            { "event": "flip-counter", "targets": "Criminal Enterprise" }
+          ]
+        },
+        "modifiers": [
+          {
+            "action": "rename",
+            "targets": "Norman Osborn*",
+            "info": "Green Goblin"
+          }
+        ]
+      }
+    ],
     "name": "Hostile Takeover",
     "start": "2p",
-    "step": "1p"
+    "step": "1p",
+    "triggers": {
+      "complete": [
+        { "event": "next" },
+        {
+          "event": "hit",
+          "targets": "Criminal Enterprise",
+          "value": "1p"
+        }
+      ]
+    }
   },
-  "Hujahdarian Monarch Egg": {
+  {
     "icons": ["Acceleration"],
     "name": "Hujahdarian Monarch Egg",
     "start": [3, "2p"]
   },
-  "Hunting Down Heroes": {
+  {
     "complete": "12p",
     "name": "Hunting Down Heroes",
     "start": "1p",
     "step": "1p",
     "triggers": {
-      "enter": [{ "action": "enter-scheme", "entity": "Hydra Patrol" }]
+      "enter": [{ "event": "enter-scheme", "targets": "Hydra Patrol" }]
     }
   },
-  "Hydra Patrol": {
+  {
     "icons": ["Crisis"],
     "name": "Hydra Patrol",
     "start": "2p"
   },
-  "Hydra Prison": { "name": "Hydra Prison", "start": 1 },
-  "Hydra Reinforcements": {
+  {
+    "name": "Hydra Prison",
+    "start": 1
+  },
+  {
     "icons": ["Hazard"],
     "name": "Hydra Reinforcements",
     "start": "2p"
   },
-  "Illegal Arms Factory": {
+  {
     "icons": ["Hazard"],
     "name": "Illegal Arms Factory",
     "start": [3, "1p"]
   },
-  "Imminent Overload": {
+  {
     "icons": ["Acceleration"],
     "name": "Imminent Overload",
     "start": [3, "1p"]
   },
-  "Interception Imminent": {
+  {
     "complete": "7p",
     "name": "Interception Imminent",
     "start": "2p",
     "step": "2p"
   },
-  "Invasive AI": {
+  {
     "icons": ["Hazard"],
     "name": "Invasive AI",
     "start": "3p"
   },
-  "Judge, Jury, Executioner": {
+  {
     "icons": ["Acceleration"],
     "name": "Judge, Jury, Executioner",
     "start": "3p"
   },
-  "Killer for Hire": {
+  {
     "icons": ["Acceleration"],
     "name": "Killer for Hire",
     "start": [3, "1p"]
   },
-  "Klyntar Frenzy": {
+  {
     "icons": ["Hazard"],
     "name": "Klyntar Frenzy",
     "start": "2p"
   },
-  "Legions of Hydra": {
+  {
     "icons": ["Hazard"],
     "name": "Legions of Hydra",
     "start": 3
   },
-  "Lethal Intent": {
+  {
     "icons": ["Hazard"],
     "name": "Lethal Intent",
     "start": "2p"
   },
-  "Lost in the Museum": {
-    "advance": 0,
+  {
+    "advance": "min",
     "complete": "15p",
     "name": "Lost in the Museum",
     "start": "11p",
     "step": "1p"
   },
-  "Magical Teapot": {
+  {
     "icons": ["Hazard"],
     "name": "Magical Teapot",
     "start": [3, "2p"]
   },
-  "Marked for Death": {
+  {
     "icons": ["Acceleration"],
     "name": "Marked for Death",
     "start": 5
   },
-  "Mass Chaos": {
+  {
     "icons": ["Crisis"],
     "name": "Mass Chaos",
     "start": 0
   },
-  "Mother's Orders": { "name": "Mother's Orders", "start": "2p" },
-  "Mutagen Cloud": {
+  {
+    "name": "Mother's Orders",
+    "start": "2p"
+  },
+  {
     "complete": "11p",
     "name": "Mutagen Cloud",
     "start": "4p"
   },
-  "New World Hydra": {
+  {
     "complete": "11p",
     "name": "New World Hydra",
     "start": "1p",
     "step": "1p"
   },
-  "None Shall Pass": {
+  {
     "complete": "12p",
-    "counters": [{ "name": "Delay", "limit": -1 }],
+    "counters": [{ "name": "Delay", "complete": -1 }],
     "name": "None Shall Pass",
     "start": "2p",
-    "step": "1p"
+    "step": "1p",
+    "triggers": {
+      "villain-phase": [{ "event": "increase", "targets": "Delay" }]
+    }
   },
-  "Open the Dark Dimension": {
+  {
     "icons": ["Acceleration"],
     "name": "Open the Dark Dimension",
     "start": "3p"
   },
-  "Oppressive Armada": {
+  {
     "icons": ["Hazard"],
     "name": "Oppressive Armada",
     "start": [1, "3p"]
   },
-  "Oscorp Manufacturing": {
+  {
     "icons": ["Acceleration"],
     "name": "Oscorp Manufacturing",
     "start": "2p"
   },
-  "Overrun": {
+  {
     "icons": ["Acceleration", "Acceleration"],
     "name": "Overrun",
     "start": "1p"
   },
-  "Payoff": {
+  {
     "icons": ["Hazard"],
     "name": "Payoff",
     "start": "2p"
   },
-  "Personal Challenge": {
+  {
     "icons": ["Crisis"],
     "name": "Personal Challenge",
     "start": [3, "1p"]
   },
-  "Philosopher's Stone": {
+  {
     "icons": ["Amplify"],
     "name": "Philosopher's Stone",
     "start": [3, "2p"]
   },
-  "Pile It On!": { "active": true, "name": "Pile It On!", "start": 3 },
-  "Pincer Maneuver": {
+  {
+    "complete": -1,
+    "name": "Pile It On!",
+    "start": 3
+  },
+  {
     "icons": ["Acceleration", "Acceleration"],
     "name": "Pincer Maneuver",
     "start": [3, "2p"]
   },
-  "Power Drain": {
+  {
     "icons": ["Acceleration"],
     "name": "Power Drain",
     "start": "2p"
   },
-  "Prison Camps": {
+  {
     "icons": ["Acceleration"],
     "name": "Prison Camps",
     "start": "3p"
   },
-  "Protect the Planet": {
+  {
     "complete": "8p",
     "name": "Protect the Planet",
     "start": "4p",
-    "step": "2p"
+    "step": "2p",
+    "triggers": {
+      "enter": [{ "event": "increase", "targets": "Badoon Ship" }],
+      "villain-phase": [{ "event": "increase", "targets": "Badoon Ship" }]
+    }
   },
-  "Running Interference": {
+  {
     "icons": ["Crisis"],
     "name": "Running Interference",
     "start": "1p"
   },
-  "Secret Rendezvous": {
+  {
     "complete": "8p",
     "name": "Secret Rendezvous",
     "step": "1p"
   },
-  "Sibling Rivalry": { "name": "Sibling Rivalry", "start": 4 },
-  "Sound the Alarms": { "name": "Sound the Alarms", "start": "2p" },
-  "Spatial Positioning": {
+  {
+    "name": "Sibling Rivalry",
+    "start": 4
+  },
+  {
+    "name": "Sound the Alarms",
+    "start": "2p"
+  },
+  {
     "icons": ["Amplify"],
     "name": "Spatial Positioning",
     "start": "3p"
   },
-  "Super Absorbing Power": { "name": "Super Absorbing Power", "start": "3p" },
-  "Superior Tactics": { "name": "Superior Tactics", "start": "2p" },
-  "Take What Is Mine": {
+  {
+    "name": "Super Absorbing Power",
+    "start": "3p"
+  },
+  {
+    "name": "Superior Tactics",
+    "start": "2p"
+  },
+  {
     "complete": "10p",
     "name": "Take What Is Mine",
     "start": "1p",
     "step": "2p"
   },
-  "Taskmaster's Training Camp": {
+  {
     "icons": ["Hazard"],
     "name": "Taskmaster's Training Camp",
     "start": "2p"
   },
-  "Tech Theft": { "name": "Tech Theft", "start": "2p" },
-  "Terrestrial Invasion": {
+  {
+    "name": "Tech Theft",
+    "start": "2p"
+  },
+  {
     "complete": "8p",
     "name": "Terrestrial Invasion",
     "start": "2p",
     "step": "2p",
-    "counters": [{ "name": "Badoon Ship", "limit": -1 }]
+    "counters": [
+      {
+        "name": "Badoon Ship",
+        "complete": 4,
+        "triggers": {
+          "complete": [{ "event": "empty" }]
+        }
+      }
+    ],
+    "triggers": {
+      "villain-phase": [{ "event": "increase", "targets": "Badoon Ship" }]
+    }
   },
-  "Test Subjects": {
+  {
     "icons": ["Hazard"],
     "name": "Test Subjects",
     "start": "2p"
   },
-  "The \"Immortal\" Klaw": {
+  {
     "icons": ["Acceleration"],
     "name": "The \"Immortal\" Klaw",
-    "start": "3p"
+    "start": "3p",
+    "modifiers": [
+      {
+        "action": "hit-points",
+        "targets": "*villain",
+        "data": {
+          "value": 10
+        }
+      }
+    ]
   },
-  "The Art of Evasion": {
+  {
     "complete": "6p",
     "name": "The Art of Evasion",
-    "start": "2p"
+    "start": "2p",
+    "step": "0",
+    "triggers": {
+      "prepare-villain-phase": [
+        { "event": "increase", "targets": "Nebula's Ship" }
+      ]
+    }
   },
-  "The Break In!": { "complete": "7p", "name": "The Break In!", "step": "1p" },
-  "The Crimson Cowl": {
-    "complete": "3p",
-    "name": "The Crimson Cowl",
+  {
+    "complete": "7p",
+    "name": "The Break In!",
     "step": "1p"
   },
-  "The Doomsday Chair": {
+  {
+    "complete": "3p",
+    "name": "The Crimson Cowl",
+    "step": "1p",
+    "triggers": {
+      "enter": [
+        {
+          "event": "enter-minion",
+          "targets": "Ultron's Drone",
+          "perPlayer": true
+        }
+      ]
+    }
+  },
+  {
     "icons": ["Acceleration"],
     "name": "The Doomsday Chair",
     "start": 8
   },
-  "The Gataway": {
+  {
     "complete": "5p",
     "name": "The Gataway",
     "start": "1p",
     "step": "1p"
   },
-  "The Grand Collection": {
+  {
     "complete": "10p",
     "name": "The Grand Collection",
     "start": "4p",
-    "step": "1p"
+    "step": "1p",
+    "counters": [
+      {
+        "name": "The Collection",
+        "complete": "5p",
+        "value": "1p"
+      }
+    ]
   },
-  "The Great Escape": {
-    "advance": 0,
+  {
+    "advance": "min",
     "complete": "12p",
     "name": "The Great Escape",
     "start": "8p",
-    "step": "1p"
+    "step": "1p",
+    "triggers": {
+      "enter": [
+        {
+          "event": "increase",
+          "targets": "Acceleration"
+        }
+      ]
+    }
   },
-  "The Infinity Stone": {
+  {
     "complete": "6p",
     "name": "The Infinity Stone",
     "start": "1p",
     "step": "1p"
   },
-  "The Island of Dr. Zola": {
-    "counters": [{ "name": "Test counters", "limit": -1 }],
+  {
+    "counters": [
+      {
+        "name": "Test counters",
+        "complete": 3,
+        "triggers": {
+          "complete": [{ "event": "empty" }]
+        }
+      }
+    ],
     "complete": "6p",
     "name": "The Island of Dr. Zola",
     "step": "1p",
     "triggers": {
-      "enter": [{ "action": "enter-scheme", "entity": "Hydra Prison" }]
+      "enter": [
+        { "event": "enter-scheme", "targets": "Hydra Prison" },
+        {
+          "event": "enter-minion",
+          "targets": "Ultimate Bio-Servant",
+          "perPlayer": true
+        }
+      ],
+      "villain-phase": [{ "event": "increase", "targets": "Test counters" }]
     }
   },
-  "The Mad Doctor": {
+  {
     "complete": "8p",
     "name": "The Mad Doctor",
     "start": "1p",
-    "step": "1p"
+    "step": "1p",
+    "triggers": {
+      "villain-phase": [{ "event": "increase", "targets": "Test counters" }]
+    }
   },
-  "The Masters of Evil": {
+  {
     "icons": ["Acceleration"],
     "name": "The Masters of Evil",
     "start": "3p"
   },
-  "The Missing Milano": {
-    "advance": 0,
+  {
+    "advance": "min",
     "complete": "11p",
     "name": "The Missing Milano",
     "start": "7p",
     "step": "1p"
   },
-  "The Next Evolution": { "name": "The Next Evolution", "start": "2p" },
-  "The Psyche-Magnitron": {
+  {
+    "name": "The Next Evolution",
+    "start": "2p"
+  },
+  {
     "icons": ["Hazard"],
     "name": "The Psyche-Magnitron",
     "start": [3, "1p"]
   },
-  "The Red House": { "name": "The Red House", "start": "3p" },
-  "The Rise of Red Skull": {
+  {
+    "name": "The Red House",
+    "start": "3p"
+  },
+  {
     "complete": "8p",
     "name": "The Rise of Red Skull",
     "step": "1p",
     "triggers": {
-      "enter": [{ "action": "enter-scheme", "entity": "The Red House" }]
+      "enter": [{ "event": "enter-scheme", "targets": "The Red House" }]
     }
   },
-  "The Sleeper Awakened": { "name": "The Sleeper Awakened", "start": 0 },
-  "The Viper's Ambition": {
+  {
+    "name": "The Sleeper Awakened",
+    "start": 0,
+    "complete": -1,
+    "locked": true,
+    "triggers": {
+      "enter": [
+        {
+          "event": "enter-minion",
+          "targets": "The Sleeper"
+        }
+      ]
+    }
+  },
+  {
     "icons": ["Hazard"],
     "name": "The Viper's Ambition",
     "start": [2, "1p"]
   },
-  "Thunderstruck": { "active": true, "name": "Thunderstruck", "start": 5 },
-  "Total Destruction": {
+  {
+    "complete": -1,
+    "name": "Thunderstruck",
+    "start": 5
+  },
+  {
     "icons": ["Hazard"],
     "name": "Total Destruction",
     "start": "2p"
   },
-  "Ultron's Imperative": {
+  {
     "icons": ["Hazard"],
     "name": "Ultron's Imperative",
     "start": "2p"
   },
-  "Under Attack": {
+  {
     "icons": ["Crisis"],
     "name": "Under Attack",
     "start": 3
   },
-  "Underground Distribution": {
+  {
     "complete": "6p",
     "name": "Underground Distribution",
     "step": "1p",
     "triggers": {
-      "enter": [{ "action": "enter-scheme", "entity": "Defense Network" }]
+      "enter": [{ "event": "enter-scheme", "targets": "Defense Network" }]
     }
   },
-  "Unleashing the Mutagen": {
+  {
     "complete": "7p",
     "name": "Unleashing the Mutagen",
     "start": "2p",
-    "step": "1p"
+    "step": "1p",
+    "triggers": {
+      "enter": [
+        {
+          "event": "enter-minion",
+          "targets": "Goblin Thrall",
+          "perPlayer": true
+        }
+      ]
+    }
   },
-  "Usurp the Throne": {
+  {
     "icons": ["Hazard"],
     "name": "Usurp the Throne",
     "start": "3p"
   },
-  "Vendetta": {
+  {
     "icons": ["Amplify"],
     "name": "Vendetta",
     "start": "2p"
   },
-  "Warp Drive Initiated": {
+  {
     "complete": "9p",
     "name": "Warp Drive Initiated",
-    "start": "3p"
+    "start": "3p",
+    "step": 0,
+    "triggers": {
+      "enter": [
+        {
+          "event": "increase",
+          "targets": "Nebula's Ship",
+          "value": "2"
+        }
+      ]
+    }
   },
-  "Zola's Experiments": {
+  {
     "icons": ["Acceleration"],
     "name": "Zola's Experiments",
     "start": "3p"
   },
-  "Kang's Arrival": {
-    "advance": -1,
+  {
+    "advance": "none",
     "complete": "7p",
     "name": "Kang's Arrival",
     "step": "1p"
   },
-  "The Master of Time": {
-    "advance": false,
+  {
     "complete": -1,
     "name": "The Master of Time",
-    "children": [
-      "The Chronopolis",
-      "Inexorable Fate",
-      "The Realm of Rama-Tut",
-      "The Present Future War"
-    ]
+    "triggers": {
+      "enter": [
+        {
+          "event": "enter-scheme",
+          "targets": [
+            "The Chronopolis",
+            "Inexorable Fate",
+            "The Realm of Rama-Tut",
+            "The Present Future War"
+          ],
+          "perPlayer": true
+        }
+      ]
+    }
   },
-  "The Chronopolis": {
+  {
     "active": false,
     "complete": 9,
     "name": "The Chronopolis",
+    "next": false,
     "step": 1,
     "___triggers": {
-      "enter": [{ "action": "enter-villain", "entity": "Hydra Patrol" }]
+      "enter": [{ "event": "enter-villain", "targets": "Hydra Patrol" }]
     }
   },
-  "Inexorable Fate": {
+  {
     "active": false,
     "complete": 9,
     "name": "Inexorable Fate",
+    "next": false,
     "start": 1,
     "step": 1
   },
-  "The Realm of Rama-Tut": {
+  {
     "active": false,
     "complete": 9,
     "name": "The Realm of Rama-Tut",
+    "next": false,
     "start": 1,
     "step": 1
   },
-  "The Present Future War": {
+  {
     "active": false,
     "complete": 9,
     "name": "The Present Future War",
+    "next": false,
     "start": 2,
     "step": 1
   },
-  "Kang's Wrath": {
+  {
     "advance": -1,
     "complete": "10p",
     "name": "Kang's Wrath",
+    "next": false,
     "step": "3p"
   },
-  "Corrupted Timestream": {
+  {
     "name": "Corrupted Timestream",
     "start": 2
   },
-  "Kang's Dominion": {
+  {
     "icons": ["Acceleration"],
     "name": "Kang's Dominion",
     "start": "3p"
   },
-  "Pinned Down": {
+  {
     "icons": ["Crisis"],
     "name": "Pinned Down",
     "start": 2
   },
-  "Rampage": {
+  {
     "icons": ["Acceleration"],
     "name": "Rampage",
     "start": 4
   },
-  "Time Portal": {
+  {
     "icons": ["Hazard"],
     "name": "Time Portal",
     "start": "2p"
   },
-  "The Anachronauts": {
+  {
     "icons": ["Hazard"],
     "name": "The Anachronauts",
     "start": "3p"
   },
-  "Light of Centuries Sphere": {
+  {
     "icons": ["Hazard"],
     "name": "Light of Centuries Sphere",
     "start": "3p"
   },
-  "Reactor Meltdown": {
+  {
     "icons": ["Crisis"],
     "name": "Reactor Meltdown",
     "start": "2p"
   },
-  "Universal Church of Truth": {
+  {
     "icons": ["Acceleration"],
     "name": "Universal Church of Truth",
     "start": "2p"
   },
-  "Unnatural Storm": {
+  {
     "icons": [],
     "name": "Unnatural Storm",
     "start": "2p"
   },
-  "Legions of Hel": {
+  {
     "icons": ["Crisis"],
     "name": "Legions of Hel",
     "start": 2
   },
-  "Tribute": {
+  {
     "icons": ["Crisis"],
     "name": "Tribute",
     "start": "2p"
   },
-  "Landing Craft": {
+  {
     "icons": ["Acceleration"],
     "name": "Landing Craft",
     "start": "2p"
   },
-  "The Black Order": {
+  {
     "icons": ["Hazard"],
     "name": "The Black Order",
     "start": "2p"
   },
-  "Open the Bifrost": {
+  {
     "icons": ["Hazard"],
     "name": "Open the Bifrost",
     "start": [3, "1p"]
   },
-  "Madness on Midgard": {
+  {
     "icons": ["Crisis"],
     "name": "Madness on Midgard",
     "start": [5, "1p"]
   },
-  "War in Asgard": {
+  {
     "icons": ["Acceleration"],
     "name": "War in Asgard",
     "start": [6, "1p"]
   },
-  "Casket of Ancient Winters": {
+  {
     "icons": ["Amplify"],
     "name": "Casket of Ancient Winters",
     "start": [4, "1p"]
   },
-  "Gnipahellir": {
+  {
     "icons": ["Amplify"],
     "name": "Gnipahellir",
     "start": [2, "1p"]
   },
-  "Hall of Nastrond": {
+  {
     "icons": ["Hazard"],
     "name": "Hall of Nastrond",
     "start": [4, "1p"]
   },
-  "Gjallerbru": {
+  {
     "icons": ["Amplify"],
     "name": "Gjallerbru",
     "start": [3, "1p"]
   },
-  "The Titan's Throne": {
+  {
     "icons": ["Amplify"],
     "name": "The Titan's Throne",
     "start": "2p"
   },
-  "Sanctuary": {
+  {
     "icons": [],
     "name": "Sanctuary",
     "start": [3, "1p"]
   },
-  "City Under Attack": {
+  {
     "icons": ["Crisis"],
     "name": "City Under Attack",
     "start": [2, "1p"]
   },
-  "Reactor Overload": {
+  {
     "icons": ["Crisis"],
     "name": "Reactor Overload",
     "start": 3
   },
-  "Attack on Knowhere": {
+  {
     "complete": "6p",
     "name": "Attack on Knowhere",
     "start": "1p",
     "step": "1p"
   },
-  "The Power Stone": {
+  {
     "complete": "9p",
     "name": "The Power Stone",
     "start": "1p",
     "step": "1p"
   },
-  "Under Siege": {
+  {
     "complete": "6p",
     "counters": [
       {
-        "name": "Avengers Tower",
-        "levels": [
-          { "name": "Avengers Tower Stronghold", "complete": "9p" },
-          { "name": "Avengers Tower Damaged", "complete": "9p" }
-        ]
-      }
+        "complete": "9p",
+        "name": "Avengers Tower Stronghold",
+        "next": "Avengers Tower Damaged"
+      },
+      { "active": false, "name": "Avengers Tower Damaged", "complete": "9p" }
     ],
     "name": "Under Siege",
+    "next": false,
     "start": "1p",
     "step": "1p",
     "triggers": {
-      "enter": [{ "action": "enter-scheme", "entity": "The Armies of Thanos" }]
+      "complete": [
+        { "event": "empty" },
+        {
+          "event": "hit",
+          "targets": "Avengers Tower Stronghold",
+          "value": "6p"
+        }
+      ]
     }
   },
-  "The Armies of Thanos": {
+  {
+    "active": true,
     "complete": "6p",
     "name": "The Armies of Thanos",
     "start": "1p",
-    "step": "1p"
+    "step": "1p",
+    "triggers": {
+      "enter": [
+        {
+          "event": "enter-minion",
+          "targets": "Black Order Besieger",
+          "perPlayer": true
+        }
+      ],
+      "complete": [{ "event": "empty" }]
+    }
   },
-  "The Infinity Stones": {
+  {
     "complete": "12p",
     "name": "The Infinity Stones",
     "start": 0,
     "step": "1p",
     "triggers": {
-      "enter": [{ "action": "enter-scheme", "entity": "Sanctuary" }]
+      "enter": [{ "event": "enter-scheme", "targets": "Sanctuary" }]
     }
   },
-  "Balance the Scales": {
+  {
     "complete": "12p",
     "name": "Balance the Scales",
     "start": 0,
     "step": "1p"
   },
-  "Odin's Torment": {
+  {
     "complete": "18p",
     "name": "Odin's Torment",
     "start": "1p",
     "step": "1p",
     "triggers": {
-      "enter": [{ "action": "enter-scheme", "entity": "Gnipahellir" }]
+      "enter": [{ "event": "enter-scheme", "targets": "Gnipahellir" }]
     }
   },
-  "All Hail King Loki": {
+  {
     "complete": "12p",
     "name": "All Hail King Loki",
     "start": "1p",
     "step": "1p",
     "triggers": {
-      "enter": [{ "action": "enter-scheme", "entity": "War in Asgard" }]
+      "enter": [{ "event": "enter-scheme", "targets": "War in Asgard" }]
     }
   },
-  "Self-Preservation": {
-    "icons": [],
+  {
     "name": "Self-Preservation",
     "start": "2p"
+  },
+  {
+    "icons": ["Crisis"],
+    "name": "Deadly Light Show",
+    "start": [3, "1p"]
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Powerful Enchantments",
+    "start": [2, "1p"]
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Ultron Unleashed",
+    "start": 3
   }
-}
+]

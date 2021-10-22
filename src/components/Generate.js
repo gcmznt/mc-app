@@ -142,19 +142,27 @@ export default function Generate({ onStart }) {
 
   useEffect(() => {
     const saved = load(STORAGE_KEYS.SETTINGS);
-    if (saved) setSettings({ ...initialSetting, ...saved });
-  }, []);
+    if (saved)
+      setSettings({
+        ...initialSetting,
+        ...saved,
+        players:
+          saved.players > selection.heroes.length || saved.players <= 0
+            ? selection.heroes.length
+            : saved.players,
+      });
+  }, [selection.heroes.length]);
 
   return (
     <>
-      <Box title="Players" key="Players">
+      <Box title="Players" key="Players" flag>
         <Players
           onChange={handleChange("players")}
           value={settings.players}
           max={selection.heroes.length}
         />
       </Box>
-      <Box title="Mode" key="Mode">
+      <Box title="Mode" key="Mode" flag>
         <Mode onChange={handleChange("mode")} value={settings.mode} />
         <Heroic onChange={handleChange("heroic")} value={settings.heroic} />
         <Skirmish
@@ -179,7 +187,11 @@ export default function Generate({ onStart }) {
           onChange={(e) => handleChange("randomWeighted")(e.target.checked)}
         />
       </Box>
-      <button ref={generateBtn} onClick={randomize}>
+      <button
+        ref={generateBtn}
+        onClick={randomize}
+        disabled={!settings.players}
+      >
         Generate
       </button>
       {setup && (

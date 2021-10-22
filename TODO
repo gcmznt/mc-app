@@ -1,10 +1,16 @@
-scenarios: kang, tower defence 
+scenarios: kang, hela, loki, The Hood
+
+ronan - kree command ship icons
+tower defence - prevent defeat mod
+wrecking crew - reset side schemes
 
 match detailed stats [round/phases counter]
 
 online/offline sync
 auto-start counters
 
+
+first player mod when hero die
 
 add minions in db
 multi language

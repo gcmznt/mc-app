@@ -6,6 +6,7 @@ import { ReactComponent as AmplifyImg } from "../../images/amplify.svg";
 import { ReactComponent as CrisisImg } from "../../images/crisis.svg";
 import { ReactComponent as HazardImg } from "../../images/hazard.svg";
 import Status from "./Status";
+import { MODIFIERS } from "../../utils/constants";
 
 const iconsImages = {
   Acceleration: <AccelerationImg />,
@@ -14,11 +15,12 @@ const iconsImages = {
   Crisis: <CrisisImg />,
 };
 
-function Button({ action, counter, disabled, label, type }) {
+function Button({ action, counter, disabled, label, type, warning }) {
   const classList = [
     "counter__btn",
     type && `counter__${type}`,
     disabled && "is-disabled",
+    warning && "is-warning",
   ]
     .filter((c) => c)
     .join(" ");
@@ -31,8 +33,8 @@ function Button({ action, counter, disabled, label, type }) {
   );
 }
 
-function Value({ editMode, limit, toggle, value }) {
-  return limit === -1 ? (
+function Value({ complete, editMode, max, toggle, value }) {
+  return max < 0 && complete < 0 ? (
     <div className="counter__value">
       <big>{value}</big>
     </div>
@@ -40,118 +42,108 @@ function Value({ editMode, limit, toggle, value }) {
     <div className="counter__value" onClick={toggle}>
       <small>{value}</small>
       <span className="fraction">/</span>
-      <big>{limit}</big>
+      <big>{max}</big>
     </div>
   ) : (
     <div className="counter__value" onClick={toggle}>
       <big>{value}</big>
       <span className="fraction">/</span>
-      <small>{limit}</small>
+      <small>{max}</small>
     </div>
   );
 }
 
 export default function Counter({
   acceleratedStep,
-  advance,
+  counter,
   disabled,
-  icons,
-  last = true,
   lastLabel,
-  limit,
-  min,
+  mods,
   onAdd,
   onAddLimit,
-  onEnable,
   onNext,
-  onPrev,
   onStep,
   onReduce,
   onReduceLimit,
   onStatusToggle,
-  status,
   stepLabel,
   title,
-  value,
 }) {
   const [editMode, setEditMode] = useState(false);
+  const { advance, complete, max, min, value } = counter.values;
 
-  const toggle = () => disabled || !limit || setEditMode((m) => !m);
+  const fullMax = mods
+    .filter((m) => m.action === MODIFIERS.HIT_POINTS)
+    .reduce((a, b) => a + b.data.value, max);
 
-  const canReduce = (!editMode && value > min) || (editMode && value < limit);
-  const canAdd = editMode || limit <= 0 || (value < limit && limit > min);
-  const canStep = onStep && !editMode && value < limit && limit > min;
+  const toggle = () =>
+    disabled || !fullMax || counter.locked || setEditMode((m) => !m);
+
+  const canReduce = (!editMode && value > min) || (editMode && value < fullMax);
+  const canAdd = editMode || fullMax <= 0 || (value < fullMax && fullMax > min);
+  const canStep = onStep && !editMode && value < fullMax && fullMax > min;
+
+  const isComplete = fullMax <= min ? value <= fullMax : value >= fullMax;
+  const minAdvance = advance === "min";
   const canAdvance =
-    onNext &&
-    !editMode &&
-    ((limit > 0 && value >= limit) ||
-      (limit === 0 && value === 0) ||
-      value === advance ||
-      limit === -1) &&
-    (typeof advance !== "boolean" || advance);
-
-  // console.log(value, title, limit, min, advance);
+    complete === -2 ||
+    (complete !== -1 && ((minAdvance && value <= min) || isComplete));
 
   return (
     <div className="counter__wrapper">
       <div className="counter__title">
         {title && <span>{title}</span>}
-        {status && <Status status={status} onToggle={onStatusToggle} />}
+        {counter.statuses && (
+          <Status status={counter.statuses} onToggle={onStatusToggle} />
+        )}
       </div>
 
       <span className="counter__icons">
-        {(icons || []).map((icon, i) => (
+        {(counter.icons || []).map((icon, i) => (
           <React.Fragment key={i}>{iconsImages[icon]}</React.Fragment>
         ))}
       </span>
 
-      <div className="counter">
-        {!disabled && onPrev && (
-          <Button action={onPrev} disabled={editMode} label="«" type="prev" />
-        )}
-        {!disabled && (
-          <Button
-            action={editMode ? onReduceLimit : onReduce}
-            disabled={!canReduce}
-            label="&minus;"
-            type="reduce"
-          />
-        )}
-
+      <div className={`counter is-${counter.type}`}>
         <Value
           editMode={editMode}
-          limit={limit}
+          complete={complete}
+          max={fullMax}
           toggle={toggle}
           value={value}
         />
 
-        {!disabled && (
-          <Button
-            action={editMode ? onAddLimit : onAdd}
-            disabled={!canAdd}
-            label="+"
-            type="add"
-          />
-        )}
-        {!disabled && !canAdvance && canStep && (
-          <Button
-            action={onStep}
-            counter={acceleratedStep}
-            disabled={!canStep}
-            label={stepLabel || <AdvanceImg />}
-            type="next"
-          />
-        )}
-        {!disabled && canAdvance && (
-          <Button
-            action={onNext}
-            disabled={!canAdvance}
-            label={last ? lastLabel || "✓" : "»"}
-            type="next"
-          />
-        )}
-        {disabled && onEnable && (
-          <Button action={onEnable} label="+" type="next" />
+        {!disabled && !counter.locked && (
+          <>
+            <Button
+              action={editMode ? onReduceLimit : onReduce}
+              disabled={!canReduce}
+              label="&minus;"
+              type="reduce"
+            />
+            <Button
+              action={editMode ? onAddLimit : onAdd}
+              disabled={!canAdd}
+              label="+"
+              type="add"
+              warning={counter.statuses?.Tough}
+            />
+
+            {canAdvance ? (
+              <Button
+                action={onNext}
+                label={counter.next ? "»" : lastLabel || "✓"}
+                type="next"
+              />
+            ) : canStep ? (
+              <Button
+                action={onStep}
+                counter={acceleratedStep}
+                label={stepLabel || <AdvanceImg />}
+                type="next"
+              />
+            ) : null}
+          </>
         )}
       </div>
     </div>

@@ -1,0 +1,27 @@
+.setup__hero {
+  font-size: 1.8em;
+}
+
+.setup__hero:nth-last-child(n + 2),
+.setup__hero:nth-last-child(n + 2) ~ .setup__hero {
+  font-size: 1.4em;
+}
+
+.setup__scenario {
+  font-size: 2em;
+  margin-bottom: 0.3em;
+}
+
+.setup__scenario-info {
+  margin-bottom: 0.4em;
+}
+
+.setup__vs {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-size: 1.4em;
+  margin: 0.8em -0.56em;
+  padding: 0.2em 0.3em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}

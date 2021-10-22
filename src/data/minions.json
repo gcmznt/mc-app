@@ -1,0 +1,32 @@
+[
+  {
+    "hitPoints": 3,
+    "name": "Black Order Besieger"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Goblin Thrall"
+  },
+  {
+    "hitPoints": 1,
+    "name": "Ultron's Drone"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Ultimate Bio-Servant",
+    "status": ["Tough"]
+  },
+  {
+    "hitPoints": "5p",
+    "name": "The Sleeper",
+    "status": ["Tough"],
+    "triggers": {
+      "disable": [
+        {
+          "event": "disable",
+          "targets": "The Sleeper Awakened"
+        }
+      ]
+    }
+  }
+]

@@ -20,6 +20,15 @@ body {
   padding: 1em 1em 15em;
   text-align: center;
   user-select: none;
+  transition: all ease 200ms;
+}
+
+body.is-hero-phase {
+  --color-bg: hsl(207, 82%, 92%);
+}
+
+body.is-villain-phase {
+  --color-bg: hsl(360, 84%, 94%);
 }
 
 body.no-scroll {
@@ -45,7 +54,9 @@ legend {
   pointer-events: none;
 }
 
-.is-aggression {
+.is-aggression,
+.is-minion,
+.is-villain {
   --color-accent: #e01414;
   --color-accent-contrast: #fff;
 }
@@ -68,6 +79,8 @@ legend {
   --color-accent: #00cc4e;
 }
 
+.is-ally,
+.is-extra,
 .is-hero,
 .is-leadership {
   --color-accent: #3499eb;
@@ -76,16 +89,6 @@ legend {
 .is-confused {
   --color-accent: #9b069b;
   --color-accent-contrast: #fff;
-}
-
-.vs {
-  background: var(--color-accent);
-  color: var(--color-accent-contrast);
-  font-size: 1.4em;
-  margin: 0.8em;
-  padding: 0 0.3em;
-  text-transform: uppercase;
-  white-space: nowrap;
 }
 
 button {
@@ -139,5 +142,13 @@ body.is-dark {
     --color-cta-contrast: #000;
     --color-cta: #fff;
     --color-fg: #fff;
+  }
+
+  body:not(.is-light).is-hero-phase {
+    --color-bg: hsl(207, 82%, 20%);
+  }
+
+  body:not(.is-light).is-villain-phase {
+    --color-bg: hsl(360, 84%, 20%);
   }
 }

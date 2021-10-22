@@ -24,7 +24,7 @@ export const getRemoveTokenText = (type, count) =>
     [COUNTER_TYPES.HERO]: `Heal${count > 1 ? ` × ${count}` : ""}`,
     [COUNTER_TYPES.VILLAIN]: `Heal${count > 1 ? ` × ${count}` : ""}`,
     [COUNTER_TYPES.ROUNDS]: `Back ${count} round${count > 1 ? "s" : ""}`,
-  }[type] || `−${getTokenCount(type, count)}`);
+  }[type] || `${getTokenCount(type, count)}`);
 
 export const getIncreaseText = (count) =>
   `Increased limit${count > 1 ? ` × ${count}` : ""}`;
@@ -49,16 +49,13 @@ export const getStageName = (counter) => {
     [COUNTER_TYPES.VILLAIN]: "is-villain",
   };
   if (types[counter.type]) {
-    return (
-      <span className={types[counter.type]}>
-        {counter.levels[counter.stage].name}
-      </span>
-    );
+    return <span className={types[counter.type]}>{counter.name}</span>;
   }
-  return <>{counter.levels[counter.stage].name}</>;
+  return <>{counter.name}</>;
 };
-export const getStageText = (level) =>
-  isNaN(level) ? level : new Array(level).fill("I").join("");
+export const getStageText = (level) => {
+  return isNaN(level) ? level : new Array(+level).fill("I").join("");
+};
 
 export const getResText = (result) =>
   ({

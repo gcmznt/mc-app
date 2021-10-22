@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 import heroes from "../data/heroes.json";
+import minions from "../data/minions.json";
 import modularSets from "../data/modular-sets.json";
 import scenarios from "../data/scenarios.json";
 import schemes from "../data/schemes.json";
@@ -13,9 +14,10 @@ const isEnabled = (el) =>
 
 const data = {
   heroes: heroes.filter(isEnabled),
+  minions,
   modularSets,
   scenarios: scenarios.filter(isEnabled),
-  schemes,
+  schemes: schemes.reduce((a, c) => ({ ...a, [c.name]: c }), {}),
 };
 
 const fullSelection = {
@@ -63,6 +65,10 @@ export const DataProvider = ({ children }) => {
     );
   };
 
+  const getMinion = (name) => {
+    return data.minions.find((m) => name === m.name);
+  };
+
   useEffect(() => {
     setAllMatches(load(STORAGE_KEYS.MATCHES) || []);
     setOptions(load(STORAGE_KEYS.OPTIONS) || DEFAULT_OPTIONS);
@@ -95,6 +101,7 @@ export const DataProvider = ({ children }) => {
         data,
         deleteMatch,
         fullSelection,
+        getMinion,
         matches,
         options,
         saveMatch,

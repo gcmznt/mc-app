@@ -1,7 +1,7 @@
 import "../../styles/actions.css";
 import { getClassName } from "../../utils";
 
-export function Action({ active, disabled, icon, label, onClick }) {
+export function Action({ active, disabled, icon, label, onClick, sublabel }) {
   const classList = [
     "actions__button",
     active && "is-active",
@@ -15,6 +15,7 @@ export function Action({ active, disabled, icon, label, onClick }) {
     >
       {icon}
       {icon ? <small>{label}</small> : label}
+      {sublabel ? <small>{sublabel}</small> : null}
     </div>
   );
 }

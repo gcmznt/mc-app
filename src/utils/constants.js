@@ -1,12 +1,20 @@
 export const COUNTER_TYPES = {
   ACCELERATION: "acceleration",
+  ALLY: "ally",
   CUSTOM: "custom",
+  HERO_TOKEN: "hero-token",
   HERO: "hero",
+  MINION: "minion",
   MODULAR_SCHEME: "modular-scheme",
   NEMESIS_SCHEME: "nemesis-scheme",
+  PHASES: "phases",
   ROUNDS: "rounds",
+  SCENARIO_TOKEN: "scenario-token",
   SCENARIO: "scenario",
   SIDE_SCHEME: "side-scheme",
+  SUPPORT: "support",
+  UPGRADE: "upgrade",
+  VILLAIN_EXTRA: "villain-extra",
   VILLAIN: "villain",
 };
 
@@ -20,32 +28,44 @@ export const STATUSES = ["Confused", "Stunned", "Tough"];
 
 export const EVENTS = {
   COMPLETE: "complete",
-  DEC_LIMIT: "decrease-limit",
+  CREATE: "create",
+  DECREASE_LIMIT: "decrease-limit",
   DECREASE: "decrease",
   DISABLE: "disable",
+  EMPTY: "empty",
   END: "end",
+  ENTER_MINION: "enter-minion",
+  ENTER_SCHEME: "enter-scheme",
   ENTER: "enter",
-  INC_LIMIT: "increase-limit",
+  FLIP_COUNTER: "flip-counter",
+  HIT: "hit",
+  INCREASE_FROM: "increase-from",
+  INCREASE_LIMIT: "increase-limit",
   INCREASE: "increase",
+  LOCK: "lock",
+  LOST_SCHEME: "lost-scheme",
+  NEW_PHASE: "new-phase",
   NEW_ROUND: "new-round",
   NEXT: "next",
-  PREVIOUS: "previous",
+  RESET: "reset",
   RESTART: "restart",
+  SET: "set",
   START: "start",
-  STATUS_ENABLE: "status-enable",
   STATUS_DISABLE: "status-disable",
+  STATUS_ENABLE: "status-enable",
+  UNLOCK: "unlock",
   VILLAIN_PHASE: "villain-phase",
 };
 
-export const TRIGGERS = {
-  ENTER: "enter",
-  DEFEAT: "defeat",
+export const TRIGGER_MAP = {
+  [EVENTS.ENTER_MINION]: EVENTS.ENTER,
+  [EVENTS.ENTER_SCHEME]: EVENTS.ENTER,
+  [EVENTS.FLIP_COUNTER]: EVENTS.ENTER,
 };
 
-export const TRIGGERS_ACTIONS = {
-  NEXT_SCENARIO: "next-scenario",
-  ENTER_SCHEME: "enter-scheme",
-  ENTER_SCHEME_PER_PLAYER: "enter-scheme-per-player",
+export const MODIFIERS = {
+  HIT_POINTS: "hit-points",
+  RENAME: "rename",
 };
 
 export const RESULT_TYPES = {

@@ -138,7 +138,7 @@
   {
     "alterEgo": "Groot",
     "aspects": ["Protection"],
-    "counters": [{ "name": "Growth", "limit": 10 }],
+    "counters": [{ "name": "Growth", "max": 10, "complete": -1 }],
     "hitPoints": 11,
     "name": "Groot",
     "nemesisSchemes": ["Blazing Inferno"],
@@ -171,7 +171,7 @@
   {
     "alterEgo": "Drax",
     "aspects": ["Protection"],
-    "counters": [{ "name": "Vengeance", "limit": 3 }],
+    "counters": [{ "name": "Vengeance", "max": 3, "complete": -1 }],
     "hitPoints": 14,
     "name": "Drax",
     "nemesisSchemes": ["Cull the Weak"],
@@ -208,5 +208,30 @@
     "name": "Nebula",
     "nemesisSchemes": ["Self-Preservation"],
     "pack": "Nebula"
+  },
+  {
+    "alterEgo": "James Rhodes",
+    "aspects": ["Leadership"],
+    "counters": [{ "name": "Ammo", "complete": -1 }],
+    "hitPoints": 10,
+    "name": "War Machine",
+    "nemesisSchemes": ["Deadly Light Show"],
+    "pack": "War Machine"
+  },
+  {
+    "alterEgo": "Brunnhilde",
+    "aspects": ["Aggression"],
+    "hitPoints": 12,
+    "name": "Valkyrie",
+    "nemesisSchemes": ["Powerful Enchantments"],
+    "pack": "Valkyrie"
+  },
+  {
+    "alterEgo": "Vision",
+    "aspects": ["Protection"],
+    "hitPoints": 11,
+    "name": "Vision",
+    "nemesisSchemes": ["Ultron Unleashed"],
+    "pack": "Vision"
   }
 ]

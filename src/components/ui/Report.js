@@ -3,10 +3,11 @@ import { ReactComponent as AccelerationImg } from "../../images/acceleration.svg
 import { ReactComponent as AmplifyImg } from "../../images/amplify.svg";
 import { ReactComponent as CrisisImg } from "../../images/crisis.svg";
 import { ReactComponent as HazardImg } from "../../images/hazard.svg";
+import { ReactComponent as AdvanceImg } from "../../images/advance.svg";
 import "../../styles/report.css";
 import { getClassName } from "../../utils";
-import { getLogString } from "../../utils/log";
-import LogItem from "./LogItem";
+import { EVENTS } from "../../utils/constants";
+import { dispatch } from "../../utils/events";
 
 const iconsImages = {
   Acceleration: <AccelerationImg />,
@@ -16,9 +17,9 @@ const iconsImages = {
 };
 
 function Bar({ counter, inverse, revert }) {
-  const stage = counter.levels[counter.stage];
-
-  const val = inverse ? stage.value : stage.limit - stage.value;
+  const val = inverse
+    ? counter.values.value
+    : counter.values.max - counter.values.value;
 
   const classList = [
     "report__bar",
@@ -29,8 +30,8 @@ function Bar({ counter, inverse, revert }) {
   return (
     <div
       className={getClassName(classList)}
-      key={stage.name}
-      style={{ "--val": val / stage.limit }}
+      key={counter.name}
+      style={{ "--val": val / counter.values.max }}
     />
   );
 }
@@ -38,14 +39,20 @@ function Bar({ counter, inverse, revert }) {
 export default function Report({
   heroes,
   icons,
-  log,
   mainScheme,
-  nextRound,
-  round,
+  phasesCounter,
+  roundsCounter,
   villains,
 }) {
+  const isHeroPhase = phasesCounter?.values.value % 2;
+  const nextRound = () =>
+    dispatch(
+      phasesCounter.id,
+      isHeroPhase ? EVENTS.NEW_PHASE : EVENTS.NEW_ROUND
+    );
+
   return (
-    <div className="report">
+    <div className={`report is-${isHeroPhase ? "hero" : "villain"}`}>
       <div className="report__progress">
         <div>
           {heroes.map((h) => (
@@ -56,23 +63,23 @@ export default function Report({
           {villains.map((v) => (
             <Bar key={v.id} counter={v} revert />
           ))}
-          <Bar counter={mainScheme} revert inverse />
+          {mainScheme.map((v) => (
+            <Bar key={v.id} counter={v} revert inverse />
+          ))}
         </div>
       </div>
-      <div>
+      <div className="report_phase">
+        <span>
+          Round {roundsCounter?.values.value}:{" "}
+          {isHeroPhase ? "Hero" : "Villain"} phase
+        </span>
         <span className="report__btn" onClick={nextRound}>
-          +
-        </span>{" "}
-        Round {round}
+          {isHeroPhase ? <AdvanceImg /> : "»"}
+        </span>
       </div>
       <div className="report__icons">
         {(icons || []).map((icon, i) => (
           <React.Fragment key={i}>{iconsImages[icon]}</React.Fragment>
-        ))}
-      </div>
-      <div className="report__log">
-        {log.slice(0, 7).map((entry, i) => (
-          <LogItem key={log.length - i} text={getLogString(entry)} />
         ))}
       </div>
     </div>

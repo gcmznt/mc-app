@@ -52,6 +52,8 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 0.4em;
+  text-transform: capitalize;
+  flex-wrap: wrap;
 }
 
 .counter__value {
@@ -87,6 +89,14 @@
   line-height: 1;
   position: relative;
   text-align: center;
+}
+
+.counter.is-ally .counter__btn.is-warning,
+.counter.is-hero .counter__btn.is-warning,
+.counter.is-minion .counter__btn.is-warning,
+.counter.is-villain .counter__btn.is-warning {
+  --color-cta: #e06614;
+  --color-cta-contrast: #fff;
 }
 
 .counter__badge {

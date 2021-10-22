@@ -21,7 +21,6 @@ export function getFullSetup(setup, data) {
 
   const getMainSchemeData = (s) => ({
     ...data.schemes[s],
-    children: (data.schemes[s].children || []).map(getSchemeData),
   });
 
   const getScenarioData = (name) => {

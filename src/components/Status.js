@@ -1,309 +1,345 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo, useState } from "react";
-import { getStatusObj, load, persist } from "../utils";
+import { useData } from "../context/data";
+import { getRandomList, load, persist, toValue } from "../utils";
 import {
-  COUNTERS_SCHEME,
   COUNTER_TYPES,
+  COUNTER_TYPES as CTYPES,
   EVENTS,
   RESULT_TYPES,
-  STATUSES,
   STORAGE_KEYS,
-  TRIGGERS,
-  TRIGGERS_ACTIONS,
+  TRIGGER_MAP,
 } from "../utils/constants";
-import { getCounter, getCounters } from "../utils/counters";
-import { getEntryTime, getLogString, mergeLog } from "../utils/log";
+import { Counter as CounterObj, getCounters } from "../utils/counters";
+import { dispatch } from "../utils/events";
+import { getEntryTime, getLogString, useLogger } from "../utils/log";
+import { getAcceleration, useCountersUtils } from "../utils/status";
 import { getResText } from "../utils/texts";
 import Counter from "./Counter";
 import { CounterBox } from "./CounterBox";
+import MatchMenu from "./MatchMenu";
 import Timer from "./Timer";
 import Actions, { Action } from "./ui/Actions";
 import Box from "./ui/Box";
 import LogItem from "./ui/LogItem";
-import Modal from "./ui/Modal";
 import Navbar from "./ui/NavBar";
 import Option from "./ui/Option";
 import Report from "./ui/Report";
 
 const childOf = (parent) => (counter) => counter.parent === parent.id;
 const isActive = (counter) => counter.active;
+const isLast = (counter) => !counter.next;
 const isNotActive = (counter) => !counter.active;
-const isAcceleration = (counter) => counter.type === COUNTER_TYPES.ACCELERATION;
-const isCustomCounter = (counter) => counter.type === COUNTER_TYPES.CUSTOM;
-const isHeroCounter = (counter) => counter.type === COUNTER_TYPES.HERO;
-const isMainCounter = (counter) => counter.type === COUNTER_TYPES.SCENARIO;
-const isRoundCounter = (counter) => counter.type === COUNTER_TYPES.ROUNDS;
-const isSideCounter = (counter) => COUNTERS_SCHEME.includes(counter.type);
-const isVillainCounter = (counter) => counter.type === COUNTER_TYPES.VILLAIN;
 
 const byName = (a, b) => a.name.localeCompare(b.name);
 
+const getNextPlayer = (counters, active, dir = 1, offset = 1) => {
+  const next = (active + counters.length + offset * dir) % counters.length;
+
+  return counters[next].active
+    ? next
+    : getNextPlayer(counters, active, dir, offset + 1);
+};
+
 export default function Status({ matchId, onQuit, setup }) {
-  const [counters, setCounters] = useState(false);
-  const [log, setLog] = useState([]);
+  const { data, getMinion } = useData();
+  const [eventQueue, setEventQueue] = useState([]);
+  const [now, setNow] = useState(new Date());
   const [interacted, setInteracted] = useState(false);
-  const [quit, setQuit] = useState(false);
+  const [menu, setMenu] = useState(false);
   const [custom, setCustom] = useState("");
   const [time, setTime] = useState(0);
   const [firstPlayer, setFirstPlayer] = useState(0);
   const [result, setResult] = useState(null);
 
-  const accelerationCounters = (counters || []).filter(isAcceleration);
-  const customCounters = (counters || []).filter(isCustomCounter);
-  const heroesCounters = (counters || []).filter(isHeroCounter);
-  const mainScheme = (counters || []).find(isMainCounter);
-  const roundsCounter = (counters || []).find(isRoundCounter);
-  const sideSchemes = (counters || []).filter(isSideCounter);
-  const villainCounters = (counters || []).filter(isVillainCounter);
-
-  const logEvent = (event, entity, data) => {
-    setLog((l) => [{ date: new Date(), time, event, entity, data }, ...l]);
+  const player = {
+    first: firstPlayer,
+    next: () => setFirstPlayer((fp) => getNextPlayer(sets.heroesCounters, fp)),
+    prev: () =>
+      setFirstPlayer((fp) => getNextPlayer(sets.heroesCounters, fp, -1)),
+    reset: () => setFirstPlayer(0),
+    set: (data) => setFirstPlayer(data),
   };
 
-  const updateCounter = (id, values, force = false) => {
-    setInteracted(true);
-    if ((force || !result) && id) {
-      const upCounter = (c) => (c.id === id ? { ...c, ...values } : c);
-      setCounters((cs) => cs.map(upCounter));
+  const CU = useCountersUtils();
+  const logger = useLogger();
+
+  const refresh = [logger.entries.length, CU.all.length, CU.activesCount, now];
+
+  const sets = useMemo(() => CU.getSets(), refresh);
+  const activeMods = useMemo(() => CU.getModifiers(), refresh);
+  const activeIcons = useMemo(() => CU.getActiveIcons(), refresh);
+  const mergedLog = useMemo(() => logger.merge(CU.all), refresh);
+  const acceleration = getAcceleration(sets.accelerationCounters, activeIcons);
+  const isHeroPhase = !!(sets.phasesCounter?.values.value % 2);
+
+  const triggerToEvent = (counter, trigger) => {
+    if (trigger.when) {
+      return setEventQueue((ts) => [...ts, { ...trigger, counter }]);
+    }
+
+    const dispatchEvent = (data, targets) =>
+      dispatch(counter.id, trigger.event, data, targets || trigger.targets);
+
+    const target =
+      trigger.targets && CU.getLastActive(CU.getLast(CU.name(trigger.targets)));
+
+    // console.log("trigger", trigger, counter.name);
+
+    switch (trigger.event) {
+      case EVENTS.DECREASE:
+        return dispatchEvent(
+          -toValue(trigger.value, setup.settings.players),
+          target.id
+        );
+      case EVENTS.ENTER_SCHEME:
+        if (Array.isArray(trigger.targets)) {
+          return getRandomList(trigger.targets, setup.settings.players).forEach(
+            (target) => dispatchEvent(false, target)
+          );
+        }
+        return target.active || dispatchEvent(counter.values.value);
+      case EVENTS.EMPTY:
+      case EVENTS.FLIP_COUNTER:
+      case EVENTS.RESET:
+        return dispatchEvent(counter.values.value);
+      case EVENTS.ENTER_MINION:
+        return new Array(trigger.perPlayer ? +setup.settings.players : 1)
+          .fill(getMinion(trigger.targets))
+          .forEach((m) => createCounter(CTYPES.MINION, trigger.targets, m));
+      case EVENTS.HIT:
+        return dispatchEvent(
+          toValue(trigger.value, setup.settings.players),
+          target.id
+        );
+      case EVENTS.INCREASE_FROM:
+        return dispatchEvent(CU.name(trigger.value).values.value);
+      default:
+        return dispatchEvent(
+          trigger.value
+            ? toValue(trigger.value, setup.settings.players)
+            : trigger.info
+        );
     }
   };
 
-  const changePlayer = (direction = 1) => {
-    setFirstPlayer((fp) => {
-      for (let offset = 1; offset <= heroesCounters.length; ++offset) {
-        const next =
-          (offset * direction + fp + heroesCounters.length) %
-          heroesCounters.length;
-        if (heroesCounters[next].active) return next;
-      }
-      return fp;
-    });
-  };
-
-  const nextRound = (counter) => {
-    logEvent(EVENTS.NEW_ROUND, counter.id, 1);
-    changePlayer();
-    updateCounter(counter.id, {
-      levels: [{ ...counter.levels[0], value: counter.levels[0].value + 1 }],
-    });
-  };
-
-  const doUpdate = (event, entity, values, data) => {
-    logEvent(event, entity, data || values);
-    updateCounter(entity, values);
-  };
-
-  const removeLastLog = (count = 1) => {
-    setLog((l) => [...l].slice(count));
-  };
-
-  const endGame = (counter, result) => {
-    logEvent(EVENTS.COMPLETE, counter.id);
-    logEvent(EVENTS.END, false, result);
-    setResult(result);
-  };
-
-  const handleQuit = (reason) => onQuit({ reason, counters, time, log });
-  const handleMenu = () => (result ? handleQuit(result) : setQuit(true));
-  const handleDiscard = () => onQuit(false);
-  const handleGiveUp = () => handleQuit(RESULT_TYPES.GIVE_UP);
-  const handleLostByScheme = () => handleQuit(RESULT_TYPES.SCHEME);
-  const handleHeroesDead = () => handleQuit(RESULT_TYPES.DEFEATED);
-  const handleVillainsDead = () => handleQuit(RESULT_TYPES.WINNER);
-  const handleWonByScheme = () => handleQuit(RESULT_TYPES.SCHEME_WIN);
-
-  const disableCounter = (counter) => {
-    updateCounter(counter.id, { active: false });
+  const runCounterTriggers = (counter, event) => {
+    return (counter.triggers[event] || []).map((trigger) =>
+      triggerToEvent(counter, trigger)
+    );
   };
 
   const handleDefeat = (counter) => {
-    (counter.levels[counter.stage].triggers?.[TRIGGERS.DEFEAT] || []).forEach(
-      (trigger) => {
-        switch (trigger.action) {
-          case TRIGGERS_ACTIONS.NEXT_SCENARIO:
-            return doUpdate(EVENTS.NEXT, mainScheme.id, {
-              stage: mainScheme.stage + 1,
-            });
-          case TRIGGERS_ACTIONS.ENTER_SCHEME:
-            return handleEnable(
-              counters.find((c) => c.name === trigger.entity)
-            );
+    const next = CU.next(counter);
+    const triggers = counter.triggers[EVENTS.COMPLETE];
 
-          default:
-            break;
-        }
-      }
-    );
-    if (counter.stage + 1 < counter.levels.length) {
-      doUpdate(EVENTS.NEXT, counter.id, { stage: counter.stage + 1 });
-      (counter.levels[counter.stage + 1].status || []).forEach((st) => {
-        if (!counter.status[st]) handleStatusToggle(counter)("Tough", true);
-      });
+    if (triggers) {
+      runCounterTriggers(counter, EVENTS.COMPLETE);
     } else {
-      logEvent(EVENTS.COMPLETE, counter.id);
-      [counter, ...counters.filter(childOf(counter))].map(disableCounter);
-    }
-  };
-
-  const handlePrevious = (counter) => {
-    if (counter.stage > 0) {
-      doUpdate(EVENTS.PREVIOUS, counter.id, { stage: counter.stage - 1 });
+      dispatch(counter.id, next ? EVENTS.NEXT : EVENTS.COMPLETE);
     }
   };
 
   const handleComplete = (counter) => {
-    const stage = counter.levels[counter.stage];
-    const hasAdvance = Number.isInteger(stage.advance);
-    const advance =
-      stage.advance < stage.limit
-        ? stage.value <= stage.advance
-        : stage.value >= stage.advance;
-    const complete =
-      stage.advance > stage.limit
-        ? stage.value <= stage.limit
-        : stage.value >= stage.limit;
-    const last = counter.stage + 1 >= counter.levels.length;
+    const { advance, max, min, value } = counter.values;
+    const next = CU.next(counter);
 
-    if (hasAdvance && advance && last) {
-      endGame(counter, RESULT_TYPES.SCHEME_WIN);
-    } else if ((hasAdvance && complete) || (complete && last)) {
-      endGame(counter, RESULT_TYPES.SCHEME);
+    const isComplete = max <= min ? value <= max : value >= max;
+    const minAdvance = advance === "min";
+    const noneAdvance = advance === "none";
+    const canAdvance = minAdvance && value <= min;
+
+    const triggers = counter.triggers[EVENTS.COMPLETE];
+
+    if (triggers) {
+      runCounterTriggers(counter, EVENTS.COMPLETE);
+    } else if (canAdvance && !next) {
+      dispatch(counter.id, EVENTS.COMPLETE);
+      endMatch(RESULT_TYPES.SCHEME_WIN);
+    } else if (isComplete && (minAdvance || noneAdvance || !next)) {
+      dispatch(counter.id, EVENTS.COMPLETE, minAdvance);
+      endMatch(RESULT_TYPES.SCHEME);
     } else {
-      doUpdate(EVENTS.NEXT, counter.id, { stage: counter.stage + 1 });
+      dispatch(counter.id, EVENTS.NEXT);
     }
   };
 
-  const handleDisable = (counter) => {
-    doUpdate(EVENTS.DISABLE, counter.id, { active: false });
+  const endMatch = (reason) => {
+    setResult(reason);
+    logger.add(time, EVENTS.END, false, reason);
   };
 
-  const handleCompleteSide = (counter) => {
-    doUpdate(EVENTS.COMPLETE, counter.id, { active: false });
-  };
-
-  const handleEnable = (counter) => {
-    if (!counter.active && !result) {
-      doUpdate(EVENTS.ENTER, counter.id, {
-        active: true,
-        levels: counter.initialLevels || counter.levels,
-      });
-    }
-  };
-
-  const handleRestart = () => {
+  const restartMatch = () => {
     if (result) {
-      onQuit({ reason: result, counters, time, log }, true);
+      handleQuit(result, true);
     } else {
-      setLog([]);
-      setCounters(getCounters(setup));
-      logEvent(EVENTS.RESTART);
+      CU.set(getCounters(setup, data));
+      player.reset();
+      setTime(0);
+      logger.empty();
+      logger.add(time, EVENTS.RESTART);
+      setNow(new Date());
     }
   };
 
-  const handleStatusToggle = (counter) => (status, flag) => {
-    doUpdate(
-      flag ? EVENTS.STATUS_ENABLE : EVENTS.STATUS_DISABLE,
-      counter.id,
-      { status: { ...counter.status, [status]: flag } },
-      status
-    );
+  const handleQuit = (reason, replay) =>
+    reason
+      ? onQuit({ reason, counters: CU.all, time, log: logger.entries }, replay)
+      : onQuit(false);
+
+  const enableCounter = (counter) => dispatch(counter.id, EVENTS.ENTER);
+  const disableCounter = (counter) =>
+    dispatch(counter.id, EVENTS.DISABLE, counter.values.value);
+
+  const createCounter = (type, name, opts) => {
+    const counter = CU.createCounter(type, name, opts, setup.settings.players);
+    setTimeout(() => dispatch(counter.id, EVENTS.CREATE), 0);
   };
 
-  const handleAddCustomCounter = (name, type) => () => {
-    if (name) {
-      const count = counters.filter((c) => c.name.startsWith(name));
-      const counter = getCounter({
-        active: false,
-        name: `${name} ${count.length + 1}`,
-        type: type || COUNTER_TYPES.CUSTOM,
-        status: ["Ally", "Minion"].includes(name) && getStatusObj(STATUSES),
-      });
-      setCounters((cs) => [...cs, counter]);
-      handleEnable(counter);
-    }
-  };
-
-  const handleAddSide = (counter) => () => {
-    if (!counter.active && !result) {
-      handleEnable(counter);
-    }
-  };
-
-  const handleAddCounter = () => {
-    if (custom) {
-      handleAddCustomCounter(custom)();
-      setCustom("");
-    }
-  };
-
-  const handleAddCounterSubmit = (e) => {
+  const handleSubmitCounter = (e) => {
     e.preventDefault();
-    handleAddCounter(e);
+    custom && createCounter(COUNTER_TYPES.CUSTOM, custom);
+    setCustom("");
   };
 
-  const revert = (counter, values) => {
-    removeLastLog();
-    updateCounter(counter.id, values, true);
+  const runEventQueue = (event) => {
+    eventQueue
+      .filter((q) => q.when === event)
+      .map((t) => triggerToEvent(t.counter, { ...t, when: undefined }));
+
+    setEventQueue((es) => es.filter((q) => q.when !== event));
   };
 
-  const revertLevel = (counter, key, val) => {
-    return revert(counter, {
-      levels: counter.levels.map((level, i) =>
-        i === counter.stage ? { ...level, [key]: level[key] + val } : level
-      ),
-    });
-  };
-  const revertValue = (counter, val) => revertLevel(counter, "value", val);
-  const revertLimit = (counter, val) => revertLevel(counter, "limit", val);
+  const runEvent = (evt) => (counter) => {
+    const { event, data, source } = evt.detail;
+    logger.add(time, event, counter.id, evt.detail);
+    setInteracted(true);
+    runEventQueue(event);
+    runCounterTriggers(counter, TRIGGER_MAP[event] || event);
 
-  const revertNextRound = (counter, value) => {
-    changePlayer(-1);
-    return revertValue(counter, value);
-  };
+    switch (event) {
+      case EVENTS.NEW_PHASE:
+        sets.actives.forEach((c) =>
+          runCounterTriggers(c, TRIGGER_MAP[event] || event)
+        );
+        break;
+      default:
+        break;
+    }
 
-  const revertEnd = () => {
-    setResult(false);
-    removeLastLog();
-    handleUndo(log[1]);
-  };
+    console.log("DO", evt.detail, counter.name);
 
-  const revertStatus = (counter, status, value) => {
-    return revert(counter, { status: { ...counter.status, [status]: value } });
-  };
-
-  const handleUndo = (entry) => {
-    const lastLog = entry || log[0];
-    const counter = counters.find((c) => c.id === lastLog.entity);
-
-    switch (lastLog.event) {
+    switch (event) {
       case EVENTS.COMPLETE:
-      case EVENTS.DISABLE:
-        return revert(counter, { active: true });
+        return !data && CU.disableTree(counter);
+      case EVENTS.CREATE:
+        return counter.enable();
       case EVENTS.DECREASE:
-        return revertValue(counter, lastLog.data);
-      case EVENTS.DEC_LIMIT:
-        return revertLimit(counter, lastLog.data);
-      case EVENTS.END:
-        return revertEnd();
-      case EVENTS.ENTER:
-        return revert(counter, { active: false });
+      case EVENTS.HIT:
       case EVENTS.INCREASE:
+      case EVENTS.INCREASE_FROM:
       case EVENTS.VILLAIN_PHASE:
-        return revertValue(counter, -lastLog.data);
-      case EVENTS.INC_LIMIT:
-        return revertLimit(counter, -lastLog.data);
+        return counter.add(data);
+      case EVENTS.NEW_PHASE:
+        dispatch(
+          sets.mainScheme[0].id,
+          EVENTS.VILLAIN_PHASE,
+          sets.mainScheme[0]?.values.step +
+            getAcceleration(sets.accelerationCounters, activeIcons)
+        );
+        return counter.add(data);
+      case EVENTS.DECREASE_LIMIT:
+      case EVENTS.INCREASE_LIMIT:
+        return counter.addMax(data);
+      case EVENTS.DISABLE:
+        counter.reset();
+        return counter.disable();
+      case EVENTS.EMPTY:
+        return counter.empty();
+      case EVENTS.ENTER:
+      case EVENTS.ENTER_SCHEME:
+        return counter.enable();
+      case EVENTS.FLIP_COUNTER:
+        CU.id(source).reset();
+        CU.id(source).disable();
+        return counter.enable();
+      case EVENTS.LOCK:
+        return counter.lock();
       case EVENTS.NEW_ROUND:
-        return revertNextRound(counter, -lastLog.data);
+        player.next();
+        sets.roundsCounter.add();
+        return counter.add(1);
       case EVENTS.NEXT:
-        return revert(counter, { stage: counter.stage - 1 });
-      case EVENTS.PREVIOUS:
-        return revert(counter, { stage: counter.stage + 1 });
+        return CU.advance(counter, runCounterTriggers);
+      case EVENTS.RESET:
+        return counter.reset();
       case EVENTS.STATUS_DISABLE:
-        return revertStatus(counter, lastLog.data, true);
+        return counter.disableStatus(data);
       case EVENTS.STATUS_ENABLE:
-        return revertStatus(counter, lastLog.data, false);
+        return counter.enableStatus(data);
+      case EVENTS.UNLOCK:
+        return counter.unlock();
 
-      case EVENTS.RESTART:
-      case EVENTS.START:
+      default:
+        break;
+    }
+  };
+
+  const undoEvent = () => {
+    if (logger.entries.length <= 1) return;
+    const isEnd = logger.entries[0].event === EVENTS.END;
+    const { entity, event, info } = logger.entries[isEnd ? 1 : 0];
+    if (isEnd) {
+      setResult(false);
+      logger.remove();
+    }
+    const counter = CU.all.find((c) => c.id === entity);
+    logger.remove();
+
+    console.log("UNDO", info, counter.name);
+
+    switch (event) {
+      case EVENTS.COMPLETE:
+        return CU.enableTree(counter);
+      case EVENTS.CREATE:
+        return CU.remove(counter);
+      case EVENTS.DECREASE:
+      case EVENTS.HIT:
+      case EVENTS.INCREASE:
+      case EVENTS.INCREASE_FROM:
+      case EVENTS.NEW_PHASE:
+      case EVENTS.VILLAIN_PHASE:
+        return counter.remove(info.data);
+      case EVENTS.DECREASE_LIMIT:
+      case EVENTS.INCREASE_LIMIT:
+        return counter.removeMax(info.data);
+      case EVENTS.DISABLE:
+        if (!isNaN(info.data)) counter.set(info.data);
+        return counter.enable();
+      case EVENTS.EMPTY:
+      case EVENTS.RESET:
+        return counter.set(info.data);
+      case EVENTS.ENTER:
+      case EVENTS.ENTER_SCHEME:
+        return counter.disable();
+      case EVENTS.FLIP_COUNTER:
+        CU.id(info.source).enable(info.data);
+        return counter.disable();
+      case EVENTS.LOCK:
+        return counter.unlock();
+      case EVENTS.NEW_ROUND:
+        player.prev();
+        sets.roundsCounter.remove();
+        return counter.remove(1);
+      case EVENTS.NEXT:
+        return CU.back(counter);
+      case EVENTS.STATUS_DISABLE:
+        return counter.enableStatus(info.data);
+      case EVENTS.STATUS_ENABLE:
+        return counter.disableStatus(info.data);
+      case EVENTS.UNLOCK:
+        return counter.lock();
+
       default:
         return false;
     }
@@ -313,205 +349,237 @@ export default function Status({ matchId, onQuit, setup }) {
     const saved = load(STORAGE_KEYS.CURRENT);
     if (saved) {
       setResult(saved.result || false);
-      setCounters(saved.counters);
-      setFirstPlayer(saved.firstPlayer);
+      CU.set(saved.counters.map((c) => new CounterObj(c)));
       setTime(saved.time);
-      setLog(saved.log.map((l) => ({ ...l, date: new Date(l.date) })));
+      setFirstPlayer(saved.firstPlayer);
+      setEventQueue(saved.eventQueue);
+      logger.set(saved.log.map((l) => ({ ...l, date: new Date(l.date) })));
     } else {
-      setCounters(getCounters(setup));
-      logEvent(EVENTS.START);
+      CU.set(getCounters(setup, data));
+      logger.add(time, EVENTS.START);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setup]);
 
   useEffect(() => {
-    if (counters && !result) {
-      if (counters.filter(isHeroCounter).every(isNotActive)) {
-        setResult(RESULT_TYPES.DEFEATED);
-        logEvent(EVENTS.END, false, RESULT_TYPES.DEFEATED);
-      }
-      if (counters.filter(isVillainCounter).every(isNotActive)) {
-        setResult(RESULT_TYPES.WINNER);
-        logEvent(EVENTS.END, false, RESULT_TYPES.WINNER);
-      }
+    if (CU.all && !result) {
+      if (sets.heroesCounters.every(isNotActive))
+        endMatch(RESULT_TYPES.DEFEATED);
+      if (sets.villainCounters.every(isNotActive))
+        endMatch(RESULT_TYPES.WINNER);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [counters]);
+  }, [CU.activesCount]);
+
+  useEffect(() => {
+    const className = `is-${isHeroPhase ? "hero" : "villain"}-phase`;
+    document.body.classList.add(className);
+    return () => document.body.classList.remove(className);
+  }, [isHeroPhase]);
+
+  useEffect(() => {
+    const te = (event) => {
+      // console.log("listener", event.detail);
+      CU.getTargets(event.detail.targets).map(runEvent(event));
+      setNow(new Date());
+    };
+
+    document.addEventListener("trigger", te);
+    return () => document.removeEventListener("trigger", te);
+  }, [logger.entries.length, CU.all.length, CU.activesCount]);
 
   useEffect(() => {
     if (interacted && window.navigator.vibrate) window.navigator.vibrate(50);
-  }, [counters, interacted, result]);
+    if (CU.all) {
+      persist(STORAGE_KEYS.CURRENT, {
+        counters: CU.all,
+        eventQueue,
+        firstPlayer,
+        log: logger.entries,
+        matchId,
+        result,
+        setup,
+        time,
+      });
+    }
+  }, [logger.entries.length, now]);
 
-  useEffect(() => {
-    document.body.classList.toggle("no-scroll", quit);
-    return () => document.body.classList.remove("no-scroll");
-  }, [quit]);
-
-  useEffect(() => {
-    persist(STORAGE_KEYS.CURRENT, {
-      counters,
-      firstPlayer,
-      log,
-      matchId,
-      result,
-      setup,
-      time,
-    });
-  }, [counters, firstPlayer, log, matchId, result, setup, time]);
-
-  const mergedLog = useMemo(() => mergeLog(counters, log), [counters, log]);
-
-  const acceleration =
-    accelerationCounters.reduce(
-      (a, cur) => a + cur?.levels[cur?.stage].value || 0,
-      0
-    ) +
-    (counters || [])
-      .filter(isActive)
-      .filter((c) => c.icons?.length)
-      .map((c) => c.icons)
-      .flat()
-      .reduce((a, b) => a + +(b === "Acceleration"), 0);
-
-  const activeIcons = (counters || [])
-    .filter(isActive)
-    .map((c) => c.icons || [])
-    .flat()
-    .sort((a, b) => a.localeCompare(b));
-
-  const defaultCounterProps = { logEvent, onUpdate: updateCounter, result };
+  // console.log(sets);
 
   return (
-    counters && (
+    !!CU.all && (
       <div>
-        {quit && (
-          <Modal onClick={() => setQuit(false)}>
-            <button onClick={handleGiveUp}>Give up</button>
-            <button onClick={handleLostByScheme}>Lost by scheme</button>
-            <button onClick={handleHeroesDead}>All heroes dead</button>
-            <button onClick={handleVillainsDead}>Villain defeated</button>
-            <button onClick={handleWonByScheme}>Won by scheme</button>
-            <button onClick={handleDiscard}>Discard match</button>
-            <button onClick={() => setQuit(false)}>Close menu</button>
-          </Modal>
-        )}
+        <MatchMenu
+          onClose={() => setMenu(false)}
+          onQuit={handleQuit}
+          open={menu}
+        />
+
         <div className="box__wrapper">
-          {heroesCounters.map((counter, i) => (
+          {sets.heroesCounters.map((counter, i) => (
             <CounterBox
-              commonProps={defaultCounterProps}
-              counter={counter}
-              highlight={firstPlayer === i}
+              logger={logger}
+              result={result}
+              counters={[counter]}
+              heroPhase={isHeroPhase}
+              highlight={player.first === i}
               key={counter.id}
               lastLabel="💀"
+              mods={activeMods}
               onComplete={handleDefeat}
-              onStatusToggle={handleStatusToggle(counter)}
-              siblings={counters.filter(childOf(counter))}
-              type={counter.type}
+              siblings={CU.all.filter(childOf(counter))}
             />
           ))}
-        </div>
-        <div className="box__wrapper">
-          {villainCounters.map((counter) => (
-            <CounterBox
-              commonProps={defaultCounterProps}
-              counter={counter}
-              key={counter.id}
-              lastLabel="💀"
-              onComplete={handleDefeat}
-              onPrevious={handlePrevious}
-              onStatusToggle={handleStatusToggle(counter)}
-              siblings={counters.filter(childOf(counter))}
-              type={counter.type}
-            />
-          ))}
-        </div>
-        <div className="box__wrapper">
-          <CounterBox
-            acceleration={acceleration}
-            commonProps={defaultCounterProps}
-            counter={mainScheme}
-            onComplete={handleComplete}
-            onPrevious={handlePrevious}
-            siblings={counters.filter(isActive).filter(childOf(mainScheme))}
-            title="Threats"
-            type="scheme"
-          />
-          {!!sideSchemes.filter(isActive).length && (
-            <Box key="Side schemes" title="Side schemes" flat type="scheme">
-              {sideSchemes.filter(isActive).map((counter) => (
-                <Counter
-                  counter={counter}
-                  key={counter.id}
-                  onComplete={handleCompleteSide}
-                  title={counter.levels[counter.stage].name}
-                  {...defaultCounterProps}
-                />
-              ))}
-            </Box>
-          )}
-          {!!customCounters.filter(isActive).length && (
-            <Box key="Extra" title="Extra" flat>
-              {customCounters
+          {!!sets.allyCounters.filter(isActive).length && (
+            <Box key="Allies" title="Allies" flat type="ally">
+              {sets.allyCounters
                 .filter(isActive)
                 .sort(byName)
                 .map((counter) => (
                   <Counter
                     counter={counter}
+                    heroPhase={isHeroPhase}
                     key={counter.id}
-                    onComplete={() => handleDisable(counter)}
-                    onStatusToggle={handleStatusToggle(counter)}
-                    title={counter.levels[counter.stage].name}
-                    {...defaultCounterProps}
+                    onComplete={disableCounter}
+                    title={counter.name}
+                    logger={logger}
+                    result={result}
                   />
                 ))}
             </Box>
           )}
-          <Box key="Add counters" title="Add counters" flat flag type="scheme">
+          {!!sets.extraCounters.filter(isActive).length && (
+            <Box key="Extra" title="Extra" flat type="extra">
+              {sets.extraCounters
+                .filter(isActive)
+                .sort(byName)
+                .map((counter) => (
+                  <Counter
+                    counter={counter}
+                    heroPhase={isHeroPhase}
+                    key={counter.id}
+                    onComplete={disableCounter}
+                    title={counter.name}
+                    logger={logger}
+                    result={result}
+                  />
+                ))}
+            </Box>
+          )}
+        </div>
+        <div className="box__wrapper">
+          <CounterBox
+            logger={logger}
+            result={result}
+            heroPhase={isHeroPhase}
+            counters={sets.villainCounters}
+            lastLabel="💀"
+            mods={activeMods}
+            onComplete={handleDefeat}
+            siblings={sets.villainCounters
+              .map((counter) => CU.ofChain(counter))
+              .flat()}
+            title={sets.villainCounters.length > 1 ? "Villains" : false}
+          />
+          <CounterBox
+            acceleration={acceleration}
+            logger={logger}
+            result={result}
+            heroPhase={isHeroPhase}
+            counters={sets.mainScheme}
+            onComplete={handleComplete}
+            siblings={sets.mainScheme
+              .map((counter) =>
+                CU.ofChain(counter).filter(isLast).map(CU.getLastActive)
+              )
+              .flat()}
+            title={sets.mainScheme.length > 1 ? "Main scheme" : false}
+            type="scenario"
+          />
+          {!!sets.sideSchemes.filter(isActive).length && (
+            <Box key="Side schemes" title="Side schemes" flat type="scheme">
+              {sets.sideSchemes.filter(isActive).map((counter) => (
+                <Counter
+                  counter={counter}
+                  heroPhase={isHeroPhase}
+                  key={counter.id}
+                  onComplete={disableCounter}
+                  title={counter.name}
+                  logger={logger}
+                  result={result}
+                />
+              ))}
+            </Box>
+          )}
+          {!!sets.minionCounters.filter(isActive).length && (
+            <Box key="Minions" title="Minions" flat type="minion">
+              {sets.minionCounters
+                .filter(isActive)
+                .sort(byName)
+                .map((counter) => (
+                  <Counter
+                    counter={counter}
+                    heroPhase={isHeroPhase}
+                    key={counter.id}
+                    onComplete={disableCounter}
+                    title={counter.name}
+                    logger={logger}
+                    result={result}
+                  />
+                ))}
+            </Box>
+          )}
+        </div>
+        <div className="box__wrapper">
+          {!!sets.customCounters.filter(isActive).length && (
+            <Box key="Custom" title="Custom counters" flat>
+              {sets.customCounters
+                .filter(isActive)
+                .sort(byName)
+                .map((counter) => (
+                  <Counter
+                    counter={counter}
+                    heroPhase={isHeroPhase}
+                    key={counter.id}
+                    onComplete={disableCounter}
+                    title={counter.name}
+                    logger={logger}
+                    result={result}
+                  />
+                ))}
+            </Box>
+          )}
+          <Box key="Add counters" title="Add counters" flat flag>
             <fieldset>
               <legend>- Side schemes</legend>
-              {sideSchemes.map((counter) => (
+              {sets.sideSchemes.map((counter) => (
                 <Option
                   key={counter.id}
                   checked={counter.active}
                   label={counter.name}
-                  onChange={handleAddSide(counter)}
+                  onChange={() => enableCounter(counter)}
                   value={counter.name}
                 />
               ))}
             </fieldset>
             <fieldset>
               <legend>- Extra counters</legend>
-              <Option
-                checked={false}
-                label="Add ally counter"
-                onChange={handleAddCustomCounter("Ally")}
-                type={false}
-              />
-              <Option
-                checked={false}
-                label="Add minion counter"
-                onChange={handleAddCustomCounter("Minion")}
-                type={false}
-              />
-              <Option
-                checked={false}
-                label="Add support counter"
-                onChange={handleAddCustomCounter("Support")}
-                type={false}
-              />
-              <Option
-                checked={false}
-                label="Add upgrade counter"
-                onChange={handleAddCustomCounter("Upgrade")}
-                type={false}
-              />
-              <form onSubmit={handleAddCounterSubmit}>
+              {[CTYPES.ALLY, CTYPES.MINION, CTYPES.SUPPORT, CTYPES.UPGRADE].map(
+                (t) => (
+                  <Option
+                    checked={false}
+                    key={t}
+                    label={`Add ${t} counter`}
+                    onChange={() => createCounter(t)}
+                    type={false}
+                  />
+                )
+              )}
+              <form onSubmit={handleSubmitCounter}>
                 <input
                   placeholder="Custom name"
                   value={custom}
                   onChange={(e) => setCustom(e.target.value)}
                 />{" "}
-                <span onClick={handleAddCounter}>Add</span>
+                <span onClick={handleSubmitCounter}>Add</span>
               </form>
             </fieldset>
           </Box>
@@ -520,7 +588,11 @@ export default function Status({ matchId, onQuit, setup }) {
           <Box key="Log" title="Log" flat flag type="log">
             {mergedLog.map((entry, i) => (
               <LogItem
-                key={log.length - i}
+                key={
+                  i === logger.entries.length - 1
+                    ? entry.date
+                    : logger.entries.length - i
+                }
                 time={getEntryTime(entry)}
                 text={getLogString(entry)}
               />
@@ -528,7 +600,7 @@ export default function Status({ matchId, onQuit, setup }) {
           </Box>
         </div>
         <Timer
-          disabled={result || quit}
+          disabled={result || menu}
           interacted={interacted}
           onChange={setTime}
           time={time}
@@ -539,22 +611,29 @@ export default function Status({ matchId, onQuit, setup }) {
             getResText(result)
           ) : (
             <Report
-              heroes={heroesCounters}
+              heroes={sets.heroesCounters}
               icons={activeIcons}
-              log={mergedLog}
-              mainScheme={mainScheme}
-              nextRound={() => nextRound(roundsCounter)}
-              round={roundsCounter?.levels[roundsCounter.stage].value}
-              villains={villainCounters}
+              mainScheme={sets.mainScheme}
+              phasesCounter={sets.phasesCounter}
+              roundsCounter={sets.roundsCounter}
+              villains={sets.villainCounters}
             />
           )}
           <Actions>
-            <Action label="Undo" onClick={() => handleUndo()} />
+            <Action
+              label="Undo"
+              disabled={mergedLog.length <= 1}
+              sublabel={<LogItem text={getLogString(mergedLog[0])} />}
+              onClick={() => undoEvent()}
+            />
             <Action
               label={result ? "Replay" : "Restart"}
-              onClick={handleRestart}
+              onClick={restartMatch}
             />
-            <Action label={result ? "Exit" : "Menu"} onClick={handleMenu} />
+            <Action
+              label={result ? "Exit" : "Menu"}
+              onClick={() => (result ? handleQuit(result) : setMenu(true))}
+            />
           </Actions>
         </Navbar>
       </div>

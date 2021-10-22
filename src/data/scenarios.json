@@ -7,7 +7,30 @@
     "sideSchemes": ["Breakin' & Takin'", "Crowd Control"],
     "villains": [
       {
-        "levels": { "1": "14p", "2": "15p", "3": "16p" },
+        "levels": {
+          "1": "14p",
+          "2": {
+            "complete": "15p",
+            "triggers": {
+              "enter": [
+                { "event": "enter-scheme", "targets": "Breakin' & Takin'" }
+              ]
+            }
+          },
+          "3": {
+            "complete": "16p",
+            "status": ["Tough"],
+            "triggers": {
+              "enter": [
+                {
+                  "event": "status-enable",
+                  "targets": "*hero",
+                  "info": "Stunned"
+                }
+              ]
+            }
+          }
+        },
         "name": "Rhino",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
@@ -25,7 +48,21 @@
     ],
     "villains": [
       {
-        "levels": { "1": "12p", "2": "18p", "3": "22p" },
+        "levels": {
+          "1": "12p",
+          "2": {
+            "complete": "18p",
+            "triggers": {
+              "enter": [
+                { "event": "enter-scheme", "targets": "The \"Immortal\" Klaw" }
+              ]
+            }
+          },
+          "3": {
+            "complete": "22p",
+            "status": ["Tough"]
+          }
+        },
         "name": "Klaw",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
@@ -43,7 +80,18 @@
     "sideSchemes": ["Drone Factory", "Invasive AI", "Ultron's Imperative"],
     "villains": [
       {
-        "levels": { "1": "17p", "2": "22p", "3": "27p" },
+        "levels": {
+          "1": "17p",
+          "2": "22p",
+          "3": {
+            "complete": "27p",
+            "triggers": {
+              "enter": [
+                { "event": "enter-scheme", "targets": "Ultron's Imperative" }
+              ]
+            }
+          }
+        },
         "name": "Ultron",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
@@ -63,11 +111,8 @@
     ],
     "villains": [
       {
-        "counters": [
-          { "name": "Criminal Enterprise", "start": "2p", "limit": -1 }
-        ],
         "levels": { "1": "14p", "2": "18p", "3": "22p" },
-        "name": "Green Goblin",
+        "name": "Norman Osborn",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -197,7 +242,16 @@
     ],
     "villains": [
       {
-        "levels": { "1": "12p", "2": "14p", "3": "16p" },
+        "levels": {
+          "1": "12p",
+          "2": {
+            "complete": "14p",
+            "triggers": {
+              "enter": [{ "event": "enter-scheme", "targets": "Test Subjects" }]
+            }
+          },
+          "3": "16p"
+        },
         "name": "Zola",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
@@ -226,7 +280,15 @@
   },
   {
     "disabled": true,
-    "mainScheme": ["Kang's Arrival", "The Master of Time", "Kang's Wrath"],
+    "mainScheme": [
+      "Kang's Arrival",
+      "The Master of Time",
+      "Kang's Wrath",
+      "The Chronopolis",
+      "Inexorable Fate",
+      "The Realm of Rama-Tut",
+      "The Present Future War"
+    ],
     "modular": ["Temporal"],
     "name": "The Once and Future Kang",
     "pack": "The Once and Future Kang",
@@ -246,17 +308,9 @@
           "1": {
             "complete": "12p",
             "triggers": {
-              "defeat": [
-                { "action": "next-scenario" },
-                {
-                  "action": "enter-scheme-per-player",
-                  "entity": [
-                    "The Chronopolis",
-                    "Inexorable Fate",
-                    "The Realm of Rama-Tut",
-                    "The Present Future War"
-                  ]
-                }
+              "complete": [
+                { "event": "disable", "targets": "Kang's Arrival" },
+                { "event": "enter", "targets": "The Master of Time" }
               ]
             }
           },
@@ -300,7 +354,27 @@
     "sideSchemes": [],
     "villains": [
       {
-        "levels": { "1": "13p", "2": "14p", "3": "18p" },
+        "levels": {
+          "1": "13p",
+          "2": "14p",
+          "3": {
+            "complete": "18p",
+            "triggers": {
+              "enter": [
+                {
+                  "event": "increase",
+                  "targets": "The Collection",
+                  "value": "1p"
+                },
+                {
+                  "event": "increase-from",
+                  "targets": "The Grand Collection",
+                  "value": "The Collection"
+                }
+              ]
+            }
+          }
+        },
         "name": "Collector",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
@@ -319,7 +393,38 @@
     "sideSchemes": [],
     "villains": [
       {
-        "levels": { "A": "8p", "B": "10p" },
+        "levels": {
+          "A": {
+            "complete": "8p",
+            "triggers": {
+              "complete": [
+                {
+                  "event": "decrease",
+                  "targets": "The Missing Milano",
+                  "value": "3p"
+                },
+                { "event": "lock" },
+                { "event": "reset", "when": "new-round" },
+                { "event": "unlock", "when": "new-round" }
+              ]
+            }
+          },
+          "B": {
+            "complete": "10p",
+            "triggers": {
+              "complete": [
+                {
+                  "event": "decrease",
+                  "targets": "The Missing Milano",
+                  "value": "3p"
+                },
+                { "event": "lock" },
+                { "event": "reset", "when": "new-round" },
+                { "event": "unlock", "when": "new-round" }
+              ]
+            }
+          }
+        },
         "name": "Collector",
         "stages": { "expert": ["B"], "standard": ["A"] }
       }
@@ -335,7 +440,12 @@
     "villains": [
       {
         "counters": [
-          { "name": "Nebula's Ship", "limit": -1, "type": "acceleration" }
+          {
+            "name": "Nebula's Ship",
+            "type": "acceleration",
+            "complete": -1,
+            "triggers": { "new-phase": [{ "event": "increase" }] }
+          }
         ],
         "levels": { "1": "14p", "2": "17p", "3": "20p" },
         "name": "Nebula",
@@ -364,11 +474,19 @@
           },
           "2": {
             "complete": "18p",
-            "status": ["Tough"]
+            "status": ["Tough"],
+            "triggers": {
+              "enter": [{ "event": "enter-scheme", "targets": "Cut the Power" }]
+            }
           },
           "3": {
             "complete": "25p",
-            "status": ["Tough"]
+            "status": ["Tough"],
+            "triggers": {
+              "enter": [
+                { "event": "enter-scheme", "targets": "Superior Tactics" }
+              ]
+            }
           }
         },
         "name": "Ronan the Accuser",
@@ -393,15 +511,11 @@
   },
   {
     "encounter": [],
-    "mainScheme": ["Under Siege"],
+    "mainScheme": ["Under Siege", "The Armies of Thanos"],
     "modular": ["Armies of Titan"],
     "name": "Tower Defense",
     "pack": "The Mad Titan’s Shadow",
-    "sideSchemes": [
-      "The Armies of Thanos",
-      "City Under Attack",
-      "City Under Attack"
-    ],
+    "sideSchemes": ["City Under Attack", "City Under Attack"],
     "villains": [
       {
         "levels": { "1": "9p", "2": "12p", "3": "15p" },
