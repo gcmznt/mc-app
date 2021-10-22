@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import { MODIFIERS } from "../utils/constants";
 import Counter from "./Counter";
 import Box from "./ui/Box";
@@ -16,6 +18,7 @@ export function CounterBox({
   title,
   type,
 }) {
+  const { t } = useTranslation();
   const rename = (title) =>
     (mods || [])
       .filter((m) => m.action === MODIFIERS.RENAME)
@@ -26,7 +29,7 @@ export function CounterBox({
 
   return (
     <Box
-      title={rename(title || counters[0].name)}
+      title={t(rename(title || counters[0].name))}
       type={type || counters[0].type}
       highlight={highlight}
     >

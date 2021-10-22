@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { v4 as uuid } from "uuid";
+
 import "./index.css";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
@@ -9,6 +10,7 @@ import { FirebaseProvider } from "./context/firebase";
 import { DataProvider } from "./context/data";
 import { load, persist } from "./utils";
 import { STORAGE_KEYS } from "./utils/constants";
+import "./i18n";
 
 const deviceId = load(STORAGE_KEYS.DEVICE);
 if (!deviceId) persist(STORAGE_KEYS.DEVICE, uuid());

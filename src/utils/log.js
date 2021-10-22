@@ -1,14 +1,15 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import { msToTime } from ".";
 import { EVENTS } from "./constants";
 import {
   getAddTokenText,
   getCompleteText,
-  getDecreaseText,
-  getIncreaseText,
   getRemoveTokenText,
   getResText,
   getStageName,
+  getStatusName,
 } from "./texts";
 
 export function mergeLog(counters, log) {
@@ -53,7 +54,9 @@ export const getEntryTime = (entry) => {
   }
 };
 
-export const getLogString = ({ count = 0, counter, info, event }) => {
+export const LogString = ({ count = 0, counter, info, event }) => {
+  const { t } = useTranslation();
+
   switch (event) {
     case EVENTS.COMPLETE:
       return (
@@ -65,7 +68,11 @@ export const getLogString = ({ count = 0, counter, info, event }) => {
     case EVENTS.ENTER:
     case EVENTS.ENTER_SCHEME:
     case EVENTS.FLIP_COUNTER:
-      return <>{getStageName(counter)}: Entered</>;
+      return (
+        <>
+          {getStageName(counter)}: {t("Entered")}
+        </>
+      );
     case EVENTS.DECREASE:
       return (
         <>
@@ -75,19 +82,39 @@ export const getLogString = ({ count = 0, counter, info, event }) => {
     case EVENTS.DECREASE_LIMIT:
       return (
         <>
-          {getStageName(counter)}: {getDecreaseText(-count)}
+          {getStageName(counter)}: {t("Decreased limit", { count: -count })}
         </>
       );
     case EVENTS.DISABLE:
-      return <>{getStageName(counter)}: Disabled</>;
+      return (
+        <>
+          {getStageName(counter)}: {t("Disabled")}
+        </>
+      );
     case EVENTS.EMPTY:
-      return <>{getStageName(counter)}: Empty</>;
+      return (
+        <>
+          {getStageName(counter)}: {t("Empty")}
+        </>
+      );
     case EVENTS.RESET:
-      return <>{getStageName(counter)}: Reset</>;
+      return (
+        <>
+          {getStageName(counter)}: {t("Reset")}
+        </>
+      );
     case EVENTS.LOCK:
-      return <>{getStageName(counter)}: Locked</>;
+      return (
+        <>
+          {getStageName(counter)}: {t("Locked")}
+        </>
+      );
     case EVENTS.UNLOCK:
-      return <>{getStageName(counter)}: Unlocked</>;
+      return (
+        <>
+          {getStageName(counter)}: {t("Unlocked")}
+        </>
+      );
     case EVENTS.END:
       return `---- ${getResText(info)} ----`;
     case EVENTS.HIT:
@@ -101,35 +128,33 @@ export const getLogString = ({ count = 0, counter, info, event }) => {
     case EVENTS.INCREASE_LIMIT:
       return (
         <>
-          {getStageName(counter)}: {getIncreaseText(count)}
+          {getStageName(counter)}: {t("Increased limit", { count })}
         </>
       );
     case EVENTS.NEW_PHASE:
-      return "---- Villain phase ----";
+      return `---- ${t("Villain phase")} ----`;
     case EVENTS.NEW_ROUND:
-      return "---- New round ----";
+      return `---- ${t("New round")} ----`;
     case EVENTS.NEXT:
-      return <>{getStageName(counter)}: Next stage</>;
-    case EVENTS.PREVIOUS:
-      return <>{getStageName(counter)}: Previous stage</>;
+      return (
+        <>
+          {getStageName(counter)}: {t("Next stage")}
+        </>
+      );
     case EVENTS.RESTART:
-      return "---- Match restarted ----";
+      return `---- ${t("Match restarted")} ----`;
     case EVENTS.START:
-      return "---- Match started ----";
+      return `---- ${t("Match started")} ----`;
     case EVENTS.STATUS_DISABLE:
-      return (
-        <>
-          {getStageName(counter)} is no more{" "}
-          <span className={`is-${info.data.toLowerCase()}`}>{info.data}</span>
-        </>
-      );
+      return t("is no more", {
+        name: getStageName(counter),
+        status: getStatusName(info.data, t),
+      });
     case EVENTS.STATUS_ENABLE:
-      return (
-        <>
-          {getStageName(counter)} is{" "}
-          <span className={`is-${info.data.toLowerCase()}`}>{info.data}</span>
-        </>
-      );
+      return t("is", {
+        name: getStageName(counter),
+        status: getStatusName(info.data, t),
+      });
     case EVENTS.VILLAIN_PHASE:
       return (
         <>

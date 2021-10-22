@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import "../../styles/option.css";
 import { getClassName } from "../../utils";
 
@@ -11,6 +13,7 @@ export default function Option({
   value,
   variant = false,
 }) {
+  const { t } = useTranslation();
   const classList = ["option", variant && `option--${variant}`];
 
   return (
@@ -24,9 +27,9 @@ export default function Option({
           value={value}
           className={!type ? "is-hidden" : ""}
         />{" "}
-        {label}
+        {typeof label === "string" ? t(label) : label}
       </span>
-      {flag && <span className="option__flag">{flag}</span>}
+      {flag && <span className="option__flag">{t(flag)}</span>}
     </label>
   );
 }

@@ -221,10 +221,19 @@ const getVillainName = (villain, stage) =>
   villain.levels[stage].name || `${villain.name} ${getStageText(stage)}`;
 
 const getVillainCounter = (setup) => (villain) => {
+  const getSkirmish = (level, stages) => {
+    return stages[level]
+      ? [level]
+      : Object.keys(villain.levels)[level - 1]
+      ? [Object.keys(villain.levels)[level - 1]]
+      : level <= 0
+      ? Object.keys(villain.levels)
+      : getSkirmish(`${level - 1}`, stages);
+  };
   const stages = (
     isNaN(setup.skirmish)
       ? villain.stages[setup.mode.toLowerCase()]
-      : [setup.skirmish]
+      : getSkirmish(+setup.skirmish, villain.levels)
   ).map(
     (s, i, list) =>
       new Counter(

@@ -1,30 +1,34 @@
-import React from "react";
+import { Fragment } from "react";
+import { useTranslation } from "react-i18next";
+
 import "../../styles/match.css";
 import { msToTime } from "../../utils";
 import { resultText } from "../../utils/texts";
 import Dot from "./Dot";
 
 export default function Match({ match, onDelete, onReplay }) {
+  const { t } = useTranslation();
+
   return (
     <div className="match" data-id={match.matchId}>
       <div>
         <div>
           {(match.setup.heroesAndAspects || match.setup.heroes).map((h) => (
-            <React.Fragment key={h.name}>
-              <span>{h.name}</span>{" "}
+            <Fragment key={h.name}>
+              <span>{t(h.name)}</span>{" "}
               {h.aspects.map((a) => (
                 <Dot key={a} type={a.toLowerCase()} small />
               ))}
-            </React.Fragment>
+            </Fragment>
           ))}
         </div>
         <div>
           <span className="match__vs">VS</span>{" "}
-          {match.setup.scenarioName || match.setup.scenario.name}{" "}
+          {t(match.setup.scenarioName || match.setup.scenario.name)}{" "}
           <small className="match__mode">[{match.setup.mode}]</small>
         </div>
         <div>
-          {resultText(match.reason)}
+          {t(resultText(match.reason))}
           {match.complete ? ` in ${msToTime(match.time)}` : ""}
         </div>
       </div>
@@ -36,11 +40,11 @@ export default function Match({ match, onDelete, onReplay }) {
           {new Date(match.date).toLocaleTimeString().slice(0, -3)}
         </small>
         <span className="match__delete" onClick={() => onDelete(match)}>
-          Delete
+          {t("Delete")}
         </span>{" "}
         |{" "}
         <span className="match__delete" onClick={() => onReplay(match)}>
-          Replay
+          {t("Replay")}
         </span>
       </div>
     </div>

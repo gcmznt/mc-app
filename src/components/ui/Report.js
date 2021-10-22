@@ -1,4 +1,6 @@
-import React from "react";
+import { Fragment } from "react";
+import { useTranslation } from "react-i18next";
+
 import { ReactComponent as AccelerationImg } from "../../images/acceleration.svg";
 import { ReactComponent as AmplifyImg } from "../../images/amplify.svg";
 import { ReactComponent as CrisisImg } from "../../images/crisis.svg";
@@ -44,6 +46,7 @@ export default function Report({
   roundsCounter,
   villains,
 }) {
+  const { t } = useTranslation();
   const isHeroPhase = phasesCounter?.values.value % 2;
   const nextRound = () =>
     dispatch(
@@ -70,8 +73,8 @@ export default function Report({
       </div>
       <div className="report_phase">
         <span>
-          Round {roundsCounter?.values.value}:{" "}
-          {isHeroPhase ? "Hero" : "Villain"} phase
+          {t("Round num", { number: roundsCounter?.values.value })}:{" "}
+          {isHeroPhase ? t("Hero phase") : t("Villain phase")}
         </span>
         <span className="report__btn" onClick={nextRound}>
           {isHeroPhase ? <AdvanceImg /> : "»"}
@@ -79,7 +82,7 @@ export default function Report({
       </div>
       <div className="report__icons">
         {(icons || []).map((icon, i) => (
-          <React.Fragment key={i}>{iconsImages[icon]}</React.Fragment>
+          <Fragment key={i}>{iconsImages[icon]}</Fragment>
         ))}
       </div>
     </div>

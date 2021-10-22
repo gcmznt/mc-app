@@ -24,13 +24,7 @@ export const getRemoveTokenText = (type, count) =>
     [COUNTER_TYPES.HERO]: `Heal${count > 1 ? ` × ${count}` : ""}`,
     [COUNTER_TYPES.VILLAIN]: `Heal${count > 1 ? ` × ${count}` : ""}`,
     [COUNTER_TYPES.ROUNDS]: `Back ${count} round${count > 1 ? "s" : ""}`,
-  }[type] || `${getTokenCount(type, count)}`);
-
-export const getIncreaseText = (count) =>
-  `Increased limit${count > 1 ? ` × ${count}` : ""}`;
-
-export const getDecreaseText = (count) =>
-  `Limit decreased${count > 1 ? ` × ${count}` : ""}`;
+  }[type] || `-${getTokenCount(type, count)}`);
 
 export const getCompleteText = (type) =>
   ({
@@ -40,6 +34,10 @@ export const getCompleteText = (type) =>
     [COUNTER_TYPES.SIDE_SCHEME]: "Cleared",
     [COUNTER_TYPES.VILLAIN]: "💀",
   }[type] || "Complete");
+
+export const getStatusName = (status, t) => {
+  return <span className={`is-${status.toLowerCase()}`}>{t(status)}</span>;
+};
 
 export const getStageName = (counter) => {
   const types = {

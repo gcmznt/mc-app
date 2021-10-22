@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import { useData } from "../context/data";
 import { getRandomList, load, persist, toValue } from "../utils";
 import {
@@ -12,7 +14,7 @@ import {
 } from "../utils/constants";
 import { Counter as CounterObj, getCounters } from "../utils/counters";
 import { dispatch } from "../utils/events";
-import { getEntryTime, getLogString, useLogger } from "../utils/log";
+import { getEntryTime, LogString, useLogger } from "../utils/log";
 import { getAcceleration, useCountersUtils } from "../utils/status";
 import { getResText } from "../utils/texts";
 import Counter from "./Counter";
@@ -42,6 +44,7 @@ const getNextPlayer = (counters, active, dir = 1, offset = 1) => {
 };
 
 export default function Status({ matchId, onQuit, setup }) {
+  const { t } = useTranslation();
   const { data, getMinion } = useData();
   const [eventQueue, setEventQueue] = useState([]);
   const [now, setNow] = useState(new Date());
@@ -192,7 +195,12 @@ export default function Status({ matchId, onQuit, setup }) {
     dispatch(counter.id, EVENTS.DISABLE, counter.values.value);
 
   const createCounter = (type, name, opts) => {
-    const counter = CU.createCounter(type, name, opts, setup.settings.players);
+    const counter = CU.createCounter(
+      type,
+      name || t(type),
+      opts,
+      setup.settings.players
+    );
     setTimeout(() => dispatch(counter.id, EVENTS.CREATE), 0);
   };
 
@@ -370,7 +378,9 @@ export default function Status({ matchId, onQuit, setup }) {
   }, [CU.activesCount]);
 
   useEffect(() => {
-    const className = `is-${isHeroPhase ? "hero" : "villain"}-phase`;
+    const className = `is-${
+      isHeroPhase || !sets.phasesCounter ? "hero" : "villain"
+    }-phase`;
     document.body.classList.add(className);
     return () => document.body.classList.remove(className);
   }, [isHeroPhase]);
@@ -479,38 +489,8 @@ export default function Status({ matchId, onQuit, setup }) {
               .flat()}
             title={sets.villainCounters.length > 1 ? "Villains" : false}
           />
-          <CounterBox
-            acceleration={acceleration}
-            logger={logger}
-            result={result}
-            heroPhase={isHeroPhase}
-            counters={sets.mainScheme}
-            onComplete={handleComplete}
-            siblings={sets.mainScheme
-              .map((counter) =>
-                CU.ofChain(counter).filter(isLast).map(CU.getLastActive)
-              )
-              .flat()}
-            title={sets.mainScheme.length > 1 ? "Main scheme" : false}
-            type="scenario"
-          />
-          {!!sets.sideSchemes.filter(isActive).length && (
-            <Box key="Side schemes" title="Side schemes" flat type="scheme">
-              {sets.sideSchemes.filter(isActive).map((counter) => (
-                <Counter
-                  counter={counter}
-                  heroPhase={isHeroPhase}
-                  key={counter.id}
-                  onComplete={disableCounter}
-                  title={counter.name}
-                  logger={logger}
-                  result={result}
-                />
-              ))}
-            </Box>
-          )}
           {!!sets.minionCounters.filter(isActive).length && (
-            <Box key="Minions" title="Minions" flat type="minion">
+            <Box key="Minions" title={t("Minions")} flat type="minion">
               {sets.minionCounters
                 .filter(isActive)
                 .sort(byName)
@@ -529,8 +509,45 @@ export default function Status({ matchId, onQuit, setup }) {
           )}
         </div>
         <div className="box__wrapper">
+          <CounterBox
+            acceleration={acceleration}
+            logger={logger}
+            result={result}
+            heroPhase={isHeroPhase}
+            counters={sets.mainScheme}
+            onComplete={handleComplete}
+            siblings={sets.mainScheme
+              .map((counter) =>
+                CU.ofChain(counter).filter(isLast).map(CU.getLastActive)
+              )
+              .flat()}
+            title={sets.mainScheme.length > 1 ? "Main scheme" : false}
+            type="scenario"
+          />
+          {!!sets.sideSchemes.filter(isActive).length && (
+            <Box
+              key="Side schemes"
+              title={t("Side schemes")}
+              flat
+              type="scheme"
+            >
+              {sets.sideSchemes.filter(isActive).map((counter) => (
+                <Counter
+                  counter={counter}
+                  heroPhase={isHeroPhase}
+                  key={counter.id}
+                  onComplete={disableCounter}
+                  title={counter.name}
+                  logger={logger}
+                  result={result}
+                />
+              ))}
+            </Box>
+          )}
+        </div>
+        <div className="box__wrapper">
           {!!sets.customCounters.filter(isActive).length && (
-            <Box key="Custom" title="Custom counters" flat>
+            <Box key="Custom" title={t("Custom counters")} flat>
               {sets.customCounters
                 .filter(isActive)
                 .sort(byName)
@@ -547,9 +564,9 @@ export default function Status({ matchId, onQuit, setup }) {
                 ))}
             </Box>
           )}
-          <Box key="Add counters" title="Add counters" flat flag>
+          <Box key="Add counters" title={t("Add counters")} flat flag>
             <fieldset>
-              <legend>- Side schemes</legend>
+              <legend>- {t("Side schemes")}</legend>
               {sets.sideSchemes.map((counter) => (
                 <Option
                   key={counter.id}
@@ -561,25 +578,25 @@ export default function Status({ matchId, onQuit, setup }) {
               ))}
             </fieldset>
             <fieldset>
-              <legend>- Extra counters</legend>
+              <legend>- {t("Extra counters")}</legend>
               {[CTYPES.ALLY, CTYPES.MINION, CTYPES.SUPPORT, CTYPES.UPGRADE].map(
-                (t) => (
+                (type) => (
                   <Option
                     checked={false}
-                    key={t}
-                    label={`Add ${t} counter`}
-                    onChange={() => createCounter(t)}
+                    key={type}
+                    label={t("Add type Counter", { type: t(type) })}
+                    onChange={() => createCounter(type)}
                     type={false}
                   />
                 )
               )}
               <form onSubmit={handleSubmitCounter}>
                 <input
-                  placeholder="Custom name"
+                  placeholder={t("Custom name")}
                   value={custom}
                   onChange={(e) => setCustom(e.target.value)}
                 />{" "}
-                <span onClick={handleSubmitCounter}>Add</span>
+                <span onClick={handleSubmitCounter}>{t("Add")}</span>
               </form>
             </fieldset>
           </Box>
@@ -594,7 +611,7 @@ export default function Status({ matchId, onQuit, setup }) {
                     : logger.entries.length - i
                 }
                 time={getEntryTime(entry)}
-                text={getLogString(entry)}
+                text={<LogString {...entry} />}
               />
             ))}
           </Box>
@@ -608,7 +625,7 @@ export default function Status({ matchId, onQuit, setup }) {
 
         <Navbar types={result && ["result", result]}>
           {result ? (
-            getResText(result)
+            t(getResText(result))
           ) : (
             <Report
               heroes={sets.heroesCounters}
@@ -621,17 +638,17 @@ export default function Status({ matchId, onQuit, setup }) {
           )}
           <Actions>
             <Action
-              label="Undo"
+              label={t("Undo")}
               disabled={mergedLog.length <= 1}
-              sublabel={<LogItem text={getLogString(mergedLog[0])} />}
+              sublabel={<LogItem text={<LogString {...mergedLog[0]} />} />}
               onClick={() => undoEvent()}
             />
             <Action
-              label={result ? "Replay" : "Restart"}
+              label={t(result ? "Replay" : "Restart")}
               onClick={restartMatch}
             />
             <Action
-              label={result ? "Exit" : "Menu"}
+              label={t(result ? "Exit" : "Menu")}
               onClick={() => (result ? handleQuit(result) : setMenu(true))}
             />
           </Actions>

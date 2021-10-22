@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import "../../styles/counter.css";
 import { ReactComponent as AccelerationImg } from "../../images/acceleration.svg";
 import { ReactComponent as AdvanceImg } from "../../images/advance.svg";
@@ -69,6 +71,7 @@ export default function Counter({
   stepLabel,
   title,
 }) {
+  const { t } = useTranslation();
   const [editMode, setEditMode] = useState(false);
   const { advance, complete, max, min, value } = counter.values;
 
@@ -92,7 +95,7 @@ export default function Counter({
   return (
     <div className="counter__wrapper">
       <div className="counter__title">
-        {title && <span>{title}</span>}
+        {title && <span>{t(title)}</span>}
         {counter.statuses && (
           <Status status={counter.statuses} onToggle={onStatusToggle} />
         )}

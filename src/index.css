@@ -20,7 +20,7 @@ body {
   padding: 1em 1em 15em;
   text-align: center;
   user-select: none;
-  transition: all ease 200ms;
+  transition: all ease 300ms;
 }
 
 body.is-hero-phase {

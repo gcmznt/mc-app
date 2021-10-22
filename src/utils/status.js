@@ -68,12 +68,12 @@ export function useCountersUtils() {
   const counterUtils = {
     set: (counters) => setCounters(counters),
     createCounter: (type, name, opts, players) => {
-      const count = counterUtils.type(type).length;
+      const count = counterUtils.startsWith(name).length;
       const counter = getCustomCounter(
         type,
         {
           active: false,
-          name: name || `${type} ${count + 1}`,
+          name: `${name || type} ${count + 1}`,
           ...opts,
         },
         players

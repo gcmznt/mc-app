@@ -1,4 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import { useData } from "../context/data";
 import { FILTERS, RESULT_TYPES } from "../utils/constants";
 import Box from "./ui/Box";
@@ -13,7 +15,6 @@ const EMPTY_RESULTS = Object.fromEntries(
   Object.values(RESULT_TYPES).map((v) => [v, 0])
 );
 
-const byName = (a, b) => a[0].localeCompare(b[0]);
 const byDate = (a, b) => new Date(b.date) - new Date(a.date);
 
 function getWins(values) {
@@ -159,6 +160,7 @@ const isVisible = (match) => (filter) => {
 };
 
 function Row({ filter, label, type, values, onClick }) {
+  const { t } = useTranslation();
   return (
     <tr>
       <th>
@@ -167,8 +169,9 @@ function Row({ filter, label, type, values, onClick }) {
           label={
             <span>
               {type === "aspects" && <Dot type={label.toLowerCase()} small />}
-              {label}
-              {type === "players" && ` player${label === "1" ? "" : "s"}`}
+              {type === "players"
+                ? t("Players num", { numPlayers: label })
+                : t(label)}
             </span>
           }
           onChange={onClick}
@@ -183,8 +186,11 @@ function Row({ filter, label, type, values, onClick }) {
 }
 
 export default function Statistics({ onLoad }) {
+  const { t } = useTranslation();
   const { deleteMatch, matches } = useData();
   const [filters, setFilters] = useState([]);
+
+  const byName = (a, b) => t(a[0]).localeCompare(t(b[0]));
 
   const handleDelete = (match) => {
     const msg = match
@@ -229,11 +235,11 @@ export default function Statistics({ onLoad }) {
     <div className="statistics">
       <Filters filters={filters} onToggle={toggleFilter} />
 
-      <Box key="Results" title="Results" flag flat>
+      <Box key="Results" title={t("Results")} flag flat>
         <table className="statistics__table">
           <tbody>
             <tr>
-              <th>Total</th>
+              <th>{t("Total")}</th>
               <td>{stats.played}</td>
               <td></td>
             </tr>
@@ -269,15 +275,15 @@ export default function Statistics({ onLoad }) {
         { title: "Modular sets", filter: FILTERS.MODULAR, key: "modular" },
         { title: "Aspects", filter: FILTERS.ASPECT, key: "aspects" },
       ].map((el) => (
-        <Box key={el.key} title={el.title} flag flat>
+        <Box key={el.key} title={t(el.title)} flag flat>
           <table className="statistics__table">
             <thead>
               <tr>
                 <td></td>
-                <td>P</td>
-                <td>Win %</td>
-                <td>W</td>
-                <td>L</td>
+                <td>{t("P")}</td>
+                <td>{t("Win %")}</td>
+                <td>{t("W")}</td>
+                <td>{t("L")}</td>
               </tr>
             </thead>
             <tbody>
@@ -301,23 +307,35 @@ export default function Statistics({ onLoad }) {
       ))}
 
       {stats.longest && (
-        <Box key="Longest Match" title="Longest Match" flag flat type="log">
+        <Box
+          key="Longest Match"
+          title={t("Longest Match")}
+          flag
+          flat
+          type="log"
+        >
           <MatchEl match={stats.longest} />
         </Box>
       )}
 
       {stats.fastest && (
-        <Box key="Fastest Match" title="Fastest Match" flag flat type="log">
+        <Box
+          key="Fastest Match"
+          title={t("Fastest Match")}
+          flag
+          flat
+          type="log"
+        >
           <MatchEl match={stats.fastest} />
         </Box>
       )}
 
-      <Box key="Matches" title="Matches" flag flat type="log">
+      <Box key="Matches" title={t("Matches")} flag flat type="log">
         {(matchesLog || []).sort(byDate).map((match) => (
           <MatchEl key={match.matchId} match={match} />
         ))}
       </Box>
-      <button onClick={() => handleDelete()}>Delete all</button>
+      <button onClick={() => handleDelete()}>{t("Delete all")}</button>
     </div>
   );
 }

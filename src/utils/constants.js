@@ -97,6 +97,7 @@ export const PAGES = {
 
 export const DEFAULT_OPTIONS = {
   compact: false,
+  language: "en",
   mode: "auto",
   timer: true,
 };

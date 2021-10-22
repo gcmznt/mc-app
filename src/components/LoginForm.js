@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import { useFirebase } from "../context/firebase";
 import "../styles/login-form.css";
 import { load } from "../utils";
 import { STORAGE_KEYS } from "../utils/constants";
 
 export default function LoginForm() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -32,13 +35,13 @@ export default function LoginForm() {
       {user ? (
         <>
           <h2>{user.email}</h2>
-          <button onClick={handleSync}>Sync</button>
-          <button onClick={handleLogout}>Logout</button>
+          <button onClick={handleSync}>{t("Sync")}</button>
+          <button onClick={handleLogout}>{t("Logout")}</button>
           <p>
             <small>
               {lastSync
-                ? `Last sync: ${new Date(lastSync).toLocaleString()}`
-                : "Never synced"}
+                ? `${t("Last sync")}: ${new Date(lastSync).toLocaleString()}`
+                : t("Never synced")}
             </small>
           </p>
         </>
@@ -46,7 +49,7 @@ export default function LoginForm() {
         <>
           <fieldset>
             <label className="login-form__label">
-              Email
+              {t("Email")}
               <input
                 placeholder="email"
                 type="email"
@@ -56,7 +59,7 @@ export default function LoginForm() {
               />
             </label>
             <label className="login-form__label">
-              Password
+              {t("Password")}
               <input
                 placeholder="password"
                 type="password"
@@ -68,8 +71,8 @@ export default function LoginForm() {
           </fieldset>
           {error && <div className="login-form__error">{error}</div>}
           <div>
-            <button onClick={handleRegister}>Register</button>
-            <button onClick={handleSignIn}>SignIn</button>
+            <button onClick={handleRegister}>{t("Register")}</button>
+            <button onClick={handleSignIn}>{t("SignIn")}</button>
           </div>
         </>
       )}

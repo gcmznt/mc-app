@@ -1,95 +1,100 @@
-{
-  "Bomb Scare": {
+[
+  {
     "name": "Bomb Scare",
     "sideSchemes": ["Bomb Scare"],
     "pack": "Core Set"
   },
-  "Legions of Hydra": {
+  {
     "name": "Legions of Hydra",
     "sideSchemes": ["Legions of Hydra", "Legions of Hydra"],
     "pack": "Core Set"
   },
-  "Masters of Evil": {
+  {
     "name": "Masters of Evil",
     "sideSchemes": ["The Masters of Evil"],
     "pack": "Core Set"
   },
-  "The Doomsday Chair": {
+  {
     "name": "The Doomsday Chair",
     "sideSchemes": ["The Doomsday Chair", "The Doomsday Chair"],
     "pack": "Core Set"
   },
-  "Under Attack": {
+  {
     "name": "Under Attack",
     "sideSchemes": ["Under Attack"],
     "pack": "Core Set"
   },
-  "A Mess of Things": {
+  {
     "name": "A Mess of Things",
     "sideSchemes": ["A Mess of Things"],
     "pack": "Green Goblin"
   },
-  "Goblin Gimmicks": {
+  {
     "name": "Goblin Gimmicks",
     "sideSchemes": [],
     "pack": "Green Goblin"
   },
-  "Power Drain": {
+  {
     "name": "Power Drain",
     "sideSchemes": ["Power Drain"],
     "pack": "Green Goblin"
   },
-  "Running Interference": {
+  {
     "name": "Running Interference",
     "sideSchemes": ["Running Interference"],
     "pack": "Green Goblin"
   },
-  "Kree Fanatic": {
+  {
     "name": "Kree Fanatic",
     "sideSchemes": ["Judge, Jury, Executioner"],
     "pack": "Print and Play"
   },
-  "Experimental Weapon": {
+  {
     "name": "Experimental Weapon",
     "sideSchemes": [],
     "pack": "The Rise of Red Skull"
   },
-  "Hydra Assault": {
+  {
     "name": "Hydra Assault",
     "sideSchemes": [],
     "pack": "The Rise of Red Skull"
   },
-  "Hydra Patrol": {
+  {
     "name": "Hydra Patrol",
     "sideSchemes": ["Hydra Patrol"],
     "pack": "The Rise of Red Skull"
   },
-  "Weapon Master": {
+  {
     "name": "Weapon Master",
     "sideSchemes": [],
     "pack": "The Rise of Red Skull"
   },
-  "Temporal": {
+  {
     "name": "Temporal",
     "sideSchemes": ["Time Portal"],
     "pack": "The Once and Future Kang"
   },
-  "Anachronauts": {
+  {
     "name": "Anachronauts",
     "sideSchemes": ["The Anachronauts", "The Anachronauts"],
     "pack": "The Once and Future Kang"
   },
-  "Master of Time": {
+  {
     "name": "Master of Time",
     "sideSchemes": ["Light of Centuries Sphere"],
     "pack": "The Once and Future Kang"
   },
-  "Band of Badoon": {
+  {
     "name": "Band of Badoon",
     "sideSchemes": [],
     "pack": "Galaxy’s Most Wanted"
   },
-  "Galactic Artifacts": {
+  {
+    "name": "Badoon Headhunter",
+    "sideSchemes": ["Fugitive Recovery"],
+    "pack": "Galaxy’s Most Wanted"
+  },
+  {
     "name": "Galactic Artifacts",
     "sideSchemes": [
       "Hujahdarian Monarch Egg",
@@ -99,64 +104,64 @@
     ],
     "pack": "Galaxy’s Most Wanted"
   },
-  "Kree Militants": {
+  {
     "name": "Kree Militants",
     "sideSchemes": [],
     "pack": "Galaxy’s Most Wanted"
   },
-  "Menagerie Medley": {
+  {
     "name": "Menagerie Medley",
     "sideSchemes": [],
     "pack": "Galaxy’s Most Wanted"
   },
-  "Power Stone": {
+  {
     "name": "Power Stone",
     "sideSchemes": [],
     "pack": "Galaxy’s Most Wanted"
   },
-  "Ship Command": {
+  {
     "name": "Ship Command",
     "sideSchemes": ["Cannonade"],
     "pack": "Galaxy’s Most Wanted"
   },
-  "Space Pirates": {
+  {
     "name": "Space Pirates",
     "sideSchemes": ["Sound the Alarms"],
     "pack": "Galaxy’s Most Wanted"
   },
-  "Enchantress": {
+  {
     "name": "Enchantress",
     "sideSchemes": [],
     "pack": "The Mad Titan’s Shadow"
   },
-  "Frost Giants": {
+  {
     "name": "Frost Giants",
     "sideSchemes": ["Unnatural Storm"],
     "pack": "The Mad Titan’s Shadow"
   },
-  "Legions of Hel": {
+  {
     "name": "Legions of Hel",
     "sideSchemes": ["Legions of Hel", "Legions of Hel"],
     "pack": "The Mad Titan’s Shadow"
   },
-  "Infinity Gauntlet": {
+  {
     "name": "Infinity Gauntlet",
     "sideSchemes": [],
     "pack": "The Mad Titan’s Shadow"
   },
-  "Children of Thanos": {
+  {
     "name": "Children of Thanos",
     "sideSchemes": ["Tribute"],
     "pack": "The Mad Titan’s Shadow"
   },
-  "Armies of Titan": {
+  {
     "name": "Armies of Titan",
     "sideSchemes": ["Landing Craft", "Landing Craft"],
     "pack": "The Mad Titan’s Shadow"
   },
-  "The Black Order": {
+  {
     "name": "The Black Order",
     "sideSchemes": ["The Black Order"],
     "pack": "The Mad Titan’s Shadow"
   }
-}
+]

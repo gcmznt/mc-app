@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import { useData } from "../context/data";
 import {
   countOccurrence,
@@ -86,6 +88,7 @@ const getModular = (scenario, selection, settings) => {
 };
 
 export default function Generate({ onStart }) {
+  const { t } = useTranslation();
   const { data, matches, selection } = useData();
   const [setup, setSetup] = useState(false);
   const [settings, setSettings] = useState(initialSetting);
@@ -155,14 +158,14 @@ export default function Generate({ onStart }) {
 
   return (
     <>
-      <Box title="Players" key="Players" flag>
+      <Box title={t("Players")} key="Players" flag>
         <Players
           onChange={handleChange("players")}
           value={settings.players}
           max={selection.heroes.length}
         />
       </Box>
-      <Box title="Mode" key="Mode" flag>
+      <Box title={t("Mode")} key="Mode" flag>
         <Mode onChange={handleChange("mode")} value={settings.mode} />
         <Heroic onChange={handleChange("heroic")} value={settings.heroic} />
         <Skirmish
@@ -170,10 +173,10 @@ export default function Generate({ onStart }) {
           value={settings.skirmish}
         />
       </Box>
-      <Box title="Random" key="Random">
+      <Box title={t("Random")} key="Random">
         <Option
           checked={settings.randomAspects}
-          label="Get random aspect"
+          label="Get random hero aspect"
           onChange={(e) => handleChange("randomAspects")(e.target.checked)}
         />
         <Option
@@ -183,7 +186,7 @@ export default function Generate({ onStart }) {
         />
         <Option
           checked={settings.randomWeighted}
-          label="Weighted random"
+          label="Heroes and scenario weighted random"
           onChange={(e) => handleChange("randomWeighted")(e.target.checked)}
         />
       </Box>
@@ -192,14 +195,14 @@ export default function Generate({ onStart }) {
         onClick={randomize}
         disabled={!settings.players}
       >
-        Generate
+        {t("Generate")}
       </button>
       {setup && (
         <Box key="Setup">
           <Setup setup={setup} />
         </Box>
       )}
-      {setup && <button onClick={() => onStart(setup)}>Start</button>}
+      {setup && <button onClick={() => onStart(setup)}>{t("Start")}</button>}
     </>
   );
 }

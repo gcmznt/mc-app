@@ -1,8 +1,12 @@
+import { useTranslation } from "react-i18next";
+
 import highlightImg from "../../images/first.svg";
 import "../../styles/box.css";
 import { getClassName } from "../../utils";
 
 export default function Box({ children, flag, flat, highlight, title, type }) {
+  const { t } = useTranslation();
+
   const classList = [
     "box",
     flag && "box--flag",
@@ -14,7 +18,7 @@ export default function Box({ children, flag, flat, highlight, title, type }) {
     <div className={getClassName(classList)}>
       {title && (
         <div className="box__title">
-          <div className="box__title-text">{title}</div>
+          <div className="box__title-text">{t(title)}</div>
           {highlight && (
             <img className="box__highlight" src={highlightImg} alt="" />
           )}

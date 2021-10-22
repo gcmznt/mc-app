@@ -15,7 +15,7 @@ const isEnabled = (el) =>
 const data = {
   heroes: heroes.filter(isEnabled),
   minions,
-  modularSets,
+  modularSets: modularSets.reduce((a, c) => ({ ...a, [c.name]: c }), {}),
   scenarios: scenarios.filter(isEnabled),
   schemes: schemes.reduce((a, c) => ({ ...a, [c.name]: c }), {}),
 };

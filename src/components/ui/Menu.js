@@ -1,4 +1,5 @@
 import { useLocation } from "wouter";
+import { useTranslation } from "react-i18next";
 
 import Actions, { Action } from "./Actions";
 import { ReactComponent as HomeIcon } from "../../images/home.svg";
@@ -9,6 +10,7 @@ import { PAGES } from "../../utils/constants";
 import Navbar from "./NavBar";
 
 export default function Menu() {
+  const { t } = useTranslation();
   const [location, setLocation] = useLocation();
 
   return (
@@ -16,19 +18,19 @@ export default function Menu() {
       <Actions>
         <Action
           icon={<HomeIcon />}
-          label="Home"
+          label={t("Home")}
           active={location === PAGES.MAIN}
           onClick={() => setLocation(PAGES.MAIN)}
         />
         <Action
           icon={<StatsIcon />}
-          label="Stats"
+          label={t("Stats")}
           active={location === PAGES.STATISTICS}
           onClick={() => setLocation(PAGES.STATISTICS)}
         />
         <Action
           icon={<SettingsIcon />}
-          label="Options"
+          label={t("Options")}
           active={location === PAGES.OPTIONS}
           onClick={() => setLocation(PAGES.OPTIONS)}
         />
