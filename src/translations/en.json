@@ -1,9 +1,9 @@
 {
-  "Players num": "{numPlayers, plural, =1 {# player} other {# players}}",
   "Add type Counter": "Add {type} counter",
-  "Round num": "Round {number}",
-  "is": "{name} is {status}",
-  "is no more": "{name} is no more {status}",
+  "Decreased limit": "Decreased limit{count, plural, =1 {} other { × #}}",
   "Increased limit": "Increased limit{count, plural, =1 {} other { × #}}",
-  "Decreased limit": "Decreased limit{count, plural, =1 {} other { × #}}"
+  "is no more": "{name} is no more {status}",
+  "is": "{name} is {status}",
+  "Players num": "{numPlayers, plural, =1 {# player} other {# players}}",
+  "Round num": "Round {number}"
 }
