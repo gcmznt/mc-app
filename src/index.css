@@ -134,6 +134,11 @@ body.is-dark {
   color: var(--color-accent);
 }
 
+.accent-button {
+  --color-cta-contrast: var(--color-accent-contrast);
+  --color-cta: var(--color-accent);
+}
+
 @media (prefers-color-scheme: dark) {
   body:not(.is-light) {
     --color-bg-card: #000;

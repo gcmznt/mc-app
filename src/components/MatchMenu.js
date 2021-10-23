@@ -16,11 +16,27 @@ export default function MatchMenu({ open, onClose, onQuit }) {
   return (
     open && (
       <Modal onClick={onClose}>
-        <button onClick={handleGiveUp}>{t("Give up")}</button>
-        <button onClick={handleLostByScheme}>{t("Lost by scheme")}</button>
-        <button onClick={handleHeroesDead}>{t("All heroes dead")}</button>
-        <button onClick={handleVillainsDead}>{t("Villain defeated")}</button>
-        <button onClick={handleWonByScheme}>{t("Won by scheme")}</button>
+        <button className="accent-button is-villain" onClick={handleGiveUp}>
+          {t("Give up")}
+        </button>
+        <button className="accent-button is-villain" onClick={handleHeroesDead}>
+          {t("All heroes dead")}
+        </button>
+        <button
+          className="accent-button is-scheme"
+          onClick={handleLostByScheme}
+        >
+          {t("Lost by scheme")}
+        </button>
+        <button
+          className="accent-button is-winner"
+          onClick={handleVillainsDead}
+        >
+          {t("Villain defeated")}
+        </button>
+        <button className="accent-button is-winner" onClick={handleWonByScheme}>
+          {t("Won by scheme")}
+        </button>
         <button onClick={handleDiscard}>{t("Discard match")}</button>
         <button onClick={onClose}>{t("Close menu")}</button>
       </Modal>
