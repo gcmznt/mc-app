@@ -116,7 +116,7 @@ export const LogString = ({ count = 0, counter, info, event }) => {
         </>
       );
     case EVENTS.END:
-      return `---- ${getResText(info)} ----`;
+      return `🟣 ${getResText(info)}`;
     case EVENTS.HIT:
     case EVENTS.INCREASE:
     case EVENTS.INCREASE_FROM:
@@ -132,9 +132,9 @@ export const LogString = ({ count = 0, counter, info, event }) => {
         </>
       );
     case EVENTS.NEW_PHASE:
-      return `---- ${t("Villain phase")} ----`;
+      return `🔴 ${t("Villain phase")}`;
     case EVENTS.NEW_ROUND:
-      return `---- ${t("New round")} ----`;
+      return `🔵 ${t("New round")}`;
     case EVENTS.NEXT:
       return (
         <>
@@ -142,9 +142,9 @@ export const LogString = ({ count = 0, counter, info, event }) => {
         </>
       );
     case EVENTS.RESTART:
-      return `---- ${t("Match restarted")} ----`;
+      return `🟢 ${t("Match restarted")}`;
     case EVENTS.START:
-      return `---- ${t("Match started")} ----`;
+      return `🟢 ${t("Match started")}`;
     case EVENTS.STATUS_DISABLE:
       return t("is no more", {
         name: getStageName(counter),
