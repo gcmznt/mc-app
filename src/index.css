@@ -54,14 +54,14 @@ legend {
   pointer-events: none;
 }
 
-.is-aggression,
-.is-minion,
-.is-villain {
+.is-aggression {
   --color-accent: #e01414;
   --color-accent-contrast: #fff;
 }
 
-.is-tough {
+.is-minion,
+.is-tough,
+.is-villain {
   --color-accent: #e06614;
 }
 
