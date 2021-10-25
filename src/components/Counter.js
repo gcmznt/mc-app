@@ -20,6 +20,8 @@ export default function Counter({
   onComplete,
   result,
   title,
+  nextWarning = false,
+  prevWarning = false,
 }) {
   if (!counter) return null;
   const { step } = counter.values;
@@ -59,6 +61,8 @@ export default function Counter({
       onReduceLimit={decreaseLimit}
       onStatusToggle={handleStatusToggle}
       title={title}
+      prevWarning={prevWarning}
+      nextWarning={nextWarning}
     />
   );
 }

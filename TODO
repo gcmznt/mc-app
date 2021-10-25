@@ -4,11 +4,21 @@ ronan - kree command ship icons
 tower defence - prevent defeat mod
 wrecking crew - reset side schemes
 
+warning for hero/villain stunned/confused
+
+manage space available [upload everything and stats when online]
+
+```
+navigator.storage.estimate().then(function(estimate) {
+    console.log("Total Storage Available: " + estimate.quota);
+    console.log("Storage Used: " + estimate.usage);
+});
+```
+
 match detailed stats [round/phases counter]
 
 online/offline sync
 auto-start counters
-
 
 first player token shift when hero die
 

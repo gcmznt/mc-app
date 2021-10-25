@@ -1,0 +1,25 @@
+.device-space__bar {
+  height: 1em;
+  position: relative;
+  margin: 0.2em 0 0.5em;
+}
+
+.device-space__bar::after,
+.device-space__bar::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: var(--color-accent);
+  content: "";
+  transform-origin: left center;
+}
+
+.device-space__bar::before {
+  opacity: 0.3;
+}
+
+.device-space__bar::after {
+  transform: scaleX(var(--perc));
+}

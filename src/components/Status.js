@@ -76,6 +76,11 @@ export default function Status({ matchId, onQuit, setup }) {
   const acceleration = getAcceleration(sets.accelerationCounters, activeIcons);
   const isHeroPhase = !!(sets.phasesCounter?.values.value % 2);
 
+  const heroStunned = sets.heroesCounters.some((h) => h.statuses.Stunned);
+  const heroConfused = sets.heroesCounters.some((h) => h.statuses.Confused);
+  const villainStunned = sets.villainCounters.some((h) => h.statuses.Stunned);
+  const villainConfused = sets.villainCounters.some((h) => h.statuses.Confused);
+
   const triggerToEvent = (counter, trigger) => {
     if (trigger.when) {
       return setEventQueue((ts) => [...ts, { ...trigger, counter }]);
@@ -436,6 +441,7 @@ export default function Status({ matchId, onQuit, setup }) {
               mods={activeMods}
               onComplete={handleDefeat}
               siblings={CU.all.filter(childOf(counter))}
+              nextWarning={villainStunned && "stunned"}
             />
           ))}
           {!!sets.allyCounters.filter(isActive).length && (
@@ -452,6 +458,7 @@ export default function Status({ matchId, onQuit, setup }) {
                     title={counter.name}
                     logger={logger}
                     result={result}
+                    nextWarning={villainStunned && "stunned"}
                   />
                 ))}
             </Box>
@@ -481,6 +488,7 @@ export default function Status({ matchId, onQuit, setup }) {
             result={result}
             heroPhase={isHeroPhase}
             counters={sets.villainCounters}
+            nextWarning={heroStunned && "stunned"}
             lastLabel="💀"
             mods={activeMods}
             onComplete={handleDefeat}
@@ -503,6 +511,7 @@ export default function Status({ matchId, onQuit, setup }) {
                     title={counter.name}
                     logger={logger}
                     result={result}
+                    nextWarning={heroStunned && "stunned"}
                   />
                 ))}
             </Box>
@@ -522,6 +531,8 @@ export default function Status({ matchId, onQuit, setup }) {
               )
               .flat()}
             title={sets.mainScheme.length > 1 ? "Main scheme" : false}
+            nextWarning={villainConfused && "confused"}
+            prevWarning={heroConfused && "confused"}
             type="scenario"
           />
           {!!sets.sideSchemes.filter(isActive).length && (
@@ -538,6 +549,7 @@ export default function Status({ matchId, onQuit, setup }) {
                   key={counter.id}
                   onComplete={disableCounter}
                   title={counter.name}
+                  prevWarning={heroConfused && "confused"}
                   logger={logger}
                   result={result}
                 />

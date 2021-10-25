@@ -17,6 +17,8 @@ export function CounterBox({
   siblings,
   title,
   type,
+  nextWarning,
+  prevWarning,
 }) {
   const { t } = useTranslation();
   const rename = (title) =>
@@ -45,6 +47,8 @@ export function CounterBox({
           onComplete={onComplete}
           result={result}
           title={title ? rename(counter.name) : false}
+          nextWarning={nextWarning}
+          prevWarning={prevWarning}
         />
       ))}
       {siblings.map((counter) => (
