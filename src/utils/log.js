@@ -25,6 +25,9 @@ export function mergeLog(counters, log) {
       current.event !== EVENTS.NEW_PHASE &&
       current.event !== EVENTS.STATUS_DISABLE &&
       current.event !== EVENTS.STATUS_ENABLE &&
+      current.event !== EVENTS.FLIP &&
+      current.event !== EVENTS.FLIP_VILLAIN &&
+      current.event !== EVENTS.FLIP_HERO &&
       current.entity
     ) {
       const list = [...acc];
@@ -65,6 +68,10 @@ export const LogString = ({ count = 0, counter, info, event }) => {
         </>
       );
     case EVENTS.CREATE:
+    case EVENTS.ENTER_ALLY:
+    case EVENTS.ENTER_MINION:
+    case EVENTS.ENTER_SUPPORT:
+    case EVENTS.ENTER_UPGRADE:
     case EVENTS.ENTER:
     case EVENTS.ENTER_SCHEME:
     case EVENTS.FLIP_COUNTER:
@@ -83,6 +90,19 @@ export const LogString = ({ count = 0, counter, info, event }) => {
       return (
         <>
           {getStageName(counter)}: {t("Decreased limit", { count: -count })}
+        </>
+      );
+    case EVENTS.ALLY_DEFEATED:
+    case EVENTS.MINION_DEFEATED:
+      return (
+        <>
+          {getStageName(counter)}: {t("Defeated")}
+        </>
+      );
+    case EVENTS.SIDE_CLEARED:
+      return (
+        <>
+          {getStageName(counter)}: {t("Cleared")}
         </>
       );
     case EVENTS.DISABLE:
@@ -113,6 +133,14 @@ export const LogString = ({ count = 0, counter, info, event }) => {
       return (
         <>
           {getStageName(counter)}: {t("Unlocked")}
+        </>
+      );
+    case EVENTS.FLIP:
+    case EVENTS.FLIP_HERO:
+    case EVENTS.FLIP_VILLAIN:
+      return (
+        <>
+          {getStageName(counter, info.data)}: {t("Flipped")}
         </>
       );
     case EVENTS.END:
@@ -179,6 +207,11 @@ export function useLogger() {
     prepend: (log) => setLog((l) => [{ ...log, date: new Date() }, ...l]),
     remove: (count = 1) => setLog((l) => [...l].slice(count)),
     set: (data) => setLog(data),
+    console: (...args) => {
+      if (new URL(document.location).searchParams.get("debug") === "") {
+        console.log(...args);
+      }
+    },
   };
 
   return logger;

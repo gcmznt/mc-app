@@ -1,11 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { getStatusObj, toValue } from ".";
-import {
-  COUNTER_TYPES,
-  COUNTER_TYPES as TYPES,
-  EVENTS,
-  STATUSES,
-} from "./constants";
+import { COUNTER_TYPES, COUNTER_TYPES as TYPES, STATUSES } from "./constants";
 import { getStageText } from "./texts";
 
 export class Counter {
@@ -14,7 +9,9 @@ export class Counter {
     this.icons = options.icons ?? options.values?.icons ?? false;
     this.id = options.id ?? uuid();
     this.locked = options.locked ?? options.values?.locked ?? false;
-    this.name = options.name ?? options.values?.name;
+    this.frontSide = options.frontSide ?? true;
+    this.aSide = options.aSide ?? options.name ?? options.values?.name;
+    this.bSide = options.bSide ?? options.values?.bSide ?? false;
     this.next = options.next ?? options.values?.next ?? false;
     this.parent = options.parent ?? false;
     this.statuses = options.statuses ?? options.values?.statuses ?? false;
@@ -29,13 +26,23 @@ export class Counter {
     this.values = { ...this.valuesInitial };
   }
 
+  get name() {
+    return this.frontSide ? this.aSide : this.bSide;
+  }
+
+  flip() {
+    if (!this.bSide) return;
+    this.frontSide = !this.frontSide;
+    return this;
+  }
+
   reset() {
     this.values = this.valuesInitial;
     return this;
   }
 
   rename(name, replace) {
-    this.name = replace ? this.name.replace(replace, name) : name;
+    this.aSide = replace ? this.aSide.replace(replace, name) : name;
     this.next = this.next ? this.next.replace(replace, name) : this.next;
     return this;
   }
@@ -201,7 +208,8 @@ const getFullCounter = (options, children, players) => {
 const getHeroCounter = (setup) => (hero) => {
   return getFullCounter(
     {
-      name: hero.name,
+      name: hero.alterEgo,
+      bSide: hero.name,
       statuses: getStatusObj(STATUSES),
       type: TYPES.HERO,
       values: { max: hero.hitPoints },
@@ -219,6 +227,11 @@ const getSideCounter = (setup) => (scheme) =>
 
 const getVillainName = (villain, stage) =>
   villain.levels[stage].name || `${villain.name} ${getStageText(stage)}`;
+
+const getVillainBSide = (villain, stage) =>
+  villain.levels[stage].bSide || villain.bSide
+    ? `${villain.bSide} ${getStageText(stage)}`
+    : false;
 
 const getVillainCounter = (setup) => (villain) => {
   const getSkirmish = (level, stages) => {
@@ -240,6 +253,7 @@ const getVillainCounter = (setup) => (villain) => {
         {
           active: i === 0,
           name: getVillainName(villain, s),
+          bSide: getVillainBSide(villain, s),
           next:
             s.next ?? (!!list[i + 1] && getVillainName(villain, list[i + 1])),
           statuses: getStatusObj(STATUSES, villain.levels[s].status),
@@ -303,52 +317,21 @@ const multiplyValues = (values, players) => {
   };
 };
 
-const runEnterTriggers = (counters, setup, data) => {
-  counters
-    .filter((counter) => counter.active)
-    .map((counter) => counter.triggers?.[EVENTS.ENTER] || [])
-    .flat()
-    .forEach((trigger) => {
-      switch (trigger.event) {
-        case EVENTS.ENTER_SCHEME:
-          return counters.find((c) => trigger.targets === c.name)?.enable();
-        case EVENTS.ENTER_MINION:
-          return counters.push(
-            ...new Array(trigger.perPlayer ? +setup.settings.players : 1)
-              .fill(null)
-              .map(
-                () =>
-                  new MinionCounter(
-                    data.minions.find((m) => trigger.targets === m.name)
-                  )
-              )
-          );
-        default:
-          break;
-      }
-    });
-  return counters;
-};
-
 export const getCounters = (setup, data) => {
-  return runEnterTriggers(
-    [
-      new Counter({
-        name: "Rounds",
-        type: TYPES.ROUNDS,
-        values: { min: 1 },
-      }),
-      new Counter({
-        name: "Phases",
-        type: TYPES.PHASES,
-        values: { min: 1 },
-      }),
-      ...setup.heroes.map(getHeroCounter(setup)).flat(),
-      ...setup.scenario.villains.map(getVillainCounter(setup)).flat(),
-      ...setup.scenario.mainScheme.map(getMainSchemeCounter(setup)).flat(),
-      ...getSideSchemes(setup).map(getSideCounter(setup)),
-    ],
-    setup,
-    data
-  );
+  return [
+    new Counter({
+      name: "Rounds",
+      type: TYPES.ROUNDS,
+      values: { min: 1 },
+    }),
+    new Counter({
+      name: "Phases",
+      type: TYPES.PHASES,
+      values: { min: 1 },
+    }),
+    ...setup.heroes.map(getHeroCounter(setup)).flat(),
+    ...setup.scenario.villains.map(getVillainCounter(setup)).flat(),
+    ...setup.scenario.mainScheme.map(getMainSchemeCounter(setup)).flat(),
+    ...getSideSchemes(setup).map(getSideCounter(setup)),
+  ];
 };

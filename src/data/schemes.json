@@ -204,30 +204,15 @@
     "counters": [
       {
         "name": "Criminal Enterprise",
-        "next": "State of Madness",
+        "bSide": "State of Madness",
         "value": "2p",
         "triggers": {
           "complete": [
-            { "event": "flip-counter", "targets": "State of Madness" }
+            { "event": "flip" },
+            { "event": "reset" },
+            { "event": "flip-villain", "targets": "+villain" }
           ]
         }
-      },
-      {
-        "active": false,
-        "name": "State of Madness",
-        "value": "2p",
-        "triggers": {
-          "complete": [
-            { "event": "flip-counter", "targets": "Criminal Enterprise" }
-          ]
-        },
-        "modifiers": [
-          {
-            "action": "rename",
-            "targets": "Norman Osborn*",
-            "info": "Green Goblin"
-          }
-        ]
       }
     ],
     "name": "Hostile Takeover",

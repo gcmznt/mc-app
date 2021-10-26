@@ -4,7 +4,7 @@ import { useData } from "../context/data";
 import Language from "./inputs/Language";
 import Layout from "./inputs/Layout";
 import Theme from "./inputs/Theme";
-import DeviceSpace from "./DeviceSpace";
+// import DeviceSpace from "./DeviceSpace";
 import LoginForm from "./LoginForm";
 import Box from "./ui/Box";
 import Option from "./ui/Option";
@@ -45,9 +45,9 @@ export default function Options() {
         <LoginForm />
       </Box>
 
-      <Box key="Space" title={t("Used device space")} flag>
+      {/* <Box key="Space" title={t("Used device space")} flag>
         <DeviceSpace />
-      </Box>
+      </Box> */}
 
       <Box key="Settings" title={t("Settings")} flag flat>
         <legend className="box__legend">{t("Language")}</legend>

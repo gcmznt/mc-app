@@ -8,6 +8,7 @@ import { ReactComponent as AmplifyImg } from "../../images/amplify.svg";
 import { ReactComponent as CrisisImg } from "../../images/crisis.svg";
 import { ReactComponent as HazardImg } from "../../images/hazard.svg";
 import { ReactComponent as DangerImg } from "../../images/danger.svg";
+import { ReactComponent as FlipImg } from "../../images/flip.svg";
 import Status from "./Status";
 import { MODIFIERS } from "../../utils/constants";
 
@@ -70,6 +71,7 @@ export default function Counter({
   mods,
   onAdd,
   onAddLimit,
+  onFlip,
   onNext,
   onStep,
   onReduce,
@@ -143,6 +145,9 @@ export default function Counter({
               danger={counter.statuses?.Tough}
             />
 
+            {onFlip && (
+              <Button action={onFlip} label={<FlipImg />} type="prev" />
+            )}
             {canAdvance ? (
               <Button
                 action={onNext}

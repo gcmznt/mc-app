@@ -39,7 +39,8 @@ export const getStatusName = (status, t) => {
   return <span className={`is-${status.toLowerCase()}`}>{t(status)}</span>;
 };
 
-export const getStageName = (counter) => {
+export const getStageName = (counter, name) => {
+  if (!counter) return "";
   const types = {
     [COUNTER_TYPES.HERO]: "is-hero",
     [COUNTER_TYPES.SCENARIO]: "is-scheme",
@@ -47,9 +48,9 @@ export const getStageName = (counter) => {
     [COUNTER_TYPES.VILLAIN]: "is-villain",
   };
   if (types[counter.type]) {
-    return <span className={types[counter.type]}>{counter.name}</span>;
+    return <span className={types[counter.type]}>{name || counter.name}</span>;
   }
-  return <>{counter.name}</>;
+  return <>{name || counter.name}</>;
 };
 export const getStageText = (level) => {
   return isNaN(level) ? level : new Array(+level).fill("I").join("");

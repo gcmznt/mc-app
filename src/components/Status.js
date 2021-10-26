@@ -54,6 +54,7 @@ export default function Status({ matchId, onQuit, setup }) {
   const [time, setTime] = useState(0);
   const [firstPlayer, setFirstPlayer] = useState(0);
   const [result, setResult] = useState(null);
+  const [loaded, setLoaded] = useState(false);
 
   const player = {
     first: firstPlayer,
@@ -92,7 +93,7 @@ export default function Status({ matchId, onQuit, setup }) {
     const target =
       trigger.targets && CU.getLastActive(CU.getLast(CU.name(trigger.targets)));
 
-    // console.log("trigger", trigger, counter.name);
+    logger.console("trigger", trigger, counter.name, target);
 
     switch (trigger.event) {
       case EVENTS.DECREASE:
@@ -122,6 +123,14 @@ export default function Status({ matchId, onQuit, setup }) {
         );
       case EVENTS.INCREASE_FROM:
         return dispatchEvent(CU.name(trigger.value).values.value);
+      case EVENTS.FLIP:
+      case EVENTS.FLIP_HERO:
+      case EVENTS.FLIP_VILLAIN:
+        return dispatchEvent(
+          trigger.targets
+            ? CU.getTargets(trigger.targets)[0].name
+            : counter.name
+        );
       default:
         return dispatchEvent(
           trigger.value
@@ -181,6 +190,7 @@ export default function Status({ matchId, onQuit, setup }) {
     if (result) {
       handleQuit(result, true);
     } else {
+      setLoaded(false);
       CU.set(getCounters(setup, data));
       player.reset();
       setTime(0);
@@ -195,9 +205,17 @@ export default function Status({ matchId, onQuit, setup }) {
       ? onQuit({ reason, counters: CU.all, time, log: logger.entries }, replay)
       : onQuit(false);
 
-  const enableCounter = (counter) => dispatch(counter.id, EVENTS.ENTER);
-  const disableCounter = (counter) =>
-    dispatch(counter.id, EVENTS.DISABLE, counter.values.value);
+  const enableSide = (counter) => dispatch(counter.id, EVENTS.ENTER_SCHEME);
+  const disableCounter = (counter, event) =>
+    dispatch(counter.id, event || EVENTS.DISABLE, counter.values.value);
+
+  const defeatAlly = (counter) => disableCounter(counter, EVENTS.ALLY_DEFEATED);
+
+  const defeatMinion = (counter) =>
+    disableCounter(counter, EVENTS.MINION_DEFEATED);
+
+  const sideSchemeCleared = (counter) =>
+    disableCounter(counter, EVENTS.SIDE_CLEARED);
 
   const createCounter = (type, name, opts) => {
     const counter = CU.createCounter(
@@ -206,7 +224,13 @@ export default function Status({ matchId, onQuit, setup }) {
       opts,
       setup.settings.players
     );
-    setTimeout(() => dispatch(counter.id, EVENTS.CREATE), 0);
+    const event = {
+      [CTYPES.ALLY]: EVENTS.ENTER_ALLY,
+      [CTYPES.MINION]: EVENTS.ENTER_MINION,
+      [CTYPES.SUPPORT]: EVENTS.ENTER_SUPPORT,
+      [CTYPES.UPGRADE]: EVENTS.ENTER_UPGRADE,
+    }[type];
+    setTimeout(() => dispatch(counter.id, event || EVENTS.CREATE), 0);
   };
 
   const handleSubmitCounter = (e) => {
@@ -230,6 +254,8 @@ export default function Status({ matchId, onQuit, setup }) {
     runEventQueue(event);
     runCounterTriggers(counter, TRIGGER_MAP[event] || event);
 
+    logger.console("DO", evt.detail, counter.name);
+
     switch (event) {
       case EVENTS.NEW_PHASE:
         sets.actives.forEach((c) =>
@@ -240,12 +266,14 @@ export default function Status({ matchId, onQuit, setup }) {
         break;
     }
 
-    console.log("DO", evt.detail, counter.name);
-
     switch (event) {
       case EVENTS.COMPLETE:
         return !data && CU.disableTree(counter);
       case EVENTS.CREATE:
+      case EVENTS.ENTER_ALLY:
+      case EVENTS.ENTER_MINION:
+      case EVENTS.ENTER_SUPPORT:
+      case EVENTS.ENTER_UPGRADE:
         return counter.enable();
       case EVENTS.DECREASE:
       case EVENTS.HIT:
@@ -265,6 +293,9 @@ export default function Status({ matchId, onQuit, setup }) {
       case EVENTS.INCREASE_LIMIT:
         return counter.addMax(data);
       case EVENTS.DISABLE:
+      case EVENTS.ALLY_DEFEATED:
+      case EVENTS.MINION_DEFEATED:
+      case EVENTS.SIDE_CLEARED:
         counter.reset();
         return counter.disable();
       case EVENTS.EMPTY:
@@ -272,6 +303,10 @@ export default function Status({ matchId, onQuit, setup }) {
       case EVENTS.ENTER:
       case EVENTS.ENTER_SCHEME:
         return counter.enable();
+      case EVENTS.FLIP:
+      case EVENTS.FLIP_HERO:
+      case EVENTS.FLIP_VILLAIN:
+        return counter.flip();
       case EVENTS.FLIP_COUNTER:
         CU.id(source).reset();
         CU.id(source).disable();
@@ -309,12 +344,16 @@ export default function Status({ matchId, onQuit, setup }) {
     const counter = CU.all.find((c) => c.id === entity);
     logger.remove();
 
-    console.log("UNDO", info, counter.name);
+    logger.console("UNDO", info, counter.name);
 
     switch (event) {
       case EVENTS.COMPLETE:
         return CU.enableTree(counter);
       case EVENTS.CREATE:
+      case EVENTS.ENTER_ALLY:
+      case EVENTS.ENTER_MINION:
+      case EVENTS.ENTER_SUPPORT:
+      case EVENTS.ENTER_UPGRADE:
         return CU.remove(counter);
       case EVENTS.DECREASE:
       case EVENTS.HIT:
@@ -327,6 +366,9 @@ export default function Status({ matchId, onQuit, setup }) {
       case EVENTS.INCREASE_LIMIT:
         return counter.removeMax(info.data);
       case EVENTS.DISABLE:
+      case EVENTS.ALLY_DEFEATED:
+      case EVENTS.MINION_DEFEATED:
+      case EVENTS.SIDE_CLEARED:
         if (!isNaN(info.data)) counter.set(info.data);
         return counter.enable();
       case EVENTS.EMPTY:
@@ -335,6 +377,10 @@ export default function Status({ matchId, onQuit, setup }) {
       case EVENTS.ENTER:
       case EVENTS.ENTER_SCHEME:
         return counter.disable();
+      case EVENTS.FLIP:
+      case EVENTS.FLIP_HERO:
+      case EVENTS.FLIP_VILLAIN:
+        return counter.flip();
       case EVENTS.FLIP_COUNTER:
         CU.id(info.source).enable(info.data);
         return counter.disable();
@@ -367,9 +413,11 @@ export default function Status({ matchId, onQuit, setup }) {
       setFirstPlayer(saved.firstPlayer);
       setEventQueue(saved.eventQueue);
       logger.set(saved.log.map((l) => ({ ...l, date: new Date(l.date) })));
+      setLoaded(true);
     } else {
       CU.set(getCounters(setup, data));
       logger.add(time, EVENTS.START);
+      setNow(new Date());
     }
   }, [setup]);
 
@@ -383,6 +431,19 @@ export default function Status({ matchId, onQuit, setup }) {
   }, [CU.activesCount]);
 
   useEffect(() => {
+    if (!loaded && logger.entries.length === 1) {
+      setTimeout(
+        () =>
+          CU.getSets().actives.forEach((c) =>
+            runCounterTriggers(c, EVENTS.ENTER)
+          ),
+        0
+      );
+      setLoaded(true);
+    }
+  }, [logger.entries.length, now]);
+
+  useEffect(() => {
     const className = `is-${
       isHeroPhase || !sets.phasesCounter ? "hero" : "villain"
     }-phase`;
@@ -392,7 +453,7 @@ export default function Status({ matchId, onQuit, setup }) {
 
   useEffect(() => {
     const te = (event) => {
-      // console.log("listener", event.detail);
+      logger.console("listener", event.detail);
       CU.getTargets(event.detail.targets).map(runEvent(event));
       setNow(new Date());
     };
@@ -417,7 +478,7 @@ export default function Status({ matchId, onQuit, setup }) {
     }
   }, [logger.entries.length, now]);
 
-  // console.log(sets);
+  logger.console(sets);
 
   return (
     !!CU.all && (
@@ -454,7 +515,7 @@ export default function Status({ matchId, onQuit, setup }) {
                     counter={counter}
                     heroPhase={isHeroPhase}
                     key={counter.id}
-                    onComplete={disableCounter}
+                    onComplete={defeatAlly}
                     title={counter.name}
                     logger={logger}
                     result={result}
@@ -507,7 +568,7 @@ export default function Status({ matchId, onQuit, setup }) {
                     counter={counter}
                     heroPhase={isHeroPhase}
                     key={counter.id}
-                    onComplete={disableCounter}
+                    onComplete={defeatMinion}
                     title={counter.name}
                     logger={logger}
                     result={result}
@@ -547,7 +608,7 @@ export default function Status({ matchId, onQuit, setup }) {
                   counter={counter}
                   heroPhase={isHeroPhase}
                   key={counter.id}
-                  onComplete={disableCounter}
+                  onComplete={sideSchemeCleared}
                   title={counter.name}
                   prevWarning={heroConfused && "confused"}
                   logger={logger}
@@ -584,7 +645,7 @@ export default function Status({ matchId, onQuit, setup }) {
                   key={counter.id}
                   checked={counter.active}
                   label={counter.name}
-                  onChange={() => enableCounter(counter)}
+                  onChange={() => enableSide(counter)}
                   value={counter.name}
                 />
               ))}
@@ -656,6 +717,7 @@ export default function Status({ matchId, onQuit, setup }) {
               onClick={() => undoEvent()}
             />
             <Action
+              disabled={!result && mergedLog.length <= 1}
               label={t(result ? "Replay" : "Restart")}
               onClick={restartMatch}
             />

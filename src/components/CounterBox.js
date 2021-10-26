@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-import { MODIFIERS } from "../utils/constants";
+import { COUNTER_TYPES, MODIFIERS } from "../utils/constants";
 import Counter from "./Counter";
 import Box from "./ui/Box";
 
@@ -29,9 +29,21 @@ export function CounterBox({
         title
       );
 
+  const getTitle = () => {
+    if (
+      counters[0].type === COUNTER_TYPES.HERO &&
+      counters[0].aSide === counters[0].bSide
+    ) {
+      return `${counters[0].name} [${
+        counters[0].frontSide ? "Alter-ego" : "Hero"
+      }]`;
+    }
+    return counters[0].name;
+  };
+
   return (
     <Box
-      title={t(rename(title || counters[0].name))}
+      title={t(rename(title || getTitle()))}
       type={type || counters[0].type}
       highlight={highlight}
     >

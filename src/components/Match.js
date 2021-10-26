@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { useData } from "../context/data";
-import { append } from "../utils";
-import { EVENTS, STORAGE_KEYS } from "../utils/constants";
+import { EVENTS } from "../utils/constants";
 import { getFullSetup } from "../utils/match";
 import Status from "./Status";
 
@@ -21,7 +20,6 @@ export default function Match({ matchId, onQuit, setup }) {
       complete: data.log[0].event === EVENTS.END,
       ...data,
     });
-    append(STORAGE_KEYS.TO_SYNC, matchId);
   };
 
   const handleQuit = (data, replay = false) => {

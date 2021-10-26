@@ -113,6 +113,7 @@
       {
         "levels": { "1": "14p", "2": "18p", "3": "22p" },
         "name": "Norman Osborn",
+        "bSide": "Green Goblin",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]

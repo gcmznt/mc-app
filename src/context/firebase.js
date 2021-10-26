@@ -30,7 +30,7 @@ const FirebaseContext = createContext(null);
 
 export const FirebaseProvider = ({ children }) => {
   const [user, setUser] = useState();
-  const { matches, saveMatch } = useData();
+  const { clear, clearStats, matches, saveStats } = useData();
 
   initializeApp({
     apiKey: "AIzaSyC9NWj7eUejvekKggLpdP__It58sKwzjPk",
@@ -71,13 +71,14 @@ export const FirebaseProvider = ({ children }) => {
     [user]
   );
 
-  const remove = useCallback(
-    (id) => {
-      const db = getFirestore();
-      return deleteDoc(doc(db, "users", user.uid, "matches", id));
-    },
-    [user]
-  );
+  const remove = useCallback(() => {
+    const db = getFirestore();
+    return Promise.all(
+      (loadUtil(STORAGE_KEYS.TO_DELETE) || []).map((id) => {
+        return deleteDoc(doc(db, "users", user.uid, "matches", id));
+      })
+    );
+  }, [user]);
 
   const load = useCallback(() => {
     const db = getFirestore();
@@ -85,31 +86,26 @@ export const FirebaseProvider = ({ children }) => {
   }, [user]);
 
   const upload = useCallback(() => {
-    const device = loadUtil(STORAGE_KEYS.DEVICE);
-    const toSync =
-      loadUtil(STORAGE_KEYS.TO_SYNC) || matches.map((m) => m.matchId);
-    persist(STORAGE_KEYS.TO_SYNC, []);
-    return Promise.all(
-      matches
-        .filter((match) => toSync.includes(match.matchId))
-        .map((match) => save(match.matchId, { ...match, device }))
-    );
+    return Promise.all(matches.map((match) => save(match.matchId, match)));
   }, [matches, save]);
 
   const download = useCallback(() => {
     return load().then((qs) =>
       qs.forEach((doc) => {
         const matchData = doc.data();
-        saveMatch(matchData);
+        saveStats(matchData);
       })
     );
-  }, [load, saveMatch]);
+  }, [load, saveStats]);
 
   const sync = useCallback(() => {
+    clearStats();
     return upload()
+      .then(() => remove())
       .then(() => download())
-      .then(() => persist(STORAGE_KEYS.LAST_SYNC, new Date()));
-  }, [download, upload]);
+      .then(() => persist(STORAGE_KEYS.LAST_SYNC, new Date()))
+      .then(() => clear());
+  }, [clear, clearStats, download, remove, upload]);
 
   useEffect(() => {
     onAuthStateChanged(auth, setUser);

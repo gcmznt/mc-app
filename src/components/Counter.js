@@ -26,11 +26,18 @@ export default function Counter({
   if (!counter) return null;
   const { step } = counter.values;
 
+  const flipEvent =
+    {
+      [COUNTER_TYPES.HERO]: EVENTS.FLIP_HERO,
+      [COUNTER_TYPES.VILLAIN]: EVENTS.FLIP_VILLAIN,
+    }[counter.type] || EVENTS.FLIP;
+
   const update = (vOff, lOff = 0, ev) => updateCounter(counter, vOff, lOff, ev);
   const canStep = [COUNTER_TYPES.SCENARIO].includes(counter.type) && heroPhase;
 
   const add = () => update(1);
   const onStep = () => dispatch(counter.id, EVENTS.NEW_PHASE, 1, "Phases");
+  const onFlip = () => dispatch(counter.id, flipEvent, counter.name);
   const reduce = () => update(-1);
   const increaseLimit = () => update(0, 1);
   const decreaseLimit = () => update(0, -1);
@@ -55,6 +62,7 @@ export default function Counter({
       key={counter.id}
       onAdd={add}
       onAddLimit={increaseLimit}
+      onFlip={!!counter.bSide && onFlip}
       onNext={next}
       onStep={canStep && onStep}
       onReduce={reduce}

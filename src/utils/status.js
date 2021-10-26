@@ -33,6 +33,9 @@ export function isTarget(counter, targets) {
   return (
     counter.id === targets ||
     counter.name === targets ||
+    (targets.startsWith("+") &&
+      counter.type === targets.slice(1) &&
+      counter.active) ||
     (targets.startsWith("*") && counter.type === targets.slice(1)) ||
     (targets.endsWith("*") && counter.name.startsWith(targets.slice(0, -1)))
   );

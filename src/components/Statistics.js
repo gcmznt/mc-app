@@ -10,6 +10,7 @@ import { resultText } from "../utils/texts";
 import Dot from "./ui/Dot";
 import Filters from "./ui/Filters";
 import Option from "./ui/Option";
+import { getMatchStats } from "../utils/statistics";
 
 const EMPTY_RESULTS = Object.fromEntries(
   Object.values(RESULT_TYPES).map((v) => [v, 0])
@@ -187,7 +188,7 @@ function Row({ filter, label, type, values, onClick }) {
 
 export default function Statistics({ onLoad }) {
   const { t } = useTranslation();
-  const { deleteMatch, matches } = useData();
+  const { deleteMatch, matches, stats } = useData();
   const [filters, setFilters] = useState([]);
 
   const byName = (a, b) => t(a[0]).localeCompare(t(b[0]));
@@ -210,11 +211,11 @@ export default function Statistics({ onLoad }) {
   );
 
   const matchesLog = useMemo(
-    () => matches.filter(matchFilters),
-    [matchFilters, matches]
+    () => [...stats, ...matches.map(getMatchStats)].filter(matchFilters),
+    [matchFilters, matches, stats]
   );
 
-  const stats = useMemo(() => getStats(matchesLog), [matchesLog]);
+  const statistics = useMemo(() => getStats(matchesLog), [matchesLog]);
 
   const toggleFilter = ([k, v]) => {
     setFilters((fs) => {
@@ -229,7 +230,7 @@ export default function Statistics({ onLoad }) {
   );
 
   const isActive = (k) => (f) => f[0] === FILTERS.RESULT && f[1] === k;
-  const statsMax = Math.max(...Object.values(stats.results));
+  const statsMax = Math.max(...Object.values(statistics.results));
 
   return (
     <div className="statistics">
@@ -240,7 +241,7 @@ export default function Statistics({ onLoad }) {
           <tbody>
             <tr>
               <th>{t("Total")}</th>
-              <td>{stats.played}</td>
+              <td>{statistics.played}</td>
               <td></td>
             </tr>
             <tr>
@@ -248,7 +249,7 @@ export default function Statistics({ onLoad }) {
               <td></td>
               <td></td>
             </tr>
-            {Object.entries(stats.results).map(([k, v]) => (
+            {Object.entries(statistics.results).map(([k, v]) => (
               <tr key={k}>
                 <th>
                   <Option
@@ -287,7 +288,7 @@ export default function Statistics({ onLoad }) {
               </tr>
             </thead>
             <tbody>
-              {Object.entries(stats[el.key])
+              {Object.entries(statistics[el.key])
                 .sort(byName)
                 .map(([k, v]) => (
                   <Row
@@ -306,7 +307,7 @@ export default function Statistics({ onLoad }) {
         </Box>
       ))}
 
-      {stats.longest && (
+      {statistics.longest && (
         <Box
           key="Longest Match"
           title={t("Longest Match")}
@@ -314,11 +315,11 @@ export default function Statistics({ onLoad }) {
           flat
           type="log"
         >
-          <MatchEl match={stats.longest} />
+          <MatchEl match={statistics.longest} />
         </Box>
       )}
 
-      {stats.fastest && (
+      {statistics.fastest && (
         <Box
           key="Fastest Match"
           title={t("Fastest Match")}
@@ -326,7 +327,7 @@ export default function Statistics({ onLoad }) {
           flat
           type="log"
         >
-          <MatchEl match={stats.fastest} />
+          <MatchEl match={statistics.fastest} />
         </Box>
       )}
 

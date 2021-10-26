@@ -27,6 +27,7 @@ export const COUNTERS_SCHEME = [
 export const STATUSES = ["Confused", "Stunned", "Tough"];
 
 export const EVENTS = {
+  ALLY_DEFEATED: "ally-defeated",
   COMPLETE: "complete",
   CREATE: "create",
   DECREASE_LIMIT: "decrease-limit",
@@ -34,22 +35,30 @@ export const EVENTS = {
   DISABLE: "disable",
   EMPTY: "empty",
   END: "end",
+  ENTER_ALLY: "enter-ally",
   ENTER_MINION: "enter-minion",
   ENTER_SCHEME: "enter-scheme",
+  ENTER_SUPPORT: "enter-support",
+  ENTER_UPGRADE: "enter-upgrade",
   ENTER: "enter",
+  FLIP: "flip",
   FLIP_COUNTER: "flip-counter",
+  FLIP_HERO: "flip-hero",
+  FLIP_VILLAIN: "flip-villain",
   HIT: "hit",
   INCREASE_FROM: "increase-from",
   INCREASE_LIMIT: "increase-limit",
   INCREASE: "increase",
   LOCK: "lock",
   LOST_SCHEME: "lost-scheme",
+  MINION_DEFEATED: "minion-defeated",
   NEW_PHASE: "new-phase",
   NEW_ROUND: "new-round",
   NEXT: "next",
   RESET: "reset",
   RESTART: "restart",
   SET: "set",
+  SIDE_CLEARED: "side-cleared",
   START: "start",
   STATUS_DISABLE: "status-disable",
   STATUS_ENABLE: "status-enable",
@@ -58,9 +67,14 @@ export const EVENTS = {
 };
 
 export const TRIGGER_MAP = {
+  [EVENTS.ENTER_ALLY]: EVENTS.ENTER,
   [EVENTS.ENTER_MINION]: EVENTS.ENTER,
   [EVENTS.ENTER_SCHEME]: EVENTS.ENTER,
-  [EVENTS.FLIP_COUNTER]: EVENTS.ENTER,
+  [EVENTS.ENTER_SUPPORT]: EVENTS.ENTER,
+  [EVENTS.ENTER_UPGRADE]: EVENTS.ENTER,
+  [EVENTS.ALLY_DEFEATED]: EVENTS.DISABLE,
+  [EVENTS.MINION_DEFEATED]: EVENTS.DISABLE,
+  [EVENTS.SIDE_CLEARED]: EVENTS.DISABLE,
 };
 
 export const MODIFIERS = {
@@ -78,15 +92,15 @@ export const RESULT_TYPES = {
 
 export const STORAGE_KEYS = {
   CURRENT: "current",
-  DEVICE: "device",
   LAST_SYNC: "last-sync",
   MATCHES: "matches",
   OPTIONS: "options",
   SELECTION: "selection",
   SETTINGS: "settings",
   SETUP: "setup",
+  STATISTICS: "statistics",
   THEME: "theme",
-  TO_SYNC: "to-sync",
+  TO_DELETE: "to-delete",
 };
 
 export const PAGES = {

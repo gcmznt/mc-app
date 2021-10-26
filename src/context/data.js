@@ -6,8 +6,9 @@ import modularSets from "../data/modular-sets.json";
 import scenarios from "../data/scenarios.json";
 import schemes from "../data/schemes.json";
 
-import { appendList, load, persist } from "../utils";
+import { append, appendList, load, persist } from "../utils";
 import { DEFAULT_OPTIONS, STORAGE_KEYS } from "../utils/constants";
+import { getMatchStats } from "../utils/statistics";
 
 const isEnabled = (el) =>
   !el.disabled || window.location.hostname === "localhost";
@@ -29,6 +30,7 @@ const fullSelection = {
 const DataContext = createContext(null);
 
 export const DataProvider = ({ children }) => {
+  const [stats, setStats] = useState([]);
   const [allMatches, setAllMatches] = useState([]);
   const [selection, setSelection] = useState(fullSelection);
   const [options, setOptions] = useState(DEFAULT_OPTIONS);
@@ -42,17 +44,37 @@ export const DataProvider = ({ children }) => {
   };
 
   const deleteMatch = (match) => {
-    appendList(
-      STORAGE_KEYS.TO_SYNC,
-      match ? [match.matchId] : allMatches.map((m) => m.matchId)
-    );
-    setAllMatches(
-      persist(
-        STORAGE_KEYS.MATCHES,
-        allMatches.map((m) =>
-          !match || m.matchId === match.matchId ? { ...m, trash: true } : m
+    if (!match) {
+      appendList(
+        STORAGE_KEYS.TO_DELETE,
+        stats.map((m) => m.matchId)
+      );
+      setAllMatches(persist(STORAGE_KEYS.MATCHES, []));
+      setStats(persist(STORAGE_KEYS.STATISTICS, []));
+    } else if (matches.some((m) => m.matchId === match.matchId)) {
+      setAllMatches((allMatches) =>
+        persist(
+          STORAGE_KEYS.MATCHES,
+          allMatches.filter((m) => m.matchId !== match.matchId)
         )
-      )
+      );
+    } else if (stats.some((m) => m.matchId === match.matchId)) {
+      append(STORAGE_KEYS.TO_DELETE, match.matchId);
+      setStats((stats) =>
+        persist(
+          STORAGE_KEYS.STATISTICS,
+          stats.filter((m) => m.matchId !== match.matchId)
+        )
+      );
+    }
+  };
+
+  const saveStats = (match) => {
+    setStats((stats) =>
+      persist(STORAGE_KEYS.STATISTICS, [
+        ...stats.filter((m) => m.matchId !== match.matchId),
+        getMatchStats(match),
+      ])
     );
   };
 
@@ -65,12 +87,22 @@ export const DataProvider = ({ children }) => {
     );
   };
 
+  const clearStats = () => {
+    setStats(persist(STORAGE_KEYS.STATISTICS, []));
+  };
+
+  const clear = () => {
+    setAllMatches(persist(STORAGE_KEYS.MATCHES, []));
+    persist(STORAGE_KEYS.TO_DELETE, []);
+  };
+
   const getMinion = (name) => {
     return data.minions.find((m) => name === m.name);
   };
 
   useEffect(() => {
     setAllMatches(load(STORAGE_KEYS.MATCHES) || []);
+    setStats(load(STORAGE_KEYS.STATISTICS) || []);
     setOptions(load(STORAGE_KEYS.OPTIONS) || DEFAULT_OPTIONS);
 
     const sel = load(STORAGE_KEYS.SELECTION) || fullSelection;
@@ -98,6 +130,8 @@ export const DataProvider = ({ children }) => {
   return (
     <DataContext.Provider
       value={{
+        clear,
+        clearStats,
         data,
         deleteMatch,
         fullSelection,
@@ -105,7 +139,9 @@ export const DataProvider = ({ children }) => {
         matches,
         options,
         saveMatch,
+        saveStats,
         selection,
+        stats,
         updateOption,
         updateSelection,
       }}
