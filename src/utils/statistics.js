@@ -37,6 +37,7 @@ export function getMatchStats(match) {
     device: match.device,
     matchId: match.matchId,
     reason: match.reason,
+    trash: match.trash,
     setup: match.setup,
     time: match.time,
   };

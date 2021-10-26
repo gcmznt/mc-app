@@ -211,7 +211,10 @@ export default function Statistics({ onLoad }) {
   );
 
   const matchesLog = useMemo(
-    () => [...stats, ...matches.map(getMatchStats)].filter(matchFilters),
+    () =>
+      [...stats, ...matches.map(getMatchStats)]
+        .filter((m) => !m.trash)
+        .filter(matchFilters),
     [matchFilters, matches, stats]
   );
 
