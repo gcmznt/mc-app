@@ -17,6 +17,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   getFirestore,
   setDoc,
@@ -82,6 +83,21 @@ export const FirebaseProvider = ({ children }) => {
     });
   }, [user]);
 
+  const loadMatch = useCallback(
+    (id) => {
+      if (matches.some((m) => m.matchId === id)) {
+        return new Promise((res) => res(matches.find((m) => m.matchId === id)));
+      } else if (user) {
+        const db = getFirestore();
+        return getDoc(doc(db, "users", user.uid, "matches", id)).then(
+          (docSnap) => docSnap.exists() && docSnap.data()
+        );
+      }
+      return new Promise((res) => res(false));
+    },
+    [matches, user]
+  );
+
   const load = useCallback(() => {
     const db = getFirestore();
     return getDocs(collection(db, "users", user.uid, "matches"));
@@ -117,7 +133,7 @@ export const FirebaseProvider = ({ children }) => {
 
   return (
     <FirebaseContext.Provider
-      value={{ logout, register, remove, signIn, sync, user }}
+      value={{ loadMatch, logout, register, remove, signIn, sync, user }}
     >
       {children}
     </FirebaseContext.Provider>

@@ -15,6 +15,35 @@
   width: 50%;
 }
 
+.statistics__table tr.has-progress {
+  position: relative;
+  overflow: hidden;
+}
+
+.statistics__table tr.has-progress td,
+.statistics__table tr.has-progress th {
+  padding-bottom: 10px;
+}
+
+.statistics__table tr.has-progress .statistics__value::before,
+.statistics__table tr.has-progress .statistics__value::after {
+  content: "";
+  background: var(--color-accent);
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  left: 0;
+  bottom: 5px;
+  transform-origin: left;
+}
+
+.statistics__table tr.has-progress .statistics__value::before {
+  opacity: 0.5;
+}
+.statistics__table tr.has-progress .statistics__value::after {
+  transform: scaleX(var(--val));
+}
+
 .statistics__table input {
   margin-right: 10px;
 }
@@ -32,4 +61,8 @@
   background-color: var(--color-accent);
   transform-origin: left center;
   transform: scaleX(var(--val, 1));
+}
+
+.statistics__value {
+  color: var(--color-accent);
 }

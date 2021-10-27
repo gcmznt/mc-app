@@ -4,6 +4,10 @@ import highlightImg from "../../images/first.svg";
 import "../../styles/box.css";
 import { getClassName } from "../../utils";
 
+export function BoxBand({ children }) {
+  return <div className="box__band">{children}</div>;
+}
+
 export default function Box({ children, flag, flat, highlight, title, type }) {
   const { t } = useTranslation();
 

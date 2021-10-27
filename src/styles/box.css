@@ -93,3 +93,13 @@
 .box__legend {
   margin-top: 1.5em;
 }
+
+.box__band {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-size: 1.4em;
+  margin: 0.8em -0.56em;
+  padding: 0.2em 0.3em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}

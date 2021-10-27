@@ -199,8 +199,8 @@ export function useLogger() {
   const [log, setLog] = useState([]);
 
   const logger = {
-    add: (time, event, entity, info) =>
-      logger.prepend({ time, event, entity, info }),
+    add: (time, event, entity, info, type) =>
+      logger.prepend({ time, event, entity, info, type }),
     empty: () => setLog([]),
     entries: log,
     merge: (counters) => mergeLog(counters, log),

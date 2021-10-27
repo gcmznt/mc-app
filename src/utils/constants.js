@@ -105,6 +105,7 @@ export const STORAGE_KEYS = {
 
 export const PAGES = {
   MAIN: "/",
+  MATCH: "/match/:matchId",
   OPTIONS: "/options",
   STATISTICS: "/statistics",
 };

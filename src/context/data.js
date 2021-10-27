@@ -49,16 +49,18 @@ export const DataProvider = ({ children }) => {
         STORAGE_KEYS.TO_DELETE,
         stats.map((m) => m.matchId)
       );
-      persist(STORAGE_KEYS.MATCHES, []).then(setAllMatches);
-      persist(STORAGE_KEYS.STATISTICS, []).then(setStats);
+      return Promise.all([
+        persist(STORAGE_KEYS.MATCHES, []).then(setAllMatches),
+        persist(STORAGE_KEYS.STATISTICS, []).then(setStats),
+      ]);
     } else if (matches.some((m) => m.matchId === match.matchId)) {
-      persist(
+      return persist(
         STORAGE_KEYS.MATCHES,
         allMatches.filter((m) => m.matchId !== match.matchId)
       ).then(setAllMatches);
     } else if (stats.some((m) => m.matchId === match.matchId)) {
       append(STORAGE_KEYS.TO_DELETE, match.matchId);
-      persist(
+      return persist(
         STORAGE_KEYS.STATISTICS,
         stats.filter((m) => m.matchId !== match.matchId)
       ).then(setStats);

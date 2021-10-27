@@ -249,7 +249,7 @@ export default function Status({ matchId, onQuit, setup }) {
 
   const runEvent = (evt) => (counter) => {
     const { event, data, source } = evt.detail;
-    logger.add(time, event, counter.id, evt.detail);
+    logger.add(time, event, counter.id, evt.detail, counter.type);
     setInteracted(true);
     runEventQueue(event);
     runCounterTriggers(counter, TRIGGER_MAP[event] || event);

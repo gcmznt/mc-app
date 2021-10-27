@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 
 import Dot from "./Dot";
 import "../../styles/setup.css";
+import { BoxBand } from "./Box";
 
 export default function Setup({ setup }) {
   const { t } = useTranslation();
@@ -18,7 +19,7 @@ export default function Setup({ setup }) {
           </div>
         ))}
       </div>
-      <div className="setup__vs">VS</div>
+      <BoxBand>VS</BoxBand>
       <div className="setup__scenario">{t(setup.scenarioName)}</div>
       <div className="setup__scenario-info">
         {t(setup.mode)} | {t("Heroic")}: {setup.heroic}

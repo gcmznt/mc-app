@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route } from "wouter";
+import { Route, useLocation } from "wouter";
 import { v4 as uuid } from "uuid";
 
 import Generate from "./components/Generate";
@@ -13,14 +13,17 @@ import { PAGES, STORAGE_KEYS } from "./utils/constants";
 
 import Logo from "./components/ui/Logo";
 import Menu from "./components/ui/Menu";
+import MatchStat from "./components/MatchStat";
 
 export default function App() {
   const { options } = useData();
+  const [, setLocation] = useLocation();
   const [setup, setSetup] = useState(false);
   const [matchId, setMatchId] = useState(null);
 
   const handleStart = (setup) => {
     setup && setSetup(setup);
+    setLocation(PAGES.MAIN);
     setMatchId(uuid());
   };
 
@@ -65,7 +68,13 @@ export default function App() {
           </Route>
 
           <Route path={PAGES.STATISTICS}>
-            <Statistics onLoad={handleStart} />
+            <Statistics />
+          </Route>
+
+          <Route path={PAGES.MATCH}>
+            {(params) => (
+              <MatchStat matchId={params.matchId} onLoad={handleStart} />
+            )}
           </Route>
 
           <Route path={PAGES.OPTIONS}>

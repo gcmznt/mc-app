@@ -1,16 +1,25 @@
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "wouter";
 
 import "../../styles/match.css";
 import { msToTime } from "../../utils";
+import { PAGES } from "../../utils/constants";
 import { resultText } from "../../utils/texts";
 import Dot from "./Dot";
 
-export default function Match({ match, onDelete, onReplay }) {
+export default function Match({ match }) {
   const { t } = useTranslation();
+  const [, setLocation] = useLocation();
 
   return (
-    <div className="match" data-id={match.matchId}>
+    <div
+      className="match"
+      data-id={match.matchId}
+      onClick={() =>
+        setLocation(PAGES.MATCH.replace(":matchId", match.matchId))
+      }
+    >
       <div>
         <div>
           {(match.setup.heroesAndAspects || match.setup.heroes).map((h) => (
@@ -39,13 +48,6 @@ export default function Match({ match, onDelete, onReplay }) {
         <small className="match__date">
           {new Date(match.date).toLocaleTimeString().slice(0, -3)}
         </small>
-        <span className="match__delete" onClick={() => onDelete(match)}>
-          {t("Delete")}
-        </span>{" "}
-        |{" "}
-        <span className="match__delete" onClick={() => onReplay(match)}>
-          {t("Replay")}
-        </span>
       </div>
     </div>
   );
