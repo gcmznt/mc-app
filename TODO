@@ -6,14 +6,7 @@ wrecking crew - reset side schemes
 
 manage space available [upload everything and stats when online]
 
-```
-navigator.storage.estimate().then(function(estimate) {
-    console.log("Total Storage Available: " + estimate.quota);
-    console.log("Storage Used: " + estimate.usage);
-});
-```
-
-match detailed stats [round/phases counter]
+match page with detailed stats [round/phases counter] and delete
 
 online/offline sync
 auto-start counters

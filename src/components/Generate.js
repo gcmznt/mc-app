@@ -144,16 +144,17 @@ export default function Generate({ onStart }) {
   }, [setup.settings]);
 
   useEffect(() => {
-    const saved = load(STORAGE_KEYS.SETTINGS);
-    if (saved)
-      setSettings({
-        ...initialSetting,
-        ...saved,
-        players:
-          saved.players > selection.heroes.length || saved.players <= 0
-            ? selection.heroes.length
-            : saved.players,
-      });
+    load(STORAGE_KEYS.SETTINGS).then((saved) => {
+      if (saved)
+        setSettings({
+          ...initialSetting,
+          ...saved,
+          players:
+            saved.players > selection.heroes.length || saved.players <= 0
+              ? selection.heroes.length
+              : saved.players,
+        });
+    });
   }, [selection.heroes.length]);
 
   return (

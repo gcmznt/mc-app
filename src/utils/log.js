@@ -191,7 +191,7 @@ export const LogString = ({ count = 0, counter, info, event }) => {
       );
 
     default:
-      return event;
+      return event || null;
   }
 };
 

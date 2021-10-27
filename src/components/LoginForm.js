@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useFirebase } from "../context/firebase";
@@ -12,6 +12,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [lastSync, setLastSync] = useState(false);
   const { logout, register, signIn, sync, user } = useFirebase();
 
   const handlesubmit = (fn) => (e) => {
@@ -28,7 +29,9 @@ export default function LoginForm() {
   const handleLogout = handlesubmit(logout);
   const handleSync = handlesubmit(sync);
 
-  const lastSync = load(STORAGE_KEYS.LAST_SYNC);
+  useEffect(() => {
+    load(STORAGE_KEYS.LAST_SYNC).then(setLastSync);
+  }, []);
 
   return (
     <div className={`login-form ${loading ? "is-loading" : ""}`}>

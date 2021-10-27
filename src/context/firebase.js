@@ -73,11 +73,13 @@ export const FirebaseProvider = ({ children }) => {
 
   const remove = useCallback(() => {
     const db = getFirestore();
-    return Promise.all(
-      (loadUtil(STORAGE_KEYS.TO_DELETE) || []).map((id) => {
-        return deleteDoc(doc(db, "users", user.uid, "matches", id));
-      })
-    );
+    return loadUtil(STORAGE_KEYS.TO_DELETE).then((toDelete) => {
+      return Promise.all(
+        (toDelete || []).map((id) =>
+          deleteDoc(doc(db, "users", user.uid, "matches", id))
+        )
+      );
+    });
   }, [user]);
 
   const load = useCallback(() => {
@@ -90,12 +92,14 @@ export const FirebaseProvider = ({ children }) => {
   }, [matches, save]);
 
   const download = useCallback(() => {
-    return load().then((qs) =>
+    return load().then((qs) => {
+      const list = [];
       qs.forEach((doc) => {
         const matchData = doc.data();
-        saveStats(matchData);
-      })
-    );
+        list.push(matchData);
+      });
+      return saveStats(list);
+    });
   }, [load, saveStats]);
 
   const sync = useCallback(() => {

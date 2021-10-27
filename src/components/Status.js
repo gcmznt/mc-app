@@ -405,20 +405,21 @@ export default function Status({ matchId, onQuit, setup }) {
   };
 
   useEffect(() => {
-    const saved = load(STORAGE_KEYS.CURRENT);
-    if (saved) {
-      setResult(saved.result || false);
-      CU.set(saved.counters.map((c) => new CounterObj(c)));
-      setTime(saved.time);
-      setFirstPlayer(saved.firstPlayer);
-      setEventQueue(saved.eventQueue);
-      logger.set(saved.log.map((l) => ({ ...l, date: new Date(l.date) })));
-      setLoaded(true);
-    } else {
-      CU.set(getCounters(setup, data));
-      logger.add(time, EVENTS.START);
-      setNow(new Date());
-    }
+    load(STORAGE_KEYS.CURRENT).then((saved) => {
+      if (saved) {
+        setResult(saved.result || false);
+        CU.set(saved.counters.map((c) => new CounterObj(c)));
+        setTime(saved.time);
+        setFirstPlayer(saved.firstPlayer);
+        setEventQueue(saved.eventQueue);
+        logger.set(saved.log.map((l) => ({ ...l, date: new Date(l.date) })));
+        setLoaded(true);
+      } else {
+        CU.set(getCounters(setup, data));
+        logger.add(time, EVENTS.START);
+        setNow(new Date());
+      }
+    });
   }, [setup]);
 
   useEffect(() => {

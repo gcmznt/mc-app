@@ -17,7 +17,7 @@ import Menu from "./components/ui/Menu";
 export default function App() {
   const { options } = useData();
   const [setup, setSetup] = useState(false);
-  const [matchId, setMatchId] = useState(false);
+  const [matchId, setMatchId] = useState(null);
 
   const handleStart = (setup) => {
     setup && setSetup(setup);
@@ -31,11 +31,14 @@ export default function App() {
   };
 
   useEffect(() => {
-    const saved = load(STORAGE_KEYS.CURRENT);
-    if (saved) {
-      setSetup(saved.setup);
-      setMatchId(saved.matchId);
-    }
+    load(STORAGE_KEYS.CURRENT).then((saved) => {
+      if (saved) {
+        setSetup(saved.setup);
+        setMatchId(saved.matchId);
+      } else {
+        setMatchId(false);
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -52,7 +55,7 @@ export default function App() {
           onQuit={handleQuit}
           setup={setup}
         />
-      ) : (
+      ) : matchId !== null ? (
         <>
           <Logo />
           <Menu />
@@ -69,7 +72,7 @@ export default function App() {
             <Options />
           </Route>
         </>
-      )}
+      ) : null}
     </main>
   );
 }

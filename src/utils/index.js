@@ -1,3 +1,5 @@
+import { del, get, set, update as updateDb } from "idb-keyval";
+
 export function countOccurrence(selection, stats) {
   return Object.fromEntries(
     selection.map((el) => [el, stats.filter((s) => s === el).length])
@@ -48,26 +50,27 @@ export function toValue(val, count = 1) {
 }
 
 export function load(key) {
-  return JSON.parse(localStorage.getItem(key)) || false;
+  return get(key);
 }
 
 export function clear(key) {
-  return localStorage.removeItem(key);
+  return del(key);
 }
 
 export function persist(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-  return value;
+  return set(key, value).then(() => value);
 }
 
-export function append(key, value) {
-  const current = load(key) || [];
-  return persist(key, [...current, value]);
+export function update(key, fn) {
+  return updateDb(key, fn);
 }
 
 export function appendList(key, list) {
-  const current = load(key) || [];
-  return persist(key, [...current, ...list]);
+  return update(key, (current) => [...current, ...list]);
+}
+
+export function append(key, value) {
+  return appendList(key, [value]);
 }
 
 export function getStatusObj(statuses, enabled = []) {

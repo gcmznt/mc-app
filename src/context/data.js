@@ -49,50 +49,42 @@ export const DataProvider = ({ children }) => {
         STORAGE_KEYS.TO_DELETE,
         stats.map((m) => m.matchId)
       );
-      setAllMatches(persist(STORAGE_KEYS.MATCHES, []));
-      setStats(persist(STORAGE_KEYS.STATISTICS, []));
+      persist(STORAGE_KEYS.MATCHES, []).then(setAllMatches);
+      persist(STORAGE_KEYS.STATISTICS, []).then(setStats);
     } else if (matches.some((m) => m.matchId === match.matchId)) {
-      setAllMatches((allMatches) =>
-        persist(
-          STORAGE_KEYS.MATCHES,
-          allMatches.filter((m) => m.matchId !== match.matchId)
-        )
-      );
+      persist(
+        STORAGE_KEYS.MATCHES,
+        allMatches.filter((m) => m.matchId !== match.matchId)
+      ).then(setAllMatches);
     } else if (stats.some((m) => m.matchId === match.matchId)) {
       append(STORAGE_KEYS.TO_DELETE, match.matchId);
-      setStats((stats) =>
-        persist(
-          STORAGE_KEYS.STATISTICS,
-          stats.filter((m) => m.matchId !== match.matchId)
-        )
-      );
+      persist(
+        STORAGE_KEYS.STATISTICS,
+        stats.filter((m) => m.matchId !== match.matchId)
+      ).then(setStats);
     }
   };
 
-  const saveStats = (match) => {
-    setStats((stats) =>
-      persist(STORAGE_KEYS.STATISTICS, [
-        ...stats.filter((m) => m.matchId !== match.matchId),
-        getMatchStats(match),
-      ])
-    );
+  const saveStats = (matches) => {
+    return persist(
+      STORAGE_KEYS.STATISTICS,
+      matches.map((match) => getMatchStats(match))
+    ).then(setStats);
   };
 
   const saveMatch = (match) => {
-    setAllMatches((allMatches) =>
-      persist(STORAGE_KEYS.MATCHES, [
-        ...allMatches.filter((m) => m.matchId !== match.matchId),
-        match,
-      ])
-    );
+    persist(STORAGE_KEYS.MATCHES, [
+      ...allMatches.filter((m) => m.matchId !== match.matchId),
+      match,
+    ]).then(setAllMatches);
   };
 
   const clearStats = () => {
-    setStats(persist(STORAGE_KEYS.STATISTICS, []));
+    persist(STORAGE_KEYS.STATISTICS, []).then(setStats);
   };
 
   const clear = () => {
-    setAllMatches(persist(STORAGE_KEYS.MATCHES, []));
+    persist(STORAGE_KEYS.MATCHES, []).then(setAllMatches);
     persist(STORAGE_KEYS.TO_DELETE, []);
   };
 
@@ -101,16 +93,23 @@ export const DataProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    setAllMatches(load(STORAGE_KEYS.MATCHES) || []);
-    setStats(load(STORAGE_KEYS.STATISTICS) || []);
-    setOptions(load(STORAGE_KEYS.OPTIONS) || DEFAULT_OPTIONS);
+    Promise.all([
+      load(STORAGE_KEYS.MATCHES),
+      load(STORAGE_KEYS.STATISTICS),
+      load(STORAGE_KEYS.OPTIONS),
+      load(STORAGE_KEYS.SELECTION),
+    ]).then(([ms, stats, opts, sel]) => {
+      setAllMatches(ms || []);
+      setStats(stats || []);
+      setOptions(opts || DEFAULT_OPTIONS);
 
-    const sel = load(STORAGE_KEYS.SELECTION) || fullSelection;
-    const check = (k) => fullSelection[k].filter((el) => sel[k].includes(el));
-    setSelection({
-      heroes: check("heroes"),
-      modularSets: check("modularSets"),
-      scenarios: check("scenarios"),
+      const check = (k) =>
+        fullSelection[k].filter((el) => (sel || fullSelection)[k].includes(el));
+      setSelection({
+        heroes: check("heroes"),
+        modularSets: check("modularSets"),
+        scenarios: check("scenarios"),
+      });
     });
   }, []);
 
