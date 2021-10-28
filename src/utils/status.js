@@ -41,6 +41,15 @@ export function isTarget(counter, targets) {
   );
 }
 
+export function getPrev(counter, counters = []) {
+  return counters.find((c) => c.next === counter.name);
+}
+
+export function getChain(counter, counters = []) {
+  const prev = getPrev(counter, counters);
+  return prev ? [...getChain(prev, counters), counter] : [counter];
+}
+
 export function getSets(counters, getLastActive) {
   const ofType = (type) => (counters || []).filter(isType(type));
 
@@ -115,10 +124,7 @@ export function useCountersUtils() {
       return counterUtils.getLastActive(prev) || (!counter.next && counter);
     },
     children: (counter) => counters.filter(childOf(counter)),
-    getChain: (counter) => {
-      const prev = counterUtils.prev(counter);
-      return prev ? [...counterUtils.getChain(prev), counter] : [counter];
-    },
+    getChain: (counter) => getChain(counter, counters),
     ofChain: (active) => {
       const chain = counterUtils.getChain(active).map((c) => c.id);
       return counters.filter((counter) => chain.includes(counter.parent));

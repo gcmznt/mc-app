@@ -1,7 +1,8 @@
 .statistics__table {
   width: 100%;
   text-align: right;
-  white-space: nowrap;
+  line-height: 1.5em;
+  overflow: hidden;
 }
 
 .statistics__table th,
@@ -9,10 +10,13 @@
   padding: 3px 0;
 }
 
+.statistics__table small {
+  opacity: 0.6;
+}
+
 .statistics__table th {
   text-align: left;
   padding-right: 10px;
-  width: 50%;
 }
 
 .statistics__table tr.has-progress {
@@ -44,12 +48,41 @@
   transform: scaleX(var(--val));
 }
 
+.statistics__table tr th.has-next,
+.statistics__table tr th.has-prev {
+  padding-left: 16px;
+}
+
+.statistics__table tr th.has-next::after {
+  content: "";
+  width: 2px;
+  height: 100%;
+  background-color: currentColor;
+  position: absolute;
+  top: 16px;
+  left: 4px;
+}
+
+.statistics__table tr th.has-next::before,
+.statistics__table tr th.has-prev::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: currentColor;
+  position: absolute;
+  top: 12px;
+  left: 0px;
+  border-radius: 50%;
+}
+
 .statistics__table input {
   margin-right: 10px;
 }
 
 .statistics__bar {
   width: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
 .statistics__bar::after {

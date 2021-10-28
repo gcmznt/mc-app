@@ -11,6 +11,7 @@ import {
   persist,
 } from "../utils";
 import { ASPECTS, MODES, RANDOM, STORAGE_KEYS } from "../utils/constants";
+import { getHeroesAndAspects, getScenarioName } from "../utils/statistics";
 import Heroic from "./inputs/Heroic";
 import Mode from "./inputs/Mode";
 import Players from "./inputs/Players";
@@ -42,12 +43,9 @@ const getHeroes = (scenario, selection, matches, settings) => {
         matches
           .map((match) =>
             new Array(
-              (match.setup.scenarioName || match.setup.scenario.name) ===
-              scenario
-                ? matches.length
-                : 1
+              getScenarioName(match.setup) === scenario ? matches.length : 1
             )
-              .fill(match.setup.heroesAndAspects || match.setup.heroes)
+              .fill(getHeroesAndAspects(match.setup))
               .flat()
           )
           .map((heroes) => heroes.map((h) => h.name))
@@ -66,9 +64,7 @@ const getScenario = (selection, matches, settings, data) => {
     getWeigths(
       countOccurrence(
         selection,
-        matches.map(
-          (match) => match.setup.scenarioName || match.setup.scenario.name
-        )
+        matches.map((match) => getScenarioName(match.setup))
       )
     );
 

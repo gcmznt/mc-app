@@ -66,6 +66,7 @@ legend {
 }
 
 .is-scenario,
+.is-side-scheme,
 .is-scheme,
 .is-justice {
   --color-accent: #f2ca00;

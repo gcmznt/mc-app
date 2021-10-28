@@ -3,6 +3,11 @@ import { useTranslation } from "react-i18next";
 import Dot from "./Dot";
 import "../../styles/setup.css";
 import { BoxBand } from "./Box";
+import {
+  getHeroesAndAspects,
+  getModularSets,
+  getScenarioName,
+} from "../../utils/statistics";
 
 export default function Setup({ setup }) {
   const { t } = useTranslation();
@@ -10,7 +15,7 @@ export default function Setup({ setup }) {
   return (
     <div className="setup">
       <div className="setup__heroes">
-        {setup.heroesAndAspects.map((hero, i) => (
+        {getHeroesAndAspects(setup).map((hero, i) => (
           <div key={hero.name} className="setup__hero">
             {hero.aspects.map((a) => (
               <Dot key={a} type={a.toLowerCase()} />
@@ -20,14 +25,14 @@ export default function Setup({ setup }) {
         ))}
       </div>
       <BoxBand>VS</BoxBand>
-      <div className="setup__scenario">{t(setup.scenarioName)}</div>
+      <div className="setup__scenario">{t(getScenarioName(setup))}</div>
       <div className="setup__scenario-info">
         {t(setup.mode)} | {t("Heroic")}: {setup.heroic}
         {setup.skirmish !== "None"
           ? ` | ${t("Skirmish level")} ${setup.skirmish}`
           : ""}
       </div>
-      <div>{setup.modularSets.map(t).join(" + ")}</div>
+      <div>{getModularSets(setup).map(t).join(" + ")}</div>
     </div>
   );
 }

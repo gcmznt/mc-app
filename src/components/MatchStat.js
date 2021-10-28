@@ -10,16 +10,62 @@ import {
   getMatchStats,
   getScenarioName,
 } from "../utils/statistics";
+import { getChain, getPrev, isActive } from "../utils/status";
 import { resultText } from "../utils/texts";
 import Box, { BoxBand } from "./ui/Box";
 import Setup from "./ui/Setup";
 
-function Row({ label, value, ...props }) {
+const byType = (a, b) =>
+  a.type === b.type
+    ? a.name.localeCompare(b.name)
+    : a.type.localeCompare(b.type);
+
+function Row({ label, next, prev, sublabel, value, ...props }) {
   return (
     <tr {...props}>
-      <th>{label}</th>
+      <th className={`${next ? "has-next" : ""} ${prev ? "has-prev" : ""}`}>
+        {label} {sublabel && <small>[{sublabel}]</small>}
+      </th>
       <td className="statistics__value">{value}</td>
     </tr>
+  );
+}
+
+function RowCounter({ counter, match, inverse, endLabel = "✅" }) {
+  const { t } = useTranslation();
+
+  const val = inverse ? counter.max - counter.value : counter.value;
+
+  return (
+    <Row
+      label={t(counter.name)}
+      sublabel={
+        match.log.flips?.[counter.id] &&
+        `${t("Flips")}: ${match.log.flips?.[counter.id] || 0}`
+      }
+      next={!!counter.next}
+      prev={getPrev(counter, match.finalStatus)}
+      value={`${
+        !counter.active && counter.value >= counter.max ? `${endLabel} ` : ""
+      }${
+        counter.max > 0
+          ? `${val}/${counter.max}`
+          : counter.start > 0
+          ? `${val}/${counter.start}`
+          : counter.value
+      }`}
+      style={{
+        "--val":
+          counter.max > 0
+            ? val / counter.max
+            : counter.start > 0
+            ? val / counter.start
+            : val
+            ? 1
+            : 0,
+      }}
+      className={`has-progress is-${counter.type}`}
+    />
   );
 }
 
@@ -27,11 +73,11 @@ export default function MatchStat({ matchId, onLoad }) {
   const { loadMatch } = useFirebase();
   const { t } = useTranslation();
   const [, setLocation] = useLocation();
-  const { deleteMatch } = useData();
+  const { deleteMatch, stats } = useData();
   const [match, setMatch] = useState(false);
 
   const handleDelete = (match) => {
-    const msg = `Delete ${getHeroesAndAspects(match)
+    const msg = `Delete ${getHeroesAndAspects(match.setup)
       .map((h) => h.name)
       .join(" + ")} VS ${getScenarioName(match)}?`;
 
@@ -39,17 +85,11 @@ export default function MatchStat({ matchId, onLoad }) {
       deleteMatch(match).then(() => setLocation(PAGES.STATISTICS));
   };
 
-  const getLastActive = (counter) => {
-    if (!counter) return false;
-    if (counter.active) return counter;
-
-    const prev = match.finalStatus.find((c) => c.next === counter.name);
-    return getLastActive(prev) || (!counter.next && counter);
-  };
-
   useEffect(() => {
-    loadMatch(matchId).then((m) => m && setMatch(getMatchStats(m)));
-  }, [loadMatch, matchId]);
+    loadMatch(matchId).then((m) => {
+      setMatch(m ? getMatchStats(m) : stats.find((m) => m.matchId === matchId));
+    });
+  }, [loadMatch, matchId, stats]);
 
   console.log(match);
 
@@ -74,227 +114,98 @@ export default function MatchStat({ matchId, onLoad }) {
         </BoxBand>
         {match.date.toLocaleString()}
       </Box>
-      <Box flag>
-        <table className="statistics__table">
-          <tbody>
-            {match.complete && (
-              <Row label={t("Length")} value={msToTime(match.time)} />
-            )}
-            <Row label={t("Rounds")} value={match.log.rounds} />
-            <Row
-              label={t("Acceleration")}
-              value={
-                match.finalStatus.find((c) => c.name === "Acceleration").value
-              }
-            />
-            <Row
-              label={t("Allies [Defeated/Entered]")}
-              value={`${match.log.allDef}/${match.log.allies}`}
-              className="is-ally"
-            />
-            <Row
-              label={t("Minions [Defeated/Entered]")}
-              value={`${match.log.minDef}/${match.log.minions}`}
-              className="is-minion"
-            />
-            <Row
-              label={t("Side schemes [Cleared/Entered]")}
-              value={`${match.log.sideCl}/${match.log.schemes}`}
-              className="is-scheme"
-            />
-          </tbody>
-        </table>
-      </Box>
-      <Box title="Final status">
-        <table className="statistics__table">
-          <tbody>
-            {match.finalStatus
-              .filter((c) => c.type === COUNTER_TYPES.HERO)
-              .map((c) => (
-                <Row
-                  label={`${t(c.name)}${!c.active ? " 💀" : ""}`}
-                  key={c.name}
-                  value={`${c.max - c.value}/${c.max}`}
-                  style={{ "--val": (c.max - c.value) / c.max }}
-                  className="has-progress is-hero"
-                />
-              ))}
-            {match.finalStatus
-              .filter((c) => c.type === COUNTER_TYPES.VILLAIN && !c.next)
-              .map(getLastActive)
-              .map((c) => (
-                <Row
-                  label={t(c.name)}
-                  key={c.name}
-                  value={`${!c.active ? "💀 " : ""}${c.max - c.value}/${c.max}`}
-                  style={{ "--val": (c.max - c.value) / c.max }}
-                  className="has-progress is-villain"
-                />
-              ))}
-            {match.finalStatus
-              .filter((c) => c.type === COUNTER_TYPES.SCENARIO && !c.next)
-              .map(getLastActive)
-              .map((c) => (
-                <Row
-                  label={t(c.name)}
-                  key={c.name}
-                  value={`${!c.active ? "✓ " : ""}${c.value}/${c.max}`}
-                  style={{ "--val": c.value / c.max }}
-                  className="has-progress is-scenario"
-                />
-              ))}
-          </tbody>
-        </table>
-      </Box>
+
+      {match.complete && (
+        <Box flag>
+          <table className="statistics__table">
+            <tbody>
+              {match.complete && (
+                <Row label={t("Length")} value={msToTime(match.time)} />
+              )}
+              <Row label={t("Rounds")} value={match.log.rounds} />
+              <Row
+                label={t("Acceleration")}
+                value={
+                  match.finalStatus.find((c) => c.name === "Acceleration").value
+                }
+              />
+              <Row
+                label={t("Allies")}
+                sublabel={t("Defeated/Entered")}
+                value={`${match.log.allDef}/${match.log.allies}`}
+                className="is-ally"
+              />
+              <Row
+                label={t("Minions")}
+                sublabel={t("Defeated/Entered")}
+                value={`${match.log.minDef}/${match.log.minions}`}
+                className="is-minion"
+              />
+              <Row
+                label={t("Side schemes")}
+                sublabel={t("Cleared/Entered")}
+                value={`${match.log.sideCl}/${match.log.schemes}`}
+                className="is-scheme"
+              />
+            </tbody>
+          </table>
+        </Box>
+      )}
+
+      {match.complete && (
+        <Box title="Final status">
+          <table className="statistics__table">
+            <tbody>
+              {match.finalStatus
+                .filter((c) => c.type === COUNTER_TYPES.HERO)
+                .map((c) => (
+                  <RowCounter
+                    key={c.id}
+                    counter={c}
+                    match={match}
+                    endLabel="💀"
+                    inverse
+                  />
+                ))}
+              {match.finalStatus
+                .filter((c) => c.type === COUNTER_TYPES.VILLAIN && !c.next)
+                .map((c) => getChain(c, match.finalStatus))
+                .flat()
+                .map((c) => (
+                  <RowCounter
+                    key={c.id}
+                    counter={c}
+                    match={match}
+                    endLabel="💀"
+                    inverse
+                  />
+                ))}
+              {match.finalStatus
+                .filter((c) => c.type === COUNTER_TYPES.SCENARIO && !c.next)
+                .map((c) => getChain(c, match.finalStatus))
+                .flat()
+                .map((c) => (
+                  <RowCounter key={c.id} counter={c} match={match} />
+                ))}
+              {match?.finalStatus
+                .filter(isActive)
+                .filter((c) =>
+                  [
+                    COUNTER_TYPES.ALLY,
+                    COUNTER_TYPES.MINION,
+                    COUNTER_TYPES.SIDE_SCHEME,
+                  ].includes(c.type)
+                )
+                .sort(byType)
+                .map((c) => (
+                  <RowCounter key={c.id} counter={c} match={match} />
+                ))}
+            </tbody>
+          </table>
+        </Box>
+      )}
       <button onClick={() => onLoad(match.setup)}>{t("Replay")}</button>
       <button onClick={() => handleDelete(match)}>{t("Delete")}</button>
     </Fragment>
   ) : null;
 }
-
-// [
-//   {
-//     name: "Rounds",
-//     active: true,
-//     type: "rounds",
-//     next: false,
-//     value: 1,
-//     max: 0,
-//   },
-//   {
-//     name: "Phases",
-//     active: true,
-//     type: "phases",
-//     next: false,
-//     value: 1,
-//     max: 0,
-//   },
-//   {
-//     name: "Bruce Banner",
-//     active: false,
-//     type: "hero",
-//     next: false,
-//     value: 18,
-//     max: 18,
-//   },
-//   {
-//     name: "Steve Rogers",
-//     active: false,
-//     type: "hero",
-//     next: false,
-//     value: 11,
-//     max: 11,
-//   },
-//   {
-//     name: "Loki I",
-//     active: true,
-//     type: "villain",
-//     next: false,
-//     value: 0,
-//     max: 40,
-//   },
-//   {
-//     name: "All Hail King Loki",
-//     active: true,
-//     type: "scenario",
-//     next: false,
-//     value: 2,
-//     max: 24,
-//   },
-//   {
-//     name: "Acceleration",
-//     active: true,
-//     type: "acceleration",
-//     next: false,
-//     value: 0,
-//     max: -1,
-//   },
-//   {
-//     name: "Total Destruction",
-//     active: false,
-//     type: "side-scheme",
-//     next: false,
-//     value: 4,
-//     max: 0,
-//   },
-//   {
-//     name: "Hit Squad",
-//     active: false,
-//     type: "side-scheme",
-//     next: false,
-//     value: 6,
-//     max: 0,
-//   },
-//   {
-//     name: "Open the Bifrost",
-//     active: false,
-//     type: "side-scheme",
-//     next: false,
-//     value: 5,
-//     max: 0,
-//   },
-//   {
-//     name: "Madness on Midgard",
-//     active: false,
-//     type: "side-scheme",
-//     next: false,
-//     value: 7,
-//     max: 0,
-//   },
-//   {
-//     name: "War in Asgard",
-//     active: true,
-//     type: "side-scheme",
-//     next: false,
-//     value: 8,
-//     max: 0,
-//   },
-//   {
-//     name: "Casket of Ancient Winters",
-//     active: false,
-//     type: "side-scheme",
-//     next: false,
-//     value: 6,
-//     max: 0,
-//   },
-//   {
-//     name: "A Mess of Things",
-//     active: false,
-//     type: "side-scheme",
-//     next: false,
-//     value: 2,
-//     max: 0,
-//   },
-//   {
-//     name: "Hujahdarian Monarch Egg",
-//     active: false,
-//     type: "side-scheme",
-//     next: false,
-//     value: 7,
-//     max: 0,
-//   },
-//   {
-//     name: "Magical Teapot",
-//     active: false,
-//     type: "side-scheme",
-//     next: false,
-//     value: 7,
-//     max: 0,
-//   },
-//   {
-//     name: "Philosopher's Stone",
-//     active: false,
-//     type: "side-scheme",
-//     next: false,
-//     value: 7,
-//     max: 0,
-//   },
-//   {
-//     name: "Crystal Ball",
-//     active: false,
-//     type: "side-scheme",
-//     next: false,
-//     value: 7,
-//     max: 0,
-//   },
-// ];

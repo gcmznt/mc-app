@@ -1,25 +1,60 @@
-import { EVENTS, FILTERS, MODIFIERS, RESULT_TYPES } from "./constants";
+import {
+  COUNTER_TYPES as CTYPES,
+  EVENTS,
+  FILTERS,
+  MODIFIERS,
+  RESULT_TYPES,
+} from "./constants";
 import { getModifiers, isTarget } from "./status";
+
+const is = (entry, event, type, counters, events) => {
+  return (
+    entry.event === event ||
+    (events.includes(entry.event) &&
+      counters.find((c) => c.id === entry.entity).type === type)
+  );
+};
+
+const isEntered = (...args) => {
+  return is(...args, [EVENTS.ENTER, EVENTS.CREATE, EVENTS.ENA]);
+};
+
+const isCompleted = (...args) => {
+  return is(...args, [EVENTS.DISABLE, EVENTS.COMPLETE]);
+};
 
 export function getMatchStats(match) {
   const mods = getModifiers(match.counters);
 
-  const getMax = (counter, max) =>
+  const getMax = (counter) =>
     mods
       .filter((m) => isTarget(counter, m.targets))
       .filter((m) => m.action === MODIFIERS.HIT_POINTS)
-      .reduce((a, b) => a + b.data.value, max);
+      .reduce((a, b) => a + b.data.value, counter.values?.max);
+
+  const isAlly = (entry) =>
+    isEntered(entry, EVENTS.ENTER_ALLY, CTYPES.ALLY, match.counters);
+  const isAllyDefeated = (entry) =>
+    isCompleted(entry, EVENTS.ALLY_DEFEATED, CTYPES.ALLY, match.counters);
+  const isMinion = (entry) =>
+    isEntered(entry, EVENTS.ENTER_MINION, CTYPES.MINION, match.counters);
+  const isMinionDefeated = (entry) =>
+    isCompleted(entry, EVENTS.MINION_DEFEATED, CTYPES.MINION, match.counters);
+  const isSide = (entry) =>
+    isEntered(entry, EVENTS.ENTER_SCHEME, CTYPES.SIDE_SCHEME, match.counters);
+  const isSideDefeated = (entry) =>
+    isCompleted(entry, EVENTS.SIDE_CLEARED, CTYPES.SIDE_SCHEME, match.counters);
 
   return {
     log: match.log.reduce(
       (acc, entry) => ({
         rounds: (acc.rounds || 1) + (entry.event === EVENTS.NEW_ROUND),
-        allies: (acc.allies || 0) + (entry.event === EVENTS.ENTER_ALLY),
-        allDef: (acc.allDef || 0) + (entry.event === EVENTS.ALLY_DEFEATED),
-        minions: (acc.minions || 0) + (entry.event === EVENTS.ENTER_MINION),
-        minDef: (acc.minDef || 0) + (entry.event === EVENTS.MINION_DEFEATED),
-        schemes: (acc.schemes || 0) + (entry.event === EVENTS.ENTER_SCHEME),
-        sideCl: (acc.sideCl || 0) + (entry.event === EVENTS.SIDE_CLEARED),
+        allies: (acc.allies || 0) + isAlly(entry),
+        allDef: (acc.allDef || 0) + isAllyDefeated(entry),
+        minions: (acc.minions || 0) + isMinion(entry),
+        minDef: (acc.minDef || 0) + isMinionDefeated(entry),
+        schemes: (acc.schemes || 0) + isSide(entry),
+        sideCl: (acc.sideCl || 0) + isSideDefeated(entry),
         flips:
           entry.entity && entry.event === EVENTS.FLIP_HERO
             ? {
@@ -33,17 +68,19 @@ export function getMatchStats(match) {
     finalStatus: match.counters.map((c) => ({
       name: c.aSide || c.name,
       active: c.active,
+      id: c.id,
       type: c.type,
       next: c.next,
+      start: c.valuesInitial?.value,
       value: c.values?.value,
-      max: getMax(c, c.values?.max),
+      max: getMax(c),
     })),
     heroes: match.setup.heroesAndAspects?.map((h) => ({
       name: h.name,
       counter: match.counters.find((c) => c.bSide === h.name),
     })),
     complete: match.complete,
-    date: match.date,
+    date: new Date(match.date),
     device: match.device,
     matchId: match.matchId,
     reason: match.reason,
@@ -78,19 +115,16 @@ export function getPerc(values) {
   return w + l ? ((w / (w + l)) * 100).toFixed(1) : "-";
 }
 
-export function getScenarioName(match) {
-  return match.setup.scenarioName || match.setup.scenario.name;
+export function getScenarioName(setup) {
+  return setup.scenarioName || setup.scenario.name;
 }
 
-export function getHeroesAndAspects(match) {
-  return match.setup.heroesAndAspects || match.setup.heroes;
+export function getHeroesAndAspects(setup) {
+  return setup.heroesAndAspects || setup.heroes;
 }
 
-function getModularSets(match) {
-  return (
-    match.setup.modularSets ||
-    (match.setup.scenario.modular || []).map((m) => m.name)
-  );
+export function getModularSets(setup) {
+  return setup.modularSets || (setup.scenario.modular || []).map((m) => m.name);
 }
 
 function getMatchesStats(res, match) {
@@ -106,26 +140,26 @@ const addToObj = (obj, [k, v]) => ({
 });
 
 function getAspects(aspects, match) {
-  return getHeroesAndAspects(match)
+  return getHeroesAndAspects(match.setup)
     .map((h) => h.aspects.map((a) => [a, match.reason]))
     .flat()
     .reduce(addToObj, aspects);
 }
 
 function getHeroes(heroes, match) {
-  return getHeroesAndAspects(match)
+  return getHeroesAndAspects(match.setup)
     .map((h) => [h.name, match.reason])
     .reduce(addToObj, heroes);
 }
 
 function getModular(modularSets, match) {
-  return (getModularSets(match) || [])
+  return (getModularSets(match.setup) || [])
     .map((mod) => [mod, match.reason])
     .reduce(addToObj, modularSets);
 }
 
 function getScenario(scenario, match) {
-  return addToObj(scenario, [getScenarioName(match), match.reason]);
+  return addToObj(scenario, [getScenarioName(match.setup), match.reason]);
 }
 
 function getModes(modes, match) {
@@ -133,7 +167,10 @@ function getModes(modes, match) {
 }
 
 function getPlayersStats(players, match) {
-  return addToObj(players, [getHeroesAndAspects(match).length, match.reason]);
+  return addToObj(players, [
+    getHeroesAndAspects(match.setup).length,
+    match.reason,
+  ]);
 }
 
 function getFastest(fastest, match) {
@@ -175,28 +212,28 @@ export function getStats(matches = []) {
   );
 }
 
-export const isVisible = (match) => (filter) => {
-  switch (filter[0]) {
+const getValues = (match, filter) => {
+  switch (filter) {
     case FILTERS.RESULT:
-      return match.reason === filter[1];
+      return [match.reason];
     case FILTERS.PLAYERS:
-      return getHeroesAndAspects(match).length === +filter[1];
+      return [`${getHeroesAndAspects(match.setup).length}`];
     case FILTERS.HERO:
-      return getHeroesAndAspects(match)
-        .map((h) => h.name)
-        .includes(filter[1]);
+      return getHeroesAndAspects(match.setup).map((h) => h.name);
     case FILTERS.ASPECT:
-      return getHeroesAndAspects(match)
+      return getHeroesAndAspects(match.setup)
         .map((h) => h.aspects)
-        .flat()
-        .includes(filter[1]);
+        .flat();
     case FILTERS.SCENARIO:
-      return getScenarioName(match).includes(filter[1]);
+      return getScenarioName(match.setup);
     case FILTERS.MODES:
-      return match.setup.mode === filter[1];
+      return [match.setup.mode];
     case FILTERS.MODULAR:
-      return (getModularSets(match) || []).includes(filter[1]);
+      return getModularSets(match.setup) || [];
     default:
       return true;
   }
 };
+
+export const isVisible = (match) => (filter) =>
+  getValues(match, filter[0]).includes(filter[1]);

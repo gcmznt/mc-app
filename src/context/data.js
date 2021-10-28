@@ -68,10 +68,9 @@ export const DataProvider = ({ children }) => {
   };
 
   const saveStats = (matches) => {
-    return persist(
-      STORAGE_KEYS.STATISTICS,
-      matches.map((match) => getMatchStats(match))
-    ).then(setStats);
+    return persist(STORAGE_KEYS.STATISTICS, matches.map(getMatchStats)).then(
+      setStats
+    );
   };
 
   const saveMatch = (match) => {

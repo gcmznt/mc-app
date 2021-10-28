@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { useLocation } from "wouter";
 
 import "../../styles/match.css";
-import { msToTime } from "../../utils";
 import { PAGES } from "../../utils/constants";
+import { getHeroesAndAspects, getScenarioName } from "../../utils/statistics";
 import { resultText } from "../../utils/texts";
 import Dot from "./Dot";
 
@@ -22,7 +22,7 @@ export default function Match({ match }) {
     >
       <div>
         <div>
-          {(match.setup.heroesAndAspects || match.setup.heroes).map((h) => (
+          {getHeroesAndAspects(match.setup).map((h) => (
             <Fragment key={h.name}>
               <span>{t(h.name)}</span>{" "}
               {h.aspects.map((a) => (
@@ -33,13 +33,10 @@ export default function Match({ match }) {
         </div>
         <div>
           <span className="match__vs">VS</span>{" "}
-          {t(match.setup.scenarioName || match.setup.scenario.name)}{" "}
+          {t(getScenarioName(match.setup))}{" "}
           <small className="match__mode">[{match.setup.mode}]</small>
         </div>
-        <div>
-          {t(resultText(match.reason))}
-          {match.complete ? ` in ${msToTime(match.time)}` : ""}
-        </div>
+        <div>{t(resultText(match.reason))}</div>
       </div>
       <div className="match__info">
         <small className="match__date">
