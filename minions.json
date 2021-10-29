@@ -1,0 +1,220 @@
+[
+  { "name": "Abomination", "set_code": "hulk_nemesis", "hitPoints": 6 },
+  { "name": "Advanced Ultron Drone", "set_code": "ultron", "hitPoints": 4 },
+  { "name": "Ancient Warrior", "set_code": "temporal", "hitPoints": 2 },
+  { "name": "Apocryphus", "set_code": "anachronauts", "hitPoints": 4 },
+  {
+    "name": "Armored Guard",
+    "set_code": "klaw",
+    "hitPoints": 3,
+    "status": ["Tough"]
+  },
+  { "name": "Avalanche", "set_code": "qsv_nemesis", "hitPoints": 4 },
+  { "name": "Badoon Assassin", "set_code": "band_of_badoon", "hitPoints": 1 },
+  {
+    "name": "Badoon Engineer",
+    "set_code": "brotherhood_of_badoon",
+    "hitPoints": 3
+  },
+  { "name": "Badoon Grunt", "set_code": "band_of_badoon", "hitPoints": 2 },
+  { "name": "Badoon Lieutenant", "set_code": "band_of_badoon", "hitPoints": 6 },
+  { "name": "Badoon Sentry", "set_code": "band_of_badoon", "hitPoints": 5 },
+  { "name": "Badoon Warlord", "set_code": "band_of_badoon", "hitPoints": 4 },
+  {
+    "name": "Baron Mordo",
+    "set_code": "doctor_strange_nemesis",
+    "hitPoints": 5
+  },
+  {
+    "name": "Baron Zemo",
+    "set_code": "captain_america_nemesis",
+    "hitPoints": 5
+  },
+  { "name": "Beetle", "set_code": "wsp_nemesis", "hitPoints": 4 },
+  { "name": "Berserk Mutate", "set_code": "zola", "hitPoints": 3 },
+  { "name": "Black Dwarf", "set_code": "black_order", "hitPoints": 6 },
+  {
+    "name": "Black Order Besieger",
+    "set_code": "tower_defense",
+    "hitPoints": 3
+  },
+  {
+    "name": "Black Order Infantry",
+    "set_code": "armies_of_titan",
+    "hitPoints": 4
+  },
+  { "name": "Blackjack O'Hare", "set_code": "rocket_nemesis", "hitPoints": 3 },
+  { "name": "Chitauri Soldier", "set_code": "temporal", "hitPoints": 3 },
+  { "name": "Corrupt Prison Guard", "set_code": "wrecker", "hitPoints": 3 },
+  { "name": "Corrupt Prison Guard", "set_code": "thunderball", "hitPoints": 3 },
+  { "name": "Corrupt Prison Guard", "set_code": "piledriver", "hitPoints": 3 },
+  { "name": "Corrupt Prison Guard", "set_code": "bulldozer", "hitPoints": 3 },
+  { "name": "Corvus Glaive", "set_code": "children_of_thanos", "hitPoints": 4 },
+  { "name": "Crossfire", "set_code": "hawkeye_nemesis", "hitPoints": 4 },
+  {
+    "name": "Deathunt 9000",
+    "set_code": "anachronauts",
+    "hitPoints": 6,
+    "status": ["Tough"]
+  },
+  { "name": "Draugr", "set_code": "legions_of_hel", "hitPoints": 3 },
+  { "name": "Ebony Maw", "set_code": "children_of_thanos", "hitPoints": 6 },
+  {
+    "name": "Edison's Giant Robot",
+    "set_code": "ms_marvel_nemesis",
+    "hitPoints": 8
+  },
+  { "name": "Electro", "set_code": "power_drain", "hitPoints": 6 },
+  { "name": "Enchantress", "set_code": "enchantress", "hitPoints": 5 },
+  { "name": "Enraged Symbiote", "set_code": "vnm_nemesis", "hitPoints": 2 },
+  { "name": "Escaped Convict", "set_code": "wrecker", "hitPoints": 2 },
+  { "name": "Escaped Convict", "set_code": "thunderball", "hitPoints": 2 },
+  { "name": "Escaped Convict", "set_code": "piledriver", "hitPoints": 2 },
+  { "name": "Escaped Convict", "set_code": "bulldozer", "hitPoints": 2 },
+  {
+    "name": "Frost Giant",
+    "set_code": "thor_nemesis",
+    "hitPoints": 4,
+    "status": ["Tough"]
+  },
+  { "name": "Frost Giant", "set_code": "frost_giants", "hitPoints": 4 },
+  { "name": "Furnax", "set_code": "groot_nemesis", "hitPoints": 6 },
+  { "name": "Gamora", "set_code": "nebu_nemesis", "hitPoints": 6 },
+  { "name": "Garm", "set_code": "hela", "hitPoints": "4p" },
+  { "name": "Goblin Knight", "set_code": "mutagen_formula", "hitPoints": 7 },
+  { "name": "Goblin Soldier", "set_code": "mutagen_formula", "hitPoints": 5 },
+  { "name": "Goblin Thrall", "set_code": "mutagen_formula", "hitPoints": 3 },
+  { "name": "Hired Gun", "set_code": "risky_business", "hitPoints": 3 },
+  { "name": "Hydra Bomber", "set_code": "bomb_scare", "hitPoints": 2 },
+  { "name": "Hydra Bomber", "set_code": "crossbones", "hitPoints": 2 },
+  {
+    "name": "Hydra Exo-Soldier",
+    "set_code": "red_skull",
+    "hitPoints": 5,
+    "status": ["Tough"]
+  },
+  {
+    "name": "Hydra Flame-Soldier",
+    "set_code": "hydra_assault",
+    "hitPoints": 4
+  },
+  { "name": "Hydra Hunter", "set_code": "taskmaster", "hitPoints": 3 },
+  { "name": "Hydra Jet-Trooper", "set_code": "hydra_assault", "hitPoints": 3 },
+  { "name": "Hydra Mercenary", "set_code": "rhino", "hitPoints": 3 },
+  {
+    "name": "Hydra Mercenary",
+    "set_code": "black_widow_nemesis",
+    "hitPoints": 3
+  },
+  {
+    "name": "Hydra Regular",
+    "set_code": "spider_woman_nemesis",
+    "hitPoints": 2
+  },
+  { "name": "Hydra Regular", "set_code": "hydra_patrol", "hitPoints": 2 },
+  { "name": "Hydra Soldier", "set_code": "legions_of_hydra", "hitPoints": 4 },
+  {
+    "name": "Hydra Soldier",
+    "set_code": "captain_america_nemesis",
+    "hitPoints": 4
+  },
+  { "name": "Hydra Soldier", "set_code": "hydra_patrol", "hitPoints": 4 },
+  {
+    "name": "Kang (Master of Time)",
+    "set_code": "mot",
+    "hitPoints": 6,
+    "status": ["Tough"]
+  },
+  { "name": "Killmonger", "set_code": "black_panther_nemesis", "hitPoints": 5 },
+  { "name": "Kree Commando", "set_code": "kree_militant", "hitPoints": 6 },
+  { "name": "Kree Lieutenant", "set_code": "kree_militant", "hitPoints": 7 },
+  { "name": "Kree Private", "set_code": "kree_militant", "hitPoints": 5 },
+  { "name": "Laufey", "set_code": "frost_giants", "hitPoints": 6 },
+  { "name": "Loki", "set_code": "thor_nemesis", "hitPoints": 4 },
+  { "name": "Luminous", "set_code": "scw_nemesis", "hitPoints": 5 },
+  { "name": "Macrobots", "set_code": "kang", "hitPoints": 4 },
+  { "name": "Madame Hydra", "set_code": "legions_of_hydra", "hitPoints": 6 },
+  { "name": "Melter", "set_code": "masters_of_evil", "hitPoints": 5 },
+  { "name": "Mister Knife", "set_code": "stld_nemesis", "hitPoints": 6 },
+  { "name": "MODOK", "set_code": "the_doomsday_chair", "hitPoints": 8 },
+  { "name": "Monarch Starstalker", "set_code": "collector1", "hitPoints": 7 },
+  { "name": "Monster", "set_code": "mutagen_formula", "hitPoints": 6 },
+  { "name": "Nebula", "set_code": "gam_nemesis", "hitPoints": 5 },
+  { "name": "Nidhogg", "set_code": "hela", "hitPoints": "6p" },
+  { "name": "Outrider", "set_code": "armies_of_titan", "hitPoints": 2 },
+  { "name": "Pirate Commander", "set_code": "space_pirates", "hitPoints": 6 },
+  { "name": "Pirate Lackey", "set_code": "space_pirates", "hitPoints": 3 },
+  {
+    "name": "Private Security Specialist",
+    "set_code": "risky_business",
+    "hitPoints": 4
+  },
+  {
+    "name": "Proxima Midnight",
+    "set_code": "children_of_thanos",
+    "hitPoints": 5
+  },
+  { "name": "Psionic Ghost", "set_code": "menagerie_medley", "hitPoints": 4 },
+  { "name": "Radioactive Man", "set_code": "masters_of_evil", "hitPoints": 7 },
+  { "name": "Radioactive Man", "set_code": "spectrum_nemesis", "hitPoints": 6 },
+  {
+    "name": "Ronan the Accuser",
+    "set_code": "kree_fanatic",
+    "hitPoints": "9p",
+    "status": ["Tough"]
+  },
+  {
+    "name": "Sandman",
+    "set_code": "rhino",
+    "hitPoints": 4,
+    "status": ["Tough"]
+  },
+  { "name": "Scorpion", "set_code": "a_mess_of_things", "hitPoints": 7 },
+  { "name": "Servant Bot", "set_code": "menagerie_medley", "hitPoints": 3 },
+  { "name": "Shocker", "set_code": "rhino", "hitPoints": 3 },
+  { "name": "Sir Raston", "set_code": "anachronauts", "hitPoints": 6 },
+  { "name": "Skurge", "set_code": "hela", "hitPoints": "5p" },
+  { "name": "Starshark", "set_code": "menagerie_medley", "hitPoints": 7 },
+  { "name": "Supergiant", "set_code": "black_order", "hitPoints": 5 },
+  { "name": "Taskmaster", "set_code": "black_widow_nemesis", "hitPoints": 4 },
+  { "name": "Terminatrix", "set_code": "anachronauts", "hitPoints": 5 },
+  { "name": "The Magus", "set_code": "warlock_nemesis", "hitPoints": 5 },
+  {
+    "name": "The Sleeper",
+    "set_code": "red_skull",
+    "hitPoints": "5p",
+    "status": ["Tough"],
+    "triggers": {
+      "disable": [{ "event": "disable", "targets": "The Sleeper Awakened" }]
+    }
+  },
+  { "name": "The Viper", "set_code": "spider_woman_nemesis", "hitPoints": 5 },
+  { "name": "Thomas Edison", "set_code": "ms_marvel_nemesis", "hitPoints": 3 },
+  { "name": "Tiger Shark", "set_code": "masters_of_evil", "hitPoints": 6 },
+  { "name": "Time-Displaced Soldier", "set_code": "mot", "hitPoints": 3 },
+  { "name": "Titania", "set_code": "she_hulk_nemesis", "hitPoints": 6 },
+  { "name": "Tombstone", "set_code": "running_interference", "hitPoints": 9 },
+  {
+    "name": "Tyrannosaurus Rex",
+    "set_code": "temporal",
+    "hitPoints": 6,
+    "status": ["Tough"]
+  },
+  {
+    "name": "Ultimate Bio-Servant",
+    "set_code": "zola",
+    "hitPoints": 4,
+    "status": ["Tough"]
+  },
+  { "name": "Ultron's Drone", "set_code": "ultron", "hitPoints": 1 },
+  { "name": "Vulture", "set_code": "spider_man_nemesis", "hitPoints": 4 },
+  { "name": "Weapons Runner", "set_code": "klaw", "hitPoints": 2 },
+  { "name": "Whiplash", "set_code": "iron_man_nemesis", "hitPoints": 4 },
+  { "name": "Whirlwind", "set_code": "masters_of_evil", "hitPoints": 6 },
+  { "name": "Wildrun", "set_code": "anachronauts", "hitPoints": 5 },
+  { "name": "Yellowjacket", "set_code": "ant_nemesis", "hitPoints": 4 },
+  { "name": "Yon-Rogg", "set_code": "captain_marvel_nemesis", "hitPoints": 5 },
+  { "name": "Yotat the Destroyer", "set_code": "drax_nemesis", "hitPoints": 5 },
+  { "name": "Zealot of thuth", "set_code": "warlock_nemesis", "hitPoints": 4 },
+  { "name": "Zola's Mutate", "set_code": "zola", "hitPoints": 5 }
+]

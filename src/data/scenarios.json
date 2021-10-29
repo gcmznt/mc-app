@@ -2,6 +2,7 @@
   {
     "mainScheme": ["The Break In!"],
     "modular": ["Bomb Scare"],
+    "minions": ["Hydra Mercenary", "Sandman", "Shocker"],
     "name": "Rhino",
     "pack": "Core Set",
     "sideSchemes": ["Breakin' & Takin'", "Crowd Control"],

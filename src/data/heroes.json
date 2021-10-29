@@ -4,6 +4,7 @@
     "aspects": ["Justice"],
     "hitPoints": 10,
     "name": "Spider-Man",
+    "nemesis": ["Vulture"],
     "nemesisSchemes": ["Highway Robbery"],
     "pack": "Core Set"
   },

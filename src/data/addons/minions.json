@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Ultron's Drone",
+    "set_code": "ultron",
+    "hitPoints": 1
+  },
+  {
+    "name": "The Sleeper",
+    "set_code": "red_skull",
+    "triggers": {
+      "disable": [
+        {
+          "event": "disable",
+          "targets": "The Sleeper Awakened"
+        }
+      ]
+    }
+  }
+]

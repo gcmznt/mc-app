@@ -24,6 +24,7 @@ import Timer from "./Timer";
 import Actions, { Action } from "./ui/Actions";
 import Box from "./ui/Box";
 import LogItem from "./ui/LogItem";
+import Modal from "./ui/Modal";
 import Navbar from "./ui/NavBar";
 import Option from "./ui/Option";
 import Report from "./ui/Report";
@@ -43,9 +44,16 @@ const getNextPlayer = (counters, active, dir = 1, offset = 1) => {
     : getNextPlayer(counters, active, dir, offset + 1);
 };
 
+const getMinions = (setup) =>
+  [
+    ...setup.heroes.map((h) => h.minions),
+    setup.scenario.minions,
+    ...setup.scenario.modular.map((m) => m.minions),
+  ].flat();
+
 export default function Status({ matchId, onQuit, setup }) {
   const { t } = useTranslation();
-  const { data, getMinion } = useData();
+  const { data } = useData();
   const [eventQueue, setEventQueue] = useState([]);
   const [now, setNow] = useState(new Date());
   const [interacted, setInteracted] = useState(false);
@@ -55,6 +63,7 @@ export default function Status({ matchId, onQuit, setup }) {
   const [firstPlayer, setFirstPlayer] = useState(0);
   const [result, setResult] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const [addCounter, setAddCounter] = useState(false);
 
   const player = {
     first: firstPlayer,
@@ -69,6 +78,8 @@ export default function Status({ matchId, onQuit, setup }) {
   const logger = useLogger();
 
   const refresh = [logger.entries.length, CU.all.length, CU.activesCount, now];
+
+  const minions = useMemo(() => getMinions(setup), [setup]);
 
   const sets = useMemo(() => CU.getSets(), refresh);
   const activeMods = useMemo(() => CU.getModifiers(), refresh);
@@ -114,7 +125,7 @@ export default function Status({ matchId, onQuit, setup }) {
         return dispatchEvent(counter.values.value);
       case EVENTS.ENTER_MINION:
         return new Array(trigger.perPlayer ? +setup.settings.players : 1)
-          .fill(getMinion(trigger.targets))
+          .fill(data.minions[trigger.targets])
           .forEach((m) => createCounter(CTYPES.MINION, trigger.targets, m));
       case EVENTS.HIT:
         return dispatchEvent(
@@ -231,6 +242,7 @@ export default function Status({ matchId, onQuit, setup }) {
       [CTYPES.UPGRADE]: EVENTS.ENTER_UPGRADE,
     }[type];
     setTimeout(() => dispatch(counter.id, event || EVENTS.CREATE), 0);
+    setAddCounter(false);
   };
 
   const handleSubmitCounter = (e) => {
@@ -638,42 +650,75 @@ export default function Status({ matchId, onQuit, setup }) {
                 ))}
             </Box>
           )}
-          <Box key="Add counters" title={t("Add counters")} flat flag>
-            <fieldset>
-              <legend>- {t("Side schemes")}</legend>
-              {sets.sideSchemes.map((counter) => (
-                <Option
-                  key={counter.id}
-                  checked={counter.active}
-                  label={counter.name}
-                  onChange={() => enableSide(counter)}
-                  value={counter.name}
-                />
-              ))}
-            </fieldset>
-            <fieldset>
-              <legend>- {t("Extra counters")}</legend>
-              {[CTYPES.ALLY, CTYPES.MINION, CTYPES.SUPPORT, CTYPES.UPGRADE].map(
-                (type) => (
-                  <Option
-                    checked={false}
-                    key={type}
-                    label={t("Add type Counter", { type: t(type) })}
-                    onChange={() => createCounter(type)}
-                    type={false}
-                  />
-                )
-              )}
-              <form onSubmit={handleSubmitCounter}>
-                <input
-                  placeholder={t("Custom name")}
-                  value={custom}
-                  onChange={(e) => setCustom(e.target.value)}
-                />{" "}
-                <span onClick={handleSubmitCounter}>{t("Add")}</span>
-              </form>
-            </fieldset>
+          <Box>
+            <button onClick={() => setAddCounter(true)}>
+              {t("Add counters")}
+            </button>
           </Box>
+          {addCounter && (
+            <Modal>
+              <Box key="Add counters" flat flag>
+                <fieldset>
+                  <legend>- {t("Side schemes")}</legend>
+                  {sets.sideSchemes.map((counter) => (
+                    <Option
+                      key={counter.id}
+                      checked={counter.active}
+                      label={counter.name}
+                      onChange={() => {
+                        setAddCounter(false);
+                        enableSide(counter);
+                      }}
+                      value={counter.name}
+                    />
+                  ))}
+                </fieldset>
+                <fieldset>
+                  <legend>- {t("Minions")}</legend>
+                  {minions.map((minion) => (
+                    <Option
+                      key={minion.name}
+                      label={minion.name}
+                      type={false}
+                      checked={false}
+                      onChange={() =>
+                        createCounter(CTYPES.MINION, minion.name, minion)
+                      }
+                      value={minion.name}
+                    />
+                  ))}
+                </fieldset>
+                <fieldset>
+                  <legend>- {t("Extra counters")}</legend>
+                  {[
+                    CTYPES.ALLY,
+                    CTYPES.MINION,
+                    CTYPES.SUPPORT,
+                    CTYPES.UPGRADE,
+                  ].map((type) => (
+                    <Option
+                      checked={false}
+                      key={type}
+                      label={t("Add type Counter", { type: t(type) })}
+                      onChange={() => createCounter(type)}
+                      type={false}
+                    />
+                  ))}
+                  <form onSubmit={handleSubmitCounter}>
+                    <input
+                      placeholder={t("Custom name")}
+                      value={custom}
+                      onChange={(e) => setCustom(e.target.value)}
+                    />{" "}
+                    <span onClick={handleSubmitCounter}>{t("Add")}</span>
+                  </form>
+                </fieldset>
+                <button onClick={() => setAddCounter(false)}>
+                  {t("Close")}
+                </button>
+              </Box>
+            </Modal>
+          )}
         </div>
         <div className="box__wrapper">
           <Box key="Log" title="Log" flat flag type="log">

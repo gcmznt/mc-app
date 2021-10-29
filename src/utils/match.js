@@ -3,13 +3,17 @@ const getSideSchemes = (el) => [
   ...(el?.nemesisSchemes || []),
 ];
 
-export function getFullSetup(setup, data) {
-  const getSchemeData = (s) => data.schemes[s];
-  const getModularData = (m) => data.modularSets[m];
+const getMinions = (el) => [...(el?.minions || []), ...(el?.nemesis || [])];
 
-  const addSideSchemes = (el) => ({
+export function getFullSetup(setup, data) {
+  const getSchemeData = (name) => data.schemes[name];
+  const getMinionData = (name) => data.minions[name];
+  const getModularData = (name) => data.modularSets[name];
+
+  const addExtras = (el) => ({
     ...el,
     sideSchemes: getSideSchemes(el).map(getSchemeData),
+    minions: getMinions(el).map(getMinionData),
   });
 
   const getHeroData = (hero) => ({
@@ -17,11 +21,7 @@ export function getFullSetup(setup, data) {
     aspects: hero.aspects,
   });
 
-  const getHeroesData = (heroes) => heroes.map(getHeroData).map(addSideSchemes);
-
-  const getMainSchemeData = (s) => ({
-    ...data.schemes[s],
-  });
+  const getHeroesData = (heroes) => heroes.map(getHeroData).map(addExtras);
 
   const getScenarioData = (name) => {
     const scenarioData = data.scenarios.find((s) => s.name === name);
@@ -29,8 +29,9 @@ export function getFullSetup(setup, data) {
     return {
       ...scenarioData,
       sideSchemes: getSideSchemes(scenarioData).map(getSchemeData),
-      mainScheme: scenarioData.mainScheme.map(getMainSchemeData),
-      modular: setup.modularSets.map(getModularData).map(addSideSchemes),
+      mainScheme: scenarioData.mainScheme.map(getSchemeData),
+      modular: setup.modularSets.map(getModularData).map(addExtras),
+      minions: scenarioData.minions.map(getMinionData),
     };
   };
 

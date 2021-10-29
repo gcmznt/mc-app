@@ -15,7 +15,7 @@ const isEnabled = (el) =>
 
 const data = {
   heroes: heroes.filter(isEnabled),
-  minions,
+  minions: minions.reduce((a, c) => ({ ...a, [c.name]: c }), {}),
   modularSets: modularSets.reduce((a, c) => ({ ...a, [c.name]: c }), {}),
   scenarios: scenarios.filter(isEnabled),
   schemes: schemes.reduce((a, c) => ({ ...a, [c.name]: c }), {}),
@@ -89,10 +89,6 @@ export const DataProvider = ({ children }) => {
     persist(STORAGE_KEYS.TO_DELETE, []);
   };
 
-  const getMinion = (name) => {
-    return data.minions.find((m) => name === m.name);
-  };
-
   useEffect(() => {
     Promise.all([
       load(STORAGE_KEYS.MATCHES),
@@ -135,7 +131,6 @@ export const DataProvider = ({ children }) => {
         data,
         deleteMatch,
         fullSelection,
-        getMinion,
         matches,
         options,
         saveMatch,
