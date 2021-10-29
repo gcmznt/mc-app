@@ -91,8 +91,6 @@ export default function MatchStat({ matchId, onLoad }) {
     });
   }, [loadMatch, matchId, stats]);
 
-  console.log(match);
-
   return match ? (
     <Fragment>
       <Box key="Setup">
