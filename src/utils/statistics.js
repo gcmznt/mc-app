@@ -180,7 +180,10 @@ function getFastest(fastest, match) {
 }
 
 function getLongest(longest, match) {
-  return match.complete && match.time > longest.time ? match : longest;
+  console.log(match.complete, match.time, longest);
+  return match.complete && (!longest || match.time > longest.time)
+    ? match
+    : longest;
 }
 
 export function getStats(matches = []) {
