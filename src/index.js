@@ -8,6 +8,28 @@ import reportWebVitals from "./reportWebVitals";
 import { FirebaseProvider } from "./context/firebase";
 import { DataProvider } from "./context/data";
 import "./i18n";
+import { STORAGE_KEYS } from "./utils/constants";
+import { persist } from "./utils";
+
+function load(key) {
+  return JSON.parse(localStorage.getItem(key)) || false;
+}
+
+function move(key, val) {
+  persist(key, val);
+  localStorage.removeItem(key);
+}
+
+[
+  STORAGE_KEYS.MATCHES,
+  STORAGE_KEYS.SETTINGS,
+  STORAGE_KEYS.OPTIONS,
+  STORAGE_KEYS.CURRENT,
+  STORAGE_KEYS.SELECTION,
+].forEach((key) => {
+  const saved = load(key);
+  if (saved) move(key, saved);
+});
 
 ReactDOM.render(
   <React.StrictMode>
