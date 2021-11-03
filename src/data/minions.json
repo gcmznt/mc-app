@@ -8,6 +8,10 @@
     "name": "Goblin Thrall"
   },
   {
+    "hitPoints": 10,
+    "name": "Mister Hyde"
+  },
+  {
     "hitPoints": 1,
     "name": "Ultron's Drone"
   },

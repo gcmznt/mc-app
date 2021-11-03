@@ -163,5 +163,55 @@
     "name": "The Black Order",
     "sideSchemes": ["The Black Order"],
     "pack": "The Mad Titan’s Shadow"
+  },
+  {
+    "name": "Beasty Boys",
+    "sideSchemes": ["Beast Mode"],
+    "pack": "The Hood"
+  },
+  {
+    "name": "Brothers Grimm",
+    "sideSchemes": [],
+    "pack": "The Hood"
+  },
+  {
+    "name": "Mister Hyde",
+    "sideSchemes": ["Self-Experimentation"],
+    "pack": "The Hood"
+  },
+  {
+    "name": "Wrecking Crew",
+    "sideSchemes": ["Top Talent"],
+    "pack": "The Hood"
+  },
+  {
+    "name": "Sinister Syndicate",
+    "sideSchemes": ["Crime Pays"],
+    "pack": "The Hood"
+  },
+  {
+    "name": "Crossfire’s Crew",
+    "sideSchemes": ["Out for Blood"],
+    "pack": "The Hood"
+  },
+  {
+    "name": "Ransacked Armory",
+    "sideSchemes": [],
+    "pack": "The Hood"
+  },
+  {
+    "name": "State of Emergency",
+    "sideSchemes": [
+      "Feisty Heist",
+      "Disaster at the Docks",
+      "Hot Pursuit",
+      "Offshore Inferno"
+    ],
+    "pack": "The Hood"
+  },
+  {
+    "name": "Streets of Mayhem",
+    "sideSchemes": [],
+    "pack": "The Hood"
   }
 ]

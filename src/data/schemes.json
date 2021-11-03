@@ -1031,5 +1031,77 @@
     "icons": ["Acceleration"],
     "name": "Ultron Unleashed",
     "start": 3
+  },
+  {
+    "complete": "5p",
+    "name": "Making Connections",
+    "start": "1p",
+    "step": "1p"
+  },
+  {
+    "complete": "8p",
+    "name": "Promised Prosperity",
+    "start": "2p",
+    "step": "1p"
+  },
+  {
+    "complete": "10p",
+    "name": "Crime State",
+    "start": "3p",
+    "step": "1p"
+  },
+  {
+    "name": "Unbridled Ambition",
+    "start": [2, "2p"]
+  },
+  {
+    "name": "Beast Mode",
+    "start": ["3p"]
+  },
+  {
+    "name": "Self-Experimentation",
+    "start": ["5p"],
+    "triggers": {
+      "enter": [
+        {
+          "event": "enter-minion",
+          "targets": "Mister Hyde"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Top Talent",
+    "start": [3, "2p"]
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Crime Pays",
+    "start": ["3p"]
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "Out for Blood",
+    "start": ["2p"]
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Feisty Heist",
+    "start": ["3p"]
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Disaster at the Docks",
+    "start": ["3p"]
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Hot Pursuit",
+    "start": ["3p"]
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Offshore Inferno",
+    "start": ["3p"]
   }
 ]

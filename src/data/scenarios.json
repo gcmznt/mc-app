@@ -589,5 +589,28 @@
         "stages": { "expert": [1], "standard": [1] }
       }
     ]
+  },
+  {
+    "encounter": [],
+    "mainScheme": ["Making Connections", "Promised Prosperity", "Crime State"],
+    "modular": [
+      "Beasty Boys",
+      "Brothers Grimm",
+      "Mister Hyde",
+      "Sinister Syndicate",
+      "Ransacked Armory",
+      "State of Emergency",
+      "Streets of Mayhem"
+    ],
+    "name": "The Hood",
+    "pack": "The Hood",
+    "sideSchemes": ["Unbridled Ambition"],
+    "villains": [
+      {
+        "levels": { "1": "14p", "2": "16p", "3": "18p" },
+        "name": "The Hood",
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
+      }
+    ]
   }
 ]
