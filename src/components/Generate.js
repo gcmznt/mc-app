@@ -85,7 +85,7 @@ const getModular = (scenario, selection, settings) => {
 
 export default function Generate({ onStart }) {
   const { t } = useTranslation();
-  const { data, matches, selection } = useData();
+  const { allMatches, data, selection } = useData();
   const [setup, setSetup] = useState(false);
   const [settings, setSettings] = useState(initialSetting);
   const generateBtn = useRef(null);
@@ -95,12 +95,17 @@ export default function Generate({ onStart }) {
   };
 
   const randomize = () => {
-    const scenario = getScenario(selection.scenarios, matches, settings, data);
+    const scenario = getScenario(
+      selection.scenarios,
+      allMatches,
+      settings,
+      data
+    );
     const modular = getModular(scenario, selection.modularSets, settings);
     const heroesAndAspects = getHeroes(
       scenario.name,
       selection.heroes,
-      matches,
+      allMatches,
       settings
     )
       .map((hero) => data.heroes.find((h) => h.name === hero))

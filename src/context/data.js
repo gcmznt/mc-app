@@ -10,6 +10,8 @@ import { append, appendList, load, persist } from "../utils";
 import { DEFAULT_OPTIONS, STORAGE_KEYS } from "../utils/constants";
 import { getMatchStats } from "../utils/statistics";
 
+const isActive = (match) => !match.trash;
+
 const isEnabled = (el) =>
   !el.disabled || window.location.hostname === "localhost";
 
@@ -31,7 +33,7 @@ const DataContext = createContext(null);
 
 export const DataProvider = ({ children }) => {
   const [stats, setStats] = useState([]);
-  const [allMatches, setAllMatches] = useState([]);
+  const [matches, setMatches] = useState([]);
   const [selection, setSelection] = useState(fullSelection);
   const [options, setOptions] = useState(DEFAULT_OPTIONS);
 
@@ -50,14 +52,14 @@ export const DataProvider = ({ children }) => {
         stats.map((m) => m.matchId)
       );
       return Promise.all([
-        persist(STORAGE_KEYS.MATCHES, []).then(setAllMatches),
+        persist(STORAGE_KEYS.MATCHES, []).then(setMatches),
         persist(STORAGE_KEYS.STATISTICS, []).then(setStats),
       ]);
     } else if (matches.some((m) => m.matchId === match.matchId)) {
       return persist(
         STORAGE_KEYS.MATCHES,
-        allMatches.filter((m) => m.matchId !== match.matchId)
-      ).then(setAllMatches);
+        matches.filter((m) => m.matchId !== match.matchId)
+      ).then(setMatches);
     } else if (stats.some((m) => m.matchId === match.matchId)) {
       append(STORAGE_KEYS.TO_DELETE, match.matchId);
       return persist(
@@ -75,9 +77,9 @@ export const DataProvider = ({ children }) => {
 
   const saveMatch = (match) => {
     persist(STORAGE_KEYS.MATCHES, [
-      ...allMatches.filter((m) => m.matchId !== match.matchId),
+      ...matches.filter((m) => m.matchId !== match.matchId),
       match,
-    ]).then(setAllMatches);
+    ]).then(setMatches);
   };
 
   const clearStats = () => {
@@ -85,7 +87,7 @@ export const DataProvider = ({ children }) => {
   };
 
   const clear = () => {
-    persist(STORAGE_KEYS.MATCHES, []).then(setAllMatches);
+    persist(STORAGE_KEYS.MATCHES, []).then(setMatches);
     persist(STORAGE_KEYS.TO_DELETE, []);
   };
 
@@ -100,7 +102,7 @@ export const DataProvider = ({ children }) => {
       load(STORAGE_KEYS.OPTIONS),
       load(STORAGE_KEYS.SELECTION),
     ]).then(([ms, stats, opts, sel]) => {
-      setAllMatches(ms || []);
+      setMatches(ms || []);
       setStats(stats || []);
       setOptions(opts || DEFAULT_OPTIONS);
 
@@ -122,21 +124,20 @@ export const DataProvider = ({ children }) => {
     persist(STORAGE_KEYS.OPTIONS, options);
   }, [options]);
 
-  const matches = useMemo(
-    () => allMatches.filter((m) => !m.trash),
-    [allMatches]
-  );
+  const activeMatches = useMemo(() => matches.filter(isActive), [matches]);
+  const allMatches = useMemo(() => [...matches, ...stats], [matches, stats]);
 
   return (
     <DataContext.Provider
       value={{
+        allMatches,
         clear,
         clearStats,
         data,
         deleteMatch,
         fullSelection,
         getMinion,
-        matches,
+        matches: activeMatches,
         options,
         saveMatch,
         saveStats,
