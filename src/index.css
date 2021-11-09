@@ -110,6 +110,16 @@ form {
   margin: 0.2em 0;
 }
 
+select {
+  margin: 0.2em 0;
+  padding: 0.2em;
+  font-size: 0.8em;
+}
+
+label > span + select {
+  margin-left: 1em;
+}
+
 .fraction {
   display: inline-block;
   font-size: 0.6em;

@@ -30,8 +30,8 @@ export function getRandom(data) {
   return weigths[0];
 }
 
-export function getRandomList(data, count = 1) {
-  const l = new Set();
+export function getRandomList(data, count = 1, starting = []) {
+  const l = new Set(starting);
   while (l.size < count) {
     l.add(getRandom(data));
   }

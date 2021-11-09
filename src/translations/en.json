@@ -4,6 +4,7 @@
   "Increased limit": "Increased limit{count, plural, =1 {} other { × #}}",
   "is no more": "{name} is no more {status}",
   "is": "{name} is {status}",
+  "Player num": "{num, plural, =1 {#st}  =2 {#nd} =3 {#rd} other {#th}} player",
   "Players num": "{numPlayers, plural, =1 {# player} other {# players}}",
   "Round num": "Round {number}"
 }

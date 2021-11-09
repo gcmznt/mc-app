@@ -79,6 +79,7 @@
   "Options": "Opzioni",
   "P": "G",
   "Password": "Password",
+  "Player num": "Giocatore {num}",
   "Players num": "{numPlayers, plural, =1 {# giocatore} other {# giocatori}}",
   "Players": "Giocatori",
   "Protection": "Protezione",

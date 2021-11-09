@@ -14,7 +14,9 @@ import { ASPECTS, MODES, RANDOM, STORAGE_KEYS } from "../utils/constants";
 import { getHeroesAndAspects, getScenarioName } from "../utils/statistics";
 import Heroic from "./inputs/Heroic";
 import Mode from "./inputs/Mode";
+import Player from "./inputs/Player";
 import Players from "./inputs/Players";
+import Scenario from "./inputs/Scenario";
 import Skirmish from "./inputs/Skirmish";
 import Box from "./ui/Box";
 import Option from "./ui/Option";
@@ -24,9 +26,14 @@ const initialSetting = {
   heroic: "0",
   mode: "Standard",
   players: 1,
+  player1: RANDOM,
+  player2: RANDOM,
+  player3: RANDOM,
+  player4: RANDOM,
   randomAspects: true,
   randomWeighted: true,
   randomModulars: true,
+  scenario: RANDOM,
   skirmish: "None",
 };
 
@@ -36,10 +43,18 @@ const getAspects = (hero, random) => ({
 });
 
 const getHeroes = (scenario, selection, matches, settings) => {
+  const pl = [
+    settings.player1,
+    settings.player2,
+    settings.player3,
+    settings.player4,
+  ].slice(0, settings.players);
+  const sel = pl.filter((p) => p !== RANDOM);
+
   const getBestHeroes = () =>
     getWeigths(
       countOccurrence(
-        selection,
+        selection.filter((h) => !sel.includes(h)),
         matches
           .map((match) =>
             new Array(
@@ -53,10 +68,14 @@ const getHeroes = (scenario, selection, matches, settings) => {
       )
     );
 
-  return getRandomList(
-    settings.randomWeighted ? getBestHeroes() : selection,
-    settings.players
+  const randomPl = getRandomList(
+    settings.randomWeighted
+      ? getBestHeroes()
+      : selection.filter((h) => !sel.includes(h)),
+    settings.players - sel.length
   );
+
+  return pl.map((p) => (p === RANDOM ? randomPl.pop() : p));
 };
 
 const getScenario = (selection, matches, settings, data) => {
@@ -68,9 +87,10 @@ const getScenario = (selection, matches, settings, data) => {
       )
     );
 
-  const name = getRandom(
-    settings.randomWeighted ? getBestScenarios() : selection
-  );
+  const name =
+    settings.scenario === RANDOM
+      ? getRandom(settings.randomWeighted ? getBestScenarios() : selection)
+      : settings.scenario;
   return data.scenarios.find((s) => s.name === name);
 };
 
@@ -160,12 +180,47 @@ export default function Generate({ onStart }) {
 
   return (
     <>
+      <Box title={t("Scenario")} key="Scenario" flag>
+        <Scenario
+          onChange={handleChange("scenario")}
+          value={settings.scenario}
+        />
+      </Box>
       <Box title={t("Players")} key="Players" flag>
         <Players
           onChange={handleChange("players")}
           value={settings.players}
           max={selection.heroes.length}
         />
+        <legend class="box__legend">{t("Heroes")}</legend>
+        {settings.players >= 1 && (
+          <Player
+            onChange={handleChange("player1")}
+            pos={1}
+            value={settings.player1}
+          />
+        )}
+        {settings.players >= 2 && (
+          <Player
+            onChange={handleChange("player2")}
+            pos={2}
+            value={settings.player2}
+          />
+        )}
+        {settings.players >= 3 && (
+          <Player
+            onChange={handleChange("player3")}
+            pos={3}
+            value={settings.player3}
+          />
+        )}
+        {settings.players >= 4 && (
+          <Player
+            onChange={handleChange("player4")}
+            pos={4}
+            value={settings.player4}
+          />
+        )}
       </Box>
       <Box title={t("Mode")} key="Mode" flag>
         <Mode onChange={handleChange("mode")} value={settings.mode} />
