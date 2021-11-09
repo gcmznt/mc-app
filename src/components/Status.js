@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import { useData } from "../context/data";
 import { getRandomList, load, persist, toValue } from "../utils";
 import {
-  COUNTER_TYPES,
   COUNTER_TYPES as CTYPES,
   EVENTS,
   RESULT_TYPES,
@@ -37,6 +36,8 @@ const byName = (a, b) => a.name.localeCompare(b.name);
 
 const getNextPlayer = (counters, active, dir = 1, offset = 1) => {
   const next = (active + counters.length + offset * dir) % counters.length;
+
+  if (offset > counters.length) return -1;
 
   return counters[next].active
     ? next
@@ -146,9 +147,16 @@ export default function Status({ matchId, onQuit, setup }) {
     );
   };
 
+  const isFirstPlayer = (counter) =>
+    sets.heroesCounters.findIndex((c) => c.id === counter.id) === firstPlayer;
+
   const handleDefeat = (counter) => {
     const next = CU.next(counter);
     const triggers = counter.triggers[EVENTS.COMPLETE];
+
+    if (counter.type === CTYPES.HERO && !next && isFirstPlayer(counter)) {
+      dispatch(false, EVENTS.FIRST_PLAYER, firstPlayer);
+    }
 
     if (triggers) {
       runCounterTriggers(counter, EVENTS.COMPLETE);
@@ -234,7 +242,7 @@ export default function Status({ matchId, onQuit, setup }) {
 
   const handleSubmitCounter = (e) => {
     e.preventDefault();
-    custom && createCounter(COUNTER_TYPES.CUSTOM, custom);
+    custom && createCounter(CTYPES.CUSTOM, custom);
     setCustom("");
   };
 
@@ -248,12 +256,12 @@ export default function Status({ matchId, onQuit, setup }) {
 
   const runEvent = (evt) => (counter) => {
     const { event, data, source } = evt.detail;
-    logger.add(time, event, counter.id, evt.detail, counter.type);
+    logger.add(time, event, counter?.id, evt.detail, counter?.type);
     setInteracted(true);
     runEventQueue(event);
-    runCounterTriggers(counter, TRIGGER_MAP[event] || event);
+    if (counter) runCounterTriggers(counter, TRIGGER_MAP[event] || event);
 
-    logger.console("DO", evt.detail, counter.name);
+    logger.console("DO", evt.detail, counter?.name);
 
     switch (event) {
       case EVENTS.NEW_PHASE:
@@ -312,6 +320,8 @@ export default function Status({ matchId, onQuit, setup }) {
         return counter.enable();
       case EVENTS.LOCK:
         return counter.lock();
+      case EVENTS.FIRST_PLAYER:
+        return player.next();
       case EVENTS.NEW_ROUND:
         player.next();
         sets.roundsCounter.add();
@@ -343,7 +353,7 @@ export default function Status({ matchId, onQuit, setup }) {
     const counter = CU.all.find((c) => c.id === entity);
     logger.remove();
 
-    logger.console("UNDO", info, counter.name);
+    logger.console("UNDO", info, counter?.name);
 
     switch (event) {
       case EVENTS.COMPLETE:
@@ -385,6 +395,8 @@ export default function Status({ matchId, onQuit, setup }) {
         return counter.disable();
       case EVENTS.LOCK:
         return counter.unlock();
+      case EVENTS.FIRST_PLAYER:
+        return player.prev();
       case EVENTS.NEW_ROUND:
         player.prev();
         sets.roundsCounter.remove();
@@ -454,7 +466,11 @@ export default function Status({ matchId, onQuit, setup }) {
   useEffect(() => {
     const te = (event) => {
       logger.console("listener", event.detail);
-      CU.getTargets(event.detail.targets).map(runEvent(event));
+      if (event.detail.targets) {
+        CU.getTargets(event.detail.targets).map(runEvent(event));
+      } else {
+        runEvent(event)(false);
+      }
       setNow(new Date());
     };
 

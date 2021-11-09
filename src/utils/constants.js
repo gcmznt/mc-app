@@ -41,6 +41,7 @@ export const EVENTS = {
   ENTER_SUPPORT: "enter-support",
   ENTER_UPGRADE: "enter-upgrade",
   ENTER: "enter",
+  FIRST_PLAYER: "first-player",
   FLIP: "flip",
   FLIP_COUNTER: "flip-counter",
   FLIP_HERO: "flip-hero",

@@ -11,7 +11,5 @@ match page with detailed stats [round/phases counter] and delete
 online/offline sync
 auto-start counters
 
-first player token shift when hero die
-
 add minions in db
 multi language [traduzioni villains e livelli, trame, alter-ego, counters, logs]

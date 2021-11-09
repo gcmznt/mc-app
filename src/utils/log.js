@@ -159,6 +159,8 @@ export const LogString = ({ count = 0, counter, info, event }) => {
           {getStageName(counter)}: {t("Increased limit", { count })}
         </>
       );
+    case EVENTS.FIRST_PLAYER:
+      return `❗️ ${t("First player")}`;
     case EVENTS.NEW_PHASE:
       return `🔴 ${t("Villain phase")}`;
     case EVENTS.NEW_ROUND:
