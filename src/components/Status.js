@@ -206,16 +206,15 @@ export default function Status({ matchId, onQuit, setup }) {
       : onQuit(false);
 
   const enableSide = (counter) => dispatch(counter.id, EVENTS.ENTER_SCHEME);
-  const disableCounter = (counter, event) =>
+
+  const disableCounter = (counter, event) => {
+    runCounterTriggers(counter, EVENTS.COMPLETE);
     dispatch(counter.id, event || EVENTS.DISABLE, counter.values.value);
+  };
 
-  const defeatAlly = (counter) => disableCounter(counter, EVENTS.ALLY_DEFEATED);
-
-  const defeatMinion = (counter) =>
-    disableCounter(counter, EVENTS.MINION_DEFEATED);
-
-  const sideSchemeCleared = (counter) =>
-    disableCounter(counter, EVENTS.SIDE_CLEARED);
+  const defeatAlly = (c) => disableCounter(c, EVENTS.ALLY_DEFEATED);
+  const defeatMinion = (c) => disableCounter(c, EVENTS.MINION_DEFEATED);
+  const sideSchemeCleared = (c) => disableCounter(c, EVENTS.SIDE_CLEARED);
 
   const createCounter = (type, name, opts) => {
     const counter = CU.createCounter(

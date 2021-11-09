@@ -8,8 +8,23 @@
     "name": "Goblin Thrall"
   },
   {
+    "hitPoints": "4p",
+    "name": "Garm",
+    "status": ["Tough"]
+  },
+  {
     "hitPoints": 10,
     "name": "Mister Hyde"
+  },
+  {
+    "hitPoints": "6p",
+    "name": "Nidhogg",
+    "status": ["Tough"]
+  },
+  {
+    "hitPoints": "5p",
+    "name": "Skurge",
+    "status": ["Tough"]
   },
   {
     "hitPoints": 1,

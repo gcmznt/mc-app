@@ -221,11 +221,7 @@
     "triggers": {
       "complete": [
         { "event": "next" },
-        {
-          "event": "hit",
-          "targets": "Criminal Enterprise",
-          "value": "1p"
-        }
+        { "event": "hit", "targets": "Criminal Enterprise", "value": "1p" }
       ]
     }
   },
@@ -475,9 +471,7 @@
       {
         "name": "Badoon Ship",
         "complete": 4,
-        "triggers": {
-          "complete": [{ "event": "empty" }]
-        }
+        "triggers": { "complete": [{ "event": "empty" }] }
       }
     ],
     "triggers": {
@@ -494,13 +488,7 @@
     "name": "The \"Immortal\" Klaw",
     "start": "3p",
     "modifiers": [
-      {
-        "action": "hit-points",
-        "targets": "*villain",
-        "data": {
-          "value": 10
-        }
-      }
+      { "action": "hit-points", "targets": "*villain", "data": { "value": 10 } }
     ]
   },
   {
@@ -564,12 +552,7 @@
     "start": "8p",
     "step": "1p",
     "triggers": {
-      "enter": [
-        {
-          "event": "increase",
-          "targets": "Acceleration"
-        }
-      ]
+      "enter": [{ "event": "increase", "targets": "Acceleration" }]
     }
   },
   {
@@ -583,9 +566,7 @@
       {
         "name": "Test counters",
         "complete": 3,
-        "triggers": {
-          "complete": [{ "event": "empty" }]
-        }
+        "triggers": { "complete": [{ "event": "empty" }] }
       }
     ],
     "complete": "6p",
@@ -651,12 +632,7 @@
     "complete": -1,
     "locked": true,
     "triggers": {
-      "enter": [
-        {
-          "event": "enter-minion",
-          "targets": "The Sleeper"
-        }
-      ]
+      "enter": [{ "event": "enter-minion", "targets": "The Sleeper" }]
     }
   },
   {
@@ -892,9 +868,15 @@
     "start": [4, "1p"]
   },
   {
-    "icons": ["Amplify"],
+    "icons": ["Acceleration"],
     "name": "Gnipahellir",
-    "start": [2, "1p"]
+    "start": [2, "1p"],
+    "triggers": {
+      "complete": [
+        { "event": "enter-scheme", "targets": "Gjallerbru" },
+        { "event": "enter-minion", "targets": "Skurge" }
+      ]
+    }
   },
   {
     "icons": ["Hazard"],
@@ -904,7 +886,13 @@
   {
     "icons": ["Amplify"],
     "name": "Gjallerbru",
-    "start": [3, "1p"]
+    "start": [3, "1p"],
+    "triggers": {
+      "complete": [
+        { "event": "enter-scheme", "targets": "Hall of Nastrond" },
+        { "event": "enter-minion", "targets": "Nidhogg" }
+      ]
+    }
   },
   {
     "icons": ["Amplify"],
@@ -1001,7 +989,10 @@
     "start": "1p",
     "step": "1p",
     "triggers": {
-      "enter": [{ "event": "enter-scheme", "targets": "Gnipahellir" }]
+      "enter": [
+        { "event": "enter-scheme", "targets": "Gnipahellir" },
+        { "event": "enter-minion", "targets": "Garm" }
+      ]
     }
   },
   {
@@ -1062,12 +1053,7 @@
     "name": "Self-Experimentation",
     "start": ["5p"],
     "triggers": {
-      "enter": [
-        {
-          "event": "enter-minion",
-          "targets": "Mister Hyde"
-        }
-      ]
+      "enter": [{ "event": "enter-minion", "targets": "Mister Hyde" }]
     }
   },
   {
