@@ -77,7 +77,7 @@ export default function MatchStat({ matchId, onLoad }) {
   const [match, setMatch] = useState(false);
 
   const handleDelete = (match) => {
-    const msg = `Delete ${getHeroesAndAspects(match.setup)
+    const msg = `${t("Delete")} ${getHeroesAndAspects(match.setup)
       .map((h) => h.name)
       .join(" + ")} VS ${getScenarioName(match)}?`;
 

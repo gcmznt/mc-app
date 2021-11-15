@@ -17,8 +17,8 @@ export default function Setup({ setup }) {
       <div className="setup__heroes">
         {getHeroesAndAspects(setup).map((hero, i) => (
           <div key={hero.name} className="setup__hero">
-            {hero.aspects.map((a) => (
-              <Dot key={a} type={a.toLowerCase()} />
+            {hero.aspects.map((a, i) => (
+              <Dot key={i} type={a.toLowerCase()} />
             ))}
             {t(hero.name)}
           </div>

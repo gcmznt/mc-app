@@ -46,7 +46,7 @@ export default function App() {
 
   useEffect(() => {
     document.body.classList.remove("is-auto", "is-dark", "is-light");
-    document.body.classList.add(`is-${options.mode}`);
+    options.mode && document.body.classList.add(`is-${options.mode}`);
   }, [options.mode]);
 
   return (

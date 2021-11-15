@@ -14,7 +14,7 @@ export default function Scenario({ max, onChange, value }) {
         <option value={RANDOM}>⁉️ {t("Random")}</option>
         {selection.scenarios.map((scenario) => (
           <option key={scenario} value={scenario}>
-            {scenario}
+            {t(scenario)}
           </option>
         ))}
       </select>

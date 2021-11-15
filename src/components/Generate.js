@@ -10,7 +10,13 @@ import {
   load,
   persist,
 } from "../utils";
-import { ASPECTS, MODES, RANDOM, STORAGE_KEYS } from "../utils/constants";
+import {
+  ASPECTS,
+  MODES,
+  PRECON,
+  RANDOM,
+  STORAGE_KEYS,
+} from "../utils/constants";
 import { getHeroesAndAspects, getScenarioName } from "../utils/statistics";
 import Heroic from "./inputs/Heroic";
 import Mode from "./inputs/Mode";
@@ -23,6 +29,11 @@ import Option from "./ui/Option";
 import Setup from "./ui/Setup";
 
 const initialSetting = {
+  aspects1: [PRECON, PRECON, PRECON, PRECON],
+  aspects2: [PRECON, PRECON, PRECON, PRECON],
+  aspects3: [PRECON, PRECON, PRECON, PRECON],
+  aspects4: [PRECON, PRECON, PRECON, PRECON],
+  campaign: false,
   heroic: "0",
   mode: "Standard",
   players: 1,
@@ -30,17 +41,27 @@ const initialSetting = {
   player2: RANDOM,
   player3: RANDOM,
   player4: RANDOM,
-  randomAspects: true,
   randomWeighted: true,
   randomModulars: true,
   scenario: RANDOM,
   skirmish: "None",
 };
 
-const getAspects = (hero, random) => ({
-  ...hero,
-  aspects: random ? getRandomList(ASPECTS, hero.aspects.length) : hero.aspects,
-});
+const getAspects = (hero, setting) => {
+  if (hero.aspects.length >= ASPECTS.length) return hero;
+
+  const set = setting
+    .slice(0, hero.aspects.length)
+    .map((a, i) => (a === PRECON ? hero.aspects[i] : a));
+  const available = getRandomList(ASPECTS, ASPECTS.length).filter(
+    (a) => !set.includes(a)
+  );
+
+  return {
+    ...hero,
+    aspects: set.map((a) => (a === RANDOM ? available.pop() : a)),
+  };
+};
 
 const getHeroes = (scenario, selection, matches, settings) => {
   const pl = [
@@ -107,7 +128,7 @@ export default function Generate({ onStart }) {
   const { t } = useTranslation();
   const { allMatches, data, selection } = useData();
   const [setup, setSetup] = useState(false);
-  const [settings, setSettings] = useState(initialSetting);
+  const [settings, setSettings] = useState(false);
   const generateBtn = useRef(null);
 
   const handleChange = (key) => (val) => {
@@ -129,7 +150,7 @@ export default function Generate({ onStart }) {
       settings
     )
       .map((hero) => data.heroes.find((h) => h.name === hero))
-      .map((hero) => getAspects(hero, settings.randomAspects))
+      .map((hero, pos) => getAspects(hero, settings[`aspects${pos + 1}`]))
       .map((hero) => ({ name: hero.name, aspects: hero.aspects }));
 
     const heroic =
@@ -166,24 +187,29 @@ export default function Generate({ onStart }) {
 
   useEffect(() => {
     load(STORAGE_KEYS.SETTINGS).then((saved) => {
-      if (saved)
-        setSettings({
-          ...initialSetting,
-          ...saved,
-          players:
-            saved.players > selection.heroes.length || saved.players <= 0
-              ? selection.heroes.length
-              : saved.players,
-        });
+      if (!saved) return setSettings(initialSetting);
+      setSettings({
+        ...initialSetting,
+        ...saved,
+        players:
+          saved.players > selection.heroes.length || saved.players <= 0
+            ? selection.heroes.length
+            : saved.players,
+      });
     });
   }, [selection.heroes.length]);
 
-  return (
+  return !settings ? null : (
     <>
       <Box title={t("Scenario")} key="Scenario" flag>
         <Scenario
           onChange={handleChange("scenario")}
           value={settings.scenario}
+        />
+        <Option
+          checked={settings.campaign}
+          label="Campaign"
+          onChange={(e) => handleChange("campaign")(e.target.checked)}
         />
       </Box>
       <Box title={t("Players")} key="Players" flag>
@@ -192,35 +218,17 @@ export default function Generate({ onStart }) {
           value={settings.players}
           max={selection.heroes.length}
         />
-        <legend class="box__legend">{t("Heroes")}</legend>
-        {settings.players >= 1 && (
-          <Player
-            onChange={handleChange("player1")}
-            pos={1}
-            value={settings.player1}
-          />
-        )}
-        {settings.players >= 2 && (
-          <Player
-            onChange={handleChange("player2")}
-            pos={2}
-            value={settings.player2}
-          />
-        )}
-        {settings.players >= 3 && (
-          <Player
-            onChange={handleChange("player3")}
-            pos={3}
-            value={settings.player3}
-          />
-        )}
-        {settings.players >= 4 && (
-          <Player
-            onChange={handleChange("player4")}
-            pos={4}
-            value={settings.player4}
-          />
-        )}
+        <legend className="box__legend">{t("Heroes")}</legend>
+        {[1, 2, 3, 4]
+          .filter((p) => settings.players >= p)
+          .map((pos) => (
+            <Player
+              key={pos}
+              onChange={handleChange}
+              pos={pos}
+              settings={settings}
+            />
+          ))}
       </Box>
       <Box title={t("Mode")} key="Mode" flag>
         <Mode onChange={handleChange("mode")} value={settings.mode} />
@@ -231,11 +239,6 @@ export default function Generate({ onStart }) {
         />
       </Box>
       <Box title={t("Random")} key="Random">
-        <Option
-          checked={settings.randomAspects}
-          label="Get random hero aspect"
-          onChange={(e) => handleChange("randomAspects")(e.target.checked)}
-        />
         <Option
           checked={settings.randomModulars}
           label="Get random modular set"

@@ -39,7 +39,7 @@ export default function Options() {
     );
   };
 
-  return (
+  return !options ? null : (
     <>
       <Box key="Sync" title={t("Account")}>
         <LoginForm />

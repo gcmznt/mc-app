@@ -46,7 +46,7 @@ const getNextPlayer = (counters, active, dir = 1, offset = 1) => {
 
 export default function Status({ matchId, onQuit, setup }) {
   const { t } = useTranslation();
-  const { data, getMinion } = useData();
+  const { data } = useData();
   const [eventQueue, setEventQueue] = useState([]);
   const [now, setNow] = useState(new Date());
   const [interacted, setInteracted] = useState(false);
@@ -115,7 +115,7 @@ export default function Status({ matchId, onQuit, setup }) {
         return dispatchEvent(counter.values.value);
       case EVENTS.ENTER_MINION:
         return new Array(trigger.perPlayer ? +setup.settings.players : 1)
-          .fill(getMinion(trigger.targets))
+          .fill(data.getMinion(trigger.targets))
           .forEach((m) => createCounter(CTYPES.MINION, trigger.targets, m));
       case EVENTS.HIT:
         return dispatchEvent(

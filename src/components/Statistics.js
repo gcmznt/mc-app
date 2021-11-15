@@ -54,7 +54,7 @@ export default function Statistics() {
   const byName = (a, b) => t(a[0]).localeCompare(t(b[0]));
 
   const handleDelete = () => {
-    if (window.confirm("Delete all matches?")) deleteMatch();
+    if (window.confirm(t("Delete all matches?"))) deleteMatch();
   };
 
   const matchFilters = useCallback(
@@ -64,7 +64,7 @@ export default function Statistics() {
 
   const matchesLog = useMemo(
     () =>
-      [...(stats || []), ...matches.map(getMatchStats)]
+      [...(stats || []), ...(matches || []).map(getMatchStats)]
         .filter((m) => !m.trash)
         .filter(matchFilters),
     [matchFilters, matches, stats]
@@ -83,7 +83,7 @@ export default function Statistics() {
   const isActive = (k) => (f) => f[0] === FILTERS.RESULT && f[1] === k;
   const statsMax = Math.max(...Object.values(statistics.results));
 
-  return (
+  return !stats || !matches ? null : (
     <div className="statistics">
       <Filters filters={filters} onToggle={toggleFilter} />
 
@@ -159,25 +159,13 @@ export default function Statistics() {
       ))}
 
       {statistics.longest && (
-        <Box
-          key="Longest Match"
-          title={t("Longest Match")}
-          flag
-          flat
-          type="log"
-        >
+        <Box title={t("Longest Match")} flag flat type="log">
           <Match match={statistics.longest} />
         </Box>
       )}
 
       {statistics.fastest && (
-        <Box
-          key="Fastest Match"
-          title={t("Fastest Match")}
-          flag
-          flat
-          type="log"
-        >
+        <Box title={t("Fastest Match")} flag flat type="log">
           <Match match={statistics.fastest} />
         </Box>
       )}

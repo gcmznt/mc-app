@@ -1,5 +1,6 @@
 import logo from "../../images/logo.svg";
+import "../../styles/logo.css";
 
 export default function Logo() {
-  return <img src={logo} alt="logo" style={{ height: 140, width: 140 }} />;
+  return <img src={logo} alt="logo" className="logo" />;
 }

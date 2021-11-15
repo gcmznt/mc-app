@@ -116,8 +116,17 @@ select {
   font-size: 0.8em;
 }
 
+label {
+  display: inline-block;
+}
+
+label > select {
+  margin-left: 0.3em;
+}
+
 label > span + select {
-  margin-left: 1em;
+  margin-left: 0.6em;
+  margin-right: 0.6em;
 }
 
 .fraction {

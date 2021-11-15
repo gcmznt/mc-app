@@ -121,6 +121,7 @@ export const DEFAULT_OPTIONS = {
 export const ASPECTS = ["Aggression", "Justice", "Leadership", "Protection"];
 export const MODES = ["Standard", "Expert"];
 export const RANDOM = "Random";
+export const PRECON = "Precon";
 
 export const FILTERS = {
   ASPECT: "aspect",

@@ -33,9 +33,11 @@ export default function LoginForm() {
     load(STORAGE_KEYS.LAST_SYNC).then(setLastSync);
   }, []);
 
+  const lock = user === undefined || loading;
+
   return (
-    <div className={`login-form ${loading ? "is-loading" : ""}`}>
-      {user ? (
+    <div className={`login-form ${lock ? "is-loading" : ""}`}>
+      {user === undefined ? null : user ? (
         <>
           <h2>{user.email}</h2>
           <button onClick={handleSync}>{t("Sync")}</button>
