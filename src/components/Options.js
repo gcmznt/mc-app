@@ -50,6 +50,13 @@ export default function Options() {
       </Box> */}
 
       <Box key="Settings" title={t("Settings")} flag flat>
+        <legend className="box__legend">{t("Random")}</legend>
+        <Option
+          checked={options.randomWeighted}
+          label="Heroes and scenario weighted random"
+          onChange={(e) => updateOption("randomWeighted", e.target.checked)}
+        />
+
         <legend className="box__legend">{t("Language")}</legend>
         <Language onChange={updateOption} value={options.language} />
 

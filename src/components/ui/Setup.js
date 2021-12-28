@@ -26,13 +26,17 @@ export default function Setup({ setup }) {
       </div>
       <BoxBand>VS</BoxBand>
       <div className="setup__scenario">{t(getScenarioName(setup))}</div>
+      <div>
+        {getModularSets(setup).length
+          ? getModularSets(setup).map(t).join(" + ")
+          : t("No modular set")}
+      </div>
       <div className="setup__scenario-info">
         {t(setup.mode)} | {t("Heroic")}: {setup.heroic}
         {setup.skirmish !== "None"
           ? ` | ${t("Skirmish level")} ${setup.skirmish}`
           : ""}
       </div>
-      <div>{getModularSets(setup).map(t).join(" + ")}</div>
     </div>
   );
 }

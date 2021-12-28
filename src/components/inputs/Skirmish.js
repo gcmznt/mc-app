@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-import { RANDOM } from "../../utils/constants";
+import { NO, RANDOM } from "../../utils/constants";
 import Option from "../ui/Option";
 
 export default function Skirmish({ onChange, value }) {
@@ -11,7 +11,7 @@ export default function Skirmish({ onChange, value }) {
   return (
     <div>
       <legend className="box__legend">{t("Skirmish")}</legend>
-      {["None", 1, 2, 3, RANDOM].map((skirmish) => (
+      {[NO, 1, 2, 3, RANDOM].map((skirmish) => (
         <Option
           checked={`${skirmish}` === value}
           key={skirmish}

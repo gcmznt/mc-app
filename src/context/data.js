@@ -106,6 +106,7 @@ export const DataProvider = ({ children }) => {
 
       const check = (k) =>
         fullSelection[k].filter((el) => (sel || fullSelection)[k].includes(el));
+
       setSelection({
         heroes: check("heroes"),
         modularSets: check("modularSets"),

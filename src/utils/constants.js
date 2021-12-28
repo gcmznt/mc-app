@@ -115,13 +115,20 @@ export const DEFAULT_OPTIONS = {
   compact: false,
   language: "en",
   mode: "auto",
+  randomWeighted: true,
   timer: true,
 };
 
 export const ASPECTS = ["Aggression", "Justice", "Leadership", "Protection"];
 export const MODES = ["Standard", "Expert"];
 export const RANDOM = "Random";
+export const FULL_RANDOM = "Full random";
+export const RANDOM_REPLACEMENT = "Random replacement";
 export const PRECON = "Precon";
+export const SUGGESTED = "Suggested";
+export const NO = "No";
+export const NONE = "None";
+export const MAX_MODULAR = 7;
 
 export const FILTERS = {
   ASPECT: "aspect",

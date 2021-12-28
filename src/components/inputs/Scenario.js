@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useData } from "../../context/data";
 import { RANDOM } from "../../utils/constants";
 
-export default function Scenario({ max, onChange, value }) {
+export default function Scenario({ onChange, value }) {
   const { selection } = useData();
   const { t } = useTranslation();
 

@@ -12,14 +12,21 @@ import {
 } from "../utils";
 import {
   ASPECTS,
+  FULL_RANDOM,
+  MAX_MODULAR,
   MODES,
+  NO,
+  NONE,
   PRECON,
   RANDOM,
+  RANDOM_REPLACEMENT,
   STORAGE_KEYS,
+  SUGGESTED,
 } from "../utils/constants";
 import { getHeroesAndAspects, getScenarioName } from "../utils/statistics";
 import Heroic from "./inputs/Heroic";
 import Mode from "./inputs/Mode";
+import ModularSets from "./inputs/ModularSets";
 import Player from "./inputs/Player";
 import Players from "./inputs/Players";
 import Scenario from "./inputs/Scenario";
@@ -35,16 +42,16 @@ const initialSetting = {
   aspects4: [PRECON, PRECON, PRECON, PRECON],
   campaign: false,
   heroic: "0",
-  mode: "Standard",
+  mode: MODES[0],
+  modularSets: SUGGESTED,
+  modularSetsList: [],
   players: 1,
   player1: RANDOM,
   player2: RANDOM,
   player3: RANDOM,
   player4: RANDOM,
-  randomWeighted: true,
-  randomModulars: true,
   scenario: RANDOM,
-  skirmish: "None",
+  skirmish: NO,
 };
 
 const getAspects = (hero, setting) => {
@@ -63,7 +70,7 @@ const getAspects = (hero, setting) => {
   };
 };
 
-const getHeroes = (scenario, selection, matches, settings) => {
+const getHeroes = (scenario, selection, matches, settings, options) => {
   const pl = [
     settings.player1,
     settings.player2,
@@ -90,7 +97,7 @@ const getHeroes = (scenario, selection, matches, settings) => {
     );
 
   const randomPl = getRandomList(
-    settings.randomWeighted
+    options.randomWeighted
       ? getBestHeroes()
       : selection.filter((h) => !sel.includes(h)),
     settings.players - sel.length
@@ -99,7 +106,7 @@ const getHeroes = (scenario, selection, matches, settings) => {
   return pl.map((p) => (p === RANDOM ? randomPl.pop() : p));
 };
 
-const getScenario = (selection, matches, settings, data) => {
+const getScenario = (selection, matches, settings, data, options) => {
   const getBestScenarios = () =>
     getWeigths(
       countOccurrence(
@@ -110,23 +117,50 @@ const getScenario = (selection, matches, settings, data) => {
 
   const name =
     settings.scenario === RANDOM
-      ? getRandom(settings.randomWeighted ? getBestScenarios() : selection)
+      ? getRandom(options.randomWeighted ? getBestScenarios() : selection)
       : settings.scenario;
   return data.scenarios.find((s) => s.name === name);
 };
 
 const getModular = (scenario, selection, settings) => {
-  return settings.randomModulars
-    ? getRandomList(
+  switch (settings.modularSets) {
+    case SUGGESTED:
+      return scenario.modular;
+    case NONE:
+      return [];
+    case FULL_RANDOM:
+      return getRandomList(
         selection.filter((s) => !(scenario.encounter || []).includes(s)),
-        (scenario.modular || []).length
-      )
-    : scenario.modular;
+        Math.ceil(
+          Math.random() * (MAX_MODULAR - (scenario.encounter?.length || 0))
+        )
+      );
+    case RANDOM_REPLACEMENT:
+      return getRandomList(
+        selection.filter((s) => !(scenario.encounter || []).includes(s)),
+        scenario.modular?.length || 0
+      );
+
+    default:
+      const randoms = getRandomList(
+        selection.filter(
+          (s) =>
+            ![
+              ...(scenario.encounter || []),
+              settings.modularSetsList.filter((m) => m !== RANDOM),
+            ].includes(s)
+        ),
+        settings.modularSetsList.filter((m) => m === RANDOM).length
+      );
+      return settings.modularSetsList.map((s) =>
+        s === RANDOM ? randoms.pop() : s
+      );
+  }
 };
 
 export default function Generate({ onStart }) {
   const { t } = useTranslation();
-  const { allMatches, data, selection } = useData();
+  const { allMatches, data, options, selection } = useData();
   const [setup, setSetup] = useState(false);
   const [settings, setSettings] = useState(false);
   const generateBtn = useRef(null);
@@ -140,14 +174,16 @@ export default function Generate({ onStart }) {
       selection.scenarios,
       allMatches,
       settings,
-      data
+      data,
+      options
     );
     const modular = getModular(scenario, selection.modularSets, settings);
     const heroesAndAspects = getHeroes(
       scenario.name,
       selection.heroes,
       allMatches,
-      settings
+      settings,
+      options
     )
       .map((hero) => data.heroes.find((h) => h.name === hero))
       .map((hero, pos) => getAspects(hero, settings[`aspects${pos + 1}`]))
@@ -211,6 +247,11 @@ export default function Generate({ onStart }) {
           label="Campaign"
           onChange={(e) => handleChange("campaign")(e.target.checked)}
         />
+        <ModularSets
+          onChange={handleChange}
+          value={settings.modularSets}
+          list={settings.modularSetsList}
+        />
       </Box>
       <Box title={t("Players")} key="Players" flag>
         <Players
@@ -236,18 +277,6 @@ export default function Generate({ onStart }) {
         <Skirmish
           onChange={handleChange("skirmish")}
           value={settings.skirmish}
-        />
-      </Box>
-      <Box title={t("Random")} key="Random">
-        <Option
-          checked={settings.randomModulars}
-          label="Get random modular set"
-          onChange={(e) => handleChange("randomModulars")(e.target.checked)}
-        />
-        <Option
-          checked={settings.randomWeighted}
-          label="Heroes and scenario weighted random"
-          onChange={(e) => handleChange("randomWeighted")(e.target.checked)}
         />
       </Box>
       <button
