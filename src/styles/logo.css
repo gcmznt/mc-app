@@ -1,7 +1,7 @@
 .logo {
   height: 140px;
   width: 140px;
-  animation: 1s ease-out 0s 1 enter;
+  /* animation: 1s ease-out 0s 1 enter; */
   position: relative;
   z-index: 1000;
 }
