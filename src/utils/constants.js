@@ -113,6 +113,7 @@ export const PAGES = {
 
 export const DEFAULT_OPTIONS = {
   compact: false,
+  differentAspects: false,
   language: "en",
   mode: "auto",
   randomWeighted: true,

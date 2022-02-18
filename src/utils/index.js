@@ -20,6 +20,10 @@ export function getWeigths(data) {
   );
 }
 
+export function random() {
+  return Math.random() - 0.5;
+}
+
 export function getRandom(data) {
   const weigths = Array.isArray(data) ? getWeigths(data) : data;
   let n = Math.random() * Object.values(weigths).reduce((a, b) => a + b);

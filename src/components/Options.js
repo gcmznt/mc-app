@@ -56,6 +56,11 @@ export default function Options() {
           label="Heroes and scenario weighted random"
           onChange={(e) => updateOption("randomWeighted", e.target.checked)}
         />
+        <Option
+          checked={options.differentAspects}
+          label="Different aspect for each hero"
+          onChange={(e) => updateOption("differentAspects", e.target.checked)}
+        />
 
         <legend className="box__legend">{t("Language")}</legend>
         <Language onChange={updateOption} value={options.language} />

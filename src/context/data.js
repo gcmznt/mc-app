@@ -102,7 +102,7 @@ export const DataProvider = ({ children }) => {
     ]).then(([ms, stats, opts, sel]) => {
       setMatches(ms || []);
       setStats(stats || []);
-      setOptions(opts || DEFAULT_OPTIONS);
+      setOptions({...DEFAULT_OPTIONS, ...opts});
 
       const check = (k) =>
         fullSelection[k].filter((el) => (sel || fullSelection)[k].includes(el));

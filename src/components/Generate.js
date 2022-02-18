@@ -9,6 +9,7 @@ import {
   getWeigths,
   load,
   persist,
+  random,
 } from "../utils";
 import {
   ASPECTS,
@@ -54,20 +55,47 @@ const initialSetting = {
   skirmish: NO,
 };
 
-const getAspects = (hero, setting) => {
+const getPreconAsp = (hero, setting) => {
   if (hero.aspects.length >= ASPECTS.length) return hero;
 
-  const set = setting
+  const aspects = setting
     .slice(0, hero.aspects.length)
     .map((a, i) => (a === PRECON ? hero.aspects[i] : a));
-  const available = getRandomList(ASPECTS, ASPECTS.length).filter(
-    (a) => !set.includes(a)
-  );
+
+  return { ...hero, aspects };
+};
+
+const pickRandomFromAvailable = (available) => (as, current, i, list) => {
+  if (current === RANDOM) {
+    for (let j = 0; j < available.length; j++) {
+      if (![...list, ...as].includes(available[j])) {
+        return [...as, ...available.splice(j, 1)];
+      }
+    }
+  }
+  return [...as, current];
+};
+
+const getAspect = (hero, allAvailable) => {
+  const available =
+    allAvailable ||
+    ASPECTS.sort(random).filter((a) => !hero.aspects.includes(a));
 
   return {
     ...hero,
-    aspects: set.map((a) => (a === RANDOM ? available.pop() : a)),
+    aspects: hero.aspects.reduce(pickRandomFromAvailable(available), []),
   };
+};
+
+const getAllAspects = (heroesAndAspects, options) => {
+  const aspects = heroesAndAspects.map((h) => h.aspects).flat();
+  const available = options.differentAspects && [
+    ...ASPECTS.sort(random).filter((a) => !aspects.includes(a)),
+    ...ASPECTS.sort(random),
+    ...ASPECTS.sort(random),
+  ];
+
+  return heroesAndAspects.map((hero) => getAspect(hero, available));
 };
 
 const getHeroes = (scenario, selection, matches, settings, options) => {
@@ -178,16 +206,13 @@ export default function Generate({ onStart }) {
       options
     );
     const modular = getModular(scenario, selection.modularSets, settings);
-    const heroesAndAspects = getHeroes(
-      scenario.name,
-      selection.heroes,
-      allMatches,
-      settings,
+    const heroesAndAspects = getAllAspects(
+      getHeroes(scenario.name, selection.heroes, allMatches, settings, options)
+        .map((hero) => data.heroes.find((h) => h.name === hero))
+        .map((hero) => ({ name: hero.name, aspects: hero.aspects }))
+        .map((hero, pos) => getPreconAsp(hero, settings[`aspects${pos + 1}`])),
       options
-    )
-      .map((hero) => data.heroes.find((h) => h.name === hero))
-      .map((hero, pos) => getAspects(hero, settings[`aspects${pos + 1}`]))
-      .map((hero) => ({ name: hero.name, aspects: hero.aspects }));
+    );
 
     const heroic =
       settings.heroic === RANDOM ? getRandom([0, 1, 2, 3, 4]) : settings.heroic;
