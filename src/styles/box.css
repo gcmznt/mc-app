@@ -35,6 +35,13 @@
   width: max-content;
 }
 
+.box__subtitle {
+  font-size: 0.6em;
+  position: absolute;
+  top: 82%;
+  z-index: 1;
+}
+
 .use-compact .box__title {
   top: 0.25em;
   position: static;

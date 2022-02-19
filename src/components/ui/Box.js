@@ -8,7 +8,15 @@ export function BoxBand({ children }) {
   return <div className="box__band">{children}</div>;
 }
 
-export default function Box({ children, flag, flat, highlight, title, type }) {
+export default function Box({
+  children,
+  flag,
+  flat,
+  highlight,
+  subtitle,
+  title,
+  type,
+}) {
   const { t } = useTranslation();
 
   const classList = [
@@ -26,6 +34,7 @@ export default function Box({ children, flag, flat, highlight, title, type }) {
           {highlight && (
             <img className="box__highlight" src={highlightImg} alt="" />
           )}
+          {subtitle && <div className="box__subtitle">{t(subtitle)}</div>}
         </div>
       )}
       <div className="box__content">{children}</div>

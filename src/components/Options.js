@@ -84,12 +84,17 @@ export default function Options() {
         <Box key={section.key} title={t(section.title)} flag flat>
           {section.options.map((opt) => (
             <Option
-              key={opt.name}
-              checked={selection[section.key].includes(opt.name)}
+              key={opt.key || opt.name}
+              checked={selection[section.key].includes(opt.key || opt.name)}
               flag={opt.pack !== opt.name && opt.pack}
-              label={opt.name}
+              label={
+                <>
+                  {opt.name}
+                  {!!opt.alterEgo && <small> [{opt.alterEgo}]</small>}
+                </>
+              }
               onChange={(e) => toggle(section.key, e.target.value)}
-              value={opt.name}
+              value={opt.key || opt.name}
             />
           ))}
           <SelectAll section={section.key} />

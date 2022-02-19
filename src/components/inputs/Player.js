@@ -32,7 +32,7 @@ export default function Player({ onChange, pos, settings }) {
           <option value={RANDOM}>⁉️ {t("Random")}</option>
           {selection.heroes.map((hero) => (
             <option key={hero} value={hero}>
-              {t(hero)}
+              {t(data.getHero(hero).name)} [{t(data.getHero(hero).alterEgo)}]
             </option>
           ))}
         </select>

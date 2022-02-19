@@ -13,7 +13,9 @@ import { getMatchStats } from "../utils/statistics";
 const isActive = (match) => !match.trash;
 
 const isEnabled = (el) =>
-  !el.disabled || window.location.hostname === "localhost";
+  !el.disabled ||
+  window.location.hostname === "localhost" ||
+  new URL(document.location).searchParams.get("debug") === "";
 
 const data = {
   heroes: heroes.filter(isEnabled),
@@ -21,12 +23,12 @@ const data = {
   modularSets: modularSets.reduce((a, c) => ({ ...a, [c.name]: c }), {}),
   scenarios: scenarios.filter(isEnabled),
   schemes: schemes.reduce((a, c) => ({ ...a, [c.name]: c }), {}),
-  getHero: (name) => heroes.find((h) => h.name === name),
-  getMinion: (name) => minions.find((m) => m.name === name),
+  getHero: (key) => heroes.find((h) => (h.key || h.name) === key),
+  getMinion: (key) => minions.find((m) => (m.key || m.name) === key),
 };
 
 const fullSelection = {
-  heroes: data.heroes.map((h) => h.name),
+  heroes: data.heroes.map((h) => h.key || h.name),
   modularSets: Object.keys(data.modularSets),
   scenarios: data.scenarios.map((h) => h.name),
 };
@@ -102,7 +104,7 @@ export const DataProvider = ({ children }) => {
     ]).then(([ms, stats, opts, sel]) => {
       setMatches(ms || []);
       setStats(stats || []);
-      setOptions({...DEFAULT_OPTIONS, ...opts});
+      setOptions({ ...DEFAULT_OPTIONS, ...opts });
 
       const check = (k) =>
         fullSelection[k].filter((el) => (sel || fullSelection)[k].includes(el));

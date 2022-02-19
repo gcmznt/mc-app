@@ -41,9 +41,20 @@ export function CounterBox({
     return counters[0].name;
   };
 
+  const getSubTitle = () => {
+    if (
+      counters[0].type === COUNTER_TYPES.HERO &&
+      counters[0].aSide !== counters[0].bSide
+    ) {
+      return counters[0].frontSide ? counters[0].bSide : counters[0].aSide;
+    }
+    return undefined;
+  };
+
   return (
     <Box
       title={t(rename(title || getTitle()))}
+      subtitle={getSubTitle()}
       type={type || counters[0].type}
       highlight={highlight}
     >

@@ -13,7 +13,7 @@ export function getFullSetup(setup, data) {
   });
 
   const getHeroData = (hero) => ({
-    ...data.heroes.find((h) => h.name === hero.name),
+    ...data.getHero(hero.key || hero.name),
     aspects: hero.aspects,
   });
 

@@ -233,5 +233,42 @@
     "name": "Vision",
     "nemesisSchemes": ["Ultron Unleashed"],
     "pack": "Vision"
+  },
+  {
+    "disabled": true,
+    "alterEgo": "Gwen Stacy",
+    "aspects": ["Protection"],
+    "hitPoints": 10,
+    "name": "Ghost-Spider",
+    "nemesisSchemes": [],
+    "pack": "Sinister Motives"
+  },
+  {
+    "disabled": true,
+    "alterEgo": "Miles Morales",
+    "aspects": ["Justice"],
+    "hitPoints": 9,
+    "key": "Spider-Man MM",
+    "name": "Spider-Man",
+    "nemesisSchemes": [],
+    "pack": "Sinister Motives"
+  },
+  {
+    "disabled": true,
+    "alterEgo": "Sam Alexander",
+    "aspects": ["Aggression"],
+    "hitPoints": 10,
+    "name": "Nova",
+    "nemesisSchemes": [],
+    "pack": "Nova"
+  },
+  {
+    "disabled": true,
+    "alterEgo": "Riri Williams",
+    "aspects": ["Leadership"],
+    "hitPoints": 10,
+    "name": "Ironheart",
+    "nemesisSchemes": [],
+    "pack": "Ironheart"
   }
 ]

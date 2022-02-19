@@ -134,6 +134,13 @@ const getHeroes = (scenario, selection, matches, settings, options) => {
   return pl.map((p) => (p === RANDOM ? randomPl.pop() : p));
 };
 
+const filterHeroProps = (hero) => ({
+  alterEgo: hero.alterEgo,
+  aspects: hero.aspects,
+  key: hero.key,
+  name: hero.name,
+});
+
 const getScenario = (selection, matches, settings, data, options) => {
   const getBestScenarios = () =>
     getWeigths(
@@ -208,8 +215,8 @@ export default function Generate({ onStart }) {
     const modular = getModular(scenario, selection.modularSets, settings);
     const heroesAndAspects = getAllAspects(
       getHeroes(scenario.name, selection.heroes, allMatches, settings, options)
-        .map((hero) => data.heroes.find((h) => h.name === hero))
-        .map((hero) => ({ name: hero.name, aspects: hero.aspects }))
+        .map(data.getHero)
+        .map(filterHeroProps)
         .map((hero, pos) => getPreconAsp(hero, settings[`aspects${pos + 1}`])),
       options
     );
