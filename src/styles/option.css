@@ -8,10 +8,7 @@
 
 .option--inline {
   display: inline-flex;
-}
-
-.option--inline + .option--inline {
-  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 
 .option__flag {

@@ -121,7 +121,7 @@ export const DEFAULT_OPTIONS = {
 };
 
 export const ASPECTS = ["Aggression", "Justice", "Leadership", "Protection"];
-export const MODES = ["Standard", "Expert"];
+export const MODES = ["Standard", "Standard II", "Expert", "Expert II"];
 export const RANDOM = "Random";
 export const FULL_RANDOM = "Full random";
 export const RANDOM_REPLACEMENT = "Random replacement";

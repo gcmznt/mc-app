@@ -30,23 +30,19 @@ export function CounterBox({
       );
 
   const getTitle = () => {
-    if (
-      counters[0].type === COUNTER_TYPES.HERO &&
-      counters[0].aSide === counters[0].bSide
-    ) {
-      return `${counters[0].name} [${
-        counters[0].frontSide ? "Alter-ego" : "Hero"
-      }]`;
+    if (counters[0].type === COUNTER_TYPES.HERO) {
+      return `${counters[0].name} ${counters[0].frontSide ? "🙍" : "🦸"}`;
     }
     return counters[0].name;
   };
 
   const getSubTitle = () => {
-    if (
-      counters[0].type === COUNTER_TYPES.HERO &&
-      counters[0].aSide !== counters[0].bSide
-    ) {
-      return counters[0].frontSide ? counters[0].bSide : counters[0].aSide;
+    if (counters[0].type === COUNTER_TYPES.HERO) {
+      if (counters[0].aSide !== counters[0].bSide) {
+        return counters[0].frontSide ? counters[0].bSide : counters[0].aSide;
+      } else {
+        return `[${t(counters[0].frontSide ? "Alter-ego" : "Hero")}]`;
+      }
     }
     return undefined;
   };
