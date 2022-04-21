@@ -38,10 +38,11 @@ export default function Counter({
   const add = () => update(1);
   const onStep = () => dispatch(counter.id, EVENTS.NEW_PHASE, 1, "Phases");
   const onFlip = () => dispatch(counter.id, flipEvent, counter.name);
+  const onUnlock = () => dispatch(counter.id, EVENTS.UNLOCK, counter.name);
   const reduce = () => update(-1);
   const increaseLimit = () => update(0, 1);
   const decreaseLimit = () => update(0, -1);
-  const next = onComplete && (() => onComplete(counter));
+  const next = () => onComplete(counter);
 
   const handleStatusToggle = (status, flag) => {
     dispatch(
@@ -52,25 +53,28 @@ export default function Counter({
   };
 
   return (
-    <CounterUI
-      acceleratedStep={step + acceleration}
-      mods={mods.filter((m) => isTarget(counter, m.targets))}
-      counter={counter}
-      disabled={result || !counter.active}
-      heroPhase={heroPhase}
-      lastLabel={lastLabel}
-      key={counter.id}
-      onAdd={add}
-      onAddLimit={increaseLimit}
-      onFlip={!!counter.bSide && onFlip}
-      onNext={next}
-      onStep={canStep && onStep}
-      onReduce={reduce}
-      onReduceLimit={decreaseLimit}
-      onStatusToggle={handleStatusToggle}
-      title={title}
-      prevWarning={prevWarning}
-      nextWarning={nextWarning}
-    />
+    !counter.hidden && (
+      <CounterUI
+        acceleratedStep={step + acceleration}
+        mods={mods.filter((m) => isTarget(counter, m.targets))}
+        counter={counter}
+        disabled={result || !counter.active}
+        heroPhase={heroPhase}
+        lastLabel={lastLabel}
+        key={counter.id}
+        onAdd={add}
+        onAddLimit={increaseLimit}
+        onFlip={!!counter.bSide && onFlip}
+        onNext={onComplete && next}
+        onStep={canStep && onStep}
+        onReduce={reduce}
+        onReduceLimit={decreaseLimit}
+        onStatusToggle={handleStatusToggle}
+        onUnlock={!!counter.locked && !counter.disabled && onUnlock}
+        title={title}
+        prevWarning={prevWarning}
+        nextWarning={nextWarning}
+      />
+    )
   );
 }

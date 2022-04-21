@@ -235,22 +235,20 @@
     "pack": "Vision"
   },
   {
-    "disabled": true,
     "alterEgo": "Gwen Stacy",
     "aspects": ["Protection"],
     "hitPoints": 10,
     "name": "Ghost-Spider",
-    "nemesisSchemes": [],
+    "nemesisSchemes": ["Regenerative Research"],
     "pack": "Sinister Motives"
   },
   {
-    "disabled": true,
     "alterEgo": "Miles Morales",
     "aspects": ["Justice"],
     "hitPoints": 9,
     "key": "Spider-Man MM",
     "name": "Spider-Man",
-    "nemesisSchemes": [],
+    "nemesisSchemes": ["Tracking Prey"],
     "pack": "Sinister Motives"
   },
   {

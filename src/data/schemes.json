@@ -1091,5 +1091,208 @@
     "icons": ["Acceleration"],
     "name": "Offshore Inferno",
     "start": ["3p"]
+  },
+  {
+    "name": "Regenerative Research",
+    "start": 5
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Tracking Prey",
+    "start": 4
+  },
+  {
+    "complete": "9p",
+    "counters": [{ "name": "City Streets", "complete": -1, "start": 4 }],
+    "name": "Hapless Pedestrians",
+    "start": "2p",
+    "step": "1p"
+  },
+  {
+    "icons": ["Crisis"],
+    "name": "Dirt Trap",
+    "start": 1
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "Tidal Sands",
+    "start": 2
+  },
+  {
+    "complete": "9p",
+    "counters": [{ "name": "Bell Tower", "complete": -1 }],
+    "name": "Leave Us Alone!",
+    "start": "2p",
+    "step": "1p"
+  },
+  {
+    "name": "Guard the Bell Tower",
+    "start": 3
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Lashing Out",
+    "start": 9
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "Tooth and Nail",
+    "start": 8
+  },
+  {
+    "complete": "8p",
+    "name": "Maze of Mirrors",
+    "start": "2p",
+    "step": "1p",
+    "triggers": {
+      "enter": [
+        {
+          "event": "enter-minion",
+          "targets": "Shifting Apparition",
+          "perPlayer": true
+        }
+      ]
+    }
+  },
+  {
+    "complete": "9p",
+    "name": "Edge of Reality",
+    "start": "3p",
+    "step": "1p"
+  },
+  {
+    "complete": "8p",
+    "name": "Sinister Synchronization",
+    "start": "2p",
+    "step": "1p",
+    "triggers": {
+      "enter": [
+        { "event": "enter-scheme", "targets": "Light at the End: Trap!" }
+      ]
+    }
+  },
+  {
+    "complete": "7p",
+    "name": "Sinister Beatdown",
+    "start": "3p",
+    "step": "1p"
+  },
+  {
+    "name": "Light at the End: Trap!",
+    "start": [10, "10p"],
+    "triggers": {
+      "complete": [
+        { "event": "enter-scheme", "targets": "Light at the End: Chase!" }
+      ]
+    }
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "Light at the End: Chase!",
+    "start": [5, "10p"],
+    "triggers": {
+      "complete": [{ "event": "win" }]
+    }
+  },
+  {
+    "name": "Brute Force Barricade",
+    "start": 9
+  },
+  {
+    "name": "Skies Over New York",
+    "counters": [
+      {
+        "autocomplete": true,
+        "hidden": true,
+        "name": "Symbiote environments",
+        "complete": 2,
+        "triggers": { "complete": [{ "event": "lost-scheme" }] }
+      }
+    ],
+    "triggers": {
+      "enter": [{ "event": "disable" }]
+    }
+  },
+  {
+    "active": true,
+    "complete": "11p",
+    "name": "Lower Manhattan",
+    "start": "1p",
+    "step": "1p",
+    "triggers": {
+      "complete": [{ "event": "increase", "targets": "Symbiote environments" }]
+    }
+  },
+  {
+    "active": true,
+    "complete": "12p",
+    "name": "Midtown Manhattan",
+    "start": "2p",
+    "step": "1p",
+    "triggers": {
+      "complete": [{ "event": "increase", "targets": "Symbiote environments" }]
+    }
+  },
+  {
+    "active": true,
+    "complete": "10p",
+    "name": "Upper Manhattan",
+    "start": "0",
+    "step": "1p",
+    "triggers": {
+      "complete": [{ "event": "increase", "targets": "Symbiote environments" }]
+    }
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Festering Mass",
+    "start": 5
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "Joy Ride",
+    "start": 2
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Panic in the Streets",
+    "start": 5
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Volunteer Work",
+    "start": "3p"
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "Limitless Supply",
+    "start": 5
+  },
+  {
+    "name": "Coordinated Effort",
+    "start": 6
+  },
+  {
+    "name": "Hidden in Shadow",
+    "start": 4
+  },
+  {
+    "name": "Teamwork Makes the Dream Work",
+    "start": 5
+  },
+  {
+    "icons": ["Acceleration", "Crisis", "Hazard"],
+    "name": "Fool's Paradise",
+    "start": "6p"
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "Weakness from Within",
+    "start": 1
+  },
+  {
+    "icons": ["Amplify"],
+    "name": "Analysis Paralysis",
+    "start": 1
   }
 ]

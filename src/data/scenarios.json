@@ -612,5 +612,163 @@
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
+  },
+  {
+    "encounter": ["City in Chaos"],
+    "mainScheme": ["Hapless Pedestrians"],
+    "modular": ["Down to Earth"],
+    "name": "Sandman",
+    "pack": "Sinister Motives",
+    "sideSchemes": ["Dirt Trap", "Dirt Trap", "Tidal Sands"],
+    "villains": [
+      {
+        "levels": { "1": "16p", "2": "18p", "3": "19p" },
+        "name": "Sandman",
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
+      }
+    ]
+  },
+  {
+    "encounter": ["Symbiotic Strength"],
+    "mainScheme": ["Leave Us Alone!"],
+    "modular": ["Down to Earth"],
+    "name": "Venom",
+    "pack": "Sinister Motives",
+    "sideSchemes": ["Guard the Bell Tower", "Lashing Out", "Tooth and Nail"],
+    "villains": [
+      {
+        "levels": { "1": "17p", "2": "18p", "3": "20p" },
+        "name": "Venom",
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
+      }
+    ]
+  },
+  {
+    "encounter": ["Personal Nightmare"],
+    "mainScheme": ["Maze of Mirrors", "Edge of Reality"],
+    "modular": ["Whispers of Paranoia"],
+    "name": "Mysterio",
+    "pack": "Sinister Motives",
+    "sideSchemes": [],
+    "villains": [
+      {
+        "levels": { "1": "15p", "2": "17p", "3": "16p" },
+        "name": "Mysterio",
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
+      }
+    ]
+  },
+  {
+    "encounter": ["Guerilla Tactics"],
+    "mainScheme": ["Sinister Synchronization", "Sinister Beatdown"],
+    "modular": [],
+    "name": "Sinister Six",
+    "pack": "Sinister Motives",
+    "sideSchemes": [
+      "Brute Force Barricade",
+      "Light at the End: Trap!",
+      "Light at the End: Chase!"
+    ],
+    "villains": [
+      {
+        "levels": {
+          "1": {
+            "complete": "8",
+            "locked": true,
+            "triggers": {
+              "complete": [{ "event": "lock" }, { "event": "reset" }]
+            }
+          }
+        },
+        "name": "Doctor Octopus",
+        "stages": { "expert": [1], "standard": [1] }
+      },
+      {
+        "levels": {
+          "1": {
+            "complete": "8",
+            "locked": true,
+            "triggers": {
+              "complete": [{ "event": "lock" }, { "event": "reset" }]
+            }
+          }
+        },
+        "name": "Electro",
+        "stages": { "expert": [1], "standard": [1] }
+      },
+      {
+        "levels": {
+          "1": {
+            "complete": "9",
+            "locked": true,
+            "triggers": {
+              "complete": [{ "event": "lock" }, { "event": "reset" }]
+            }
+          }
+        },
+        "name": "Hobgoblin",
+        "stages": { "expert": [1], "standard": [1] }
+      },
+      {
+        "levels": {
+          "1": {
+            "complete": "9",
+            "locked": true,
+            "triggers": {
+              "complete": [{ "event": "lock" }, { "event": "reset" }]
+            }
+          }
+        },
+        "name": "Kraven the Hunter",
+        "stages": { "expert": [1], "standard": [1] }
+      },
+      {
+        "levels": {
+          "1": {
+            "complete": "10",
+            "locked": true,
+            "triggers": {
+              "complete": [{ "event": "lock" }, { "event": "reset" }]
+            }
+          }
+        },
+        "name": "Scorpion",
+        "stages": { "expert": [1], "standard": [1] }
+      },
+      {
+        "levels": {
+          "1": {
+            "complete": "7",
+            "locked": true,
+            "triggers": {
+              "complete": [{ "event": "lock" }, { "event": "reset" }]
+            }
+          }
+        },
+        "name": "Vulture",
+        "stages": { "expert": [1], "standard": [1] }
+      }
+    ]
+  },
+  {
+    "encounter": ["Symbiotic Strength"],
+    "mainScheme": ["Skies Over New York"],
+    "modular": ["Goblin Gear"],
+    "name": "Venom Goblin",
+    "pack": "Sinister Motives",
+    "sideSchemes": [
+      "Festering Mass",
+      "Joy Ride",
+      "Lower Manhattan",
+      "Midtown Manhattan",
+      "Upper Manhattan"
+    ],
+    "villains": [
+      {
+        "levels": { "1": "16p", "2": "18p", "3": "21p" },
+        "name": "Venom Goblin",
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
+      }
+    ]
   }
 ]

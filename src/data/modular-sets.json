@@ -213,5 +213,54 @@
     "name": "Streets of Mayhem",
     "sideSchemes": [],
     "pack": "The Hood"
+  },
+  {
+    "name": "City in Chaos",
+    "sideSchemes": ["Panic in the Streets"],
+    "pack": "Sinister Motives"
+  },
+  {
+    "name": "Down to Earth",
+    "sideSchemes": ["Volunteer Work"],
+    "pack": "Sinister Motives"
+  },
+  {
+    "name": "Goblin Gear",
+    "sideSchemes": ["Limitless Supply"],
+    "pack": "Sinister Motives"
+  },
+  {
+    "name": "Guerilla Tactics",
+    "sideSchemes": [
+      "Coordinated Effort",
+      "Hidden in Shadow",
+      "Teamwork Makes the Dream Work"
+    ],
+    "pack": "Sinister Motives"
+  },
+  {
+    "name": "Osborn Tech",
+    "sideSchemes": [],
+    "pack": "Sinister Motives"
+  },
+  {
+    "name": "Personal Nightmare",
+    "sideSchemes": ["Fool's Paradise", "Weakness from Within"],
+    "pack": "Sinister Motives"
+  },
+  {
+    "name": "Sinister Assault",
+    "sideSchemes": [],
+    "pack": "Sinister Motives"
+  },
+  {
+    "name": "Symbiotic Strength",
+    "sideSchemes": [],
+    "pack": "Sinister Motives"
+  },
+  {
+    "name": "Whispers of Paranoia",
+    "sideSchemes": ["Analysis Paralysis"],
+    "pack": "Sinister Motives"
   }
 ]

@@ -65,6 +65,7 @@ export const EVENTS = {
   STATUS_ENABLE: "status-enable",
   UNLOCK: "unlock",
   VILLAIN_PHASE: "villain-phase",
+  WIN: "win",
 };
 
 export const TRIGGER_MAP = {

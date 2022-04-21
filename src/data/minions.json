@@ -47,5 +47,9 @@
         }
       ]
     }
+  },
+  {
+    "hitPoints": "1",
+    "name": "Shifting Apparition"
   }
 ]

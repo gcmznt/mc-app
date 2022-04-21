@@ -9,6 +9,7 @@ import { ReactComponent as CrisisImg } from "../../images/crisis.svg";
 import { ReactComponent as HazardImg } from "../../images/hazard.svg";
 import { ReactComponent as DangerImg } from "../../images/danger.svg";
 import { ReactComponent as FlipImg } from "../../images/flip.svg";
+import { ReactComponent as EnterImg } from "../../images/enter.svg";
 import Status from "./Status";
 import { MODIFIERS } from "../../utils/constants";
 
@@ -77,6 +78,7 @@ export default function Counter({
   onReduce,
   onReduceLimit,
   onStatusToggle,
+  onUnlock,
   stepLabel,
   title,
   prevWarning,
@@ -126,6 +128,10 @@ export default function Counter({
           toggle={toggle}
           value={value}
         />
+
+        {onUnlock && (
+          <Button action={onUnlock} label={<EnterImg />} type="prev" />
+        )}
 
         {!disabled && !counter.locked && (
           <>

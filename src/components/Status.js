@@ -166,10 +166,9 @@ export default function Status({ matchId, onQuit, setup }) {
   };
 
   const handleComplete = (counter) => {
-    const { advance, max, min, value } = counter.values;
+    const { advance, min, value } = counter.values;
     const next = CU.next(counter);
 
-    const isComplete = max <= min ? value <= max : value >= max;
     const minAdvance = advance === "min";
     const noneAdvance = advance === "none";
     const canAdvance = minAdvance && value <= min;
@@ -181,7 +180,7 @@ export default function Status({ matchId, onQuit, setup }) {
     } else if (canAdvance && !next) {
       dispatch(counter.id, EVENTS.COMPLETE);
       endMatch(RESULT_TYPES.SCHEME_WIN);
-    } else if (isComplete && (minAdvance || noneAdvance || !next)) {
+    } else if (counter.isComplete() && (minAdvance || noneAdvance || !next)) {
       dispatch(counter.id, EVENTS.COMPLETE, minAdvance);
       endMatch(RESULT_TYPES.SCHEME);
     } else {
@@ -216,8 +215,8 @@ export default function Status({ matchId, onQuit, setup }) {
   const enableSide = (counter) => dispatch(counter.id, EVENTS.ENTER_SCHEME);
 
   const disableCounter = (counter, event) => {
-    runCounterTriggers(counter, EVENTS.COMPLETE);
     dispatch(counter.id, event || EVENTS.DISABLE, counter.values.value);
+    runCounterTriggers(counter, EVENTS.COMPLETE);
   };
 
   const defeatAlly = (c) => disableCounter(c, EVENTS.ALLY_DEFEATED);
@@ -256,6 +255,16 @@ export default function Status({ matchId, onQuit, setup }) {
 
   const runEvent = (evt) => (counter) => {
     const { event, data, source } = evt.detail;
+
+    switch (event) {
+      case EVENTS.LOST_SCHEME:
+        return endMatch(RESULT_TYPES.SCHEME);
+      case EVENTS.WIN:
+        return endMatch(RESULT_TYPES.SCHEME_WIN);
+      default:
+        break;
+    }
+
     logger.add(time, event, counter?.id, evt.detail, counter?.type);
     setInteracted(true);
     runEventQueue(event);
@@ -287,7 +296,11 @@ export default function Status({ matchId, onQuit, setup }) {
       case EVENTS.INCREASE:
       case EVENTS.INCREASE_FROM:
       case EVENTS.VILLAIN_PHASE:
-        return counter.add(data);
+        counter.add(data);
+        if (counter.autocomplete && counter.isComplete()) {
+          dispatch(counter.id, EVENTS.COMPLETE);
+        }
+        return;
       case EVENTS.NEW_PHASE:
         dispatch(
           sets.mainScheme[0].id,

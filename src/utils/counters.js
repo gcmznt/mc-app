@@ -6,6 +6,9 @@ import { getStageText } from "./texts";
 export class Counter {
   constructor(options, players = 1) {
     this.active = options.active ?? options.values?.active ?? true;
+    this.autocomplete =
+      options.autocomplete ?? options.values?.autocomplete ?? false;
+    this.hidden = options.hidden ?? options.values?.hidden ?? false;
     this.icons = options.icons ?? options.values?.icons ?? false;
     this.id = options.id ?? uuid();
     this.locked = options.locked ?? options.values?.locked ?? false;
@@ -119,6 +122,11 @@ export class Counter {
   removeMax(value = 1) {
     return this.add(-value, "max");
   }
+
+  isComplete() {
+    const { max, min, value } = this.values;
+    return max <= min ? value <= max : value >= max;
+  }
 }
 
 export class AllyCounter extends Counter {
@@ -221,7 +229,7 @@ const getHeroCounter = (setup) => (hero) => {
 
 const getSideCounter = (setup) => (scheme) =>
   new Counter(
-    { active: false, type: TYPES.SIDE_SCHEME, values: scheme },
+    { active: scheme.active ?? false, type: TYPES.SIDE_SCHEME, values: scheme },
     setup.settings.players
   );
 
@@ -258,6 +266,7 @@ const getVillainCounter = (setup) => (villain) => {
             s.next ?? (!!list[i + 1] && getVillainName(villain, list[i + 1])),
           statuses: getStatusObj(STATUSES, villain.levels[s].status),
           triggers: villain.levels[s].triggers,
+          locked: villain.levels[s].locked,
           type: TYPES.VILLAIN,
           values: { max: villain.levels[s].complete || villain.levels[s] },
         },
