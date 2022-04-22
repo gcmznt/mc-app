@@ -63,9 +63,11 @@ export default function Report({
           ))}
         </div>
         <div>
-          {villains.map((v) => (
-            <Bar key={v.id} counter={v} revert />
-          ))}
+          {villains
+            .filter((v) => !v.locked)
+            .map((v) => (
+              <Bar key={v.id} counter={v} revert />
+            ))}
           {mainScheme.map((v) => (
             <Bar key={v.id} counter={v} revert inverse />
           ))}
