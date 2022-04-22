@@ -73,23 +73,27 @@ export default function MatchStat({ matchId, onLoad }) {
   const { loadMatch } = useFirebase();
   const { t } = useTranslation();
   const [, setLocation] = useLocation();
-  const { deleteMatch, stats } = useData();
+  const { deleteMatch, matches, stats } = useData();
   const [match, setMatch] = useState(false);
 
   const handleDelete = (match) => {
     const msg = `${t("Delete")} ${getHeroesAndAspects(match.setup)
       .map((h) => h.name)
-      .join(" + ")} VS ${getScenarioName(match)}?`;
+      .join(" + ")} VS ${getScenarioName(match.setup)}?`;
 
     if (window.confirm(msg))
       deleteMatch(match).then(() => setLocation(PAGES.STATISTICS));
   };
 
   useEffect(() => {
-    loadMatch(matchId).then((m) => {
-      setMatch(m ? getMatchStats(m) : stats.find((m) => m.matchId === matchId));
-    });
-  }, [loadMatch, matchId, stats]);
+    if (matches) {
+      loadMatch(matchId).then((m) => {
+        setMatch(
+          m ? getMatchStats(m) : stats.find((m) => m.matchId === matchId)
+        );
+      });
+    }
+  }, [loadMatch, matchId, matches, stats]);
 
   return match ? (
     <Fragment>

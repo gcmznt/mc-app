@@ -1121,7 +1121,7 @@
   {
     "complete": "9p",
     "counters": [{ "name": "Bell Tower", "complete": -1 }],
-    "name": "Leave Us Alone!",
+    "name": "\"Leave Us Alone!\"",
     "start": "2p",
     "step": "1p"
   },
@@ -1204,7 +1204,7 @@
       {
         "autocomplete": true,
         "hidden": true,
-        "name": "Symbiote environments",
+        "name": "Symbiote Environments",
         "complete": 2,
         "triggers": { "complete": [{ "event": "lost-scheme" }] }
       }
@@ -1220,7 +1220,7 @@
     "start": "1p",
     "step": "1p",
     "triggers": {
-      "complete": [{ "event": "increase", "targets": "Symbiote environments" }]
+      "complete": [{ "event": "increase", "targets": "Symbiote Environments" }]
     }
   },
   {
@@ -1230,7 +1230,7 @@
     "start": "2p",
     "step": "1p",
     "triggers": {
-      "complete": [{ "event": "increase", "targets": "Symbiote environments" }]
+      "complete": [{ "event": "increase", "targets": "Symbiote Environments" }]
     }
   },
   {
@@ -1240,7 +1240,7 @@
     "start": "0",
     "step": "1p",
     "triggers": {
-      "complete": [{ "event": "increase", "targets": "Symbiote environments" }]
+      "complete": [{ "event": "increase", "targets": "Symbiote Environments" }]
     }
   },
   {

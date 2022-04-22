@@ -268,5 +268,14 @@
     "name": "Ironheart",
     "nemesisSchemes": [],
     "pack": "Ironheart"
+  },
+  {
+    "disabled": true,
+    "alterEgo": "Peni Parker",
+    "aspects": ["Protection"],
+    "hitPoints": 14,
+    "name": "SP//dr",
+    "nemesisSchemes": [],
+    "pack": "SP//dr"
   }
 ]
