@@ -637,7 +637,20 @@
     "sideSchemes": ["Guard the Bell Tower", "Lashing Out", "Tooth and Nail"],
     "villains": [
       {
-        "levels": { "1": "17p", "2": "18p", "3": "20p" },
+        "levels": {
+          "1": {
+            "complete": "17p",
+            "status": ["Tough"]
+          },
+          "2": {
+            "complete": "18p",
+            "status": ["Tough"]
+          },
+          "3": {
+            "complete": "20p",
+            "status": ["Tough"]
+          }
+        },
         "name": "Venom",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
@@ -765,7 +778,19 @@
     ],
     "villains": [
       {
-        "levels": { "1": "16p", "2": "18p", "3": "21p" },
+        "levels": {
+          "1": {
+            "complete": "16p"
+          },
+          "2": {
+            "complete": "18p",
+            "status": ["Tough"]
+          },
+          "3": {
+            "complete": "21p",
+            "status": ["Tough"]
+          }
+        },
         "name": "Venom Goblin",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
