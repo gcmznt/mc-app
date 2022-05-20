@@ -1294,5 +1294,23 @@
     "icons": ["Amplify"],
     "name": "Analysis Paralysis",
     "start": 1
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "\"Bring the War!\"",
+    "start": 2
+  },
+  {
+    "name": "Armored Assault",
+    "start": "3p"
+  },
+  {
+    "name": "Rule by Force",
+    "start": 4
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Feedback Loop",
+    "start": 2
   }
 ]

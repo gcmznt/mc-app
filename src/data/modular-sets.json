@@ -262,5 +262,15 @@
     "name": "Whispers of Paranoia",
     "sideSchemes": ["Analysis Paralysis"],
     "pack": "Sinister Motives"
+  },
+  {
+    "name": "Armadillo",
+    "sideSchemes": ["Armored Assault"],
+    "pack": "Nova"
+  },
+  {
+    "name": "Zzzax",
+    "sideSchemes": ["Feedback Loop"],
+    "pack": "Ironheart"
   }
 ]

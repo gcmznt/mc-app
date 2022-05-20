@@ -252,21 +252,19 @@
     "pack": "Sinister Motives"
   },
   {
-    "disabled": true,
     "alterEgo": "Sam Alexander",
     "aspects": ["Aggression"],
     "hitPoints": 10,
     "name": "Nova",
-    "nemesisSchemes": [],
+    "nemesisSchemes": ["\"Bring the War!\""],
     "pack": "Nova"
   },
   {
-    "disabled": true,
     "alterEgo": "Riri Williams",
     "aspects": ["Leadership"],
     "hitPoints": 10,
     "name": "Ironheart",
-    "nemesisSchemes": [],
+    "nemesisSchemes": ["Rule by Force"],
     "pack": "Ironheart"
   },
   {
