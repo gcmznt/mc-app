@@ -89,8 +89,8 @@ export default function Options() {
               flag={opt.pack !== opt.name && opt.pack}
               label={
                 <>
-                  {opt.name}
-                  {!!opt.alterEgo && <small> [{opt.alterEgo}]</small>}
+                  {t(opt.name)}
+                  {!!opt.alterEgo && <small> [{t(opt.alterEgo)}]</small>}
                 </>
               }
               onChange={(e) => toggle(section.key, e.target.value)}
