@@ -268,12 +268,19 @@
     "pack": "Ironheart"
   },
   {
-    "disabled": true,
+    "alterEgo": "Peter Porker",
+    "aspects": ["Justice"],
+    "hitPoints": 12,
+    "name": "Spider-Ham",
+    "nemesisSchemes": ["Nefarious Trap"],
+    "pack": "Spider-Ham"
+  },
+  {
     "alterEgo": "Peni Parker",
     "aspects": ["Protection"],
     "hitPoints": 14,
     "name": "SP//dr",
-    "nemesisSchemes": [],
+    "nemesisSchemes": ["Giant Monster Attack"],
     "pack": "SP//dr"
   }
 ]

@@ -1312,5 +1312,15 @@
     "icons": ["Acceleration"],
     "name": "Feedback Loop",
     "start": 2
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "Nefarious Trap",
+    "start": 3
+  },
+  {
+    "icons": ["Crisis"],
+    "name": "Giant Monster Attack",
+    "start": 4
   }
 ]
