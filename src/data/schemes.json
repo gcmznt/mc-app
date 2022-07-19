@@ -1322,5 +1322,15 @@
     "icons": ["Crisis"],
     "name": "Giant Monster Attack",
     "start": 4
+  },
+  {
+    "icons": [],
+    "name": "Hunting the Spider-Totems",
+    "start": 6
+  },
+  {
+    "icons": ["Crisis"],
+    "name": "Grand Larceny",
+    "start": 4
   }
 ]

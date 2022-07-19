@@ -272,5 +272,15 @@
     "name": "Zzzax",
     "sideSchemes": ["Feedback Loop"],
     "pack": "Ironheart"
+  },
+  {
+    "name": "The Inheritors",
+    "sideSchemes": ["Hunting the Spider-Totems"],
+    "pack": "Spider-Ham"
+  },
+  {
+    "name": "Iron Spider's Sinister Six",
+    "sideSchemes": ["Grand Larceny"],
+    "pack": "SP//dr"
   }
 ]
