@@ -8,7 +8,7 @@ import schemes from "../data/schemes.json";
 
 import { append, appendList, load, persist } from "../utils";
 import { DEFAULT_OPTIONS, STORAGE_KEYS } from "../utils/constants";
-import { getMatchStats } from "../utils/statistics";
+import { byDate, getMatchInfo, getMatchStats } from "../utils/statistics";
 
 const isActive = (match) => !match.trash;
 
@@ -79,6 +79,10 @@ export const DataProvider = ({ children }) => {
     );
   };
 
+  const exportStats = (matches) => {
+    return matches.map(getMatchInfo).sort(byDate);
+  };
+
   const saveMatch = (match) => {
     persist(STORAGE_KEYS.MATCHES, [
       ...matches.filter((m) => m.matchId !== match.matchId),
@@ -142,6 +146,7 @@ export const DataProvider = ({ children }) => {
         clearStats,
         data,
         deleteMatch,
+        exportStats,
         fullSelection,
         matches: activeMatches,
         options,

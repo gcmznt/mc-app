@@ -86,9 +86,22 @@ export function getMatchStats(match) {
     reason: match.reason,
     trash: match.trash,
     setup: match.setup,
-    time: match.time,
+    time: getMatchTime(match),
   };
 }
+
+export const getMatchInfo = (match) => ({
+  date: match.date,
+  reason: match.reason,
+  scenario: getScenarioName(match.setup),
+  mode: match.setup.mode,
+  heroes: getHeroesAndAspects(match.setup).map((h) => h.name),
+  time: getMatchTime(match),
+  rounds:
+    match.log.rounds ||
+    match.counters.find((c) => c.type === "rounds").levels?.[0].value ||
+    match.counters.find((c) => c.type === "rounds").values?.value,
+});
 
 const EMPTY_RESULTS = Object.fromEntries(
   Object.values(RESULT_TYPES).map((v) => [v, 0])
@@ -125,6 +138,13 @@ export function getHeroesAndAspects(setup) {
 
 export function getModularSets(setup) {
   return setup.modularSets || (setup.scenario.modular || []).map((m) => m.name);
+}
+
+export function getMatchTime(match) {
+  return match.time || match.log[0]?.time || match.log[0]
+    ? new Date(match.log[0]?.date).getTime() -
+        new Date(match.log[match.log.length - 1]?.date).getTime()
+    : null;
 }
 
 function getMatchesStats(res, match) {

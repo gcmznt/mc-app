@@ -31,7 +31,7 @@ const FirebaseContext = createContext(null);
 
 export const FirebaseProvider = ({ children }) => {
   const [user, setUser] = useState();
-  const { clear, clearStats, matches, saveStats } = useData();
+  const { clear, clearStats, matches, saveStats, exportStats } = useData();
 
   initializeApp({
     apiKey: "AIzaSyC9NWj7eUejvekKggLpdP__It58sKwzjPk",
@@ -118,6 +118,17 @@ export const FirebaseProvider = ({ children }) => {
     });
   }, [load, saveStats]);
 
+  const toJson = useCallback(() => {
+    return load().then((qs) => {
+      const list = [];
+      qs.forEach((doc) => {
+        const matchData = doc.data();
+        list.push(matchData);
+      });
+      return exportStats(list);
+    });
+  }, [load, exportStats]);
+
   const sync = useCallback(() => {
     clearStats();
     return upload()
@@ -133,7 +144,16 @@ export const FirebaseProvider = ({ children }) => {
 
   return (
     <FirebaseContext.Provider
-      value={{ loadMatch, logout, register, remove, signIn, sync, user }}
+      value={{
+        loadMatch,
+        logout,
+        register,
+        remove,
+        signIn,
+        sync,
+        user,
+        toJson,
+      }}
     >
       {children}
     </FirebaseContext.Provider>
