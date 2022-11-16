@@ -282,5 +282,62 @@
     "name": "SP//dr",
     "nemesisSchemes": ["Giant Monster Attack"],
     "pack": "SP//dr"
+  },
+  {
+    "alterEgo": "Piotr Rasputin",
+    "aspects": ["Protection"],
+    "hitPoints": 14,
+    "name": "Colossus",
+    "nemesisSchemes": ["Rampaging Juggernaut"],
+    "pack": "Mutant Genesis"
+  },
+  {
+    "alterEgo": "Kitty Pryde",
+    "aspects": ["Aggression"],
+    "hitPoints": 9,
+    "name": "Shadowcat",
+    "nemesisSchemes": ["The Hellfire Club"],
+    "pack": "Mutant Genesis"
+  },
+  {
+    "alterEgo": "Scott Summers",
+    "aspects": ["Leadership"],
+    "hitPoints": 10,
+    "name": "Cyclops",
+    "nemesisSchemes": ["Genetic Manipulation"],
+    "pack": "Cyclops"
+  },
+  {
+    "alterEgo": "Jean Grey",
+    "aspects": ["Justice"],
+    "hitPoints": 9,
+    "name": "Phoenix",
+    "nemesisSchemes": ["Consume the World"],
+    "pack": "Phoenix"
+  },
+  {
+    "alterEgo": "Logan",
+    "aspects": ["Aggression"],
+    "hitPoints": 10,
+    "name": "Wolverine",
+    "nemesisSchemes": ["The Carbonadium Synthesizer"],
+    "pack": "Wolverine"
+  },
+  {
+    "alterEgo": "Ororo Munroe",
+    "aspects": ["Leadership"],
+    "hitPoints": 10,
+    "name": "Storm",
+    "nemesisSchemes": ["Leader of the Morlocks"],
+    "pack": "Storm"
+  },
+  {
+    "disabled": true,
+    "alterEgo": "Remy LeBeau",
+    "aspects": ["Justice"],
+    "hitPoints": 9,
+    "name": "Gambit",
+    "nemesisSchemes": [],
+    "pack": "Gambit"
   }
 ]

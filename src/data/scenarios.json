@@ -795,5 +795,292 @@
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
+  },
+
+  {
+    "encounter": [],
+    "mainScheme": ["Stalked by Sabretooth", "The Injured Senator"],
+    "modular": ["Mystique", "Brotherhood"],
+    "name": "Sabretooth",
+    "pack": "Mutant Genesis",
+    "sideSchemes": ["Find the Senator", "Medical Emergency", "Feral Rage"],
+    "villains": [
+      {
+        "levels": {
+          "1": "13p",
+          "2": {
+            "complete": "15p",
+            "status": ["Tough"]
+          },
+          "3": {
+            "complete": "18p",
+            "status": ["Tough"]
+          }
+        },
+        "name": "Sabretooth",
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
+      }
+    ]
+  },
+  {
+    "encounter": ["Zero Tolerance"],
+    "mainScheme": ["Night of the Sentinels"],
+    "modular": ["Sentinels"],
+    "name": "Project Wideawake",
+    "pack": "Mutant Genesis",
+    "sideSchemes": [
+      "Mutants at the Mall",
+      "Abduction Protocols",
+      "Abduction Protocols",
+      "Abduction Protocols",
+      "Abduction Protocols"
+    ],
+    "villains": [
+      {
+        "levels": {
+          "1": {
+            "complete": "16p",
+            "status": ["Tough"]
+          },
+          "2": {
+            "complete": "18p",
+            "status": ["Tough"]
+          },
+          "3": {
+            "complete": "22p",
+            "status": ["Tough"]
+          }
+        },
+        "name": "Sentinel",
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
+      }
+    ]
+  },
+  {
+    "encounter": ["Sentinels"],
+    "mainScheme": ["The Sentinel Factory", "Master Mold's Agenda"],
+    "modular": ["Zero Tolerance"],
+    "name": "Master Mold",
+    "pack": "Mutant Genesis",
+    "sideSchemes": [
+      "Intruder Alert!",
+      "Insert Virus Program",
+      "Insert Virus Program"
+    ],
+    "villains": [
+      {
+        "levels": {
+          "1": {
+            "complete": "12p",
+            "status": ["Tough"]
+          },
+          "2": {
+            "complete": "14p",
+            "status": ["Tough"]
+          },
+          "3": {
+            "complete": "16p",
+            "status": ["Tough"]
+          }
+        },
+        "name": "Master Mold",
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
+      }
+    ]
+  },
+  {
+    "encounter": ["Brotherhood"],
+    "mainScheme": [
+      "The Brotherhood Strikes!",
+      "Mansion Attack 2B - First",
+      "Mansion Attack 2B - Second"
+    ],
+    "modular": ["Mystique"],
+    "name": "Mansion Attack",
+    "pack": "Mutant Genesis",
+    "sideSchemes": [
+      "Protect the Students",
+      "Protect the Students",
+      "Under Siege",
+      "Under Siege"
+    ],
+    "villains": [
+      {
+        "levels": {
+          "A": {
+            "complete": "15p",
+            "locked": true,
+            "status": ["Tough"]
+          },
+          "B": {
+            "complete": "18p",
+            "locked": true,
+            "status": ["Tough"]
+          }
+        },
+        "name": "Avalanche",
+        "stages": { "expert": ["B"], "standard": ["A"] }
+      },
+      {
+        "levels": {
+          "A": {
+            "complete": "16p",
+            "locked": true,
+            "status": ["Tough"]
+          },
+          "B": {
+            "complete": "19p",
+            "locked": true,
+            "status": ["Tough"]
+          }
+        },
+        "name": "Blob",
+        "stages": { "expert": ["B"], "standard": ["A"] }
+      },
+      {
+        "levels": {
+          "A": {
+            "complete": "14p",
+            "locked": true,
+            "status": ["Tough"]
+          },
+          "B": {
+            "complete": "17p",
+            "locked": true,
+            "status": ["Tough"]
+          }
+        },
+        "name": "Pyro",
+        "stages": { "expert": ["B"], "standard": ["A"] }
+      },
+      {
+        "levels": {
+          "A": {
+            "complete": "13p",
+            "locked": true,
+            "status": ["Tough"]
+          },
+          "B": {
+            "complete": "16p",
+            "locked": true,
+            "status": ["Tough"]
+          }
+        },
+        "name": "Toad",
+        "stages": { "expert": ["B"], "standard": ["A"] }
+      }
+    ]
+  },
+  {
+    "encounter": [],
+    "mainScheme": ["Asteroid M", "Factory Online", "The Rule of Magnus"],
+    "modular": ["Acolytes"],
+    "name": "Magneto",
+    "pack": "Mutant Genesis",
+    "sideSchemes": [
+      "Boarding Party",
+      "Sabotage Master Mold",
+      "Orbital Decay",
+      "Magnetic Mayhem",
+      "Magnetically Sealed",
+      "Seized!"
+    ],
+    "villains": [
+      {
+        "levels": {
+          "1": {
+            "complete": "18p",
+            "status": ["Tough"]
+          },
+          "2": {
+            "complete": "20p",
+            "status": ["Tough"]
+          },
+          "3": {
+            "complete": "22p",
+            "status": ["Tough"]
+          }
+        },
+        "name": "Magneto",
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
+      }
+    ]
+  },
+
+  {
+    "encounter": [],
+    "mainScheme": ["Melee in the Mojo-seum"],
+    "modular": [["Crime", "Fantasy", "Horror", "Sci-Fi", "Sitcom", "Western"]],
+    "name": "MaGog",
+    "pack": "Mojo Mania",
+    "sideSchemes": ["Pump Up the Crowd"],
+    "villains": [
+      {
+        "levels": {
+          "A": {
+            "complete": "10p",
+            "triggers": {
+              "complete": [
+                {
+                  "event": "increase",
+                  "targets": "The Challengers",
+                  "value": "3p"
+                },
+                { "event": "reset" }
+              ]
+            }
+          },
+          "B": {
+            "complete": "10p",
+            "triggers": {
+              "complete": [
+                {
+                  "event": "increase",
+                  "targets": "The Challengers",
+                  "value": "2p"
+                },
+                { "event": "reset" }
+              ]
+            }
+          }
+        },
+        "name": "MaGog",
+        "stages": { "expert": ["B"], "standard": ["A"] }
+      }
+    ]
+  },
+  {
+    "encounter": [],
+    "mainScheme": ["Across the Mojoverse"],
+    "modular": [
+      ["Crime", "Fantasy", "Horror", "Sci-Fi", "Sitcom", "Western"],
+      ["Crime", "Fantasy", "Horror", "Sci-Fi", "Sitcom", "Western"],
+      ["Crime", "Fantasy", "Horror", "Sci-Fi", "Sitcom", "Western"]
+    ],
+    "name": "Spiral",
+    "pack": "Mojo Mania",
+    "sideSchemes": ["The Search for Spiral"],
+    "villains": [
+      {
+        "levels": { "1": "13p", "2": "15p", "3": "17p" },
+        "name": "Spiral",
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
+      }
+    ]
+  },
+  {
+    "encounter": [],
+    "mainScheme": ["MojoMania"],
+    "modular": [["Crime", "Fantasy", "Horror", "Sci-Fi", "Sitcom", "Western"]],
+    "name": "Mojo",
+    "pack": "Mojo Mania",
+    "sideSchemes": ["Undercover Mojo"],
+    "villains": [
+      {
+        "levels": { "1": "16p", "2": "18p", "3": "25p" },
+        "name": "Mojo",
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
+      }
+    ]
   }
 ]

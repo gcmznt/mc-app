@@ -160,7 +160,11 @@ const getScenario = (selection, matches, settings, data, options) => {
 const getModular = (scenario, selection, settings) => {
   switch (settings.modularSets) {
     case SUGGESTED:
-      return scenario.modular;
+      return scenario.modular.reduce((mods, curr) => {
+        return Array.isArray(curr)
+          ? [...mods, getRandom(curr.filter((m) => !mods.includes(m)))]
+          : [...mods, curr];
+      }, []);
     case NONE:
       return [];
     case FULL_RANDOM:

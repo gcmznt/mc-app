@@ -4,7 +4,8 @@ import heroes from "../data/heroes.json";
 import minions from "../data/minions.json";
 import modularSets from "../data/modular-sets.json";
 import scenarios from "../data/scenarios.json";
-import schemes from "../data/schemes.json";
+import mainSchemes from "../data/main-schemes.json";
+import sideSchemes from "../data/side-schemes.json";
 
 import { append, appendList, load, persist } from "../utils";
 import { DEFAULT_OPTIONS, STORAGE_KEYS } from "../utils/constants";
@@ -17,12 +18,14 @@ const isEnabled = (el) =>
   window.location.hostname === "localhost" ||
   new URL(document.location).searchParams.get("debug") === "";
 
+const byName = (a, c) => ({ ...a, [c.name]: c });
+
 const data = {
   heroes: heroes.filter(isEnabled),
   minions,
-  modularSets: modularSets.reduce((a, c) => ({ ...a, [c.name]: c }), {}),
+  modularSets: modularSets.reduce(byName, {}),
   scenarios: scenarios.filter(isEnabled),
-  schemes: schemes.reduce((a, c) => ({ ...a, [c.name]: c }), {}),
+  schemes: [...mainSchemes, ...sideSchemes].reduce(byName, {}),
   getHero: (key) => heroes.find((h) => (h.key || h.name) === key),
   getMinion: (key) => minions.find((m) => (m.key || m.name) === key),
 };

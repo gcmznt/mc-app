@@ -5,25 +5,6 @@
     "start": 2
   },
   {
-    "complete": "10p",
-    "name": "Assault on NORAD",
-    "step": "1p",
-    "triggers": {
-      "enter": [
-        {
-          "event": "enter-minion",
-          "targets": "Ultron's Drone",
-          "perPlayer": true
-        }
-      ]
-    }
-  },
-  {
-    "complete": "3p",
-    "name": "Attack on Mount Athena",
-    "step": "1p"
-  },
-  {
     "icons": ["Acceleration"],
     "name": "Avalanche!",
     "start": "2p"
@@ -50,25 +31,6 @@
     "icons": ["Hazard"],
     "name": "Breakin' & Takin'",
     "start": 2
-  },
-  {
-    "complete": "6p",
-    "name": "Breakout",
-    "step": 1,
-    "triggers": {
-      "enter": [
-        { "event": "enter-scheme", "targets": "Day of Reckoning" },
-        { "event": "enter-scheme", "targets": "Thunderstruck" },
-        { "event": "enter-scheme", "targets": "Pile It On!" },
-        { "event": "enter-scheme", "targets": "Clear the Road" }
-      ],
-      "villain-phase": [
-        { "event": "increase", "targets": "Day of Reckoning" },
-        { "event": "increase", "targets": "Thunderstruck" },
-        { "event": "increase", "targets": "Pile It On!" },
-        { "event": "increase", "targets": "Clear the Road" }
-      ]
-    }
   },
   {
     "icons": ["Hazard"],
@@ -104,27 +66,6 @@
     "icons": ["Crisis"],
     "name": "Cornered Staff",
     "start": 3
-  },
-  {
-    "complete": "10p",
-    "icons": ["Hazard"],
-    "name": "Corporate Acquisition",
-    "start": "1p",
-    "step": "2p"
-  },
-  {
-    "complete": "5p",
-    "name": "Countdown to Oblivion",
-    "step": "1p",
-    "triggers": {
-      "enter": [
-        {
-          "event": "enter-minion",
-          "targets": "Ultron's Drone",
-          "perPlayer": true
-        }
-      ]
-    }
   },
   {
     "icons": ["Acceleration"],
@@ -200,44 +141,9 @@
     "start": "3p"
   },
   {
-    "complete": "7p",
-    "counters": [
-      {
-        "name": "Criminal Enterprise",
-        "bSide": "State of Madness",
-        "value": "2p",
-        "triggers": {
-          "complete": [
-            { "event": "flip" },
-            { "event": "reset" },
-            { "event": "flip-villain", "targets": "+villain" }
-          ]
-        }
-      }
-    ],
-    "name": "Hostile Takeover",
-    "start": "2p",
-    "step": "1p",
-    "triggers": {
-      "complete": [
-        { "event": "next" },
-        { "event": "hit", "targets": "Criminal Enterprise", "value": "1p" }
-      ]
-    }
-  },
-  {
     "icons": ["Acceleration"],
     "name": "Hujahdarian Monarch Egg",
     "start": [3, "2p"]
-  },
-  {
-    "complete": "12p",
-    "name": "Hunting Down Heroes",
-    "start": "1p",
-    "step": "1p",
-    "triggers": {
-      "enter": [{ "event": "enter-scheme", "targets": "Hydra Patrol" }]
-    }
   },
   {
     "icons": ["Crisis"],
@@ -262,13 +168,6 @@
     "icons": ["Acceleration"],
     "name": "Imminent Overload",
     "start": [3, "1p"]
-  },
-  {
-    "complete": "7p",
-    "icons": ["Hazard"],
-    "name": "Interception Imminent",
-    "start": "2p",
-    "step": "2p"
   },
   {
     "icons": ["Hazard"],
@@ -301,13 +200,6 @@
     "start": "2p"
   },
   {
-    "advance": "min",
-    "complete": "15p",
-    "name": "Lost in the Museum",
-    "start": "11p",
-    "step": "1p"
-  },
-  {
     "icons": ["Hazard"],
     "name": "Magical Teapot",
     "start": [3, "2p"]
@@ -325,27 +217,6 @@
   {
     "name": "Mother's Orders",
     "start": "2p"
-  },
-  {
-    "complete": "11p",
-    "name": "Mutagen Cloud",
-    "start": "4p"
-  },
-  {
-    "complete": "11p",
-    "name": "New World Hydra",
-    "start": "1p",
-    "step": "1p"
-  },
-  {
-    "complete": "12p",
-    "counters": [{ "name": "Delay", "complete": -1 }],
-    "name": "None Shall Pass",
-    "start": "2p",
-    "step": "1p",
-    "triggers": {
-      "villain-phase": [{ "event": "increase", "targets": "Delay" }]
-    }
   },
   {
     "icons": ["Acceleration"],
@@ -403,16 +274,6 @@
     "start": "3p"
   },
   {
-    "complete": "8p",
-    "name": "Protect the Planet",
-    "start": "4p",
-    "step": "2p",
-    "triggers": {
-      "enter": [{ "event": "increase", "targets": "Badoon Ship" }],
-      "villain-phase": [{ "event": "increase", "targets": "Badoon Ship" }]
-    }
-  },
-  {
     "icons": ["Crisis"],
     "name": "Fugitive Recovery",
     "start": [2, "3p"]
@@ -421,11 +282,6 @@
     "icons": ["Crisis"],
     "name": "Running Interference",
     "start": "1p"
-  },
-  {
-    "complete": "8p",
-    "name": "Secret Rendezvous",
-    "step": "1p"
   },
   {
     "name": "Sibling Rivalry",
@@ -449,13 +305,6 @@
     "start": "2p"
   },
   {
-    "complete": "10p",
-    "icons": ["Hazard"],
-    "name": "Take What Is Mine",
-    "start": "1p",
-    "step": "2p"
-  },
-  {
     "icons": ["Hazard"],
     "name": "Taskmaster's Training Camp",
     "start": "2p"
@@ -463,22 +312,6 @@
   {
     "name": "Tech Theft",
     "start": "2p"
-  },
-  {
-    "complete": "8p",
-    "name": "Terrestrial Invasion",
-    "start": "2p",
-    "step": "2p",
-    "counters": [
-      {
-        "name": "Badoon Ship",
-        "complete": 4,
-        "triggers": { "complete": [{ "event": "empty" }] }
-      }
-    ],
-    "triggers": {
-      "villain-phase": [{ "event": "increase", "targets": "Badoon Ship" }]
-    }
   },
   {
     "icons": ["Hazard"],
@@ -494,118 +327,14 @@
     ]
   },
   {
-    "complete": "6p",
-    "name": "The Art of Evasion",
-    "start": "2p",
-    "step": "0",
-    "triggers": {
-      "prepare-villain-phase": [
-        { "event": "increase", "targets": "Nebula's Ship" }
-      ]
-    }
-  },
-  {
-    "complete": "7p",
-    "name": "The Break In!",
-    "step": "1p"
-  },
-  {
-    "complete": "3p",
-    "name": "The Crimson Cowl",
-    "step": "1p",
-    "triggers": {
-      "enter": [
-        {
-          "event": "enter-minion",
-          "targets": "Ultron's Drone",
-          "perPlayer": true
-        }
-      ]
-    }
-  },
-  {
     "icons": ["Acceleration"],
     "name": "The Doomsday Chair",
     "start": 8
   },
   {
-    "complete": "5p",
-    "name": "The Gataway",
-    "start": "1p",
-    "step": "1p"
-  },
-  {
-    "complete": "10p",
-    "name": "The Grand Collection",
-    "start": "4p",
-    "step": "1p",
-    "counters": [
-      {
-        "name": "The Collection",
-        "complete": "5p",
-        "value": "1p"
-      }
-    ]
-  },
-  {
-    "advance": "min",
-    "complete": "12p",
-    "name": "The Great Escape",
-    "start": "8p",
-    "step": "1p",
-    "triggers": {
-      "enter": [{ "event": "increase", "targets": "Acceleration" }]
-    }
-  },
-  {
-    "complete": "6p",
-    "name": "The Infinity Stone",
-    "start": "1p",
-    "step": "1p"
-  },
-  {
-    "counters": [
-      {
-        "name": "Test counters",
-        "complete": 3,
-        "triggers": { "complete": [{ "event": "empty" }] }
-      }
-    ],
-    "complete": "6p",
-    "name": "The Island of Dr. Zola",
-    "step": "1p",
-    "triggers": {
-      "enter": [
-        { "event": "enter-scheme", "targets": "Hydra Prison" },
-        {
-          "event": "enter-minion",
-          "targets": "Ultimate Bio-Servant",
-          "perPlayer": true
-        }
-      ],
-      "villain-phase": [{ "event": "increase", "targets": "Test counters" }]
-    }
-  },
-  {
-    "complete": "8p",
-    "name": "The Mad Doctor",
-    "start": "1p",
-    "step": "1p",
-    "triggers": {
-      "villain-phase": [{ "event": "increase", "targets": "Test counters" }]
-    }
-  },
-  {
     "icons": ["Acceleration"],
     "name": "The Masters of Evil",
     "start": "3p"
-  },
-  {
-    "advance": "min",
-    "complete": "11p",
-    "name": "The Missing Milano",
-    "start": "7p",
-    "step": "1p"
   },
   {
     "name": "The Next Evolution",
@@ -619,14 +348,6 @@
   {
     "name": "The Red House",
     "start": "3p"
-  },
-  {
-    "complete": "8p",
-    "name": "The Rise of Red Skull",
-    "step": "1p",
-    "triggers": {
-      "enter": [{ "event": "enter-scheme", "targets": "The Red House" }]
-    }
   },
   {
     "name": "The Sleeper Awakened",
@@ -663,29 +384,6 @@
     "start": 3
   },
   {
-    "complete": "6p",
-    "name": "Underground Distribution",
-    "step": "1p",
-    "triggers": {
-      "enter": [{ "event": "enter-scheme", "targets": "Defense Network" }]
-    }
-  },
-  {
-    "complete": "7p",
-    "name": "Unleashing the Mutagen",
-    "start": "2p",
-    "step": "1p",
-    "triggers": {
-      "enter": [
-        {
-          "event": "enter-minion",
-          "targets": "Goblin Thrall",
-          "perPlayer": true
-        }
-      ]
-    }
-  },
-  {
     "icons": ["Hazard"],
     "name": "Usurp the Throne",
     "start": "3p"
@@ -696,89 +394,9 @@
     "start": "2p"
   },
   {
-    "complete": "9p",
-    "name": "Warp Drive Initiated",
-    "start": "3p",
-    "step": 0,
-    "triggers": {
-      "enter": [
-        {
-          "event": "increase",
-          "targets": "Nebula's Ship",
-          "value": "2"
-        }
-      ]
-    }
-  },
-  {
     "icons": ["Acceleration"],
     "name": "Zola's Experiments",
     "start": "3p"
-  },
-  {
-    "advance": "none",
-    "complete": "7p",
-    "name": "Kang's Arrival",
-    "step": "1p"
-  },
-  {
-    "complete": -1,
-    "name": "The Master of Time",
-    "triggers": {
-      "enter": [
-        {
-          "event": "enter-scheme",
-          "targets": [
-            "The Chronopolis",
-            "Inexorable Fate",
-            "The Realm of Rama-Tut",
-            "The Present Future War"
-          ],
-          "perPlayer": true
-        }
-      ]
-    }
-  },
-  {
-    "active": false,
-    "complete": 9,
-    "name": "The Chronopolis",
-    "next": false,
-    "step": 1,
-    "___triggers": {
-      "enter": [{ "event": "enter-villain", "targets": "Hydra Patrol" }]
-    }
-  },
-  {
-    "active": false,
-    "complete": 9,
-    "name": "Inexorable Fate",
-    "next": false,
-    "start": 1,
-    "step": 1
-  },
-  {
-    "active": false,
-    "complete": 9,
-    "name": "The Realm of Rama-Tut",
-    "next": false,
-    "start": 1,
-    "step": 1
-  },
-  {
-    "active": false,
-    "complete": 9,
-    "name": "The Present Future War",
-    "next": false,
-    "start": 2,
-    "step": 1
-  },
-  {
-    "advance": -1,
-    "complete": "10p",
-    "name": "Kang's Wrath",
-    "next": false,
-    "step": "3p"
   },
   {
     "name": "Corrupted Timestream",
@@ -917,96 +535,6 @@
     "start": 3
   },
   {
-    "complete": "6p",
-    "name": "Attack on Knowhere",
-    "start": "1p",
-    "step": "1p"
-  },
-  {
-    "complete": "9p",
-    "name": "The Power Stone",
-    "start": "1p",
-    "step": "1p"
-  },
-  {
-    "complete": "6p",
-    "counters": [
-      {
-        "complete": "9p",
-        "name": "Avengers Tower Stronghold",
-        "next": "Avengers Tower Damaged"
-      },
-      { "active": false, "name": "Avengers Tower Damaged", "complete": "9p" }
-    ],
-    "name": "Under Siege",
-    "next": false,
-    "start": "1p",
-    "step": "1p",
-    "triggers": {
-      "complete": [
-        { "event": "empty" },
-        {
-          "event": "hit",
-          "targets": "Avengers Tower Stronghold",
-          "value": "6p"
-        }
-      ]
-    }
-  },
-  {
-    "active": true,
-    "complete": "6p",
-    "name": "The Armies of Thanos",
-    "start": "1p",
-    "step": "1p",
-    "triggers": {
-      "enter": [
-        {
-          "event": "enter-minion",
-          "targets": "Black Order Besieger",
-          "perPlayer": true
-        }
-      ],
-      "complete": [{ "event": "empty" }]
-    }
-  },
-  {
-    "complete": "12p",
-    "name": "The Infinity Stones",
-    "start": 0,
-    "step": "1p",
-    "triggers": {
-      "enter": [{ "event": "enter-scheme", "targets": "Sanctuary" }]
-    }
-  },
-  {
-    "complete": "12p",
-    "name": "Balance the Scales",
-    "start": 0,
-    "step": "1p"
-  },
-  {
-    "complete": "18p",
-    "name": "Odin's Torment",
-    "start": "1p",
-    "step": "1p",
-    "triggers": {
-      "enter": [
-        { "event": "enter-scheme", "targets": "Gnipahellir" },
-        { "event": "enter-minion", "targets": "Garm" }
-      ]
-    }
-  },
-  {
-    "complete": "12p",
-    "name": "All Hail King Loki",
-    "start": "1p",
-    "step": "1p",
-    "triggers": {
-      "enter": [{ "event": "enter-scheme", "targets": "War in Asgard" }]
-    }
-  },
-  {
     "name": "Self-Preservation",
     "start": "2p"
   },
@@ -1024,24 +552,6 @@
     "icons": ["Acceleration"],
     "name": "Ultron Unleashed",
     "start": 3
-  },
-  {
-    "complete": "5p",
-    "name": "Making Connections",
-    "start": "1p",
-    "step": "1p"
-  },
-  {
-    "complete": "8p",
-    "name": "Promised Prosperity",
-    "start": "2p",
-    "step": "1p"
-  },
-  {
-    "complete": "10p",
-    "name": "Crime State",
-    "start": "3p",
-    "step": "1p"
   },
   {
     "name": "Unbridled Ambition",
@@ -1102,13 +612,6 @@
     "start": 4
   },
   {
-    "complete": "9p",
-    "counters": [{ "name": "City Streets", "complete": -1, "start": 4 }],
-    "name": "Hapless Pedestrians",
-    "start": "2p",
-    "step": "1p"
-  },
-  {
     "icons": ["Crisis"],
     "name": "Dirt Trap",
     "start": 1
@@ -1117,13 +620,6 @@
     "icons": ["Hazard"],
     "name": "Tidal Sands",
     "start": 2
-  },
-  {
-    "complete": "10p",
-    "counters": [{ "name": "Bell Tower", "complete": -1 }],
-    "name": "\"Leave Us Alone!\"",
-    "start": "2p",
-    "step": "1p"
   },
   {
     "name": "Guard the Bell Tower",
@@ -1138,44 +634,6 @@
     "icons": ["Hazard"],
     "name": "Tooth and Nail",
     "start": 8
-  },
-  {
-    "complete": "8p",
-    "name": "Maze of Mirrors",
-    "start": "2p",
-    "step": "1p",
-    "triggers": {
-      "enter": [
-        {
-          "event": "enter-minion",
-          "targets": "Shifting Apparition",
-          "perPlayer": true
-        }
-      ]
-    }
-  },
-  {
-    "complete": "9p",
-    "name": "Edge of Reality",
-    "start": "3p",
-    "step": "1p"
-  },
-  {
-    "complete": "8p",
-    "name": "Sinister Synchronization",
-    "start": "2p",
-    "step": "1p",
-    "triggers": {
-      "enter": [
-        { "event": "enter-scheme", "targets": "Light at the End: Trap!" }
-      ]
-    }
-  },
-  {
-    "complete": "7p",
-    "name": "Sinister Beatdown",
-    "start": "3p",
-    "step": "1p"
   },
   {
     "name": "Light at the End: Trap!",
@@ -1197,21 +655,6 @@
   {
     "name": "Brute Force Barricade",
     "start": 9
-  },
-  {
-    "name": "Skies Over New York",
-    "counters": [
-      {
-        "autocomplete": true,
-        "hidden": true,
-        "name": "Symbiote Environments",
-        "complete": 2,
-        "triggers": { "complete": [{ "event": "lost-scheme" }] }
-      }
-    ],
-    "triggers": {
-      "enter": [{ "event": "disable" }]
-    }
   },
   {
     "active": true,
@@ -1332,5 +775,208 @@
     "icons": ["Crisis"],
     "name": "Grand Larceny",
     "start": 4
+  },
+  {
+    "icons": ["Amplify"],
+    "name": "Rampaging Juggernaut",
+    "start": "2p"
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "The Hellfire Club",
+    "start": "2p"
+  },
+  {
+    "icons": ["Amplify"],
+    "name": "Genetic Manipulation",
+    "start": "2p"
+  },
+  {
+    "icons": ["Amplify"],
+    "name": "Consume the World",
+    "start": 6
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "The Carbonadium Synthesizer",
+    "start": 5
+  },
+  {
+    "icons": ["Acceleration", "Acceleration"],
+    "name": "Pump Up the Crowd",
+    "start": "4p"
+  },
+  {
+    "icons": [],
+    "name": "The Search for Spiral",
+    "start": "3p"
+  },
+  {
+    "icons": ["Crisis"],
+    "name": "Undercover Mojo",
+    "start": [2, "2p"]
+  },
+  {
+    "icons": [],
+    "name": "Crime Scene Investigation",
+    "start": [5, "1p"]
+  },
+  {
+    "icons": [],
+    "name": "Law & Order",
+    "start": [5, "1p"]
+  },
+  {
+    "icons": [],
+    "name": "Dragnet",
+    "start": [5, "1p"]
+  },
+  {
+    "icons": [],
+    "name": "Fetch Quest",
+    "start": "6p"
+  },
+  {
+    "icons": [],
+    "name": "ICE-teroid M",
+    "start": "2p"
+  },
+  {
+    "icons": ["Amplify"],
+    "name": "Leader of the Morlocks",
+    "start": "2p"
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Seeking Vengeance",
+    "start": 5
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Ruler of the Astral Plane",
+    "start": 6
+  },
+
+  {
+    "icons": ["Crisis"],
+    "name": "Find the Senator",
+    "start": "5p",
+    "triggers": {
+      "complete": [{ "event": "next", "targets": "Stalked by Sabretooth" }]
+    }
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Medical Emergency",
+    "start": [2, "2p"]
+  },
+  {
+    "icons": ["Crisis"],
+    "name": "Feral Rage",
+    "start": 4
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Mutants at the Mall",
+    "start": 4
+  },
+  {
+    "icons": ["Crisis"],
+    "name": "Abduction Protocols",
+    "start": [2, "2p"]
+  },
+  {
+    "icons": ["Crisis"],
+    "name": "Intruder Alert!",
+    "start": "3p"
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Insert Virus Program",
+    "start": [2, "2p"]
+  },
+  {
+    "icons": ["Crisis"],
+    "name": "Protect the Students",
+    "start": [2, "2p"]
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Under Siege",
+    "start": 0
+  },
+  {
+    "icons": [],
+    "name": "Boarding Party",
+    "start": "3p",
+    "triggers": {
+      "complete": [
+        { "event": "enter-scheme", "targets": "Sabotage Master Mold" }
+      ]
+    }
+  },
+  {
+    "icons": [],
+    "name": "Sabotage Master Mold",
+    "start": "3p",
+    "triggers": {
+      "complete": [{ "event": "enter-scheme", "targets": "Orbital Decay" }]
+    }
+  },
+  {
+    "icons": [],
+    "name": "Orbital Decay",
+    "start": "3p"
+  },
+  {
+    "icons": ["Amplify"],
+    "name": "Magnetic Mayhem",
+    "start": 4
+  },
+  {
+    "icons": ["Crisis"],
+    "name": "Magnetically Sealed",
+    "start": 2
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Seized!",
+    "start": "3p"
+  },
+
+  {
+    "icons": ["Amplify"],
+    "name": "Metamorphic Mayhem",
+    "start": 3
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "The Brotherhood",
+    "start": 3
+  },
+  {
+    "icons": [],
+    "name": "Operation Zero Tolerance",
+    "start": "3p"
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "Relentless Robots",
+    "start": "3p"
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "The Acolytes",
+    "start": "3p"
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "Nimrod's Portal",
+    "start": "3p"
+  },
+  {
+    "icons": ["Amplify"],
+    "name": "Bastion's Machinations",
+    "start": 6
   }
 ]

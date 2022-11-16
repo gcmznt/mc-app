@@ -282,5 +282,75 @@
     "name": "Iron Spider's Sinister Six",
     "sideSchemes": ["Grand Larceny"],
     "pack": "SP//dr"
+  },
+  {
+    "name": "Mystique",
+    "sideSchemes": ["Metamorphic Mayhem"],
+    "pack": "Mutant Genesis"
+  },
+  {
+    "name": "Brotherhood",
+    "sideSchemes": ["The Brotherhood"],
+    "pack": "Mutant Genesis"
+  },
+  {
+    "name": "Zero Tolerance",
+    "sideSchemes": ["Operation Zero Tolerance"],
+    "pack": "Mutant Genesis"
+  },
+  {
+    "name": "Sentinels",
+    "sideSchemes": ["Relentless Robots"],
+    "pack": "Mutant Genesis"
+  },
+  {
+    "name": "Acolytes",
+    "sideSchemes": ["The Acolytes"],
+    "pack": "Mutant Genesis"
+  },
+  {
+    "name": "Future Past",
+    "sideSchemes": ["Nimrod's Portal", "Bastion's Machinations"],
+    "pack": "Mutant Genesis"
+  },
+  {
+    "name": "Crime",
+    "sideSchemes": ["Crime Scene Investigation", "Law & Order", "Dragnet"],
+    "pack": "Mojo Mania"
+  },
+  {
+    "name": "Fantasy",
+    "sideSchemes": ["Fetch Quest"],
+    "pack": "Mojo Mania"
+  },
+  {
+    "name": "Horror",
+    "sideSchemes": [],
+    "pack": "Mojo Mania"
+  },
+  {
+    "name": "Sci-Fi",
+    "sideSchemes": ["ICE-teroid M"],
+    "pack": "Mojo Mania"
+  },
+  {
+    "name": "Sitcom",
+    "sideSchemes": [],
+    "pack": "Mojo Mania"
+  },
+  {
+    "name": "Western",
+    "sideSchemes": [],
+    "pack": "Mojo Mania"
+  },
+  {
+    "name": "Deathstrike",
+    "sideSchemes": ["Seeking Vengeance"],
+    "pack": "Wolverine"
+  },
+  {
+    "name": "Shadow King",
+    "sideSchemes": ["Ruler of the Astral Plane"],
+    "pack": "Storm"
   }
 ]
