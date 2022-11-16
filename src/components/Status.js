@@ -23,6 +23,7 @@ import Timer from "./Timer";
 import Actions, { Action } from "./ui/Actions";
 import Box from "./ui/Box";
 import LogItem from "./ui/LogItem";
+import Modal from "./ui/Modal";
 import Navbar from "./ui/NavBar";
 import Option from "./ui/Option";
 import Report from "./ui/Report";
@@ -51,6 +52,7 @@ export default function Status({ matchId, onQuit, setup }) {
   const [now, setNow] = useState(new Date());
   const [interacted, setInteracted] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [addMenu, setAddMenu] = useState(false);
   const [custom, setCustom] = useState("");
   const [time, setTime] = useState(0);
   const [firstPlayer, setFirstPlayer] = useState(0);
@@ -513,10 +515,57 @@ export default function Status({ matchId, onQuit, setup }) {
     !!CU.all && (
       <div>
         <MatchMenu
+          canRestart={!result && mergedLog.length <= 1}
           onClose={() => setMenu(false)}
           onQuit={handleQuit}
           open={menu}
+          restartMatch={restartMatch}
+          result={result}
         />
+
+        {addMenu && (
+          <Modal onClose={() => setAddMenu(false)}>
+            <Box key="Add counters" title={t("Add counters")} flat flag>
+              <fieldset>
+                <legend>- {t("Side schemes")}</legend>
+                {sets.sideSchemes.map((counter) => (
+                  <Option
+                    key={counter.id}
+                    checked={counter.active}
+                    label={counter.name}
+                    onChange={() => enableSide(counter)}
+                    value={counter.name}
+                  />
+                ))}
+              </fieldset>
+              <fieldset>
+                <legend>- {t("Extra counters")}</legend>
+                {[
+                  CTYPES.ALLY,
+                  CTYPES.MINION,
+                  CTYPES.SUPPORT,
+                  CTYPES.UPGRADE,
+                ].map((type) => (
+                  <Option
+                    checked={false}
+                    key={type}
+                    label={t("Add type Counter", { type: t(type) })}
+                    onChange={() => createCounter(type)}
+                    type={false}
+                  />
+                ))}
+                <form onSubmit={handleSubmitCounter}>
+                  <input
+                    placeholder={t("Custom name")}
+                    value={custom}
+                    onChange={(e) => setCustom(e.target.value)}
+                  />{" "}
+                  <span onClick={handleSubmitCounter}>{t("Add")}</span>
+                </form>
+              </fieldset>
+            </Box>
+          </Modal>
+        )}
 
         <div className="box__wrapper">
           {sets.heroesCounters.map((counter, i) => (
@@ -666,42 +715,6 @@ export default function Status({ matchId, onQuit, setup }) {
                 ))}
             </Box>
           )}
-          <Box key="Add counters" title={t("Add counters")} flat flag>
-            <fieldset>
-              <legend>- {t("Side schemes")}</legend>
-              {sets.sideSchemes.map((counter) => (
-                <Option
-                  key={counter.id}
-                  checked={counter.active}
-                  label={counter.name}
-                  onChange={() => enableSide(counter)}
-                  value={counter.name}
-                />
-              ))}
-            </fieldset>
-            <fieldset>
-              <legend>- {t("Extra counters")}</legend>
-              {[CTYPES.ALLY, CTYPES.MINION, CTYPES.SUPPORT, CTYPES.UPGRADE].map(
-                (type) => (
-                  <Option
-                    checked={false}
-                    key={type}
-                    label={t("Add type Counter", { type: t(type) })}
-                    onChange={() => createCounter(type)}
-                    type={false}
-                  />
-                )
-              )}
-              <form onSubmit={handleSubmitCounter}>
-                <input
-                  placeholder={t("Custom name")}
-                  value={custom}
-                  onChange={(e) => setCustom(e.target.value)}
-                />{" "}
-                <span onClick={handleSubmitCounter}>{t("Add")}</span>
-              </form>
-            </fieldset>
-          </Box>
         </div>
         <div className="box__wrapper">
           <Box key="Log" title="Log" flat flag type="log">
@@ -746,9 +759,9 @@ export default function Status({ matchId, onQuit, setup }) {
               onClick={() => undoEvent()}
             />
             <Action
-              disabled={!result && mergedLog.length <= 1}
-              label={t(result ? "Replay" : "Restart")}
-              onClick={restartMatch}
+              label={t("Add")}
+              sublabel={t("Counter")}
+              onClick={() => setAddMenu(true)}
             />
             <Action
               label={t(result ? "Exit" : "Menu")}

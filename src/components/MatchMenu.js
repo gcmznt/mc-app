@@ -2,8 +2,16 @@ import { useTranslation } from "react-i18next";
 
 import { RESULT_TYPES } from "../utils/constants";
 import Modal from "./ui/Modal";
+import "../styles/match-menu.css";
 
-export default function MatchMenu({ open, onClose, onQuit }) {
+export default function MatchMenu({
+  canRestart,
+  open,
+  onClose,
+  onQuit,
+  restartMatch,
+  result,
+}) {
   const { t } = useTranslation();
 
   const handleDiscard = () => onQuit(false);
@@ -15,30 +23,42 @@ export default function MatchMenu({ open, onClose, onQuit }) {
 
   return (
     open && (
-      <Modal onClick={onClose}>
-        <button className="accent-button is-villain" onClick={handleGiveUp}>
-          {t("Give up")}
-        </button>
-        <button className="accent-button is-villain" onClick={handleHeroesDead}>
-          {t("All heroes dead")}
-        </button>
-        <button
-          className="accent-button is-scheme"
-          onClick={handleLostByScheme}
-        >
-          {t("Lost by scheme")}
-        </button>
-        <button
-          className="accent-button is-winner"
-          onClick={handleVillainsDead}
-        >
-          {t("Villain defeated")}
-        </button>
-        <button className="accent-button is-winner" onClick={handleWonByScheme}>
-          {t("Won by scheme")}
-        </button>
-        <button onClick={handleDiscard}>{t("Discard match")}</button>
-        <button onClick={onClose}>{t("Close menu")}</button>
+      <Modal onClose={onClose}>
+        <div className="match-menu">
+          <button className="accent-button is-villain" onClick={handleGiveUp}>
+            {t("Give up")}
+          </button>
+          <button
+            className="accent-button is-villain"
+            onClick={handleHeroesDead}
+          >
+            {t("All heroes dead")}
+          </button>
+          <button
+            className="accent-button is-scheme"
+            onClick={handleLostByScheme}
+          >
+            {t("Lost by scheme")}
+          </button>
+          <button
+            className="accent-button is-winner"
+            onClick={handleVillainsDead}
+          >
+            {t("Villain defeated")}
+          </button>
+          <button
+            className="accent-button is-winner"
+            onClick={handleWonByScheme}
+          >
+            {t("Won by scheme")}
+          </button>
+          <button disabled={canRestart} onClick={restartMatch}>
+            {t(result ? "Replay" : "Restart")}
+          </button>
+
+          <button onClick={handleDiscard}>{t("Discard match")}</button>
+          <button onClick={onClose}>{t("Close menu")}</button>
+        </div>
       </Modal>
     )
   );
