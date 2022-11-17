@@ -3,6 +3,8 @@
     "alterEgo": "Peter Parker",
     "aspects": ["Justice"],
     "hitPoints": 10,
+    "iconAlterEgo": "👨‍🔬",
+    "iconHero": "🦸‍♂️",
     "name": "Spider-Man",
     "nemesisSchemes": ["Highway Robbery"],
     "pack": "Core Set"
@@ -339,5 +341,14 @@
     "name": "Gambit",
     "nemesisSchemes": [],
     "pack": "Gambit"
+  },
+  {
+    "disabled": true,
+    "alterEgo": "Anna Marie",
+    "aspects": ["Protection"],
+    "hitPoints": 11,
+    "name": "Rogue",
+    "nemesisSchemes": [],
+    "pack": "Rogue"
   }
 ]

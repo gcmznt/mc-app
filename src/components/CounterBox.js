@@ -30,9 +30,6 @@ export function CounterBox({
       );
 
   const getTitle = () => {
-    if (counters[0].type === COUNTER_TYPES.HERO) {
-      return `${counters[0].name} ${counters[0].frontSide ? "🙍" : "🦸"}`;
-    }
     return counters[0].name;
   };
 
@@ -47,12 +44,21 @@ export function CounterBox({
     return undefined;
   };
 
+  const getIcon = () => {
+    if (counters[0].type === COUNTER_TYPES.HERO) {
+      if (counters[0].frontSide) return counters[0].emoji || "🧑‍💼";
+      else return counters[0].bSideEmoji || "🦸";
+    }
+    return undefined;
+  };
+
   return (
     <Box
       title={t(rename(title || getTitle()))}
       subtitle={getSubTitle()}
       type={type || counters[0].type}
       highlight={highlight}
+      icon={getIcon()}
     >
       {counters.map((counter) => (
         <Counter

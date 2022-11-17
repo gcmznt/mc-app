@@ -15,6 +15,8 @@ export class Counter {
     this.frontSide = options.frontSide ?? true;
     this.aSide = options.aSide ?? options.name ?? options.values?.name;
     this.bSide = options.bSide ?? options.values?.bSide ?? false;
+    this.emoji = options.emoji ?? options.values?.emoji ?? false;
+    this.bSideEmoji = options.bSideEmoji ?? options.values?.bSideEmoji ?? false;
     this.next = options.next ?? options.values?.next ?? false;
     this.parent = options.parent ?? false;
     this.statuses = options.statuses ?? options.values?.statuses ?? false;
@@ -221,6 +223,8 @@ const getHeroCounter = (setup) => (hero) => {
       statuses: getStatusObj(STATUSES),
       type: TYPES.HERO,
       values: { max: hero.hitPoints },
+      emoji: hero.iconAlterEgo,
+      bSideEmoji: hero.iconHero,
     },
     (hero.counters || []).map((c) => ({ ...c, type: TYPES.HERO_TOKEN })),
     setup.settings.players

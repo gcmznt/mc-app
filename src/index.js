@@ -10,6 +10,7 @@ import { DataProvider } from "./context/data";
 import "./i18n";
 import { STORAGE_KEYS } from "./utils/constants";
 import { persist } from "./utils";
+import { NotificationsProvider } from "./context/notifications";
 
 function load(key) {
   return JSON.parse(localStorage.getItem(key)) || false;
@@ -35,7 +36,9 @@ ReactDOM.render(
   <React.StrictMode>
     <DataProvider>
       <FirebaseProvider>
-        <App />
+        <NotificationsProvider>
+          <App />
+        </NotificationsProvider>
       </FirebaseProvider>
     </DataProvider>
   </React.StrictMode>,

@@ -106,8 +106,21 @@ button {
   padding: 0.5em 1em 0.7em;
 }
 
+button.small {
+  padding: 0 0.5em 0.2em;
+}
+
 form {
   margin: 0.2em 0;
+  display: flex;
+  align-items: center;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  padding: 0.5em;
+  border: none;
 }
 
 select {
@@ -117,7 +130,8 @@ select {
 }
 
 label {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
 }
 
 label > select {

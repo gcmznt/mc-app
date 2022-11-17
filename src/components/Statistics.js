@@ -28,12 +28,12 @@ function Row({ filter, label, type, values, onClick }) {
         <Option
           checked={filter}
           label={
-            <span>
+            <>
               {type === "aspects" && <Dot type={label.toLowerCase()} small />}
               {type === "players"
                 ? t("Players num", { numPlayers: label })
                 : t(label)}
-            </span>
+            </>
           }
           onChange={onClick}
         />
@@ -131,7 +131,7 @@ export default function Statistics() {
           <table className="statistics__table">
             <thead>
               <tr>
-                <td></td>
+                <th></th>
                 <td>{t("P")}</td>
                 <td>{t("Win %")}</td>
                 <td>{t("W")}</td>

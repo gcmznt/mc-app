@@ -13,6 +13,7 @@ export default function Box({
   flag,
   flat,
   highlight,
+  icon,
   subtitle,
   title,
   type,
@@ -28,6 +29,7 @@ export default function Box({
 
   return (
     <div className={getClassName(classList)}>
+      {icon && <div className="box__icon">{icon}</div>}
       {title && (
         <div className="box__title">
           <div className="box__title-text">{t(title)}</div>

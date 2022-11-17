@@ -3,6 +3,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useData } from "../context/data";
+import { useNotifications } from "../context/notifications";
+
 import { getRandomList, load, persist, toValue } from "../utils";
 import {
   COUNTER_TYPES as CTYPES,
@@ -18,14 +20,13 @@ import { getAcceleration, useCountersUtils } from "../utils/status";
 import { getResText } from "../utils/texts";
 import Counter from "./Counter";
 import { CounterBox } from "./CounterBox";
+import AddCounter from "./AddCounter";
 import MatchMenu from "./MatchMenu";
 import Timer from "./Timer";
 import Actions, { Action } from "./ui/Actions";
 import Box from "./ui/Box";
 import LogItem from "./ui/LogItem";
-import Modal from "./ui/Modal";
 import Navbar from "./ui/NavBar";
-import Option from "./ui/Option";
 import Report from "./ui/Report";
 
 const childOf = (parent) => (counter) => counter.parent === parent.id;
@@ -47,13 +48,13 @@ const getNextPlayer = (counters, active, dir = 1, offset = 1) => {
 
 export default function Status({ matchId, onQuit, setup }) {
   const { t } = useTranslation();
+  const { addNotification } = useNotifications();
   const { data } = useData();
   const [eventQueue, setEventQueue] = useState([]);
   const [now, setNow] = useState(new Date());
   const [interacted, setInteracted] = useState(false);
   const [menu, setMenu] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
-  const [custom, setCustom] = useState("");
   const [time, setTime] = useState(0);
   const [firstPlayer, setFirstPlayer] = useState(0);
   const [result, setResult] = useState(null);
@@ -214,7 +215,13 @@ export default function Status({ matchId, onQuit, setup }) {
       ? onQuit({ reason, counters: CU.all, time, log: logger.entries }, replay)
       : onQuit(false);
 
-  const enableSide = (counter) => dispatch(counter.id, EVENTS.ENTER_SCHEME);
+  const enableSide = (counter) => {
+    addNotification(
+      t("Side scheme entered", { name: counter.name }),
+      counter.type
+    );
+    return dispatch(counter.id, EVENTS.ENTER_SCHEME);
+  };
 
   const disableCounter = (counter, event) => {
     dispatch(counter.id, event || EVENTS.DISABLE, counter.values.value);
@@ -238,13 +245,11 @@ export default function Status({ matchId, onQuit, setup }) {
       [CTYPES.SUPPORT]: EVENTS.ENTER_SUPPORT,
       [CTYPES.UPGRADE]: EVENTS.ENTER_UPGRADE,
     }[type];
+    addNotification(
+      t("Counter created", { type: name || t(type) }),
+      counter.type
+    );
     setTimeout(() => dispatch(counter.id, event || EVENTS.CREATE), 0);
-  };
-
-  const handleSubmitCounter = (e) => {
-    e.preventDefault();
-    custom && createCounter(CTYPES.CUSTOM, custom);
-    setCustom("");
   };
 
   const runEventQueue = (event) => {
@@ -523,49 +528,13 @@ export default function Status({ matchId, onQuit, setup }) {
           result={result}
         />
 
-        {addMenu && (
-          <Modal onClose={() => setAddMenu(false)}>
-            <Box key="Add counters" title={t("Add counters")} flat flag>
-              <fieldset>
-                <legend>- {t("Side schemes")}</legend>
-                {sets.sideSchemes.map((counter) => (
-                  <Option
-                    key={counter.id}
-                    checked={counter.active}
-                    label={counter.name}
-                    onChange={() => enableSide(counter)}
-                    value={counter.name}
-                  />
-                ))}
-              </fieldset>
-              <fieldset>
-                <legend>- {t("Extra counters")}</legend>
-                {[
-                  CTYPES.ALLY,
-                  CTYPES.MINION,
-                  CTYPES.SUPPORT,
-                  CTYPES.UPGRADE,
-                ].map((type) => (
-                  <Option
-                    checked={false}
-                    key={type}
-                    label={t("Add type Counter", { type: t(type) })}
-                    onChange={() => createCounter(type)}
-                    type={false}
-                  />
-                ))}
-                <form onSubmit={handleSubmitCounter}>
-                  <input
-                    placeholder={t("Custom name")}
-                    value={custom}
-                    onChange={(e) => setCustom(e.target.value)}
-                  />{" "}
-                  <span onClick={handleSubmitCounter}>{t("Add")}</span>
-                </form>
-              </fieldset>
-            </Box>
-          </Modal>
-        )}
+        <AddCounter
+          open={addMenu}
+          onClose={() => setAddMenu(false)}
+          createCounter={createCounter}
+          sets={sets}
+          enableSide={enableSide}
+        />
 
         <div className="box__wrapper">
           {sets.heroesCounters.map((counter, i) => (
@@ -603,7 +572,7 @@ export default function Status({ matchId, onQuit, setup }) {
             </Box>
           )}
           {!!sets.extraCounters.filter(isActive).length && (
-            <Box key="Extra" title="Extra" flat type="extra">
+            <Box key="Extra" flat type="extra">
               {sets.extraCounters
                 .filter(isActive)
                 .sort(byName)

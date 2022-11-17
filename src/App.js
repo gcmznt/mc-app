@@ -14,6 +14,7 @@ import { PAGES, STORAGE_KEYS } from "./utils/constants";
 import Logo from "./components/ui/Logo";
 import Menu from "./components/ui/Menu";
 import MatchStat from "./components/MatchStat";
+import Notifications from "./components/Notifications";
 
 export default function App() {
   const { options } = useData();
@@ -82,6 +83,7 @@ export default function App() {
           </Route>
         </>
       ) : null}
+      <Notifications />
     </main>
   );
 }

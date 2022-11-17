@@ -12,11 +12,18 @@
   justify-content: center;
   background: #000c;
   padding: 0.5em;
+  animation: modalEnter ease-out forwards 400ms;
+  transform: translateY(200%);
+  backdrop-filter: blur(5px);
+}
+
+.modal.is-closing {
+  animation: modalExit ease-in forwards 400ms;
 }
 
 .modal__close {
   position: absolute;
-  top: 10px;
+  bottom: 10px;
   right: 10px;
   background: var(--color-cta);
   width: 32px;
@@ -30,13 +37,25 @@
 .modal__close::after {
   content: '';
   height: 0;
-  width: 28px;
+  width: 14px;
   border: 2px solid var(--color-cta-contrast);
-  transform: rotate(45deg);
+  transform: translate(-50%, 7px) rotate(45deg);
+  transform-origin: right bottom;
   display: block;
   position: absolute;
 }
 
 .modal__close::after {
-  transform: rotate(-45deg);
+  transform: translate(50%, 7px) rotate(-45deg);
+  transform-origin: left bottom;
+}
+
+@keyframes modalEnter {
+  0% { transform: translateY(200%); }
+  100% { transform: translateY(0%); }
+}
+
+@keyframes modalExit {
+  0% { transform: translateY(0%); }
+  100% { transform: translateY(200%); }
 }

@@ -57,7 +57,6 @@ export default function MatchMenu({
           </button>
 
           <button onClick={handleDiscard}>{t("Discard match")}</button>
-          <button onClick={onClose}>{t("Close menu")}</button>
         </div>
       </Modal>
     )

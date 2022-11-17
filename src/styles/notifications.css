@@ -1,0 +1,26 @@
+.notifications {
+  position: fixed;
+  top: 26px;
+  right: 0;
+  z-index: 21000;
+}
+
+.notifications__item {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  padding: 0 4px 2px;
+  margin: 4px;
+  position: absolute;
+  right: 0;
+  white-space: nowrap;
+  top: calc(var(--position) * 26px);
+  animation: notificationAnimation 6s forwards linear;
+  transition: all linear 300ms;
+}
+
+@keyframes notificationAnimation {
+  0% { opacity: 0; transform: translateY(-26px) }
+  5% { opacity: 1; transform: translateY(0) }
+  95% { opacity: 1; transform: translateX(0) }
+  100% { opacity: 0; transform: translateX(150%) }
+}

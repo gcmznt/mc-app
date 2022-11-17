@@ -24,6 +24,13 @@
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
+.box__icon {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  font-size: 3em;
+}
+
 .box__title {
   position: relative;
   background-color: var(--color-bg-card);

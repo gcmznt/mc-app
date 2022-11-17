@@ -4,7 +4,6 @@ import { useData } from "../context/data";
 import Language from "./inputs/Language";
 import Layout from "./inputs/Layout";
 import Theme from "./inputs/Theme";
-// import DeviceSpace from "./DeviceSpace";
 import LoginForm from "./LoginForm";
 import Box from "./ui/Box";
 import Option from "./ui/Option";
@@ -44,10 +43,6 @@ export default function Options() {
       <Box key="Sync" title={t("Account")}>
         <LoginForm />
       </Box>
-
-      {/* <Box key="Space" title={t("Used device space")} flag>
-        <DeviceSpace />
-      </Box> */}
 
       <Box key="Settings" title={t("Settings")} flag flat>
         <legend className="box__legend">{t("Random")}</legend>
@@ -90,7 +85,9 @@ export default function Options() {
               label={
                 <>
                   {t(opt.name)}
-                  {!!opt.alterEgo && <small> [{t(opt.alterEgo)}]</small>}
+                  {!!opt.alterEgo && opt.alterEgo !== opt.name && (
+                    <small> [{t(opt.alterEgo)}]</small>
+                  )}
                 </>
               }
               onChange={(e) => toggle(section.key, e.target.value)}
