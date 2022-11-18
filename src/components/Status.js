@@ -481,7 +481,7 @@ export default function Status({ matchId, onQuit, setup }) {
     }-phase`;
     document.body.classList.add(className);
     return () => document.body.classList.remove(className);
-  }, [isHeroPhase]);
+  }, [isHeroPhase, CU.all.length]);
 
   useEffect(() => {
     const te = (event) => {
