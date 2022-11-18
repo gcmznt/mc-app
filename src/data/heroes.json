@@ -4,7 +4,7 @@
     "aspects": ["Justice"],
     "hitPoints": 10,
     "iconAlterEgo": "👨‍🔬",
-    "iconHero": "🦸‍♂️",
+    "iconHero": "🕷",
     "name": "Spider-Man",
     "nemesisSchemes": ["Highway Robbery"],
     "pack": "Core Set"
@@ -21,6 +21,7 @@
     "alterEgo": "Jennifer Walters",
     "aspects": ["Aggression"],
     "hitPoints": 15,
+    "iconAlterEgo": "👩‍⚖️",
     "name": "She-Hulk",
     "nemesisSchemes": ["Personal Challenge"],
     "pack": "Core Set"
@@ -29,6 +30,8 @@
     "alterEgo": "Tony Stark",
     "aspects": ["Aggression"],
     "hitPoints": 9,
+    "iconAlterEgo": "👨‍💻",
+    "iconHero": "🦾",
     "name": "Iron Man",
     "nemesisSchemes": ["Imminent Overload"],
     "pack": "Core Set"
@@ -37,6 +40,7 @@
     "alterEgo": "T'Challa",
     "aspects": ["Protection"],
     "hitPoints": 11,
+    "iconAlterEgo": "🤴",
     "name": "Black Panther",
     "nemesisSchemes": ["Usurp the Throne"],
     "pack": "Core Set"
@@ -69,6 +73,7 @@
     "alterEgo": "Natasha Romanoff",
     "aspects": ["Justice"],
     "hitPoints": 9,
+    "iconHero": "🥷",
     "name": "Black Widow",
     "nemesisSchemes": ["Killer for Hire"],
     "pack": "Black Widow"
@@ -77,6 +82,7 @@
     "alterEgo": "Stephen Strange",
     "aspects": ["Protection"],
     "hitPoints": 10,
+    "iconAlterEgo": "👨‍⚕️",
     "name": "Doctor Strange",
     "nemesisSchemes": ["Open the Dark Dimension"],
     "pack": "Doctor Strange"
@@ -85,6 +91,7 @@
     "alterEgo": "Bruce Banner",
     "aspects": ["Aggression"],
     "hitPoints": 18,
+    "iconAlterEgo": "👨‍🔬",
     "name": "Hulk",
     "nemesisSchemes": ["Total Destruction"],
     "pack": "Hulk"
@@ -93,6 +100,7 @@
     "alterEgo": "Clint Barton",
     "aspects": ["Leadership"],
     "hitPoints": 9,
+    "iconHero": "🥷",
     "name": "Hawkeye",
     "nemesisSchemes": ["Marked for Death"],
     "pack": "The Rise of Red Skull"
@@ -101,6 +109,7 @@
     "alterEgo": "Jessica Drew",
     "aspects": ["Aggression", "Justice"],
     "hitPoints": 11,
+    "iconHero": "🕷",
     "name": "Spider-Woman",
     "nemesisSchemes": ["The Viper's Ambition"],
     "pack": "The Rise of Red Skull"
@@ -109,6 +118,7 @@
     "alterEgo": "Scott Lang",
     "aspects": ["Leadership"],
     "hitPoints": 12,
+    "iconHero": "🐜",
     "name": "Ant-Man",
     "nemesisSchemes": ["Tech Theft"],
     "pack": "Ant-Man"
@@ -125,6 +135,7 @@
     "alterEgo": "Pietro Maximoff",
     "aspects": ["Protection"],
     "hitPoints": 9,
+    "iconAlterEgo": "🏃",
     "name": "Quicksilver",
     "nemesisSchemes": ["Extortion of Seismic Proportion"],
     "pack": "Quicksilver"
@@ -133,6 +144,7 @@
     "alterEgo": "Wanda Maximoff",
     "aspects": ["Justice"],
     "hitPoints": 10,
+    "iconHero": "🦹‍♀️",
     "name": "Scarlet Witch",
     "nemesisSchemes": ["The Next Evolution"],
     "pack": "Scarlet Witch"
@@ -142,6 +154,7 @@
     "aspects": ["Protection"],
     "counters": [{ "name": "Growth", "max": 10, "complete": -1 }],
     "hitPoints": 11,
+    "iconAlterEgo": "🌱",
     "name": "Groot",
     "nemesisSchemes": ["Blazing Inferno"],
     "pack": "Galaxy’s Most Wanted"
@@ -150,6 +163,7 @@
     "alterEgo": "Rocket Raccoon",
     "aspects": ["Aggression"],
     "hitPoints": 9,
+    "iconAlterEgo": "🦝",
     "name": "Rocket Raccoon",
     "nemesisSchemes": ["Vendetta"],
     "pack": "Galaxy’s Most Wanted"
@@ -216,6 +230,7 @@
     "aspects": ["Leadership"],
     "counters": [{ "name": "Ammo", "complete": -1 }],
     "hitPoints": 10,
+    "iconHero": "🦾",
     "name": "War Machine",
     "nemesisSchemes": ["Deadly Light Show"],
     "pack": "War Machine"
@@ -240,6 +255,7 @@
     "alterEgo": "Gwen Stacy",
     "aspects": ["Protection"],
     "hitPoints": 10,
+    "iconHero": "🕷",
     "name": "Ghost-Spider",
     "nemesisSchemes": ["Regenerative Research"],
     "pack": "Sinister Motives"
@@ -248,6 +264,7 @@
     "alterEgo": "Miles Morales",
     "aspects": ["Justice"],
     "hitPoints": 9,
+    "iconHero": "🕷",
     "key": "Spider-Man MM",
     "name": "Spider-Man",
     "nemesisSchemes": ["Tracking Prey"],
@@ -265,6 +282,8 @@
     "alterEgo": "Riri Williams",
     "aspects": ["Leadership"],
     "hitPoints": 10,
+    "iconAlterEgo": "👩‍🔧",
+    "iconHero": "🦾",
     "name": "Ironheart",
     "nemesisSchemes": ["Rule by Force"],
     "pack": "Ironheart"
@@ -273,6 +292,8 @@
     "alterEgo": "Peter Porker",
     "aspects": ["Justice"],
     "hitPoints": 12,
+    "iconAlterEgo": "🐷",
+    "iconHero": "🕷",
     "name": "Spider-Ham",
     "nemesisSchemes": ["Nefarious Trap"],
     "pack": "Spider-Ham"
@@ -281,6 +302,7 @@
     "alterEgo": "Peni Parker",
     "aspects": ["Protection"],
     "hitPoints": 14,
+    "iconHero": "🦾",
     "name": "SP//dr",
     "nemesisSchemes": ["Giant Monster Attack"],
     "pack": "SP//dr"
@@ -329,6 +351,7 @@
     "alterEgo": "Ororo Munroe",
     "aspects": ["Leadership"],
     "hitPoints": 10,
+    "iconHero": "🦹‍♀️",
     "name": "Storm",
     "nemesisSchemes": ["Leader of the Morlocks"],
     "pack": "Storm"
