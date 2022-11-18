@@ -24,11 +24,13 @@ export class Counter {
     this.modifiers = options.modifiers ?? options.values?.modifiers ?? false;
     this.triggers = options.triggers ?? options.values?.triggers ?? false;
     this.type = options.type ?? options.values?.type ?? false;
-    this.valuesInitial = multiplyValues(
-      options.values ?? options.values?.values ?? false,
-      players
-    );
-    this.values = { ...this.valuesInitial };
+    this.valuesInitial =
+      options.valuesInitial ||
+      multiplyValues(
+        options.values ?? options.values?.values ?? false,
+        players
+      );
+    this.values = options.values || { ...this.valuesInitial };
   }
 
   get name() {
