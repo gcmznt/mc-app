@@ -30,7 +30,10 @@ export class Counter {
         options.values ?? options.values?.values ?? false,
         players
       );
-    this.values = options.values || { ...this.valuesInitial };
+    this.values = multiplyValues(
+      options.values ?? options.values?.values ?? false,
+      players
+    );
   }
 
   get name() {

@@ -21,6 +21,11 @@ export default function MatchMenu({
   const handleVillainsDead = () => onQuit(RESULT_TYPES.WINNER);
   const handleWonByScheme = () => onQuit(RESULT_TYPES.SCHEME_WIN);
 
+  const handleRestart = () => {
+    onClose();
+    restartMatch();
+  };
+
   return (
     open && (
       <Modal onClose={onClose}>
@@ -52,7 +57,7 @@ export default function MatchMenu({
           >
             {t("Won by scheme")}
           </button>
-          <button disabled={canRestart} onClick={restartMatch}>
+          <button disabled={canRestart} onClick={handleRestart}>
             {t(result ? "Replay" : "Restart")}
           </button>
 
