@@ -3,6 +3,9 @@ import { getStatusObj, toValue } from ".";
 import { COUNTER_TYPES, COUNTER_TYPES as TYPES, STATUSES } from "./constants";
 import { getStageText } from "./texts";
 
+const multiply = (options, players) =>
+  multiplyValues(options.values ?? options.values?.values ?? false, players);
+
 export class Counter {
   constructor(options, players = 1) {
     this.active = options.active ?? options.values?.active ?? true;
@@ -24,16 +27,8 @@ export class Counter {
     this.modifiers = options.modifiers ?? options.values?.modifiers ?? false;
     this.triggers = options.triggers ?? options.values?.triggers ?? false;
     this.type = options.type ?? options.values?.type ?? false;
-    this.valuesInitial =
-      options.valuesInitial ||
-      multiplyValues(
-        options.values ?? options.values?.values ?? false,
-        players
-      );
-    this.values = multiplyValues(
-      options.values ?? options.values?.values ?? false,
-      players
-    );
+    this.values = multiply(options, players);
+    this.valuesInitial = options.valuesInitial || this.values;
   }
 
   get name() {
