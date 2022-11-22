@@ -4,12 +4,13 @@ const getSideSchemes = (el) => [
 ];
 
 export function getFullSetup(setup, data) {
-  const getSchemeData = (s) => data.schemes[s];
+  const getSideSchemeData = (s) => data.sideSchemes[s];
+  const getMainSchemeData = (s) => ({ ...data.mainSchemes[s] });
   const getModularData = (m) => data.modularSets[m];
 
   const addSideSchemes = (el) => ({
     ...el,
-    sideSchemes: getSideSchemes(el).map(getSchemeData),
+    sideSchemes: getSideSchemes(el).map(getSideSchemeData),
   });
 
   const getHeroData = (hero) => ({
@@ -19,16 +20,12 @@ export function getFullSetup(setup, data) {
 
   const getHeroesData = (heroes) => heroes.map(getHeroData).map(addSideSchemes);
 
-  const getMainSchemeData = (s) => ({
-    ...data.schemes[s],
-  });
-
   const getScenarioData = (name) => {
     const scenarioData = data.scenarios.find((s) => s.name === name);
 
     return {
       ...scenarioData,
-      sideSchemes: getSideSchemes(scenarioData).map(getSchemeData),
+      sideSchemes: getSideSchemes(scenarioData).map(getSideSchemeData),
       mainScheme: scenarioData.mainScheme.map(getMainSchemeData),
       modular: setup.modularSets.map(getModularData).map(addSideSchemes),
     };

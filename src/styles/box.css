@@ -46,6 +46,7 @@
   font-size: 0.6em;
   position: absolute;
   top: 82%;
+  white-space: nowrap;
   z-index: 1;
 }
 

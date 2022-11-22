@@ -25,7 +25,8 @@ const data = {
   minions,
   modularSets: modularSets.reduce(byName, {}),
   scenarios: scenarios.filter(isEnabled),
-  schemes: [...mainSchemes, ...sideSchemes].reduce(byName, {}),
+  mainSchemes: mainSchemes.reduce(byName, {}),
+  sideSchemes: sideSchemes.reduce(byName, {}),
   getHero: (key) => heroes.find((h) => (h.key || h.name) === key),
   getMinion: (key) => minions.find((m) => (m.key || m.name) === key),
 };
