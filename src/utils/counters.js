@@ -237,8 +237,9 @@ const getSideCounter = (setup) => (scheme) =>
     setup.settings.players
   );
 
-const getVillainName = (villain, stage) =>
-  villain.levels[stage].name || `${villain.name} ${getStageText(stage)}`;
+const getVillainName = (villain, stage, setup) =>
+  villain.levels[stage].name ||
+  `${villain.name || setup.scenario.name} ${getStageText(stage)}`;
 
 const getVillainBSide = (villain, stage) =>
   villain.levels[stage].bSide || villain.bSide
@@ -264,10 +265,11 @@ const getVillainCounter = (setup) => (villain) => {
       new Counter(
         {
           active: i === 0,
-          name: getVillainName(villain, s),
+          name: getVillainName(villain, s, setup),
           bSide: getVillainBSide(villain, s),
           next:
-            s.next ?? (!!list[i + 1] && getVillainName(villain, list[i + 1])),
+            s.next ??
+            (!!list[i + 1] && getVillainName(villain, list[i + 1], setup)),
           statuses: getStatusObj(STATUSES, villain.levels[s].status),
           triggers: villain.levels[s].triggers,
           locked: villain.levels[s].locked,

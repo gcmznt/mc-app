@@ -31,7 +31,6 @@
             }
           }
         },
-        "name": "Rhino",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -63,7 +62,6 @@
             "status": ["Tough"]
           }
         },
-        "name": "Klaw",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -92,7 +90,6 @@
             }
           }
         },
-        "name": "Ultron",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -142,7 +139,6 @@
     "mainScheme": ["Breakout"],
     "modular": [],
     "name": "The Wrecking Crew",
-    "pack": "The Wrecking Crew",
     "sideSchemes": [
       "Day of Reckoning",
       "Thunderstruck",
@@ -190,7 +186,6 @@
     "villains": [
       {
         "levels": { "1": "12p", "2": "14p", "3": "16p" },
-        "name": "Crossbones",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -204,7 +199,6 @@
     "villains": [
       {
         "levels": { "1": "14p", "2": "15p", "3": "16p" },
-        "name": "Absorbing Man",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -225,7 +219,6 @@
     "villains": [
       {
         "levels": { "1": "13p", "2": "16p", "3": "17p" },
-        "name": "Taskmaster",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -253,7 +246,6 @@
           },
           "3": "16p"
         },
-        "name": "Zola",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -274,8 +266,7 @@
     "villains": [
       {
         "levels": { "1": "12p", "2": "16p", "3": "20p" },
-        "stages": { "expert": [2, 3], "standard": [1, 2] },
-        "name": "Red Skull"
+        "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
   },
@@ -292,7 +283,6 @@
     ],
     "modular": ["Temporal"],
     "name": "The Once and Future Kang",
-    "pack": "The Once and Future Kang",
     "sideSchemes": [
       "Corrupted Timestream",
       "Kang's Dominion",
@@ -449,7 +439,6 @@
           }
         ],
         "levels": { "1": "14p", "2": "17p", "3": "20p" },
-        "name": "Nebula",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -490,7 +479,6 @@
             }
           }
         },
-        "name": "Ronan the Accuser",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -505,7 +493,6 @@
     "villains": [
       {
         "levels": { "1": "14p", "2": "18p", "3": "23p" },
-        "name": "Ebony Maw",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -541,16 +528,9 @@
       {
         "levels": {
           "1": "16p",
-          "2": {
-            "complete": "23p",
-            "status": ["Tough"]
-          },
-          "3": {
-            "complete": "28p",
-            "status": ["Tough"]
-          }
+          "2": { "complete": "23p", "status": ["Tough"] },
+          "3": { "complete": "28p", "status": ["Tough"] }
         },
-        "name": "Thanos",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -565,7 +545,6 @@
     "villains": [
       {
         "levels": { "A": "8p", "B": "9p" },
-        "name": "Hela",
         "stages": { "expert": ["B"], "standard": ["A"] }
       }
     ]
@@ -585,7 +564,6 @@
     "villains": [
       {
         "levels": { "1": "20p" },
-        "name": "Loki",
         "stages": { "expert": [1], "standard": [1] }
       }
     ]
@@ -603,12 +581,10 @@
       "Streets of Mayhem"
     ],
     "name": "The Hood",
-    "pack": "The Hood",
     "sideSchemes": ["Unbridled Ambition"],
     "villains": [
       {
         "levels": { "1": "14p", "2": "16p", "3": "18p" },
-        "name": "The Hood",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -623,7 +599,6 @@
     "villains": [
       {
         "levels": { "1": "16p", "2": "18p", "3": "19p" },
-        "name": "Sandman",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -638,20 +613,10 @@
     "villains": [
       {
         "levels": {
-          "1": {
-            "complete": "17p",
-            "status": ["Tough"]
-          },
-          "2": {
-            "complete": "18p",
-            "status": ["Tough"]
-          },
-          "3": {
-            "complete": "20p",
-            "status": ["Tough"]
-          }
+          "1": { "complete": "17p", "status": ["Tough"] },
+          "2": { "complete": "18p", "status": ["Tough"] },
+          "3": { "complete": "20p", "status": ["Tough"] }
         },
-        "name": "Venom",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -666,7 +631,6 @@
     "villains": [
       {
         "levels": { "1": "15p", "2": "17p", "3": "16p" },
-        "name": "Mysterio",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -779,19 +743,10 @@
     "villains": [
       {
         "levels": {
-          "1": {
-            "complete": "16p"
-          },
-          "2": {
-            "complete": "18p",
-            "status": ["Tough"]
-          },
-          "3": {
-            "complete": "21p",
-            "status": ["Tough"]
-          }
+          "1": { "complete": "16p" },
+          "2": { "complete": "18p", "status": ["Tough"] },
+          "3": { "complete": "21p", "status": ["Tough"] }
         },
-        "name": "Venom Goblin",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -808,16 +763,9 @@
       {
         "levels": {
           "1": "13p",
-          "2": {
-            "complete": "15p",
-            "status": ["Tough"]
-          },
-          "3": {
-            "complete": "18p",
-            "status": ["Tough"]
-          }
+          "2": { "complete": "15p", "status": ["Tough"] },
+          "3": { "complete": "18p", "status": ["Tough"] }
         },
-        "name": "Sabretooth",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -838,18 +786,9 @@
     "villains": [
       {
         "levels": {
-          "1": {
-            "complete": "16p",
-            "status": ["Tough"]
-          },
-          "2": {
-            "complete": "18p",
-            "status": ["Tough"]
-          },
-          "3": {
-            "complete": "22p",
-            "status": ["Tough"]
-          }
+          "1": { "complete": "16p", "status": ["Tough"] },
+          "2": { "complete": "18p", "status": ["Tough"] },
+          "3": { "complete": "22p", "status": ["Tough"] }
         },
         "name": "Sentinel",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
@@ -870,20 +809,10 @@
     "villains": [
       {
         "levels": {
-          "1": {
-            "complete": "12p",
-            "status": ["Tough"]
-          },
-          "2": {
-            "complete": "14p",
-            "status": ["Tough"]
-          },
-          "3": {
-            "complete": "16p",
-            "status": ["Tough"]
-          }
+          "1": { "complete": "12p", "status": ["Tough"] },
+          "2": { "complete": "14p", "status": ["Tough"] },
+          "3": { "complete": "16p", "status": ["Tough"] }
         },
-        "name": "Master Mold",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -907,64 +836,32 @@
     "villains": [
       {
         "levels": {
-          "A": {
-            "complete": "15p",
-            "locked": true,
-            "status": ["Tough"]
-          },
-          "B": {
-            "complete": "18p",
-            "locked": true,
-            "status": ["Tough"]
-          }
+          "A": { "complete": "15p", "locked": true, "status": ["Tough"] },
+          "B": { "complete": "18p", "locked": true, "status": ["Tough"] }
         },
         "name": "Avalanche",
         "stages": { "expert": ["B"], "standard": ["A"] }
       },
       {
         "levels": {
-          "A": {
-            "complete": "16p",
-            "locked": true,
-            "status": ["Tough"]
-          },
-          "B": {
-            "complete": "19p",
-            "locked": true,
-            "status": ["Tough"]
-          }
+          "A": { "complete": "16p", "locked": true, "status": ["Tough"] },
+          "B": { "complete": "19p", "locked": true, "status": ["Tough"] }
         },
         "name": "Blob",
         "stages": { "expert": ["B"], "standard": ["A"] }
       },
       {
         "levels": {
-          "A": {
-            "complete": "14p",
-            "locked": true,
-            "status": ["Tough"]
-          },
-          "B": {
-            "complete": "17p",
-            "locked": true,
-            "status": ["Tough"]
-          }
+          "A": { "complete": "14p", "locked": true, "status": ["Tough"] },
+          "B": { "complete": "17p", "locked": true, "status": ["Tough"] }
         },
         "name": "Pyro",
         "stages": { "expert": ["B"], "standard": ["A"] }
       },
       {
         "levels": {
-          "A": {
-            "complete": "13p",
-            "locked": true,
-            "status": ["Tough"]
-          },
-          "B": {
-            "complete": "16p",
-            "locked": true,
-            "status": ["Tough"]
-          }
+          "A": { "complete": "13p", "locked": true, "status": ["Tough"] },
+          "B": { "complete": "16p", "locked": true, "status": ["Tough"] }
         },
         "name": "Toad",
         "stages": { "expert": ["B"], "standard": ["A"] }
@@ -988,20 +885,10 @@
     "villains": [
       {
         "levels": {
-          "1": {
-            "complete": "18p",
-            "status": ["Tough"]
-          },
-          "2": {
-            "complete": "20p",
-            "status": ["Tough"]
-          },
-          "3": {
-            "complete": "22p",
-            "status": ["Tough"]
-          }
+          "1": { "complete": "18p", "status": ["Tough"] },
+          "2": { "complete": "20p", "status": ["Tough"] },
+          "3": { "complete": "22p", "status": ["Tough"] }
         },
-        "name": "Magneto",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -1044,7 +931,6 @@
             }
           }
         },
-        "name": "MaGog",
         "stages": { "expert": ["B"], "standard": ["A"] }
       }
     ]
@@ -1063,7 +949,6 @@
     "villains": [
       {
         "levels": { "1": "13p", "2": "15p", "3": "17p" },
-        "name": "Spiral",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]
@@ -1078,7 +963,6 @@
     "villains": [
       {
         "levels": { "1": "16p", "2": "18p", "3": "25p" },
-        "name": "Mojo",
         "stages": { "expert": [2, 3], "standard": [1, 2] }
       }
     ]

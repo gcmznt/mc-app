@@ -50,24 +50,21 @@
     "aspects": ["Leadership"],
     "hitPoints": 11,
     "name": "Captain America",
-    "nemesisSchemes": ["Hit Squad"],
-    "pack": "Captain America"
+    "nemesisSchemes": ["Hit Squad"]
   },
   {
     "alterEgo": "Kamala Khan",
     "aspects": ["Protection"],
     "hitPoints": 10,
     "name": "Ms. Marvel",
-    "nemesisSchemes": ["Generation Why?"],
-    "pack": "Ms. Marvel"
+    "nemesisSchemes": ["Generation Why?"]
   },
   {
     "alterEgo": "Odinson",
     "aspects": ["Aggression"],
     "hitPoints": 14,
     "name": "Thor",
-    "nemesisSchemes": ["Family Feud"],
-    "pack": "Thor"
+    "nemesisSchemes": ["Family Feud"]
   },
   {
     "alterEgo": "Natasha Romanoff",
@@ -75,8 +72,7 @@
     "hitPoints": 9,
     "iconHero": "🥷",
     "name": "Black Widow",
-    "nemesisSchemes": ["Killer for Hire"],
-    "pack": "Black Widow"
+    "nemesisSchemes": ["Killer for Hire"]
   },
   {
     "alterEgo": "Stephen Strange",
@@ -84,8 +80,7 @@
     "hitPoints": 10,
     "iconAlterEgo": "👨‍⚕️",
     "name": "Doctor Strange",
-    "nemesisSchemes": ["Open the Dark Dimension"],
-    "pack": "Doctor Strange"
+    "nemesisSchemes": ["Open the Dark Dimension"]
   },
   {
     "alterEgo": "Bruce Banner",
@@ -93,8 +88,7 @@
     "hitPoints": 18,
     "iconAlterEgo": "👨‍🔬",
     "name": "Hulk",
-    "nemesisSchemes": ["Total Destruction"],
-    "pack": "Hulk"
+    "nemesisSchemes": ["Total Destruction"]
   },
   {
     "alterEgo": "Clint Barton",
@@ -120,16 +114,14 @@
     "hitPoints": 12,
     "iconHero": "🐜",
     "name": "Ant-Man",
-    "nemesisSchemes": ["Tech Theft"],
-    "pack": "Ant-Man"
+    "nemesisSchemes": ["Tech Theft"]
   },
   {
     "alterEgo": "Nadia Van Dyne",
     "aspects": ["Aggression"],
     "hitPoints": 11,
     "name": "Wasp",
-    "nemesisSchemes": ["Mother's Orders"],
-    "pack": "Wasp"
+    "nemesisSchemes": ["Mother's Orders"]
   },
   {
     "alterEgo": "Pietro Maximoff",
@@ -137,8 +129,7 @@
     "hitPoints": 9,
     "iconAlterEgo": "🏃",
     "name": "Quicksilver",
-    "nemesisSchemes": ["Extortion of Seismic Proportion"],
-    "pack": "Quicksilver"
+    "nemesisSchemes": ["Extortion of Seismic Proportion"]
   },
   {
     "alterEgo": "Wanda Maximoff",
@@ -146,8 +137,7 @@
     "hitPoints": 10,
     "iconHero": "🦹‍♀️",
     "name": "Scarlet Witch",
-    "nemesisSchemes": ["The Next Evolution"],
-    "pack": "Scarlet Witch"
+    "nemesisSchemes": ["The Next Evolution"]
   },
   {
     "alterEgo": "Groot",
@@ -173,16 +163,14 @@
     "aspects": ["Leadership"],
     "hitPoints": 10,
     "name": "Star-Lord",
-    "nemesisSchemes": ["Budding Crime Syndicate"],
-    "pack": "Star-Lord"
+    "nemesisSchemes": ["Budding Crime Syndicate"]
   },
   {
     "alterEgo": "Gamora",
     "aspects": ["Aggression"],
     "hitPoints": 10,
     "name": "Gamora",
-    "nemesisSchemes": ["Sibling Rivalry"],
-    "pack": "Gamora"
+    "nemesisSchemes": ["Sibling Rivalry"]
   },
   {
     "alterEgo": "Drax",
@@ -190,16 +178,14 @@
     "counters": [{ "name": "Vengeance", "max": 3, "complete": -1 }],
     "hitPoints": 14,
     "name": "Drax",
-    "nemesisSchemes": ["Cull the Weak"],
-    "pack": "Drax"
+    "nemesisSchemes": ["Cull the Weak"]
   },
   {
     "alterEgo": "Flash Thompson",
     "aspects": ["Justice"],
     "hitPoints": 12,
     "name": "Venom",
-    "nemesisSchemes": ["Klyntar Frenzy"],
-    "pack": "Venom"
+    "nemesisSchemes": ["Klyntar Frenzy"]
   },
   {
     "alterEgo": "Monica Rambeau",
@@ -222,8 +208,7 @@
     "aspects": ["Justice"],
     "hitPoints": 9,
     "name": "Nebula",
-    "nemesisSchemes": ["Self-Preservation"],
-    "pack": "Nebula"
+    "nemesisSchemes": ["Self-Preservation"]
   },
   {
     "alterEgo": "James Rhodes",
@@ -232,24 +217,21 @@
     "hitPoints": 10,
     "iconHero": "🦾",
     "name": "War Machine",
-    "nemesisSchemes": ["Deadly Light Show"],
-    "pack": "War Machine"
+    "nemesisSchemes": ["Deadly Light Show"]
   },
   {
     "alterEgo": "Brunnhilde",
     "aspects": ["Aggression"],
     "hitPoints": 12,
     "name": "Valkyrie",
-    "nemesisSchemes": ["Powerful Enchantments"],
-    "pack": "Valkyrie"
+    "nemesisSchemes": ["Powerful Enchantments"]
   },
   {
     "alterEgo": "Vision",
     "aspects": ["Protection"],
     "hitPoints": 11,
     "name": "Vision",
-    "nemesisSchemes": ["Ultron Unleashed"],
-    "pack": "Vision"
+    "nemesisSchemes": ["Ultron Unleashed"]
   },
   {
     "alterEgo": "Gwen Stacy",
@@ -275,8 +257,7 @@
     "aspects": ["Aggression"],
     "hitPoints": 10,
     "name": "Nova",
-    "nemesisSchemes": ["\"Bring the War!\""],
-    "pack": "Nova"
+    "nemesisSchemes": ["\"Bring the War!\""]
   },
   {
     "alterEgo": "Riri Williams",
@@ -285,8 +266,7 @@
     "iconAlterEgo": "👩‍🔧",
     "iconHero": "🦾",
     "name": "Ironheart",
-    "nemesisSchemes": ["Rule by Force"],
-    "pack": "Ironheart"
+    "nemesisSchemes": ["Rule by Force"]
   },
   {
     "alterEgo": "Peter Porker",
@@ -295,8 +275,7 @@
     "iconAlterEgo": "🐷",
     "iconHero": "🕷",
     "name": "Spider-Ham",
-    "nemesisSchemes": ["Nefarious Trap"],
-    "pack": "Spider-Ham"
+    "nemesisSchemes": ["Nefarious Trap"]
   },
   {
     "alterEgo": "Peni Parker",
@@ -304,8 +283,7 @@
     "hitPoints": 14,
     "iconHero": "🦾",
     "name": "SP//dr",
-    "nemesisSchemes": ["Giant Monster Attack"],
-    "pack": "SP//dr"
+    "nemesisSchemes": ["Giant Monster Attack"]
   },
   {
     "alterEgo": "Piotr Rasputin",
@@ -328,24 +306,21 @@
     "aspects": ["Leadership"],
     "hitPoints": 10,
     "name": "Cyclops",
-    "nemesisSchemes": ["Genetic Manipulation"],
-    "pack": "Cyclops"
+    "nemesisSchemes": ["Genetic Manipulation"]
   },
   {
     "alterEgo": "Jean Grey",
     "aspects": ["Justice"],
     "hitPoints": 9,
     "name": "Phoenix",
-    "nemesisSchemes": ["Consume the World"],
-    "pack": "Phoenix"
+    "nemesisSchemes": ["Consume the World"]
   },
   {
     "alterEgo": "Logan",
     "aspects": ["Aggression"],
     "hitPoints": 10,
     "name": "Wolverine",
-    "nemesisSchemes": ["The Carbonadium Synthesizer"],
-    "pack": "Wolverine"
+    "nemesisSchemes": ["The Carbonadium Synthesizer"]
   },
   {
     "alterEgo": "Ororo Munroe",
@@ -353,8 +328,7 @@
     "hitPoints": 10,
     "iconHero": "🦹‍♀️",
     "name": "Storm",
-    "nemesisSchemes": ["Leader of the Morlocks"],
-    "pack": "Storm"
+    "nemesisSchemes": ["Leader of the Morlocks"]
   },
   {
     "disabled": true,
@@ -362,8 +336,7 @@
     "aspects": ["Justice"],
     "hitPoints": 9,
     "name": "Gambit",
-    "nemesisSchemes": [],
-    "pack": "Gambit"
+    "nemesisSchemes": []
   },
   {
     "disabled": true,
@@ -371,7 +344,6 @@
     "aspects": ["Protection"],
     "hitPoints": 11,
     "name": "Rogue",
-    "nemesisSchemes": [],
-    "pack": "Rogue"
+    "nemesisSchemes": []
   }
 ]
