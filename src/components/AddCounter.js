@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { COUNTER_TYPES as CTYPES } from "../utils/constants";
 import Box from "./ui/Box";
 import Modal from "./ui/Modal";
+import Option from "./ui/Option";
 
 export default function AddCounter({
   canRestart,
@@ -14,13 +15,15 @@ export default function AddCounter({
   enableSide,
 }) {
   const [custom, setCustom] = useState("");
+  const [customType, setCustomType] = useState(CTYPES.ALLY);
   const { t } = useTranslation();
 
   const byName = (a, b) => t(a.name).localeCompare(t(b.name));
 
   const handleSubmitCounter = (e) => {
     e.preventDefault();
-    custom && createCounter(CTYPES.CUSTOM, custom);
+    if (customType !== CTYPES.CUSTOM) createCounter(customType, custom);
+    else custom && createCounter(customType, custom);
     setCustom("");
   };
 
@@ -39,36 +42,45 @@ export default function AddCounter({
                   onClick={() => enableSide(counter)}
                   className="option"
                 >
-                  {counter.name}
+                  {t(counter.name)}
                 </div>
               ))}
           </fieldset>
           <fieldset>
-            <legend>- {t("Extra counters")}</legend>
-            {[CTYPES.ALLY, CTYPES.MINION, CTYPES.SUPPORT, CTYPES.UPGRADE].map(
-              (type) => (
-                <div
-                  key={type}
-                  onClick={() => createCounter(type)}
-                  className="option"
-                >
-                  {t("Add type Counter", { type: t(type) })}
-                </div>
-              )
-            )}
-          </fieldset>
-          <fieldset>
             <legend>- {t("Custom")}</legend>
             <form onSubmit={handleSubmitCounter}>
-              <input
-                placeholder={t("Name")}
-                value={custom}
-                onChange={(e) => setCustom(e.target.value)}
-                type="text"
-              />{" "}
-              <button onClick={handleSubmitCounter} className="small">
-                +
-              </button>
+              {[
+                CTYPES.ALLY,
+                CTYPES.MINION,
+                CTYPES.SUPPORT,
+                CTYPES.UPGRADE,
+                CTYPES.CUSTOM,
+              ].map((type) => (
+                <Option
+                  checked={type === customType}
+                  key={type}
+                  label={t(type)}
+                  onChange={() => setCustomType(type)}
+                  type="radio"
+                  value={customType}
+                />
+              ))}
+              <footer>
+                <input
+                  placeholder={t("Name")}
+                  value={custom}
+                  onChange={(e) => setCustom(e.target.value)}
+                  type="text"
+                  required={customType === CTYPES.CUSTOM}
+                />{" "}
+                <button
+                  type="submit"
+                  onClick={handleSubmitCounter}
+                  className="small"
+                >
+                  +
+                </button>
+              </footer>
             </form>
           </fieldset>
         </Box>
