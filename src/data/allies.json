@@ -1,0 +1,1094 @@
+[
+  {
+    "hitPoints": 2,
+    "name": "Black Cat",
+    "subTitle": "Felicia Hardy",
+    "set": "Spider-Man"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Spider-Woman",
+    "subTitle": "Jessica Drew",
+    "set": "Captain Marvel"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Hellcat",
+    "subTitle": "Patsy Walker",
+    "set": "She-Hulk"
+  },
+  {
+    "hitPoints": 4,
+    "name": "War Machine",
+    "subTitle": "James Rhodes",
+    "set": "Iron Man"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Shuri",
+    "set": "Black Panther"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Mockingbird",
+    "subTitle": "Bobbi Morse",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Nick Fury",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Hulk",
+    "subTitle": "Bruce Banner",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Tigra",
+    "subTitle": "Greer Grant Nelson",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Hawkeye",
+    "subTitle": "Clint Burton",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Maria Hill",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Vision",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Black Widow",
+    "subTitle": "Natasha Romanoff",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Luke Cage",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Daredevil",
+    "subTitle": "Matt Murdock",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Jessica Jones",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Agent 13",
+    "subTitle": "Sharon Carter",
+    "set": "Captain America"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Falcon",
+    "subTitle": "Sam Wilson",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Squirrel Girl",
+    "subTitle": "Doreen Green",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Wonder Man",
+    "subTitle": "Simon Williams",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Red Dagger",
+    "set": "Ms. Marvel"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Nova",
+    "subTitle": "Sam Alexander",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Lockjaw",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Lady Sif",
+    "set": "Thor"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Hercules",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Valkyrie",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Heimdall",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Winter Soldier",
+    "subTitle": "Bucky Barnes",
+    "set": "Black Widow"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Agent Coulson",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Quake",
+    "subTitle": "Daisy Johnson",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Wong",
+    "set": "Doctor Strange"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Brother Voodoo",
+    "subTitle": "Jericho Drumm",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Clea",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Iron Fist",
+    "subTitle": "Danny Rand",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Iron Man",
+    "subTitle": "Tony Stark",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Brawn",
+    "subTitle": "Amadeus Cho",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Sentry",
+    "subTitle": "Robert Reynolds",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 4,
+    "name": "She-Hulk",
+    "subTitle": "Jennifer Walters",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Mockingbird Hawkeye",
+    "name": "Mockingbird",
+    "subTitle": "Bobbi Morse",
+    "set": "Hawkeye"
+  },
+  {
+    "hitPoints": 2,
+    "key": "Hawkeye Kate",
+    "name": "Hawkeye",
+    "subTitle": "Kate Bishop",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Black Knight",
+    "subTitle": "Dane Whitman",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Goliath",
+    "subTitle": "Bill Foster",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 5,
+    "name": "U.S. Agent",
+    "subTitle": "John Walker",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 3,
+    "key": "War Machine Basic",
+    "name": "War Machine",
+    "subTitle": "James Rhodes",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Captain Marvel",
+    "subTitle": "Carol Denvers",
+    "set": "Spider-Woman"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Spider-Girl",
+    "subTitle": "Anya Corazon",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Spider-Man",
+    "subTitle": "Peter Parker",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Moon Knight",
+    "subTitle": "Marc Spector",
+    "set": "Taskmaster"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Shang-Chi",
+    "set": "Taskmaster"
+  },
+  {
+    "hitPoints": 3,
+    "name": "White Tiger",
+    "subTitle": "Angela Del Toro",
+    "set": "Taskmaster"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Elektra",
+    "set": "Taskmaster"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Wasp",
+    "subTitle": "Nadia Van Dyne",
+    "set": "Ant-Man"
+  },
+  {
+    "hitPoints": 1,
+    "name": "Ant-Man",
+    "subTitle": "Hank Pym",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Giant-Man",
+    "subTitle": "Raz Malhotra",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Ronin",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Stinger",
+    "subTitle": "Cassie Lang",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Ant-Man Scott",
+    "name": "Ant-Man",
+    "subTitle": "Scott Lang",
+    "set": "Wasp"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Thor",
+    "subTitle": "Jane Foster",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 1,
+    "key": "Wasp Janet",
+    "name": "Wasp",
+    "subTitle": "Janet Van Dyne",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Ironheart",
+    "subTitle": "Riri Williams",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Spider-Man MM",
+    "name": "Spider-Man",
+    "subTitle": "Miles Morales",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Scarlet Witch",
+    "subTitle": "Wanda Maximoff",
+    "set": "Quicksilver"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Multiple Man",
+    "subTitle": "Jamie Madrox",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Warlock",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Quicksilver",
+    "subTitle": "Pietro Maximoff",
+    "set": "Scarlet Witch"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Speed",
+    "subTitle": "Thomas Shepherd",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Wiccan",
+    "subTitle": "William Kaplan",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Starhawk",
+    "subTitle": "Stakar Ogord",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Rocket Raccoon",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Bug",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Groot",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Nova Prime",
+    "subTitle": "Richard Rider",
+    "set": "Star-Lord"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Adam Warlock",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Beta Ray Bill",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Yondu",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Cosmo",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Nebula",
+    "set": "Gamora"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Angela",
+    "subTitle": "Aldrif Odinsdottir",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Drax",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Mantis",
+    "set": "Drax"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Martyr",
+    "subTitle": "Phyla-Vell",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Moondragon",
+    "subTitle": "Heather Douglas",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Gamora",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Jack Flag",
+    "subTitle": "Jack Harrison",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Star-Lord",
+    "subTitle": "Peter Quill",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Blue Marvel",
+    "subTitle": "Adam Brashear",
+    "set": "Spectrum"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Captain America",
+    "subTitle": "Steve Rogers",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Power Man",
+    "subTitle": "Victor Alvarez",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 2,
+    "key": "White Tiger Ava",
+    "name": "White Tiger",
+    "subTitle": "Ava Ayala",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Kaluu",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Blade",
+    "subTitle": "Eric Brooks",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Pip the Troll",
+    "set": "Adam Warlock"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Marvel Boy",
+    "subTitle": "Noh-Varr",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Quasar",
+    "subTitle": "Wendell Vaughn",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Major Victory",
+    "subTitle": "Vance Astro",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Charlie-27",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Martinex",
+    "subTitle": "T'Naga",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Odin",
+    "subTitle": "All-Father",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Cosmo Campaign",
+    "name": "Cosmo",
+    "set": "Campaign"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Lady Sif Campaign",
+    "name": "Lady Sif",
+    "set": "Campaign"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Fandral",
+    "set": "Campaign"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Hogun",
+    "set": "Campaign"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Volstagg",
+    "status": ["Tough"],
+    "set": "Campaign"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Gamora Nebula",
+    "name": "Gamora",
+    "set": "Nabula"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Eros",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Wraith",
+    "subTitle": "Zak-Del",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Venom",
+    "subTitle": "Flash Thompson",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Iron Man War Machine",
+    "name": "Iron Man",
+    "subTitle": "Tony Stark",
+    "set": "War Machine"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Black Panther",
+    "subTitle": "T'Challa",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 4,
+    "key": "Captain Marvel Leadership",
+    "name": "Captain Marvel",
+    "subTitle": "Carol Denvers",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Annabelle Riggs",
+    "set": "Valkyrie"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Thor Odinson",
+    "name": "Thor",
+    "subTitle": "Odinson",
+    "status": ["Tough"],
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Throg",
+    "subTitle": "Puddlegulp",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Vivian",
+    "set": "Vision"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Jocasta",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Protector",
+    "subTitle": "Alexis",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Victor Mancha",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Machine Man",
+    "subTitle": "Aaron Stack",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Silk",
+    "subTitle": "Cindy Moon",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Spider-Man Protection",
+    "name": "Spider-Man",
+    "subTitle": "Miles Morales",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Spider-UK",
+    "subTitle": "Billy Braddock",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Spider-Man Hobie",
+    "name": "Spider-Man",
+    "subTitle": "Hobie Brown",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Monica Chang",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Spider-Woman Justice",
+    "name": "Spider-Woman",
+    "subTitle": "Jessica Drew",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 4,
+    "key": "Agent 13 Basic",
+    "name": "Agent 13",
+    "subTitle": "Sharon Carter",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Dum Dum Dugan",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Ghost-Spider",
+    "subTitle": "Gwen Stacy",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Spider-Man Peter Basic",
+    "name": "Spider-Man",
+    "subTitle": "Peter Parker",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 6,
+    "key": "Venom Eddie",
+    "name": "Venom",
+    "subTitle": "Eddie Brock",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Ms. Marvel",
+    "subTitle": "Kamala Khan",
+    "set": "Nova"
+  },
+  {
+    "hitPoints": 2,
+    "name": "The Locust",
+    "subTitle": "Fernanda Rodriguez",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Moon Girl",
+    "subTitle": "Lunella Lafayette",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Brawn Ironheart",
+    "name": "Brawn",
+    "subTitle": "Amadeus Cho",
+    "set": "Ironheart"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Cloud 9",
+    "subTitle": "Abby Boylen",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Falcon Torres",
+    "name": "Falcon",
+    "subTitle": "Joaquín Torres",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Patriot",
+    "subTitle": "Rayshaun Lucas",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Snowguard",
+    "subTitle": "Amka Aliyak",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 2,
+    "key": "Vivian Basic",
+    "name": "Vivian",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Bombshell",
+    "subTitle": "Lana Baumgartner",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Wasp Justice",
+    "name": "Wasp",
+    "subTitle": "Nadia Van Dyne",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Pinpoint",
+    "subTitle": "Qureshi Gupta",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Captain Americat",
+    "subTitle": "Steve Mouser",
+    "set": "Spider-Ham"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Lady Spider",
+    "subTitle": "May Reilly",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Spider-Man Pavitr",
+    "name": "Spider-Man",
+    "subTitle": "Pavitr Prabhakar",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Scarlet Spider",
+    "subTitle": "Kaine",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 2,
+    "name": "SP//dr",
+    "subTitle": "Peni Parker",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "VEN#m",
+    "subTitle": "Addy Brock",
+    "set": "SP//dr"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Daredevil Protection",
+    "name": "Daredevil",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Spider-Man Noir",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Spider-Ham",
+    "subTitle": "Peter Porker",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 2,
+    "key": "Spider-Man Otto",
+    "name": "Spider-Man",
+    "subTitle": "Otto Octavius",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Shadowcat",
+    "subTitle": "Kitty Pryde",
+    "set": "Colossus"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Nightcrawler",
+    "subTitle": "Kurt Wagner",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Polaris",
+    "subTitle": "Lorna Dane",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Professor X",
+    "subTitle": "Charles Xavier",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Lockheed",
+    "set": "Shadowcat"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Wolverine",
+    "subTitle": "Logan",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Magik",
+    "subTitle": "Illyana Rasputin",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Colossus",
+    "subTitle": "Piotr Rasputin",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 9,
+    "name": "Robert Kelly",
+    "set": "Sabretooth"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Jubilee",
+    "subTitle": "Jubilation Lee",
+    "set": "Project Wideawake"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Rictor",
+    "subTitle": "Julio Richter",
+    "set": "Project Wideawake"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Boom Boom",
+    "subTitle": "Tabitha Smith",
+    "set": "Project Wideawake"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Cannonball",
+    "subTitle": "Sam Guthrie",
+    "set": "Project Wideawake"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Wolfsbane",
+    "subTitle": "Rahne Sinclair",
+    "set": "Project Wideawake"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Magneto",
+    "subTitle": "Erik Lehnsherr",
+    "set": "Campaign"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Phoenix",
+    "subTitle": "Jean Grey",
+    "set": "Cyclops"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Beast",
+    "subTitle": "Hank Mccoy",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Dust",
+    "subTitle": "Sooraya Qadir",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Rockslide",
+    "subTitle": "Santo Vaccaro",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Blindfold",
+    "subTitle": "Ruth Aldine",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Angel",
+    "subTitle": "Warren Worthington III",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Cyclops",
+    "subTitle": "Scott Summers",
+    "set": "Phoenix"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Banshee",
+    "subTitle": "Sean Cassidy",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Marvel Girl",
+    "subTitle": "Rachel Summers",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Storm",
+    "subTitle": "Ororo Munroe",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Longshot",
+    "set": "Longshot"
+  },
+  {
+    "hitPoints": 2,
+    "key": "Jubilee Wolverine",
+    "name": "Jubilee",
+    "subTitle": "Jubilation Lee",
+    "set": "Wolverine"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Psylocke",
+    "subTitle": "Betsy Braddock",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Sunfire",
+    "subTitle": "Shiro Yoshida",
+    "set": "Aggression"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Longshot Basic",
+    "name": "Longshot",
+    "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Havok",
+    "subTitle": "Alex Summers",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Mirage",
+    "subTitle": "Dani Moonstar",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Gentle",
+    "subTitle": "Nezhno Abidemi",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Pixie",
+    "subTitle": "Megan Gwynn",
+    "set": "Leadership"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Forge",
+    "set": "Basic"
+  }
+]

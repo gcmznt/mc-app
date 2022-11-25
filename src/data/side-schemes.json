@@ -43,6 +43,52 @@
     "start": [1, "3p"]
   },
   {
+    "name": "Badoon Blitz",
+    "start": [2, "3p"]
+  },
+  {
+    "name": "Gallery of Splendor",
+    "start": [3, "3p"]
+  },
+  {
+    "name": "\"There Is No Escape\"",
+    "start": [4, "3p"]
+  },
+  {
+    "name": "Guerrilla Tactics",
+    "start": [5, "3p"]
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "Kree Supremacy",
+    "start": [6, "3p"]
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Badoon Blitz - Expert",
+    "start": [3, "4p"]
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "Gallery of Splendor - Expert",
+    "start": [4, "4p"]
+  },
+  {
+    "icons": ["Amplify"],
+    "name": "\"There Is No Escape\" - Expert",
+    "start": [5, "4p"]
+  },
+  {
+    "icons": ["Acceleration", "Hazard"],
+    "name": "Guerrilla Tactics - Expert",
+    "start": [6, "4p"]
+  },
+  {
+    "icons": ["Acceleration", "Amplify", "Hazard"],
+    "name": "Kree Supremacy - Expert",
+    "start": [7, "4p"]
+  },
+  {
     "icons": ["Acceleration"],
     "name": "Captured by Hydra",
     "start": 5
@@ -443,6 +489,42 @@
     "start": "2p"
   },
   {
+    "name": "Secure the Landing Pad",
+    "start": [2, "1p"]
+  },
+  {
+    "icons": ["Amplify"],
+    "name": "Security Breach",
+    "start": [2, "2p"]
+  },
+  {
+    "name": "Save the Shawarma Place",
+    "start": [2, "1p"]
+  },
+  {
+    "icons": ["Crisis"],
+    "name": "Hack Sanctuary's Computer",
+    "start": [2, "1p"]
+  },
+  {
+    "name": "Defensive Protocols",
+    "start": [2, "2p"]
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Find the Norn Stones",
+    "start": "3p"
+  },
+  {
+    "name": "Retrieve Odin's Armor",
+    "start": [2, "2p"]
+  },
+  {
+    "icons": ["Amplify"],
+    "name": "Open the Dungeons",
+    "start": "3p"
+  },
+  {
     "icons": [],
     "name": "Unnatural Storm",
     "start": "2p"
@@ -657,7 +739,6 @@
     "start": 9
   },
   {
-    "active": true,
     "complete": "11p",
     "name": "Lower Manhattan",
     "start": "1p",
@@ -667,7 +748,6 @@
     }
   },
   {
-    "active": true,
     "complete": "12p",
     "name": "Midtown Manhattan",
     "start": "2p",
@@ -677,7 +757,6 @@
     }
   },
   {
-    "active": true,
     "complete": "10p",
     "name": "Upper Manhattan",
     "start": "0",
@@ -737,6 +816,26 @@
     "icons": ["Amplify"],
     "name": "Analysis Paralysis",
     "start": 1
+  },
+  {
+    "name": "Back Alley Burglary",
+    "start": "2p"
+  },
+  {
+    "name": "Cat in a Tree",
+    "start": "3p"
+  },
+  {
+    "name": "Henchmen Heist",
+    "start": "3p"
+  },
+  {
+    "name": "Off the Rails",
+    "start": "3p"
+  },
+  {
+    "name": "Rubble Rescue",
+    "start": "5p"
   },
   {
     "icons": ["Hazard"],
@@ -978,5 +1077,29 @@
     "icons": ["Amplify"],
     "name": "Bastion's Machinations",
     "start": 6
+  },
+  {
+    "icons": ["Crisis"],
+    "name": "Frightened Police",
+    "start": "3p"
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Enemy of My Enemy",
+    "start": "3p"
+  },
+  {
+    "name": "Find the Prisoners",
+    "start": "3p"
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "Surprise Attack",
+    "start": "3p"
+  },
+  {
+    "icons": ["Crisis"],
+    "name": "Magneto's Fortress",
+    "start": "2p"
   }
 ]

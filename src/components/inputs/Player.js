@@ -10,6 +10,8 @@ export default function Player({ onChange, pos, settings }) {
   const value = settings[`player${pos}`];
   const aspects = settings[`aspects${pos}`];
 
+  const byName = (a, b) => t(a).localeCompare(t(b));
+
   const handleChangeP = (e) => onChange(`player${pos}`)(e.target.value);
   const handleChangeA = (i) => (e) =>
     onChange(`aspects${pos}`)(
@@ -30,11 +32,17 @@ export default function Player({ onChange, pos, settings }) {
         <span style={{ display: "inline-block", width: "1em" }}>{pos}</span>
         <select value={value} onChange={handleChangeP}>
           <option value={RANDOM}>⁉️ {t("Random")}</option>
-          {selection.heroes.map((hero) => (
-            <option key={hero} value={hero}>
-              {t(data.getHero(hero).name)} [{t(data.getHero(hero).alterEgo)}]
-            </option>
-          ))}
+          {selection.heroes.sort(byName).map((hero) => {
+            const heroData = data.getHero(hero);
+            return (
+              <option key={hero} value={hero}>
+                {t(heroData.name)}
+                {heroData.alterEgo !== heroData.name
+                  ? ` | ${t(heroData.alterEgo)}`
+                  : ""}
+              </option>
+            );
+          })}
         </select>
       </label>
       <div style={{ display: "inline-block" }}>
@@ -44,7 +52,7 @@ export default function Player({ onChange, pos, settings }) {
               <select value={aspects[i]} onChange={handleChangeA(i)}>
                 <option value={RANDOM}>⁉️ {t("Random")}</option>
                 <option value={PRECON}>♥️ {t("Precon")}</option>
-                {ASPECTS.map((aspect) => (
+                {ASPECTS.sort(byName).map((aspect) => (
                   <option key={aspect} value={aspect}>
                     {t(aspect)}
                     {data.getHero(value)?.aspects[i] === aspect ? " ♥️" : ""}

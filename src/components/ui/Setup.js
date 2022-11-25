@@ -20,7 +20,10 @@ export default function Setup({ setup }) {
             {hero.aspects.map((a) => (
               <Dot key={a.toLowerCase()} type={a.toLowerCase()} />
             ))}
-            {t(hero.name)} <small>[{t(hero.alterEgo)}]</small>
+            {t(hero.name)}
+            {hero.name !== hero.alterEgo && (
+              <small> | {t(hero.alterEgo)}</small>
+            )}
           </div>
         ))}
       </div>

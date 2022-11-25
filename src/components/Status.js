@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useData } from "../context/data";
 import { useNotifications } from "../context/notifications";
 
-import { getRandomList, load, persist, toValue } from "../utils";
+import { load, persist, toValue } from "../utils";
 import {
   COUNTER_TYPES as CTYPES,
   EVENTS,
@@ -106,12 +106,11 @@ export default function Status({ matchId, onQuit, setup }) {
           target.id
         );
       case EVENTS.ENTER_SCHEME:
-        if (Array.isArray(trigger.targets)) {
-          return getRandomList(trigger.targets, setup.settings.players).forEach(
-            (target) => dispatchEvent(false, target)
+        return new Array(trigger.perPlayer ? +setup.settings.players : 1)
+          .fill(data.getSideScheme(trigger.targets))
+          .forEach((s) =>
+            createCounter(CTYPES.SIDE_SCHEME, trigger.targets, s)
           );
-        }
-        return target.active || dispatchEvent(counter.values.value);
       case EVENTS.EMPTY:
       case EVENTS.FLIP_COUNTER:
       case EVENTS.RESET:
@@ -215,14 +214,6 @@ export default function Status({ matchId, onQuit, setup }) {
       ? onQuit({ reason, counters: CU.all, time, log: logger.entries }, replay)
       : onQuit(false);
 
-  const enableSide = (counter) => {
-    addNotification(
-      t("Side scheme entered", { name: counter.name }),
-      counter.type
-    );
-    return dispatch(counter.id, EVENTS.ENTER_SCHEME);
-  };
-
   const disableCounter = (counter, event) => {
     dispatch(counter.id, event || EVENTS.DISABLE, counter.values.value);
     runCounterTriggers(counter, EVENTS.COMPLETE);
@@ -242,11 +233,12 @@ export default function Status({ matchId, onQuit, setup }) {
     const event = {
       [CTYPES.ALLY]: EVENTS.ENTER_ALLY,
       [CTYPES.MINION]: EVENTS.ENTER_MINION,
+      [CTYPES.SIDE_SCHEME]: EVENTS.ENTER_SCHEME,
       [CTYPES.SUPPORT]: EVENTS.ENTER_SUPPORT,
       [CTYPES.UPGRADE]: EVENTS.ENTER_UPGRADE,
     }[type];
     addNotification(
-      t("Counter created", { type: name || t(type) }),
+      t("Counter created", { type: t(name || type) }),
       counter.type
     );
     setTimeout(() => dispatch(counter.id, event || EVENTS.CREATE), 0);
@@ -293,8 +285,10 @@ export default function Status({ matchId, onQuit, setup }) {
       case EVENTS.COMPLETE:
         return !data && CU.disableTree(counter);
       case EVENTS.CREATE:
+      case EVENTS.ENTER:
       case EVENTS.ENTER_ALLY:
       case EVENTS.ENTER_MINION:
+      case EVENTS.ENTER_SCHEME:
       case EVENTS.ENTER_SUPPORT:
       case EVENTS.ENTER_UPGRADE:
         return counter.enable();
@@ -327,9 +321,6 @@ export default function Status({ matchId, onQuit, setup }) {
         return counter.disable();
       case EVENTS.EMPTY:
         return counter.empty();
-      case EVENTS.ENTER:
-      case EVENTS.ENTER_SCHEME:
-        return counter.enable();
       case EVENTS.FLIP:
       case EVENTS.FLIP_HERO:
       case EVENTS.FLIP_VILLAIN:
@@ -381,6 +372,7 @@ export default function Status({ matchId, onQuit, setup }) {
       case EVENTS.CREATE:
       case EVENTS.ENTER_ALLY:
       case EVENTS.ENTER_MINION:
+      case EVENTS.ENTER_SCHEME:
       case EVENTS.ENTER_SUPPORT:
       case EVENTS.ENTER_UPGRADE:
         return CU.remove(counter);
@@ -404,7 +396,6 @@ export default function Status({ matchId, onQuit, setup }) {
       case EVENTS.RESET:
         return counter.set(info.data);
       case EVENTS.ENTER:
-      case EVENTS.ENTER_SCHEME:
         return counter.disable();
       case EVENTS.FLIP:
       case EVENTS.FLIP_HERO:
@@ -533,7 +524,6 @@ export default function Status({ matchId, onQuit, setup }) {
           onClose={() => setAddMenu(false)}
           createCounter={createCounter}
           sets={sets}
-          enableSide={enableSide}
         />
 
         <div className="box__wrapper">

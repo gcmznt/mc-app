@@ -377,7 +377,7 @@
   {
     "complete": "10p",
     "icons": ["Hazard"],
-    "name": "Take What Is Mine",
+    "name": "\"Take What Is Mine\"",
     "start": "1p",
     "step": "2p"
   },
@@ -553,7 +553,12 @@
       }
     ],
     "triggers": {
-      "enter": [{ "event": "disable" }]
+      "enter": [
+        { "event": "disable" },
+        { "event": "enter-scheme", "targets": "Lower Manhattan" },
+        { "event": "enter-scheme", "targets": "Midtown Manhattan" },
+        { "event": "enter-scheme", "targets": "Upper Manhattan" }
+      ]
     }
   },
   {

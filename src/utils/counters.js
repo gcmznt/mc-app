@@ -131,62 +131,49 @@ export class Counter {
   }
 }
 
-export class AllyCounter extends Counter {
-  constructor(options, players) {
-    super(
-      {
-        ...options,
-        statuses: getStatusObj(STATUSES, options.status),
-        type: COUNTER_TYPES.ALLY,
-        values: options.hitPoints
-          ? { max: options.hitPoints }
-          : { complete: -2 },
-      },
-      players
-    );
-  }
-}
-
-export class MinionCounter extends Counter {
-  constructor(options, players) {
-    super(
-      {
-        ...options,
-        statuses: getStatusObj(STATUSES, options.status),
-        type: COUNTER_TYPES.MINION,
-        values: options.hitPoints
-          ? { max: options.hitPoints }
-          : { complete: -2 },
-      },
-      players
-    );
-  }
-}
-
-export class SupportCounter extends Counter {
-  constructor(options, players) {
-    super(
-      { ...options, type: COUNTER_TYPES.SUPPORT, values: { complete: -2 } },
-      players
-    );
-  }
-}
-
-export class UpgradeCounter extends Counter {
-  constructor(options, players) {
-    super(
-      { ...options, type: COUNTER_TYPES.UPGRADE, values: { complete: -2 } },
-      players
-    );
-  }
-}
-
 export class CustomCounter extends Counter {
+  constructor(options, players, type = COUNTER_TYPES.CUSTOM, values) {
+    super({ ...options, type, values: values || { complete: -2 } }, players);
+  }
+}
+
+export class AllyCounter extends CustomCounter {
   constructor(options, players) {
     super(
-      { ...options, type: COUNTER_TYPES.CUSTOM, values: { complete: -2 } },
-      players
+      { ...options, statuses: getStatusObj(STATUSES, options.status) },
+      players,
+      COUNTER_TYPES.ALLY,
+      options.hitPoints && { max: options.hitPoints }
     );
+  }
+}
+
+export class MinionCounter extends CustomCounter {
+  constructor(options, players) {
+    super(
+      { ...options, statuses: getStatusObj(STATUSES, options.status) },
+      players,
+      COUNTER_TYPES.MINION,
+      options.hitPoints && { max: options.hitPoints }
+    );
+  }
+}
+
+export class SideSchemeCounter extends CustomCounter {
+  constructor(options, players) {
+    super(options, players, COUNTER_TYPES.SIDE_SCHEME, options);
+  }
+}
+
+export class SupportCounter extends CustomCounter {
+  constructor(options, players) {
+    super(options, players, COUNTER_TYPES.SUPPORT);
+  }
+}
+
+export class UpgradeCounter extends CustomCounter {
+  constructor(options, players) {
+    super(options, players, COUNTER_TYPES.UPGRADE);
   }
 }
 
@@ -194,6 +181,7 @@ export function getCustomCounter(type, options, players) {
   const constructors = {
     [COUNTER_TYPES.ALLY]: AllyCounter,
     [COUNTER_TYPES.MINION]: MinionCounter,
+    [COUNTER_TYPES.SIDE_SCHEME]: SideSchemeCounter,
     [COUNTER_TYPES.SUPPORT]: SupportCounter,
     [COUNTER_TYPES.UPGRADE]: UpgradeCounter,
   };
@@ -230,12 +218,6 @@ const getHeroCounter = (setup) => (hero) => {
     setup.settings.players
   );
 };
-
-const getSideCounter = (setup) => (scheme) =>
-  new Counter(
-    { active: scheme.active ?? false, type: TYPES.SIDE_SCHEME, values: scheme },
-    setup.settings.players
-  );
 
 const getVillainName = (villain, stage, setup) =>
   villain.levels[stage].name ||
@@ -314,12 +296,6 @@ const getMainSchemeCounter = (setup) => (scheme, i, list) => {
   );
 };
 
-const getSideSchemes = (setup) => [
-  ...setup.heroes.map((h) => h.sideSchemes).flat(),
-  ...setup.scenario.sideSchemes,
-  ...setup.scenario.modular.map((mod) => mod.sideSchemes).flat(),
-];
-
 const multiplyValues = (values, players) => {
   const { advance, complete, max, min, start, step, value } = values;
   return {
@@ -347,6 +323,5 @@ export const getCounters = (setup, data) => {
     ...setup.heroes.map(getHeroCounter(setup)).flat(),
     ...setup.scenario.villains.map(getVillainCounter(setup)).flat(),
     ...setup.scenario.mainScheme.map(getMainSchemeCounter(setup)).flat(),
-    ...getSideSchemes(setup).map(getSideCounter(setup)),
   ];
 };

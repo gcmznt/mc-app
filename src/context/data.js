@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
+import allies from "../data/allies.json";
 import heroes from "../data/heroes.json";
 import minions from "../data/minions.json";
 import modularSets from "../data/modular-sets.json";
@@ -20,15 +21,20 @@ const isEnabled = (el) =>
 
 const byName = (a, c) => ({ ...a, [c.name]: c });
 
+const byKey = (key) => (el) => (el.key || el.name) === key;
+
 const data = {
+  allies,
   heroes: heroes.filter(isEnabled),
   minions,
   modularSets: modularSets.reduce(byName, {}),
   scenarios: scenarios.filter(isEnabled),
   mainSchemes: mainSchemes.reduce(byName, {}),
   sideSchemes: sideSchemes.reduce(byName, {}),
-  getHero: (key) => heroes.find((h) => (h.key || h.name) === key),
-  getMinion: (key) => minions.find((m) => (m.key || m.name) === key),
+  getAlly: (key) => allies.find(byKey(key)),
+  getHero: (key) => heroes.find(byKey(key)),
+  getMinion: (key) => minions.find(byKey(key)),
+  getSideScheme: (key) => sideSchemes.find(byKey(key)),
 };
 
 const fullSelection = {

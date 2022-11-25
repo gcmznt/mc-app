@@ -1,0 +1,23 @@
+.suggestions {
+  position: relative;
+}
+
+.suggestions > div {
+  height: 200px;
+  max-height: 50vh;
+  width: 100vw;
+  max-width: 320px;
+  overflow: auto;
+  padding-bottom: 30px;
+}
+
+.suggestions::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(to top, var(--color-bg-card), transparent);
+}

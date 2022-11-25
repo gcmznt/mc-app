@@ -1,55 +1,1086 @@
 [
   {
-    "hitPoints": 3,
-    "name": "Black Order Besieger"
+    "hitPoints": 4,
+    "name": "Vulture",
+    "set": "Spider-Man Nemesis"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Yon-Rogg",
+    "set": "Captain Marvel Nemesis"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Titania",
+    "set": "She-Hulk Nemesis"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Whiplash",
+    "set": "Iron Man Nemesis"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Killmonger",
+    "set": "Black Panther Nemesis"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Baron Zemo",
+    "set": "Captain America Nemesis"
+  },
+  {
+    "hitPoints": 8,
+    "name": "Edison's Giant Robot",
+    "set": "Ms. Marvel Nemesis"
   },
   {
     "hitPoints": 3,
-    "name": "Goblin Thrall"
+    "name": "Hydra Mercenary",
+    "set": ["Rhino", "Black Widow Nemesis"]
   },
   {
-    "hitPoints": "4p",
-    "name": "Garm",
+    "hitPoints": 4,
+    "name": "Sandman",
+    "set": "Rhino"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Shocker",
+    "set": "Rhino"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Armored Guard",
+    "set": ["Klaw", "Ransacked Armory"],
     "status": ["Tough"]
   },
   {
-    "hitPoints": 10,
-    "name": "Mister Hyde"
-  },
-  {
-    "hitPoints": "6p",
-    "name": "Nidhogg",
-    "status": ["Tough"]
-  },
-  {
-    "hitPoints": "5p",
-    "name": "Skurge",
-    "status": ["Tough"]
+    "hitPoints": 2,
+    "name": "Weapons Runner",
+    "set": "Klaw"
   },
   {
     "hitPoints": 1,
-    "name": "Ultron's Drone"
+    "name": "Ultron's Drone",
+    "set": "Ultron"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Advanced Ultron Drone",
+    "set": "Ultron"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Hydra Bomber",
+    "set": ["Bomb Scare", "Crossbones"]
+  },
+  {
+    "hitPoints": 7,
+    "name": "Radioactive Man",
+    "set": "Masters of Evil"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Whirlwind",
+    "set": "Masters of Evil"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Tiger Shark",
+    "set": "Masters of Evil"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Melter",
+    "set": "Masters of Evil"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Madame Hydra",
+    "set": "Legions of Hydra"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Hydra Soldier",
+    "set": ["Legions of Hydra", "Capitan America Nemesis", "Hydra Patrol"]
+  },
+  {
+    "hitPoints": 8,
+    "name": "MODOK",
+    "set": "The Doomsday Chair"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Hired Gun",
+    "set": "Risky Business"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Private Security Specialist",
+    "set": "Risky Business"
+  },
+  {
+    "hitPoints": 7,
+    "name": "Goblin Knight",
+    "set": "Mutagen Formula"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Goblin Soldier",
+    "set": "Mutagen Formula"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Goblin Thrall",
+    "set": "Mutagen Formula"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Monster",
+    "set": "Mutagen Formula"
+  },
+  {
+    "hitPoints": 7,
+    "name": "Scorpion",
+    "set": "A Mess of Things"
+  },
+  {
+    "hitPoints": 7,
+    "name": "Electro",
+    "set": "Power Drain"
+  },
+  {
+    "hitPoints": 9,
+    "name": "Tombstone",
+    "set": "Running Interference"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Corrupt Prison Guard",
+    "set": "The Wrecking Crew"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Escaped Convict",
+    "set": "The Wrecking Crew"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Loki",
+    "set": "Thor Nemesis"
+  },
+  {
+    "hitPoints": 4,
+    "key": "Frost Giant Thor",
+    "name": "Frost Giant",
+    "set": "Thor Nemesis"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Taskmaster",
+    "set": "Black Widow Nemesis"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Baron Mordo",
+    "set": "Doctor Strange Nemesis"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Abomination",
+    "set": "Hulk Nemesis"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Crossfire",
+    "set": "Hawkeye Nemesis"
+  },
+  {
+    "hitPoints": 5,
+    "name": "The Viper",
+    "set": "Spider-Woman Nemesis"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Hydra Regular",
+    "set": ["Spider-Woman Nemesis", "Hydra Patrol"]
+  },
+  {
+    "hitPoints": 3,
+    "name": "Hydra Hunter",
+    "set": "Taskmaster"
   },
   {
     "hitPoints": 4,
     "name": "Ultimate Bio-Servant",
-    "status": ["Tough"]
+    "status": ["Tough"],
+    "set": "Zola"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Zola's Mutate",
+    "set": "Zola"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Berserk Mutate",
+    "set": "Zola"
   },
   {
     "hitPoints": "5p",
     "name": "The Sleeper",
     "status": ["Tough"],
+    "set": "Red Skull",
     "triggers": {
-      "disable": [
-        {
-          "event": "disable",
-          "targets": "The Sleeper Awakened"
-        }
-      ]
+      "disable": [{ "event": "disable", "targets": "The Sleeper Awakened" }]
     }
   },
   {
-    "hitPoints": "1",
-    "name": "Shifting Apparition"
+    "hitPoints": 5,
+    "name": "Hydra Exo-Soldier",
+    "status": ["Tough"],
+    "set": "Red Skull"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Hydra Flame-Soldier",
+    "set": "Hydra Assault"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Hydra Jet-Trooper",
+    "set": "Hydra Assault"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Macrobots",
+    "set": "Kang"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Ancient Warrior",
+    "set": "Temporal"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Chitauri Soldier",
+    "set": "Temporal"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Tyrannosaurus Rex",
+    "status": ["Tough"],
+    "set": "Temporal"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Apocryphus",
+    "set": "Anachronauts"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Deathunt 9000",
+    "status": ["Tough"],
+    "set": "Anachronauts"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Sir Raston",
+    "set": "Anachronauts"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Terminatrix",
+    "set": "Anachronauts"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Wildrun",
+    "set": "Anachronauts"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Kang (Master of Time)",
+    "status": ["Tough"],
+    "set": "Master of Time"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Time-Displaced Soldier",
+    "set": "Master of Time"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Yellowjacket",
+    "set": "Ant-Man Nemesis"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Beetle",
+    "set": "Wasp Nemesis"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Avalanche",
+    "set": "Quicksilver Nemesis"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Luminous",
+    "set": "Scarlet Witch Nemesis"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Furnax",
+    "set": "Groot Nemesis"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Blackjack O'Hare",
+    "set": "Rocket Raccoon Nemesis"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Badoon Engineer",
+    "set": "Brotherhood of Badoon"
+  },
+  {
+    "hitPoints": 7,
+    "name": "Monark Starstalker",
+    "set": "Infiltrate the Museum"
+  },
+  {
+    "hitPoints": 1,
+    "name": "Badoon Assassin",
+    "set": "Band of Badoon"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Badoon Grunt",
+    "set": "Band of Badoon"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Badoon Lieutenant",
+    "set": "Band of Badoon"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Badoon Sentry",
+    "set": "Band of Badoon"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Badoon Warlord",
+    "set": "Band of Badoon"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Kree Commando",
+    "set": "Kree Militants"
+  },
+  {
+    "hitPoints": 7,
+    "name": "Kree Lieutenant",
+    "set": "Kree Militants"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Kree Private",
+    "set": "Kree Militants"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Psionic Ghost",
+    "set": "Menagerie Medley"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Servant Bot",
+    "set": "Menagerie Medley"
+  },
+  {
+    "hitPoints": 7,
+    "name": "Starshark",
+    "set": "Menagerie Medley"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Pirate Commander",
+    "set": "Space Pirates"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Pirate Lackey",
+    "set": "Space Pirates"
+  },
+  {
+    "hitPoints": 7,
+    "name": "Badoon Headhunter",
+    "set": "Badoon Headhunter"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Headhunter's Henchman",
+    "set": "Badoon Headhunter"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Mister Knife",
+    "set": "Star-Lord Nemesis"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Nebula",
+    "set": "Gamora Nemesis"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Yotat the Destroyer",
+    "set": "Drax Nemesis"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Enraged Symbiote",
+    "set": ["Venom Nemesis", "Symbiotic Strength"]
+  },
+  {
+    "hitPoints": 6,
+    "key": "Radioactive Man Spectrum",
+    "name": "Radioactive Man",
+    "set": "Spectrum Nemesis"
+  },
+  {
+    "hitPoints": 5,
+    "name": "The Magus",
+    "set": "Adam Warlock Nemesis"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Zealot of Truth",
+    "set": "Adam Warlock Nemesis"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Black Order Besieger",
+    "set": "Tower Defence"
+  },
+  {
+    "hitPoints": "4p",
+    "name": "Garm",
+    "status": ["Tough"],
+    "set": "Hela"
+  },
+  {
+    "hitPoints": "5p",
+    "name": "Skurge",
+    "status": ["Tough"],
+    "set": "Hela"
+  },
+  {
+    "hitPoints": "6p",
+    "name": "Nidhogg",
+    "status": ["Tough"],
+    "set": "Hela"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Black Dwarf",
+    "set": "The Black Order"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Supergiant",
+    "set": "The Black Order"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Black Order Infantry",
+    "set": "Armies of Titan"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Outrider",
+    "set": "Armies of Titan"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Corvus Glaive",
+    "status": ["Tough"],
+    "set": "Children of Thanos"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Proxima Midnight",
+    "set": "Children of Thanos"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Ebony Maw",
+    "set": "Children of Thanos"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Draugr",
+    "set": "Legions of Hel"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Laufey",
+    "set": "Frost Giants"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Frost Giant",
+    "set": "Frost Giants"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Enchantress",
+    "set": ["Enchantress", "Valkyrie Nemesis"]
+  },
+  {
+    "hitPoints": "4p",
+    "name": "Black Swan",
+    "status": ["Tough"],
+    "set": "Campaign"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Gamora",
+    "set": "Nebula Nemesis"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Living Laser",
+    "set": "War Machine Nemesis"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Madame Masque",
+    "set": "The Hood"
+  },
+  {
+    "hitPoints": 7,
+    "name": "Griffin",
+    "set": "Beasty Boys"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Mandrill",
+    "set": "Beasty Boys"
+  },
+  {
+    "hitPoints": 8,
+    "name": "Brothers Grimm",
+    "set": "Brothers Grimm"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Calvin Zabo",
+    "set": "Mister Hyde"
+  },
+  {
+    "hitPoints": 10,
+    "name": "Mister Hyde",
+    "set": "Mister Hyde"
+  },
+  {
+    "hitPoints": 8,
+    "name": "Wrecker",
+    "set": "Wrecking Crew"
+  },
+  {
+    "hitPoints": 7,
+    "name": "Bulldozer",
+    "set": "Wrecking Crew"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Piledriver",
+    "set": "Wrecking Crew"
+  },
+  {
+    "hitPoints": 7,
+    "name": "Thunderball",
+    "set": "Wrecking Crew"
+  },
+  {
+    "hitPoints": 4,
+    "key": "Beetle Sinister",
+    "name": "Beetle",
+    "set": "Sinister Syndicate"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Boomerang",
+    "set": "Sinister Syndicate"
+  },
+  {
+    "hitPoints": 5,
+    "key": "Shocker Sinister",
+    "name": "Shocker",
+    "set": "Sinister Syndicate"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Speed Demon",
+    "set": "Sinister Syndicate"
+  },
+  {
+    "hitPoints": 3,
+    "name": "White Rabbit",
+    "set": "Sinister Syndicate"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Controller",
+    "set": "Crossfire’s Crew"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Corruptor",
+    "set": "Crossfire’s Crew"
+  },
+  {
+    "hitPoints": 4,
+    "key": "Crossfire Crew",
+    "name": "Crossfire",
+    "set": "Crossfire’s Crew"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Mister Fear",
+    "set": "Crossfire’s Crew"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Ultron",
+    "status": ["Tough"],
+    "set": "Vision Nemesis"
+  },
+  {
+    "hitPoints": 5,
+    "name": "The Lizard",
+    "set": "Ghost-Spider Nemesis"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Prowler",
+    "set": "Spider-Man Nemesis"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Sand clone",
+    "set": "Sandman"
+  },
+  {
+    "hitPoints": 1,
+    "name": "Shifting Apparition",
+    "set": "Mysterio"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Symbiotic Berserker",
+    "set": "Venom Goblin"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Symbiotic Monstrosity",
+    "status": ["Tough"],
+    "set": "Venom Goblin"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Symbiotic Thrall",
+    "set": "Venom Goblin"
+  },
+  {
+    "hitPoints": 8,
+    "name": "Rhino",
+    "set": "City in Chaos"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Common Criminal",
+    "set": "Down to Earth"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Life-Size Decoy",
+    "set": "Guerilla Tactics"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Evil Doppelgänger",
+    "set": "Personal Nightmare"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Doctor Octopus",
+    "set": "Sinister Assault"
+  },
+  {
+    "hitPoints": 6,
+    "key": "Electro Sinister",
+    "name": "Electro",
+    "set": "Sinister Assault"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Hobgoblin",
+    "set": "Sinister Assault"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Kraven the Hunter",
+    "set": "Sinister Assault"
+  },
+  {
+    "hitPoints": 6,
+    "key": "Scorpion Sinister",
+    "name": "Scorpion",
+    "status": ["Tough"],
+    "set": "Sinister Assault"
+  },
+  {
+    "hitPoints": 6,
+    "key": "Vulture Sinister",
+    "name": "Vulture",
+    "set": "Sinister Assault"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Warbringer",
+    "set": "Nova Nemesis"
+  },
+  {
+    "hitPoints": 8,
+    "name": "Armadillo",
+    "set": "Armadillo"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Lucia von Bardas",
+    "set": "Ironheart Nemesis"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Zzzax",
+    "set": "Zzzax"
+  },
+  {
+    "hitPoints": 4,
+    "name": "The Green Gobbler",
+    "set": "Spider-Ham Nemesis"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Bora",
+    "set": "The Inheritors"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Brix",
+    "set": "The Inheritors"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Daemos",
+    "set": "The Inheritors"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Jennix",
+    "set": "The Inheritors"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Karn",
+    "set": "The Inheritors"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Morlun",
+    "set": "The Inheritors"
+  },
+  {
+    "hitPoints": 7,
+    "name": "Solus",
+    "set": "The Inheritors"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Verna",
+    "set": "The Inheritors"
+  },
+  {
+    "hitPoints": 6,
+    "name": "M.O.R.B.I.U.S.",
+    "set": "SP//dr Nemesis"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Bombshell",
+    "set": "Iron Spider's Sinister Six"
+  },
+  {
+    "hitPoints": 3,
+    "key": "Electro Iron",
+    "name": "Electro",
+    "set": "Iron Spider's Sinister Six"
+  },
+  {
+    "hitPoints": 5,
+    "key": "Hobgoblin Iron",
+    "name": "Hobgoblin",
+    "set": "Iron Spider's Sinister Six"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Iron Spider",
+    "status": ["Tough"],
+    "set": "Iron Spider's Sinister Six"
+  },
+  {
+    "hitPoints": 7,
+    "key": "Sandman Iron",
+    "name": "Sandman",
+    "set": "Iron Spider's Sinister Six"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Spot",
+    "set": "Iron Spider's Sinister Six"
+  },
+  {
+    "hitPoints": 8,
+    "name": "Juggernaut",
+    "set": "Colossus Nemesis"
+  },
+  {
+    "hitPoints": 5,
+    "name": "White Queen",
+    "set": "Shadowcat Nemesis"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Hellfire Pawn",
+    "set": "Shadowcat Nemesis"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Sentinel Mark IV",
+    "set": "Project Wideawake"
+  },
+  {
+    "hitPoints": 8,
+    "name": "Sentinel Mark VIII",
+    "set": "Master Mold"
+  },
+  {
+    "hitPoints": 5,
+    "name": "M-Type Sentinel",
+    "set": "Magneto"
+  },
+  {
+    "hitPoints": 9,
+    "name": "Mystique",
+    "status": ["Tough"],
+    "set": "Mystique"
+  },
+  {
+    "hitPoints": 5,
+    "key": "Avalanche Brotherhood",
+    "name": "Avalanche",
+    "set": "Brotherhood"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Blob",
+    "set": "Brotherhood"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Pyro",
+    "set": "Brotherhood"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Toad",
+    "set": "Brotherhood"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Sentinel Mark II",
+    "set": "Zero Tolerance"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Sentinel Mark III",
+    "status": ["Tough"],
+    "set": "Zero Tolerance"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Sentinel Mark V",
+    "set": "Sentinels"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Sentinel Mark VI",
+    "set": "Sentinels"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Fabian Cortez",
+    "set": "Acolytes"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Amelia Voght",
+    "set": "Acolytes"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Senyaka",
+    "set": "Acolytes"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Delgado",
+    "set": "Acolytes"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Unuscione",
+    "status": ["Tough"],
+    "set": "Acolytes"
+  },
+  {
+    "hitPoints": 9,
+    "name": "Nimrod",
+    "set": "Future Past"
+  },
+  {
+    "hitPoints": 10,
+    "name": "Bastion",
+    "status": ["Tough"],
+    "set": "Future Past"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Mister Sinister",
+    "status": ["Tough"],
+    "set": "Cyclops Nemesis"
+  },
+  {
+    "hitPoints": 12,
+    "name": "Dark Phoenix",
+    "status": ["Tough"],
+    "set": "Phoenix Nemesis"
+  },
+  {
+    "hitPoints": "7p",
+    "name": "Surprise Contender",
+    "set": "Magog"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Supporting Actor",
+    "set": "Mojo"
+  },
+  {
+    "hitPoints": "10p",
+    "name": "Dragon",
+    "status": ["Tough"],
+    "set": "Fantasy"
+  },
+  {
+    "hitPoints": 1,
+    "name": "Goblin",
+    "set": "Fantasy"
+  },
+  {
+    "hitPoints": 7,
+    "name": "Troll",
+    "status": ["Tough"],
+    "set": "Fantasy"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Cultist",
+    "set": "Horror"
+  },
+  {
+    "hitPoints": "6p",
+    "name": "The Kraken",
+    "set": "Horror"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Vampire",
+    "set": "Horror"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Werewolf Pack",
+    "set": "Horror"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Avalanche 9.0",
+    "set": "Sci-Fi"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Blob 3.14",
+    "set": "Sci-Fi"
+  },
+  {
+    "hitPoints": 7,
+    "name": "Magneto 2.6",
+    "set": "Sci-Fi"
+  },
+  {
+    "hitPoints": 4,
+    "name": "Pyro 4.0",
+    "set": "Sci-Fi"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Toad 2.0",
+    "set": "Sci-Fi"
+  },
+  {
+    "hitPoints": 7,
+    "name": "Card Shark",
+    "set": "Western"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Gunslinger",
+    "set": "Western"
+  },
+  {
+    "hitPoints": 8,
+    "name": "Omega Red",
+    "set": "Wolverine Nemesis"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Lady Deathstrike",
+    "set": "Deathstrike"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Callisto",
+    "set": "Storm Nemesis"
+  },
+  {
+    "hitPoints": 6,
+    "name": "The Shadow King",
+    "set": "Shadow King"
   }
 ]
