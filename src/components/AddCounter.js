@@ -111,6 +111,7 @@ export default function AddCounter({
                   onChange={() => setCustomType(type)}
                   type="radio"
                   value={customType}
+                  variant="inline"
                 />
               ))}
               <footer>

@@ -42,6 +42,10 @@ main {
 fieldset {
   border: 0;
   padding: 0;
+  margin: 0 0 1em;
+}
+
+fieldset:not(:first-child) {
   margin: 1em 0;
 }
 
