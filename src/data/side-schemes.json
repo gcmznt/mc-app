@@ -739,33 +739,6 @@
     "start": 9
   },
   {
-    "complete": "11p",
-    "name": "Lower Manhattan",
-    "start": "1p",
-    "step": "1p",
-    "triggers": {
-      "complete": [{ "event": "increase", "targets": "Symbiote Environments" }]
-    }
-  },
-  {
-    "complete": "12p",
-    "name": "Midtown Manhattan",
-    "start": "2p",
-    "step": "1p",
-    "triggers": {
-      "complete": [{ "event": "increase", "targets": "Symbiote Environments" }]
-    }
-  },
-  {
-    "complete": "10p",
-    "name": "Upper Manhattan",
-    "start": "0",
-    "step": "1p",
-    "triggers": {
-      "complete": [{ "event": "increase", "targets": "Symbiote Environments" }]
-    }
-  },
-  {
     "icons": ["Acceleration"],
     "name": "Festering Mass",
     "start": 5

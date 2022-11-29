@@ -729,17 +729,16 @@
   },
   {
     "encounter": ["Symbiotic Strength"],
-    "mainScheme": ["Skies Over New York"],
-    "modular": ["Goblin Gear"],
-    "name": "Venom Goblin",
-    "pack": "Sinister Motives",
-    "sideSchemes": [
-      "Festering Mass",
-      "Joy Ride",
+    "mainScheme": [
+      "Skies Over New York",
       "Lower Manhattan",
       "Midtown Manhattan",
       "Upper Manhattan"
     ],
+    "modular": ["Goblin Gear"],
+    "name": "Venom Goblin",
+    "pack": "Sinister Motives",
+    "sideSchemes": ["Festering Mass", "Joy Ride"],
     "villains": [
       {
         "levels": {

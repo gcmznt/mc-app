@@ -221,7 +221,7 @@ const getHeroCounter = (setup) => (hero) => {
 
 const getVillainName = (villain, stage, setup) =>
   villain.levels[stage].name ||
-  `${villain.name || setup.scenario.name} ${getStageText(stage)}`;
+  `${villain.name || setup.scenario.name} || ${getStageText(stage)}`;
 
 const getVillainBSide = (villain, stage) =>
   villain.levels[stage].bSide || villain.bSide

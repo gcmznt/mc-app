@@ -21,13 +21,17 @@ export function CounterBox({
   prevWarning,
 }) {
   const { t } = useTranslation();
-  const rename = (title) =>
-    (mods || [])
+
+  const translate = (title) => title.split(" || ").map(t).join(" ");
+
+  const rename = (title) => {
+    return (mods || [])
       .filter((m) => m.action === MODIFIERS.RENAME)
       .reduce(
         (t, mod) => t.replace(mod.targets.replace("*", ""), mod.info),
-        title
+        translate(title)
       );
+  };
 
   const getTitle = () => {
     return counters[0].name;
@@ -54,7 +58,7 @@ export function CounterBox({
 
   return (
     <Box
-      title={t(rename(title || getTitle()))}
+      title={rename(title || getTitle())}
       subtitle={getSubTitle()}
       type={type || counters[0].type}
       highlight={highlight}

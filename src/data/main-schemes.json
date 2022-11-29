@@ -543,6 +543,8 @@
   },
   {
     "name": "Skies Over New York",
+    "next": false,
+    "hidden": true,
     "counters": [
       {
         "autocomplete": true,
@@ -553,12 +555,40 @@
       }
     ],
     "triggers": {
-      "enter": [
-        { "event": "disable" },
-        { "event": "enter-scheme", "targets": "Lower Manhattan" },
-        { "event": "enter-scheme", "targets": "Midtown Manhattan" },
-        { "event": "enter-scheme", "targets": "Upper Manhattan" }
-      ]
+      "enter": [{ "event": "disable" }]
+    }
+  },
+  {
+    "complete": "11p",
+    "name": "Lower Manhattan",
+    "active": true,
+    "next": false,
+    "start": "1p",
+    "step": "1p",
+    "triggers": {
+      "complete": [{ "event": "increase", "targets": "Symbiote Environments" }]
+    }
+  },
+  {
+    "complete": "12p",
+    "name": "Midtown Manhattan",
+    "active": true,
+    "next": false,
+    "start": "2p",
+    "step": "1p",
+    "triggers": {
+      "complete": [{ "event": "increase", "targets": "Symbiote Environments" }]
+    }
+  },
+  {
+    "complete": "10p",
+    "name": "Upper Manhattan",
+    "active": true,
+    "next": false,
+    "start": "0",
+    "step": "1p",
+    "triggers": {
+      "complete": [{ "event": "increase", "targets": "Symbiote Environments" }]
     }
   },
   {

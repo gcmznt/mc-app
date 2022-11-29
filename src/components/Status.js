@@ -303,12 +303,12 @@ export default function Status({ matchId, onQuit, setup }) {
         }
         return;
       case EVENTS.NEW_PHASE:
-        dispatch(
-          sets.mainScheme[0].id,
-          EVENTS.VILLAIN_PHASE,
-          sets.mainScheme[0]?.values.step +
-            getAcceleration(sets.accelerationCounters, activeIcons)
-        );
+        const acc = getAcceleration(sets.accelerationCounters, activeIcons);
+        sets.mainScheme
+          .filter((s) => s.active)
+          .map((s) =>
+            dispatch(s.id, EVENTS.VILLAIN_PHASE, s.values.step + acc)
+          );
         return counter.add(data);
       case EVENTS.DECREASE_LIMIT:
       case EVENTS.INCREASE_LIMIT:

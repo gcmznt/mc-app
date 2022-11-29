@@ -262,6 +262,7 @@
   {
     "alterEgo": "Riri Williams",
     "aspects": ["Leadership"],
+    "counters": [{ "name": "Progress", "complete": -1 }],
     "hitPoints": 10,
     "iconAlterEgo": "👩‍🔧",
     "iconHero": "🦾",
