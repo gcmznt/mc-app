@@ -312,6 +312,7 @@
   {
     "alterEgo": "Jean Grey",
     "aspects": ["Justice"],
+    "counters": [{ "name": "Power counters", "complete": -1 }],
     "hitPoints": 9,
     "name": "Phoenix",
     "nemesisSchemes": ["Consume the World"]
@@ -335,6 +336,7 @@
     "disabled": true,
     "alterEgo": "Remy LeBeau",
     "aspects": ["Justice"],
+    "counters": [{ "name": "Charge counters", "complete": -1 }],
     "hitPoints": 9,
     "name": "Gambit",
     "nemesisSchemes": []
