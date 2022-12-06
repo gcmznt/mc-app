@@ -54,6 +54,7 @@
   margin-bottom: 0.4em;
   text-transform: capitalize;
   flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .counter__value {

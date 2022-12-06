@@ -53,6 +53,7 @@
   },
   {
     "hitPoints": 3,
+    "counters": [{ "name": "Arrow counters", "start": 4 }],
     "name": "Hawkeye",
     "subTitle": "Clint Burton",
     "set": "Leadership"
@@ -184,6 +185,7 @@
   },
   {
     "hitPoints": 3,
+    "counters": [{ "name": "Mystic counters", "start": 2 }],
     "name": "Iron Fist",
     "subTitle": "Danny Rand",
     "set": "Protection"
@@ -475,6 +477,7 @@
   },
   {
     "hitPoints": 3,
+    "counters": [{ "name": "Ammo counters", "start": 0 }],
     "name": "Jack Flag",
     "subTitle": "Jack Harrison",
     "set": "Justice"
@@ -499,6 +502,7 @@
   },
   {
     "hitPoints": 3,
+    "counters": [{ "name": "Chi counters", "start": 2 }],
     "name": "Power Man",
     "subTitle": "Victor Alvarez",
     "set": "Leadership"
@@ -794,6 +798,7 @@
   },
   {
     "hitPoints": 3,
+    "counters": [{ "name": "Shift counters", "start": 0, "max": 3 }],
     "name": "Snowguard",
     "subTitle": "Amka Aliyak",
     "set": "Basic"
@@ -856,6 +861,7 @@
   },
   {
     "hitPoints": 3,
+    "counters": [{ "name": "Sym counters", "start": 0 }],
     "name": "VEN#m",
     "subTitle": "Addy Brock",
     "set": "SP//dr"
@@ -1046,6 +1052,7 @@
   },
   {
     "hitPoints": 3,
+    "counters": [{ "name": "Psionic counters", "start": 2 }],
     "name": "Psylocke",
     "subTitle": "Betsy Braddock",
     "set": "Aggression"

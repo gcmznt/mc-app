@@ -87,7 +87,7 @@ export default function Statistics() {
     <div className="statistics">
       <Filters filters={filters} onToggle={toggleFilter} />
 
-      <Box key="Results" title={t("Results")} flag flat>
+      <Box key="Results" title={t("Results")}>
         <table className="statistics__table">
           <tbody>
             <tr>
@@ -127,7 +127,7 @@ export default function Statistics() {
         { title: "Modular sets", filter: FILTERS.MODULAR, key: "modular" },
         { title: "Aspects", filter: FILTERS.ASPECT, key: "aspects" },
       ].map((el) => (
-        <Box key={el.key} title={t(el.title)} flag flat>
+        <Box key={el.key} title={t(el.title)}>
           <table className="statistics__table">
             <thead>
               <tr>
@@ -159,18 +159,18 @@ export default function Statistics() {
       ))}
 
       {statistics.longest && (
-        <Box title={t("Longest Match")} flag flat type="log">
+        <Box title={t("Longest Match")}>
           <Match match={statistics.longest} />
         </Box>
       )}
 
       {statistics.fastest && (
-        <Box title={t("Fastest Match")} flag flat type="log">
+        <Box title={t("Fastest Match")}>
           <Match match={statistics.fastest} />
         </Box>
       )}
 
-      <Box key="Matches" title={t("Matches")} flag flat type="log">
+      <Box key="Matches" title={t("Matches")}>
         {(matchesLog || []).sort(byDate).map((match) => (
           <Match key={match.matchId} match={match} />
         ))}

@@ -93,7 +93,7 @@ export default function AddCounter({
   return (
     open && (
       <Modal onClose={onClose}>
-        <Box key="Add counters" title={t("Add counters")} flat flag>
+        <Box key="Add counters" title={t("Add counters")}>
           <fieldset>
             <form onSubmit={handleSubmitCounter}>
               {[

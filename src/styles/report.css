@@ -58,6 +58,7 @@
   margin-right: 0.3em;
   text-align: center;
   display: inline-block;
+  color: var(--color-bg-card);
 }
 
 .report__btn svg {

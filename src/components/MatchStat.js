@@ -118,7 +118,7 @@ export default function MatchStat({ matchId, onLoad }) {
       </Box>
 
       {match.complete && (
-        <Box flag>
+        <Box>
           <table className="statistics__table">
             <tbody>
               {match.complete && (

@@ -10,6 +10,7 @@ import {
   load,
   persist,
   random,
+  scrollTo,
 } from "../utils";
 import {
   ASPECTS,
@@ -240,17 +241,7 @@ export default function Generate({ onStart }) {
       skirmish,
     });
 
-    if (!setup) {
-      setTimeout(
-        () =>
-          generateBtn.current.scrollIntoView({
-            block: "start",
-            inline: "nearest",
-            behavior: "smooth",
-          }),
-        0
-      );
-    }
+    if (!setup) setTimeout(() => scrollTo(generateBtn.current), 0);
   };
 
   useEffect(() => {
@@ -273,7 +264,7 @@ export default function Generate({ onStart }) {
 
   return !settings ? null : (
     <>
-      <Box title={t("Scenario")} key="Scenario" flag>
+      <Box title={t("Scenario")} key="Scenario">
         <Scenario
           onChange={handleChange("scenario")}
           value={settings.scenario}
@@ -289,7 +280,7 @@ export default function Generate({ onStart }) {
           list={settings.modularSetsList}
         />
       </Box>
-      <Box title={t("Players")} key="Players" flag>
+      <Box title={t("Players")} key="Players">
         <Players
           onChange={handleChange("players")}
           value={settings.players}
@@ -307,7 +298,7 @@ export default function Generate({ onStart }) {
             />
           ))}
       </Box>
-      <Box title={t("Mode")} key="Mode" flag>
+      <Box title={t("Mode")} key="Mode">
         <Mode onChange={handleChange("mode")} value={settings.mode} />
         <Heroic onChange={handleChange("heroic")} value={settings.heroic} />
         <Skirmish
@@ -323,7 +314,7 @@ export default function Generate({ onStart }) {
         {t("Generate")}
       </button>
       {setup && (
-        <Box key="Setup">
+        <Box key="Setup" type="accent">
           <Setup setup={setup} />
         </Box>
       )}

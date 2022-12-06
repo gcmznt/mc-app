@@ -4,7 +4,7 @@ import { COUNTER_TYPES, MODIFIERS } from "../utils/constants";
 import Counter from "./Counter";
 import Box from "./ui/Box";
 
-export function CounterBox({
+export default function CounterBox({
   acceleration,
   counters,
   highlight,

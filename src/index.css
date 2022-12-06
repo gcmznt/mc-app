@@ -1,5 +1,12 @@
 :root {
-  --color-accent: #e01414;
+  --c-blue: #1576c6;
+  --c-green: #08903c;
+  --c-orange: #d35400;
+  --c-purple: #9b069b;
+  --c-red: #e01414;
+  --c-yellow: #b39709;
+
+  --color-accent: var(--c-red);
   --color-accent-contrast: #fff;
   --color-bg-card: #fff;
   --color-bg: #ddd;
@@ -58,41 +65,42 @@ legend {
   pointer-events: none;
 }
 
-.is-aggression {
-  --color-accent: #e01414;
+.is-accent,
+.is-aggression,
+.is-villain {
+  --color-accent: var(--c-red);
   --color-accent-contrast: #fff;
 }
 
-.is-minion,
 .is-tough,
-.is-villain {
-  --color-accent: #e06614;
+.is-minion {
+  --color-accent: var(--c-orange);
 }
 
 .is-scenario,
 .is-side-scheme,
 .is-scheme,
 .is-justice {
-  --color-accent: #f2ca00;
+  --color-accent: var(--c-yellow);
   --color-accent-contrast: #000;
 }
 
+.is-ally,
 .is-protection,
 .is-stunned,
 .is-scheme-win,
 .is-winner {
-  --color-accent: #00cc4e;
+  --color-accent: var(--c-green);
 }
 
-.is-ally,
-.is-extra,
 .is-hero,
 .is-leadership {
-  --color-accent: #3499eb;
+  --color-accent: var(--c-blue);
 }
 
+.is-extra,
 .is-confused {
-  --color-accent: #9b069b;
+  --color-accent: var(--c-purple);
   --color-accent-contrast: #fff;
 }
 
@@ -182,6 +190,13 @@ body.is-dark {
 
 @media (prefers-color-scheme: dark) {
   body:not(.is-light) {
+    --c-blue: #3499eb;
+    --c-green: #00cc4e;
+    --c-orange: #e06614;
+    --c-purple: #f006f0;
+    --c-red: #ff2c2c;
+    --c-yellow: #f2ca00;
+
     --color-bg-card: #000;
     --color-bg: #333;
     --color-bg-contrast: #ddd;

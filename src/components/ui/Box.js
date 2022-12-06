@@ -10,8 +10,6 @@ export function BoxBand({ children }) {
 
 export default function Box({
   children,
-  flag,
-  flat,
   highlight,
   icon,
   subtitle,
@@ -20,12 +18,7 @@ export default function Box({
 }) {
   const { t } = useTranslation();
 
-  const classList = [
-    "box",
-    flag && "box--flag",
-    flat && "box--flat",
-    type && `is-${type}`,
-  ];
+  const classList = ["box", type && `is-${type}`];
 
   return (
     <div className={getClassName(classList)}>

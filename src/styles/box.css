@@ -1,4 +1,7 @@
 .box {
+  --border-size: 0;
+  --border-color: var(--color-accent);
+
   position: relative;
   text-align: center;
   max-width: 500px;
@@ -6,15 +9,16 @@
   margin: 0 auto;
   padding: 2.5em 0 1em;
   width: 100%;
+  text-align: left;
+}
+
+.box[class*="is-"]{
+  --border-size: 4px;
 }
 
 .use-compact .box {
   padding-top: 0.5em;
   padding-bottom: 0;
-}
-
-.box--flag {
-  text-align: left;
 }
 
 .box__wrapper {
@@ -38,8 +42,9 @@
   padding: 0 0.6em;
   line-height: 1.05;
   text-transform: uppercase;
-  border-left: 4px solid var(--color-accent);
+  border-left: var(--border-size) solid var(--border-color);
   width: max-content;
+  z-index: 1;
 }
 
 .box__subtitle {
@@ -87,17 +92,13 @@
   box-shadow: 0 0 15px #0003;
   padding: 0.8em;
   font-size: 1.1em;
-  border-left: 4px solid var(--color-accent);
+  border-left: var(--border-size) solid var(--border-color);
   position: relative;
 }
 
 .use-compact .box__content {
   transform: none;
   padding: 0.2em 0.5em;
-}
-
-.box--flat .box__content {
-  transform: none;
 }
 
 .box.is-log .box__content {

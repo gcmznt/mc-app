@@ -44,7 +44,7 @@ export default function Options() {
         <LoginForm />
       </Box>
 
-      <Box key="Settings" title={t("Settings")} flag flat>
+      <Box key="Settings" title={t("Settings")}>
         <legend className="box__legend">{t("Random")}</legend>
         <Option
           checked={options.randomWeighted}
@@ -76,7 +76,7 @@ export default function Options() {
           options: Object.values(data.modularSets),
         },
       ].map((section) => (
-        <Box key={section.key} title={t(section.title)} flag flat>
+        <Box key={section.key} title={t(section.title)}>
           {section.options.map((opt) => (
             <Option
               key={opt.key || opt.name}

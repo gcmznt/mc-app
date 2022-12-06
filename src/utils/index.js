@@ -90,3 +90,13 @@ export const msToTime = (time) =>
   `${minutes(time)}:${seconds(time).padStart(2, "0")}`;
 
 export const getClassName = (list) => list.filter((c) => c).join(" ");
+
+export const scrollTo = (el) => {
+  el.scrollIntoView({
+    block: "start",
+    inline: "nearest",
+    behavior: "smooth",
+  });
+};
+
+export const scrollToId = (id) => scrollTo(document.getElementById(id));

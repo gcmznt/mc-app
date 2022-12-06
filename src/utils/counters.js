@@ -143,7 +143,7 @@ export class AllyCounter extends CustomCounter {
       { ...options, statuses: getStatusObj(STATUSES, options.status) },
       players,
       COUNTER_TYPES.ALLY,
-      options.hitPoints && { max: options.hitPoints }
+      { ...(options.hitPoints && { max: options.hitPoints }), complete: -2 }
     );
   }
 }
@@ -154,8 +154,14 @@ export class MinionCounter extends CustomCounter {
       { ...options, statuses: getStatusObj(STATUSES, options.status) },
       players,
       COUNTER_TYPES.MINION,
-      options.hitPoints && { max: options.hitPoints }
+      { ...(options.hitPoints && { max: options.hitPoints }), complete: -2 }
     );
+  }
+}
+
+export class AllyTokenCounter extends CustomCounter {
+  constructor(options, players) {
+    super(options, players, COUNTER_TYPES.ALLY_TOKEN, options);
   }
 }
 
@@ -177,18 +183,6 @@ export class UpgradeCounter extends CustomCounter {
   }
 }
 
-export function getCustomCounter(type, options, players) {
-  const constructors = {
-    [COUNTER_TYPES.ALLY]: AllyCounter,
-    [COUNTER_TYPES.MINION]: MinionCounter,
-    [COUNTER_TYPES.SIDE_SCHEME]: SideSchemeCounter,
-    [COUNTER_TYPES.SUPPORT]: SupportCounter,
-    [COUNTER_TYPES.UPGRADE]: UpgradeCounter,
-  };
-
-  return new (constructors[type] || CustomCounter)(options, players);
-}
-
 const getExtraCounters = (counters, options, players) => {
   return (counters || []).map(
     (c) => new Counter({ name: c.name, values: c, ...options }, players)
@@ -202,6 +196,36 @@ const getFullCounter = (options, children, players) => {
     ...getExtraCounters(children, { parent: parentCounter.id }, players),
   ];
 };
+
+export function getCustomCounter(type, options, players) {
+  const constructors = {
+    [COUNTER_TYPES.ALLY]: AllyCounter,
+    [COUNTER_TYPES.MINION]: MinionCounter,
+    [COUNTER_TYPES.SIDE_SCHEME]: SideSchemeCounter,
+    [COUNTER_TYPES.SUPPORT]: SupportCounter,
+    [COUNTER_TYPES.UPGRADE]: UpgradeCounter,
+  };
+  const tokens = {
+    [COUNTER_TYPES.ALLY]: COUNTER_TYPES.ALLY_TOKEN,
+  };
+
+  const parentCounter = new (constructors[type] || CustomCounter)(
+    options,
+    players
+  );
+  return [
+    parentCounter,
+    ...getExtraCounters(
+      (options.counters || []).map((c) => ({
+        complete: -1,
+        ...c,
+        type: tokens[type],
+      })),
+      { parent: parentCounter.id },
+      players
+    ),
+  ];
+}
 
 const getHeroCounter = (setup) => (hero) => {
   return getFullCounter(

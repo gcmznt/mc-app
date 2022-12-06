@@ -57,7 +57,7 @@ export function getSets(counters, getLastActive) {
     all: counters,
     actives: (counters || []).filter(isActive),
     accelerationCounters: ofType(CTYPES.ACCELERATION),
-    allyCounters: ofType(CTYPES.ALLY),
+    allyCounters: [...ofType(CTYPES.ALLY), ...ofType(CTYPES.ALLY_TOKEN)],
     minionCounters: ofType(CTYPES.MINION),
     customCounters: ofType(CTYPES.CUSTOM),
     extraCounters: [...ofType(CTYPES.SUPPORT), ...ofType(CTYPES.UPGRADE)],
@@ -81,7 +81,7 @@ export function useCountersUtils() {
     set: (counters) => setCounters(counters),
     createCounter: (type, name, opts, players) => {
       const count = counterUtils.startsWith(name).length;
-      const counter = getCustomCounter(
+      const counters = getCustomCounter(
         type,
         {
           active: false,
@@ -91,8 +91,8 @@ export function useCountersUtils() {
         players
       );
 
-      counterUtils.add(counter);
-      return counter;
+      counters.forEach(counterUtils.add);
+      return counters;
     },
     add: (counter) => {
       setCounters((cs) => [...cs, counter]);

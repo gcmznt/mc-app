@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useData } from "../context/data";
 import { useNotifications } from "../context/notifications";
 
-import { load, persist, toValue } from "../utils";
+import { load, persist, scrollToId, toValue } from "../utils";
 import {
   COUNTER_TYPES as CTYPES,
   EVENTS,
@@ -15,14 +15,17 @@ import {
 } from "../utils/constants";
 import { Counter as CounterObj, getCounters } from "../utils/counters";
 import { dispatch } from "../utils/events";
-import { getEntryTime, LogString, useLogger } from "../utils/log";
+import { getEntryTime, useLogger } from "../utils/log";
 import { getAcceleration, useCountersUtils } from "../utils/status";
 import { getResText } from "../utils/texts";
+
 import Counter from "./Counter";
-import { CounterBox } from "./CounterBox";
+import CounterBox from "./CounterBox";
 import AddCounter from "./AddCounter";
+import LogString from "./LogString";
 import MatchMenu from "./MatchMenu";
 import Timer from "./Timer";
+
 import Actions, { Action } from "./ui/Actions";
 import Box from "./ui/Box";
 import LogItem from "./ui/LogItem";
@@ -35,6 +38,14 @@ const isLast = (counter) => !counter.next;
 const isNotActive = (counter) => !counter.active;
 
 const byName = (a, b) => a.name.localeCompare(b.name);
+
+const byNameAndParent = (list, parent = false) => {
+  return list
+    .filter((el) => el.parent === parent)
+    .sort(byName)
+    .map((el) => [el, ...byNameAndParent(list, el.id)])
+    .flat();
+};
 
 const getNextPlayer = (counters, active, dir = 1, offset = 1) => {
   const next = (active + counters.length + offset * dir) % counters.length;
@@ -224,24 +235,28 @@ export default function Status({ matchId, onQuit, setup }) {
   const sideSchemeCleared = (c) => disableCounter(c, EVENTS.SIDE_CLEARED);
 
   const createCounter = (type, name, opts) => {
-    const counter = CU.createCounter(
+    const counters = CU.createCounter(
       type,
       name || t(type),
       opts,
       setup.settings.players
     );
-    const event = {
-      [CTYPES.ALLY]: EVENTS.ENTER_ALLY,
-      [CTYPES.MINION]: EVENTS.ENTER_MINION,
-      [CTYPES.SIDE_SCHEME]: EVENTS.ENTER_SCHEME,
-      [CTYPES.SUPPORT]: EVENTS.ENTER_SUPPORT,
-      [CTYPES.UPGRADE]: EVENTS.ENTER_UPGRADE,
-    }[type];
+
+    const event =
+      {
+        [CTYPES.ALLY]: EVENTS.ENTER_ALLY,
+        [CTYPES.MINION]: EVENTS.ENTER_MINION,
+        [CTYPES.SIDE_SCHEME]: EVENTS.ENTER_SCHEME,
+        [CTYPES.SUPPORT]: EVENTS.ENTER_SUPPORT,
+        [CTYPES.UPGRADE]: EVENTS.ENTER_UPGRADE,
+      }[type] || EVENTS.CREATE;
+
     addNotification(
       t("Counter created", { type: t(name || type) }),
-      counter.type
+      counters[0].type
     );
-    setTimeout(() => dispatch(counter.id, event || EVENTS.CREATE), 0);
+
+    counters.forEach((c) => setTimeout(() => dispatch(c.id, event), 0));
   };
 
   const runEventQueue = (event) => {
@@ -309,6 +324,7 @@ export default function Status({ matchId, onQuit, setup }) {
           .map((s) =>
             dispatch(s.id, EVENTS.VILLAIN_PHASE, s.values.step + acc)
           );
+        scrollToId("main-schemes");
         return counter.add(data);
       case EVENTS.DECREASE_LIMIT:
       case EVENTS.INCREASE_LIMIT:
@@ -334,6 +350,7 @@ export default function Status({ matchId, onQuit, setup }) {
       case EVENTS.FIRST_PLAYER:
         return player.next();
       case EVENTS.NEW_ROUND:
+        scrollToId("heroes");
         player.next();
         sets.roundsCounter.add();
         return counter.add(1);
@@ -526,7 +543,7 @@ export default function Status({ matchId, onQuit, setup }) {
           sets={sets}
         />
 
-        <div className="box__wrapper">
+        <div className="box__wrapper" id="heroes">
           {sets.heroesCounters.map((counter, i) => (
             <CounterBox
               logger={logger}
@@ -542,12 +559,10 @@ export default function Status({ matchId, onQuit, setup }) {
               nextWarning={villainStunned && "stunned"}
             />
           ))}
-          {!!sets.allyCounters.filter(isActive).length && (
-            <Box key="Allies" title="Allies" flat type="ally">
-              {sets.allyCounters
-                .filter(isActive)
-                .sort(byName)
-                .map((counter) => (
+          {!!byNameAndParent(sets.allyCounters.filter(isActive)).length && (
+            <Box key="Allies" title="Allies" type="ally">
+              {byNameAndParent(sets.allyCounters.filter(isActive)).map(
+                (counter) => (
                   <Counter
                     counter={counter}
                     heroPhase={isHeroPhase}
@@ -558,11 +573,12 @@ export default function Status({ matchId, onQuit, setup }) {
                     result={result}
                     nextWarning={villainStunned && "stunned"}
                   />
-                ))}
+                )
+              )}
             </Box>
           )}
           {!!sets.extraCounters.filter(isActive).length && (
-            <Box key="Extra" flat type="extra">
+            <Box key="Extra" type="extra">
               {sets.extraCounters
                 .filter(isActive)
                 .sort(byName)
@@ -596,7 +612,7 @@ export default function Status({ matchId, onQuit, setup }) {
             title={sets.villainCounters.length > 1 ? "Villains" : false}
           />
           {!!sets.minionCounters.filter(isActive).length && (
-            <Box key="Minions" title={t("Minions")} flat type="minion">
+            <Box key="Minions" title={t("Minions")} type="minion">
               {sets.minionCounters
                 .filter(isActive)
                 .sort(byName)
@@ -615,7 +631,7 @@ export default function Status({ matchId, onQuit, setup }) {
             </Box>
           )}
         </div>
-        <div className="box__wrapper">
+        <div className="box__wrapper" id="main-schemes">
           <CounterBox
             acceleration={acceleration}
             logger={logger}
@@ -634,12 +650,7 @@ export default function Status({ matchId, onQuit, setup }) {
             type="scenario"
           />
           {!!sets.sideSchemes.filter(isActive).length && (
-            <Box
-              key="Side schemes"
-              title={t("Side schemes")}
-              flat
-              type="scheme"
-            >
+            <Box key="Side schemes" title={t("Side schemes")} type="scheme">
               {sets.sideSchemes.filter(isActive).map((counter) => (
                 <Counter
                   counter={counter}
@@ -657,7 +668,7 @@ export default function Status({ matchId, onQuit, setup }) {
         </div>
         <div className="box__wrapper">
           {!!sets.customCounters.filter(isActive).length && (
-            <Box key="Custom" title={t("Custom counters")} flat>
+            <Box key="Custom" title={t("Custom counters")} type="extra">
               {sets.customCounters
                 .filter(isActive)
                 .sort(byName)
@@ -676,7 +687,7 @@ export default function Status({ matchId, onQuit, setup }) {
           )}
         </div>
         <div className="box__wrapper">
-          <Box key="Log" title="Log" flat flag type="log">
+          <Box key="Log" title="Log">
             {mergedLog.map((entry, i) => (
               <LogItem
                 key={

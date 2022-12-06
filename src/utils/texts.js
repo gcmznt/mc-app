@@ -1,57 +1,36 @@
 import { COUNTER_TYPES, RESULT_TYPES } from "./constants";
 
-export const getTokenCount = (type, count) => {
-  const tokenName =
-    {
-      [COUNTER_TYPES.MODULAR_SCHEME]: "thread",
-      [COUNTER_TYPES.NEMESIS_SCHEME]: "thread",
-      [COUNTER_TYPES.SCENARIO]: "thread",
-      [COUNTER_TYPES.SIDE_SCHEME]: "thread",
-    }[type] || "token";
-
-  if (count === 1) return `1 ${tokenName}`;
-  return `${count} ${tokenName}s`;
-};
-
 export const getAddTokenText = (type, count) =>
   ({
-    [COUNTER_TYPES.HERO]: `Hit${count > 1 ? ` × ${count}` : ""}`,
-    [COUNTER_TYPES.VILLAIN]: `Hit${count > 1 ? ` × ${count}` : ""}`,
-  }[type] || `+${getTokenCount(type, count)}`);
+    [COUNTER_TYPES.HERO]: "Hit",
+    [COUNTER_TYPES.VILLAIN]: "Hit",
+    [COUNTER_TYPES.MODULAR_SCHEME]: "Add thread",
+    [COUNTER_TYPES.NEMESIS_SCHEME]: "Add thread",
+    [COUNTER_TYPES.SCENARIO]: "Add thread",
+    [COUNTER_TYPES.SIDE_SCHEME]: "Add thread",
+  }[type] || "Increase");
 
 export const getRemoveTokenText = (type, count) =>
   ({
-    [COUNTER_TYPES.HERO]: `Heal${count > 1 ? ` × ${count}` : ""}`,
-    [COUNTER_TYPES.VILLAIN]: `Heal${count > 1 ? ` × ${count}` : ""}`,
-    [COUNTER_TYPES.ROUNDS]: `Back ${count} round${count > 1 ? "s" : ""}`,
-  }[type] || `-${getTokenCount(type, count)}`);
+    [COUNTER_TYPES.HERO]: "Heal",
+    [COUNTER_TYPES.VILLAIN]: "Heal",
+    [COUNTER_TYPES.MODULAR_SCHEME]: "Remove thread",
+    [COUNTER_TYPES.NEMESIS_SCHEME]: "Remove thread",
+    [COUNTER_TYPES.SCENARIO]: "Remove thread",
+    [COUNTER_TYPES.SIDE_SCHEME]: "Remove thread",
+  }[type] || "Decrease");
 
 export const getCompleteText = (type) =>
   ({
     [COUNTER_TYPES.HERO]: "💀",
+    [COUNTER_TYPES.ALLY]: "Defeated",
+    [COUNTER_TYPES.MINION]: "Defeated",
     [COUNTER_TYPES.MODULAR_SCHEME]: "Cleared",
     [COUNTER_TYPES.NEMESIS_SCHEME]: "Cleared",
     [COUNTER_TYPES.SIDE_SCHEME]: "Cleared",
     [COUNTER_TYPES.VILLAIN]: "💀",
   }[type] || "Complete");
 
-export const getStatusName = (status, t) => {
-  return <span className={`is-${status.toLowerCase()}`}>{t(status)}</span>;
-};
-
-export const getStageName = (counter, name) => {
-  if (!counter) return "";
-  const types = {
-    [COUNTER_TYPES.HERO]: "is-hero",
-    [COUNTER_TYPES.SCENARIO]: "is-scheme",
-    [COUNTER_TYPES.SIDE_SCHEME]: "is-scheme",
-    [COUNTER_TYPES.VILLAIN]: "is-villain",
-  };
-  if (types[counter.type]) {
-    return <span className={types[counter.type]}>{name || counter.name}</span>;
-  }
-  return <>{name || counter.name}</>;
-};
 export const getStageText = (level) => {
   return isNaN(level) ? level : new Array(+level).fill("I").join("");
 };

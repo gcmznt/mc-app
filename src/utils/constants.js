@@ -1,6 +1,7 @@
 export const COUNTER_TYPES = {
   ACCELERATION: "acceleration",
   ALLY: "ally",
+  ALLY_TOKEN: "ally-token",
   CUSTOM: "custom",
   HERO_TOKEN: "hero-token",
   HERO: "hero",

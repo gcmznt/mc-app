@@ -272,6 +272,7 @@
   {
     "alterEgo": "Peter Porker",
     "aspects": ["Justice"],
+    "counters": [{ "name": "Toon counters", "complete": -1 }],
     "hitPoints": 12,
     "iconAlterEgo": "🐷",
     "iconHero": "🕷",
