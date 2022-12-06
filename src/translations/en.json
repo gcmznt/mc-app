@@ -15,7 +15,7 @@
   "Player num": "{num, plural, =1 {#st}  =2 {#nd} =3 {#rd} other {#th}} player",
   "Players num": "{numPlayers, plural, =1 {# player} other {# players}}",
   "Random replacement": "Random replacement [suggested quantity]",
-  "Remove thread": "-{count} thread{count, plural, =1 {} other {s}}",
+  "Remove thread": "{count} {count, plural, =1 {thread} other {threads}} removed",
   "Round num": "Round {number}",
   "side-scheme": "Side scheme",
   "Side scheme entered": "Activated side scheme {name}"

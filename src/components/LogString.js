@@ -4,6 +4,7 @@ import { COUNTER_TYPES, EVENTS } from "../utils/constants";
 import {
   getAddTokenText,
   getCompleteText,
+  getNextText,
   getRemoveTokenText,
   getResText,
 } from "../utils/texts";
@@ -56,7 +57,7 @@ const LogText = ({ count = 0, counter, info, event }) => {
     case EVENTS.DECREASE_LIMIT:
       return t("Decreased limit", { count: -count });
     case EVENTS.DISABLE:
-      return t("Disabled");
+      return t("Removed");
     case EVENTS.EMPTY:
       return t("Empty");
     case EVENTS.RESET:
@@ -85,7 +86,7 @@ const LogText = ({ count = 0, counter, info, event }) => {
     case EVENTS.NEW_ROUND:
       return `🔵 ${t("New round")}`;
     case EVENTS.NEXT:
-      return t("Next stage");
+      return t(getNextText(counter.type));
     case EVENTS.RESTART:
       return `🟢 ${t("Match restarted")}`;
     case EVENTS.START:

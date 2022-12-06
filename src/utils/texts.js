@@ -2,7 +2,9 @@ import { COUNTER_TYPES, RESULT_TYPES } from "./constants";
 
 export const getAddTokenText = (type, count) =>
   ({
+    [COUNTER_TYPES.ALLY]: "Hit",
     [COUNTER_TYPES.HERO]: "Hit",
+    [COUNTER_TYPES.MINION]: "Hit",
     [COUNTER_TYPES.VILLAIN]: "Hit",
     [COUNTER_TYPES.MODULAR_SCHEME]: "Add thread",
     [COUNTER_TYPES.NEMESIS_SCHEME]: "Add thread",
@@ -12,7 +14,9 @@ export const getAddTokenText = (type, count) =>
 
 export const getRemoveTokenText = (type, count) =>
   ({
+    [COUNTER_TYPES.ALLY]: "Heal",
     [COUNTER_TYPES.HERO]: "Heal",
+    [COUNTER_TYPES.MINION]: "Heal",
     [COUNTER_TYPES.VILLAIN]: "Heal",
     [COUNTER_TYPES.MODULAR_SCHEME]: "Remove thread",
     [COUNTER_TYPES.NEMESIS_SCHEME]: "Remove thread",
@@ -30,6 +34,11 @@ export const getCompleteText = (type) =>
     [COUNTER_TYPES.SIDE_SCHEME]: "Cleared",
     [COUNTER_TYPES.VILLAIN]: "💀",
   }[type] || "Complete");
+
+export const getNextText = (type) =>
+  ({
+    [COUNTER_TYPES.VILLAIN]: "Defeated",
+  }[type] || "Next stage");
 
 export const getStageText = (level) => {
   return isNaN(level) ? level : new Array(+level).fill("I").join("");
