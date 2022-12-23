@@ -86,7 +86,7 @@ export default function MatchStat({ matchId, onLoad }) {
   };
 
   useEffect(() => {
-    if (matches) {
+    if (matches && stats) {
       loadMatch(matchId).then((m) => {
         setMatch(
           m ? getMatchStats(m) : stats.find((m) => m.matchId === matchId)
@@ -97,7 +97,7 @@ export default function MatchStat({ matchId, onLoad }) {
 
   return match ? (
     <Fragment>
-      <Box key="Setup">
+      <Box key="Setup" type="accent">
         <Setup setup={match.setup} />
       </Box>
       <Box type={match.reason}>

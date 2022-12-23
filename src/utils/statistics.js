@@ -141,10 +141,14 @@ export function getModularSets(setup) {
 }
 
 export function getMatchTime(match) {
-  return match.time || match.log[0]?.time || match.log[0]
-    ? new Date(match.log[0]?.date).getTime() -
+  return (
+    match.time ||
+    match.log[0]?.time ||
+    (match.log[0]
+      ? new Date(match.log[0]?.date).getTime() -
         new Date(match.log[match.log.length - 1]?.date).getTime()
-    : null;
+      : null)
+  );
 }
 
 function getMatchesStats(res, match) {
