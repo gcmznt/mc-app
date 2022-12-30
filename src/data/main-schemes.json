@@ -225,6 +225,7 @@
     "hidden": true,
     "name": "The Master of Time",
     "next": "Kang's Wrath",
+    "step": 0,
     "triggers": {
       "enter": [
         {

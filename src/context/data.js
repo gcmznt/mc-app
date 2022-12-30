@@ -7,6 +7,8 @@ import modularSets from "../data/modular-sets.json";
 import scenarios from "../data/scenarios.json";
 import mainSchemes from "../data/main-schemes.json";
 import sideSchemes from "../data/side-schemes.json";
+import supports from "../data/supports.json";
+import upgrades from "../data/upgrades.json";
 
 import { append, appendList, load, persist } from "../utils";
 import { DEFAULT_OPTIONS, STORAGE_KEYS } from "../utils/constants";
@@ -31,6 +33,8 @@ const data = {
   scenarios: scenarios.filter(isEnabled),
   mainSchemes: mainSchemes.reduce(byName, {}),
   sideSchemes: sideSchemes.reduce(byName, {}),
+  supports: supports.reduce(byName, {}),
+  upgrades: upgrades.reduce(byName, {}),
   getAlly: (key) => allies.find(byKey(key)),
   getHero: (key) => heroes.find(byKey(key)),
   getMainScheme: (key) => mainSchemes.find(byKey(key)),

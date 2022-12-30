@@ -144,8 +144,11 @@ export class Counter {
 }
 
 export class CustomCounter extends Counter {
-  constructor(options, players, type = COUNTER_TYPES.CUSTOM, values) {
-    super({ ...options, type, values: values || { complete: -2 } }, players);
+  constructor(options, players, type = COUNTER_TYPES.CUSTOM, values = {}) {
+    super(
+      { ...options, type, values: { complete: -2, ...options, ...values } },
+      players
+    );
   }
 }
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import "../styles/suggestions.css";
@@ -74,6 +74,7 @@ export default function AddCounter({
   createCounter,
   sets,
 }) {
+  const inputRef = useRef();
   const [custom, setCustom] = useState("");
   const [customType, setCustomType] = useState(CTYPES.ALLY);
   const { t } = useTranslation();
@@ -81,14 +82,33 @@ export default function AddCounter({
 
   const handleAdd = (type, config) => {
     createCounter(type, config.name, config);
+    inputRef.current.focus();
     setCustom("");
+  };
+
+  const handleChange = (type) => {
+    setCustomType(type);
+    inputRef.current.focus();
   };
 
   const handleSubmitCounter = (e) => {
     e.preventDefault();
     custom && createCounter(customType, custom);
+    inputRef.current.focus();
     setCustom("");
   };
+
+  const suggestionsData = {
+    [CTYPES.ALLY]: data.allies,
+    [CTYPES.MINION]: data.minions,
+    [CTYPES.SIDE_SCHEME]: Object.values(data.sideSchemes),
+    [CTYPES.SUPPORT]: Object.values(data.supports),
+    [CTYPES.UPGRADE]: Object.values(data.upgrades),
+  }[customType];
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [inputRef.current]);
 
   return (
     open && (
@@ -96,24 +116,34 @@ export default function AddCounter({
         <Box key="Add counters" title={t("Add counters")}>
           <fieldset>
             <form onSubmit={handleSubmitCounter}>
-              {[
-                CTYPES.ALLY,
-                CTYPES.MINION,
-                CTYPES.SIDE_SCHEME,
-                CTYPES.SUPPORT,
-                CTYPES.UPGRADE,
-                CTYPES.CUSTOM,
-              ].map((type) => (
-                <Option
-                  checked={type === customType}
-                  key={type}
-                  label={t(type)}
-                  onChange={() => setCustomType(type)}
-                  type="radio"
-                  value={customType}
-                  variant="inline"
-                />
-              ))}
+              <div>
+                {[CTYPES.ALLY, CTYPES.MINION, CTYPES.SIDE_SCHEME].map(
+                  (type) => (
+                    <Option
+                      checked={type === customType}
+                      key={type}
+                      label={t(type)}
+                      onChange={() => handleChange(type)}
+                      type="radio"
+                      value={customType}
+                      variant="inline"
+                    />
+                  )
+                )}
+              </div>
+              <div>
+                {[CTYPES.SUPPORT, CTYPES.UPGRADE, CTYPES.CUSTOM].map((type) => (
+                  <Option
+                    checked={type === customType}
+                    key={type}
+                    label={t(type)}
+                    onChange={() => handleChange(type)}
+                    type="radio"
+                    value={customType}
+                    variant="inline"
+                  />
+                ))}
+              </div>
               <footer>
                 <input
                   placeholder={t("Name")}
@@ -121,6 +151,7 @@ export default function AddCounter({
                   onChange={(e) => setCustom(e.target.value)}
                   type="text"
                   required={customType === CTYPES.CUSTOM}
+                  ref={inputRef}
                 />{" "}
                 <button
                   type="submit"
@@ -132,28 +163,12 @@ export default function AddCounter({
               </footer>
               <section className="suggestions">
                 <div>
-                  {custom.length > 1 && customType === CTYPES.ALLY && (
+                  {custom.length > 1 && (
                     <Suggestions
-                      data={data.allies}
+                      data={suggestionsData || []}
                       filter={custom}
                       handleAdd={handleAdd}
-                      type={CTYPES.ALLY}
-                    />
-                  )}
-                  {custom.length > 1 && customType === CTYPES.MINION && (
-                    <Suggestions
-                      data={data.minions}
-                      filter={custom}
-                      handleAdd={handleAdd}
-                      type={CTYPES.MINION}
-                    />
-                  )}
-                  {custom.length > 1 && customType === CTYPES.SIDE_SCHEME && (
-                    <Suggestions
-                      data={Object.values(data.sideSchemes)}
-                      filter={custom}
-                      handleAdd={handleAdd}
-                      type={CTYPES.SIDE_SCHEME}
+                      type={customType}
                     />
                   )}
                 </div>

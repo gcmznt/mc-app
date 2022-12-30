@@ -1,0 +1,90 @@
+[
+	{
+		"code": "01056",
+		"name": "Tac Team",
+		"pack_code": "core",
+		"set": "Aggression",
+		"start": "3",
+		"tokensName": "attack"
+	},
+	{
+		"code": "01064",
+		"name": "Surveillance Team",
+		"pack_code": "core",
+		"set": "Justice",
+		"start": "3",
+		"tokensName": "snoop"
+	},
+	{
+		"code": "01080",
+		"name": "Med Team",
+		"pack_code": "core",
+		"set": "Protection",
+		"start": "3",
+		"tokensName": "medical"
+	},
+	{
+		"code": "09019",
+		"name": "The Night Nurse",
+		"pack_code": "drs",
+		"set": "Protection",
+		"start": "3",
+		"tokensName": "medical"
+	},
+	{
+		"code": "22034",
+		"name": "Defensive Training",
+		"pack_code": "nebu",
+		"set": "Protection",
+		"start": "2",
+		"tokensName": "training"
+	},
+	{
+		"code": "23016",
+		"name": "Command Team",
+		"pack_code": "warm",
+		"set": "Leadership",
+		"start": "3",
+		"tokensName": "command"
+	},
+	{
+		"code": "23033",
+		"name": "Vigilante Training",
+		"pack_code": "warm",
+		"set": "Justice",
+		"start": "2",
+		"tokensName": "training"
+	},
+	{
+		"code": "25034",
+		"name": "Leadership Training",
+		"pack_code": "valk",
+		"set": "Leadership",
+		"start": "2",
+		"tokensName": "training"
+	},
+	{
+		"code": "26033",
+		"name": "Assault Training",
+		"pack_code": "vision",
+		"set": "Aggression",
+		"start": "2",
+		"tokensName": "training"
+	},
+	{
+		"code": "27044",
+		"name": "Field Agent",
+		"pack_code": "sm",
+		"set": "Justice",
+		"start": "3",
+		"tokensName": "backup"
+	},
+	{
+		"code": "29020",
+		"name": "R&D Facility",
+		"pack_code": "ironheart",
+		"set": "Leadership",
+		"start": "3",
+		"tokensName": "research"
+	}
+]
