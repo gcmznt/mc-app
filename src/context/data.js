@@ -33,6 +33,7 @@ const data = {
   sideSchemes: sideSchemes.reduce(byName, {}),
   getAlly: (key) => allies.find(byKey(key)),
   getHero: (key) => heroes.find(byKey(key)),
+  getMainScheme: (key) => mainSchemes.find(byKey(key)),
   getMinion: (key) => minions.find(byKey(key)),
   getSideScheme: (key) => sideSchemes.find(byKey(key)),
 };

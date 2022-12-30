@@ -105,6 +105,18 @@ export class Counter {
     return this.toggle(false);
   }
 
+  show() {
+    this.hidden = false;
+    this.toggle(!this.hidden);
+    return this;
+  }
+
+  hide() {
+    this.hidden = true;
+    this.toggle(!this.hidden);
+    return this;
+  }
+
   enableStatus(key) {
     return this.toggleStatus(key, true);
   }
@@ -238,7 +250,11 @@ const getHeroCounter = (setup) => (hero) => {
       emoji: hero.iconAlterEgo,
       bSideEmoji: hero.iconHero,
     },
-    (hero.counters || []).map((c) => ({ ...c, type: TYPES.HERO_TOKEN })),
+    (hero.counters || []).map((c) => ({
+      ...c,
+      type: TYPES.HERO_TOKEN,
+      complete: -1,
+    })),
     setup.settings.players
   );
 };
@@ -270,11 +286,12 @@ const getVillainCounter = (setup) => (villain) => {
     (s, i, list) =>
       new Counter(
         {
-          active: i === 0,
+          active: villain.levels[s].active ?? i === 0,
+          hidden: villain.levels[s].hidden,
           name: getVillainName(villain, s, setup),
           bSide: getVillainBSide(villain, s),
           next:
-            s.next ??
+            villain.levels[s].next ??
             (!!list[i + 1] && getVillainName(villain, list[i + 1], setup)),
           statuses: getStatusObj(STATUSES, villain.levels[s].status),
           triggers: villain.levels[s].triggers,

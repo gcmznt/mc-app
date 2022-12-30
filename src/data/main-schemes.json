@@ -220,12 +220,15 @@
     "step": "1p"
   },
   {
-    "complete": -1,
+    "autocomplete": true,
+    "complete": "1p",
+    "hidden": true,
     "name": "The Master of Time",
+    "next": "Kang's Wrath",
     "triggers": {
       "enter": [
         {
-          "event": "enter-scheme",
+          "event": "enter-main-scheme",
           "targets": [
             "The Chronopolis",
             "Inexorable Fate",
@@ -234,49 +237,95 @@
           ],
           "perPlayer": true
         }
+      ],
+      "complete": [{ "event": "next" }]
+    }
+  },
+  {
+    "active": false,
+    "complete": 9,
+    "hidden": true,
+    "name": "The Chronopolis",
+    "next": false,
+    "step": 1,
+    "triggers": {
+      "enter": [{ "event": "enter-villain", "targets": "Kang (Immortus)" }],
+      "complete": [
+        { "event": "disable" },
+        { "event": "disable", "targets": "Kang (Immortus)" },
+        { "event": "enter-scheme", "targets": "Kang's Dominion" },
+        { "event": "increase", "targets": "The Master of Time" }
       ]
     }
   },
   {
     "active": false,
     "complete": 9,
-    "name": "The Chronopolis",
+    "hidden": true,
+    "name": "Inexorable Fate",
     "next": false,
+    "start": 1,
     "step": 1,
-    "___triggers": {
-      "enter": [{ "event": "enter-villain", "targets": "Hydra Patrol" }]
+    "triggers": {
+      "enter": [{ "event": "enter-villain", "targets": "Kang (Iron Lad)" }],
+      "complete": [
+        { "event": "disable" },
+        { "event": "disable", "targets": "Kang (Iron Lad)" },
+        { "event": "enter-scheme", "targets": "Kang's Dominion" },
+        { "event": "increase", "targets": "The Master of Time" }
+      ]
     }
   },
   {
     "active": false,
     "complete": 9,
-    "name": "Inexorable Fate",
-    "next": false,
-    "start": 1,
-    "step": 1
-  },
-  {
-    "active": false,
-    "complete": 9,
+    "hidden": true,
     "name": "The Realm of Rama-Tut",
     "next": false,
     "start": 1,
-    "step": 1
+    "step": 1,
+    "triggers": {
+      "enter": [{ "event": "enter-villain", "targets": "Kang (Rama-Tut)" }],
+      "complete": [
+        { "event": "disable" },
+        { "event": "disable", "targets": "Kang (Rama-Tut)" },
+        { "event": "enter-scheme", "targets": "Kang's Dominion" },
+        { "event": "increase", "targets": "The Master of Time" }
+      ]
+    }
   },
   {
     "active": false,
     "complete": 9,
+    "hidden": true,
     "name": "The Present Future War",
     "next": false,
     "start": 2,
-    "step": 1
+    "step": 1,
+    "triggers": {
+      "enter": [
+        { "event": "enter-villain", "targets": "Kang (Scarlet Centurion)" }
+      ],
+      "complete": [
+        { "event": "disable" },
+        { "event": "disable", "targets": "Kang (Scarlet Centurion)" },
+        { "event": "enter-scheme", "targets": "Kang's Dominion" },
+        { "event": "increase", "targets": "The Master of Time" }
+      ]
+    }
   },
   {
+    "active": false,
     "advance": -1,
     "complete": "10p",
     "name": "Kang's Wrath",
     "next": false,
-    "step": "3p"
+    "step": "1p",
+    "triggers": {
+      "enter": [
+        { "event": "enter-villain", "targets": "Kang (The Conqueror) || III" }
+      ]
+    }
   },
   {
     "complete": "8p",

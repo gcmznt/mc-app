@@ -5,8 +5,6 @@
 .suggestions > div {
   height: 250px;
   max-height: 25vh;
-  width: 100vw;
-  max-width: 320px;
   overflow: auto;
   padding-bottom: 30px;
 }

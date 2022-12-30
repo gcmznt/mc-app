@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useData } from "../context/data";
 import { useNotifications } from "../context/notifications";
 
-import { load, persist, scrollToId, toValue } from "../utils";
+import { getRandomList, load, persist, scrollToId, toValue } from "../utils";
 import {
   COUNTER_TYPES as CTYPES,
   EVENTS,
@@ -51,6 +51,7 @@ const getNextPlayer = (counters, active, dir = 1, offset = 1) => {
   const next = (active + counters.length + offset * dir) % counters.length;
 
   if (offset > counters.length) return -1;
+  if (active === -1) return counters.findIndex((c) => c.active);
 
   return counters[next].active
     ? next
@@ -122,6 +123,11 @@ export default function Status({ matchId, onQuit, setup }) {
           .forEach((s) =>
             createCounter(CTYPES.SIDE_SCHEME, trigger.targets, s)
           );
+      case EVENTS.ENTER_MAIN_SCHEME:
+        return getRandomList(
+          trigger.targets,
+          trigger.perPlayer ? +setup.settings.players : 1
+        ).forEach((s) => dispatchEvent(undefined, s));
       case EVENTS.EMPTY:
       case EVENTS.FLIP_COUNTER:
       case EVENTS.RESET:
@@ -137,6 +143,8 @@ export default function Status({ matchId, onQuit, setup }) {
         );
       case EVENTS.INCREASE_FROM:
         return dispatchEvent(CU.name(trigger.value).values.value);
+      case EVENTS.HIDE:
+        return target.hidden || dispatchEvent();
       case EVENTS.FLIP:
       case EVENTS.FLIP_HERO:
       case EVENTS.FLIP_VILLAIN:
@@ -307,6 +315,12 @@ export default function Status({ matchId, onQuit, setup }) {
       case EVENTS.ENTER_SUPPORT:
       case EVENTS.ENTER_UPGRADE:
         return counter.enable();
+      case EVENTS.ENTER_VILLAIN:
+      case EVENTS.ENTER_MAIN_SCHEME:
+        counter.enable();
+        return counter.show();
+      case EVENTS.HIDE:
+        return counter.hide();
       case EVENTS.DECREASE:
       case EVENTS.HIT:
       case EVENTS.INCREASE:
@@ -333,7 +347,7 @@ export default function Status({ matchId, onQuit, setup }) {
       case EVENTS.ALLY_DEFEATED:
       case EVENTS.MINION_DEFEATED:
       case EVENTS.SIDE_CLEARED:
-        counter.reset();
+        // counter.reset();
         return counter.disable();
       case EVENTS.EMPTY:
         return counter.empty();
@@ -413,6 +427,12 @@ export default function Status({ matchId, onQuit, setup }) {
       case EVENTS.RESET:
         return counter.set(info.data);
       case EVENTS.ENTER:
+        return counter.disable();
+      case EVENTS.HIDE:
+        return counter.show();
+      case EVENTS.ENTER_VILLAIN:
+      case EVENTS.ENTER_MAIN_SCHEME:
+        counter.hide();
         return counter.disable();
       case EVENTS.FLIP:
       case EVENTS.FLIP_HERO:

@@ -300,19 +300,180 @@
             "complete": "12p",
             "triggers": {
               "complete": [
+                { "event": "disable" },
                 { "event": "disable", "targets": "Kang's Arrival" },
                 { "event": "enter", "targets": "The Master of Time" }
               ]
             }
           },
-          "2": 18,
-          "3": "20p",
-          "1e": "15p",
-          "2e": 22,
-          "3e": "25p"
+          "1 EXP": {
+            "complete": "15p",
+            "triggers": {
+              "complete": [
+                { "event": "disable" },
+                { "event": "disable", "targets": "Kang's Arrival" },
+                { "event": "enter", "targets": "The Master of Time" }
+              ]
+            }
+          },
+          "Immortus": {
+            "hidden": true,
+            "complete": 18,
+            "next": false,
+            "name": "Kang (Immortus)",
+            "triggers": {
+              "complete": [
+                { "event": "disable" },
+                { "event": "disable", "targets": "The Chronopolis" },
+                { "event": "increase", "targets": "The Master of Time" }
+              ]
+            }
+          },
+          "Iron Lad": {
+            "hidden": true,
+            "complete": 18,
+            "next": false,
+            "name": "Kang (Iron Lad)",
+            "triggers": {
+              "complete": [
+                { "event": "disable" },
+                { "event": "disable", "targets": "Inexorable Fate" },
+                { "event": "increase", "targets": "The Master of Time" }
+              ]
+            }
+          },
+          "Rama-Tut": {
+            "hidden": true,
+            "complete": 18,
+            "next": false,
+            "name": "Kang (Rama-Tut)",
+            "triggers": {
+              "complete": [
+                { "event": "disable" },
+                { "event": "disable", "targets": "The Realm of Rama-Tut" },
+                { "event": "increase", "targets": "The Master of Time" }
+              ]
+            }
+          },
+          "Scarlet Centurion": {
+            "hidden": true,
+            "complete": 18,
+            "next": false,
+            "name": "Kang (Scarlet Centurion)",
+            "triggers": {
+              "complete": [
+                { "event": "disable" },
+                { "event": "disable", "targets": "The Present Future War" },
+                { "event": "increase", "targets": "The Master of Time" }
+              ]
+            }
+          },
+          "Immortus EXP": {
+            "hidden": true,
+            "complete": 22,
+            "next": false,
+            "name": "Kang (Immortus)",
+            "triggers": {
+              "complete": [
+                { "event": "disable" },
+                { "event": "disable", "targets": "The Chronopolis" },
+                { "event": "increase", "targets": "The Master of Time" }
+              ]
+            }
+          },
+          "Iron Lad EXP": {
+            "hidden": true,
+            "complete": 22,
+            "next": false,
+            "name": "Kang (Iron Lad)",
+            "triggers": {
+              "complete": [
+                { "event": "disable" },
+                { "event": "disable", "targets": "Inexorable Fate" },
+                { "event": "increase", "targets": "The Master of Time" }
+              ]
+            }
+          },
+          "Rama-Tut EXP": {
+            "hidden": true,
+            "complete": 22,
+            "next": false,
+            "name": "Kang (Rama-Tut)",
+            "triggers": {
+              "complete": [
+                { "event": "disable" },
+                { "event": "disable", "targets": "The Realm of Rama-Tut" },
+                { "event": "increase", "targets": "The Master of Time" }
+              ]
+            }
+          },
+          "Scarlet Centurion EXP": {
+            "hidden": true,
+            "complete": 22,
+            "next": false,
+            "name": "Kang (Scarlet Centurion)",
+            "triggers": {
+              "complete": [
+                { "event": "disable" },
+                { "event": "disable", "targets": "The Present Future War" },
+                { "event": "increase", "targets": "The Master of Time" }
+              ]
+            }
+          },
+          "3": {
+            "complete": "20p",
+            "hidden": true,
+            "triggers": {
+              "enter": [
+                { "event": "hide", "targets": "Kang (Immortus)" },
+                { "event": "hide", "targets": "Kang (Iron Lad)" },
+                { "event": "hide", "targets": "Kang (Rama-Tut)" },
+                { "event": "hide", "targets": "Kang (Scarlet Centurion)" },
+                { "event": "hide", "targets": "The Chronopolis" },
+                { "event": "hide", "targets": "Inexorable Fate" },
+                { "event": "hide", "targets": "The Realm of Rama-Tut" },
+                { "event": "hide", "targets": "The Present Future War" }
+              ],
+              "complete": [{ "event": "disable" }]
+            }
+          },
+          "3 EXP": {
+            "complete": "25p",
+            "hidden": true,
+            "triggers": {
+              "enter": [
+                { "event": "hide", "targets": "Kang (Immortus)" },
+                { "event": "hide", "targets": "Kang (Iron Lad)" },
+                { "event": "hide", "targets": "Kang (Rama-Tut)" },
+                { "event": "hide", "targets": "Kang (Scarlet Centurion)" },
+                { "event": "hide", "targets": "The Chronopolis" },
+                { "event": "hide", "targets": "Inexorable Fate" },
+                { "event": "hide", "targets": "The Realm of Rama-Tut" },
+                { "event": "hide", "targets": "The Present Future War" }
+              ],
+              "complete": [{ "event": "disable" }]
+            }
+          }
         },
-        "stages": { "expert": [1, 2, 3], "standard": [1, 2, 3] },
-        "name": "Kang"
+        "stages": {
+          "expert": [
+            "1 EXP",
+            "Immortus EXP",
+            "Iron Lad EXP",
+            "Rama-Tut EXP",
+            "Scarlet Centurion EXP",
+            "3 EXP"
+          ],
+          "standard": [
+            1,
+            "Immortus",
+            "Iron Lad",
+            "Rama-Tut",
+            "Scarlet Centurion",
+            3
+          ]
+        },
+        "name": "Kang (The Conqueror)"
       }
     ]
   },

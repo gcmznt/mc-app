@@ -50,6 +50,8 @@ const LogText = ({ count = 0, counter, info, event }) => {
     case EVENTS.ENTER_UPGRADE:
     case EVENTS.ENTER:
     case EVENTS.ENTER_SCHEME:
+    case EVENTS.ENTER_MAIN_SCHEME:
+    case EVENTS.ENTER_VILLAIN:
     case EVENTS.FLIP_COUNTER:
       return t("Entered");
     case EVENTS.DECREASE:

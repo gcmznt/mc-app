@@ -142,7 +142,7 @@
   {
     "alterEgo": "Groot",
     "aspects": ["Protection"],
-    "counters": [{ "name": "Growth", "max": 10, "complete": -1 }],
+    "counters": [{ "name": "Growth", "max": 10 }],
     "hitPoints": 11,
     "iconAlterEgo": "🌱",
     "name": "Groot",
@@ -175,7 +175,7 @@
   {
     "alterEgo": "Drax",
     "aspects": ["Protection"],
-    "counters": [{ "name": "Vengeance", "max": 3, "complete": -1 }],
+    "counters": [{ "name": "Vengeance", "max": 3 }],
     "hitPoints": 14,
     "name": "Drax",
     "nemesisSchemes": ["Cull the Weak"]
@@ -213,7 +213,7 @@
   {
     "alterEgo": "James Rhodes",
     "aspects": ["Leadership"],
-    "counters": [{ "name": "Ammo", "complete": -1 }],
+    "counters": [{ "name": "Ammo" }],
     "hitPoints": 10,
     "iconHero": "🦾",
     "name": "War Machine",
@@ -262,7 +262,7 @@
   {
     "alterEgo": "Riri Williams",
     "aspects": ["Leadership"],
-    "counters": [{ "name": "Progress", "complete": -1 }],
+    "counters": [{ "name": "Progress" }],
     "hitPoints": 10,
     "iconAlterEgo": "👩‍🔧",
     "iconHero": "🦾",
@@ -272,7 +272,7 @@
   {
     "alterEgo": "Peter Porker",
     "aspects": ["Justice"],
-    "counters": [{ "name": "Toon counters", "complete": -1 }],
+    "counters": [{ "name": "Toon counters" }],
     "hitPoints": 12,
     "iconAlterEgo": "🐷",
     "iconHero": "🕷",
@@ -313,7 +313,7 @@
   {
     "alterEgo": "Jean Grey",
     "aspects": ["Justice"],
-    "counters": [{ "name": "Power counters", "complete": -1 }],
+    "counters": [{ "name": "Power counters" }],
     "hitPoints": 9,
     "name": "Phoenix",
     "nemesisSchemes": ["Consume the World"]
@@ -337,7 +337,7 @@
     "disabled": true,
     "alterEgo": "Remy LeBeau",
     "aspects": ["Justice"],
-    "counters": [{ "name": "Charge counters", "complete": -1 }],
+    "counters": [{ "name": "Charge counters" }],
     "hitPoints": 9,
     "name": "Gambit",
     "nemesisSchemes": []
