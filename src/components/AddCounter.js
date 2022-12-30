@@ -108,7 +108,7 @@ export default function AddCounter({
 
   useEffect(() => {
     inputRef.current?.focus();
-  }, [inputRef.current]);
+  }, []);
 
   return (
     open && (
