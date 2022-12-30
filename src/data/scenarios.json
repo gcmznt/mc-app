@@ -297,6 +297,7 @@
         "levels": {
           "1": {
             "complete": "12p",
+            "status": ["Tough"],
             "triggers": {
               "complete": [
                 { "event": "disable" },
@@ -307,6 +308,7 @@
           },
           "1 EXP": {
             "complete": "15p",
+            "status": ["Tough"],
             "triggers": {
               "complete": [
                 { "event": "disable" },
@@ -320,6 +322,7 @@
             "complete": 18,
             "next": false,
             "name": "Kang (Immortus)",
+            "status": ["Tough"],
             "triggers": {
               "complete": [
                 { "event": "disable" },
@@ -333,6 +336,7 @@
             "complete": 18,
             "next": false,
             "name": "Kang (Iron Lad)",
+            "status": ["Tough"],
             "triggers": {
               "complete": [
                 { "event": "disable" },
@@ -346,6 +350,7 @@
             "complete": 18,
             "next": false,
             "name": "Kang (Rama-Tut)",
+            "status": ["Tough"],
             "triggers": {
               "complete": [
                 { "event": "disable" },
@@ -359,6 +364,7 @@
             "complete": 18,
             "next": false,
             "name": "Kang (Scarlet Centurion)",
+            "status": ["Tough"],
             "triggers": {
               "complete": [
                 { "event": "disable" },
@@ -372,6 +378,7 @@
             "complete": 22,
             "next": false,
             "name": "Kang (Immortus)",
+            "status": ["Tough"],
             "triggers": {
               "complete": [
                 { "event": "disable" },
@@ -385,6 +392,7 @@
             "complete": 22,
             "next": false,
             "name": "Kang (Iron Lad)",
+            "status": ["Tough"],
             "triggers": {
               "complete": [
                 { "event": "disable" },
@@ -398,6 +406,7 @@
             "complete": 22,
             "next": false,
             "name": "Kang (Rama-Tut)",
+            "status": ["Tough"],
             "triggers": {
               "complete": [
                 { "event": "disable" },
@@ -411,6 +420,7 @@
             "complete": 22,
             "next": false,
             "name": "Kang (Scarlet Centurion)",
+            "status": ["Tough"],
             "triggers": {
               "complete": [
                 { "event": "disable" },
@@ -422,6 +432,7 @@
           "3": {
             "complete": "20p",
             "hidden": true,
+            "status": ["Tough"],
             "triggers": {
               "enter": [
                 { "event": "hide", "targets": "Kang (Immortus)" },
@@ -439,6 +450,7 @@
           "3 EXP": {
             "complete": "25p",
             "hidden": true,
+            "status": ["Tough"],
             "triggers": {
               "enter": [
                 { "event": "hide", "targets": "Kang (Immortus)" },
