@@ -327,7 +327,7 @@
               "complete": [
                 { "event": "disable" },
                 { "event": "disable", "targets": "The Chronopolis" },
-                { "event": "increase", "targets": "The Master of Time" }
+                { "event": "increase", "targets": "Stage completed" }
               ]
             }
           },
@@ -341,7 +341,7 @@
               "complete": [
                 { "event": "disable" },
                 { "event": "disable", "targets": "Inexorable Fate" },
-                { "event": "increase", "targets": "The Master of Time" }
+                { "event": "increase", "targets": "Stage completed" }
               ]
             }
           },
@@ -355,7 +355,7 @@
               "complete": [
                 { "event": "disable" },
                 { "event": "disable", "targets": "The Realm of Rama-Tut" },
-                { "event": "increase", "targets": "The Master of Time" }
+                { "event": "increase", "targets": "Stage completed" }
               ]
             }
           },
@@ -369,7 +369,7 @@
               "complete": [
                 { "event": "disable" },
                 { "event": "disable", "targets": "The Present Future War" },
-                { "event": "increase", "targets": "The Master of Time" }
+                { "event": "increase", "targets": "Stage completed" }
               ]
             }
           },
@@ -383,7 +383,7 @@
               "complete": [
                 { "event": "disable" },
                 { "event": "disable", "targets": "The Chronopolis" },
-                { "event": "increase", "targets": "The Master of Time" }
+                { "event": "increase", "targets": "Stage completed" }
               ]
             }
           },
@@ -397,7 +397,7 @@
               "complete": [
                 { "event": "disable" },
                 { "event": "disable", "targets": "Inexorable Fate" },
-                { "event": "increase", "targets": "The Master of Time" }
+                { "event": "increase", "targets": "Stage completed" }
               ]
             }
           },
@@ -411,7 +411,7 @@
               "complete": [
                 { "event": "disable" },
                 { "event": "disable", "targets": "The Realm of Rama-Tut" },
-                { "event": "increase", "targets": "The Master of Time" }
+                { "event": "increase", "targets": "Stage completed" }
               ]
             }
           },
@@ -425,7 +425,7 @@
               "complete": [
                 { "event": "disable" },
                 { "event": "disable", "targets": "The Present Future War" },
-                { "event": "increase", "targets": "The Master of Time" }
+                { "event": "increase", "targets": "Stage completed" }
               ]
             }
           },

@@ -220,12 +220,22 @@
     "step": "1p"
   },
   {
-    "autocomplete": true,
     "complete": "1p",
     "hidden": true,
     "name": "The Master of Time",
     "next": "Kang's Wrath",
     "step": 0,
+    "counters": [
+      {
+        "autocomplete": true,
+        "name": "Stage completed",
+        "hidden": true,
+        "complete": "1p",
+        "triggers": {
+          "complete": [{ "event": "next", "targets": "The Master of Time" }]
+        }
+      }
+    ],
     "triggers": {
       "enter": [
         {
@@ -238,8 +248,7 @@
           ],
           "perPlayer": true
         }
-      ],
-      "complete": [{ "event": "next" }]
+      ]
     }
   },
   {
@@ -255,7 +264,7 @@
         { "event": "disable" },
         { "event": "disable", "targets": "Kang (Immortus)" },
         { "event": "enter-scheme", "targets": "Kang's Dominion" },
-        { "event": "increase", "targets": "The Master of Time" }
+        { "event": "increase", "targets": "Stage completed" }
       ]
     }
   },
@@ -273,7 +282,7 @@
         { "event": "disable" },
         { "event": "disable", "targets": "Kang (Iron Lad)" },
         { "event": "enter-scheme", "targets": "Kang's Dominion" },
-        { "event": "increase", "targets": "The Master of Time" }
+        { "event": "increase", "targets": "Stage completed" }
       ]
     }
   },
@@ -291,7 +300,7 @@
         { "event": "disable" },
         { "event": "disable", "targets": "Kang (Rama-Tut)" },
         { "event": "enter-scheme", "targets": "Kang's Dominion" },
-        { "event": "increase", "targets": "The Master of Time" }
+        { "event": "increase", "targets": "Stage completed" }
       ]
     }
   },
@@ -311,7 +320,7 @@
         { "event": "disable" },
         { "event": "disable", "targets": "Kang (Scarlet Centurion)" },
         { "event": "enter-scheme", "targets": "Kang's Dominion" },
-        { "event": "increase", "targets": "The Master of Time" }
+        { "event": "increase", "targets": "Stage completed" }
       ]
     }
   },
