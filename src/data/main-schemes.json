@@ -220,7 +220,7 @@
     "step": "1p"
   },
   {
-    "complete": "1p",
+    "complete": 0,
     "hidden": true,
     "name": "The Master of Time",
     "next": "Kang's Wrath",
