@@ -22,7 +22,7 @@
 }
 
 .modal__close {
-  position: absolute;
+  position: fixed;
   bottom: 10px;
   right: 10px;
   background: var(--color-cta);
@@ -31,6 +31,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 11001;
 }
 
 .modal__close::before,
