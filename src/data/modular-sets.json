@@ -352,5 +352,15 @@
     "name": "Shadow King",
     "sideSchemes": ["Ruler of the Astral Plane"],
     "pack": "Storm"
+  },
+  {
+    "name": "Reavers",
+    "sideSchemes": ["The Reavers"],
+    "pack": "Rogue"
+  },
+  {
+    "name": "Exodus",
+    "sideSchemes": ["Herald of Avalon"],
+    "pack": "Gambit"
   }
 ]

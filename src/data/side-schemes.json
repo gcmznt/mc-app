@@ -1074,5 +1074,25 @@
     "icons": ["Crisis"],
     "name": "Magneto's Fortress",
     "start": "2p"
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "Mystique's Manipulations",
+    "start": "2p"
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "The Reavers",
+    "start": "5"
+  },
+  {
+    "icons": ["Acceleration"],
+    "name": "The Assassins Guild",
+    "start": "4"
+  },
+  {
+    "icons": ["Hazard"],
+    "name": "Herald of Avalon",
+    "start": "6"
   }
 ]

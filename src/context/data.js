@@ -9,6 +9,7 @@ import mainSchemes from "../data/main-schemes.json";
 import sideSchemes from "../data/side-schemes.json";
 import supports from "../data/supports.json";
 import upgrades from "../data/upgrades.json";
+import villains from "../data/villains.json";
 
 import { append, appendList, load, persist } from "../utils";
 import { DEFAULT_OPTIONS, STORAGE_KEYS } from "../utils/constants";
@@ -25,12 +26,22 @@ const byName = (a, c) => ({ ...a, [c.name]: c });
 
 const byKey = (key) => (el) => (el.key || el.name) === key;
 
+const getVillains = (scenario) => {
+  return {
+    ...scenario,
+    villains: (scenario.villains || [scenario.name]).map((name) => ({
+      stages: { standard: [1, 2], expert: [2, 3] },
+      ...villains.find((v) => (v.key || v.name) === name),
+    })),
+  };
+};
+
 const data = {
   allies,
   heroes: heroes.filter(isEnabled),
   minions,
   modularSets: modularSets.reduce(byName, {}),
-  scenarios: scenarios.filter(isEnabled),
+  scenarios: scenarios.filter(isEnabled).map(getVillains),
   mainSchemes: mainSchemes.reduce(byName, {}),
   sideSchemes: sideSchemes.reduce(byName, {}),
   supports: supports.reduce(byName, {}),
@@ -39,6 +50,7 @@ const data = {
   getHero: (key) => heroes.find(byKey(key)),
   getMainScheme: (key) => mainSchemes.find(byKey(key)),
   getMinion: (key) => minions.find(byKey(key)),
+  getScenario: (key) => data.scenarios.find(byKey(key)),
   getSideScheme: (key) => sideSchemes.find(byKey(key)),
 };
 

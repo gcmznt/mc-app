@@ -888,7 +888,7 @@
     "hitPoints": 9,
     "name": "Mystique",
     "status": ["Tough"],
-    "set": "Mystique"
+    "set": ["Mystique", "Rogue Nemesis"]
   },
   {
     "hitPoints": 5,
@@ -1082,5 +1082,48 @@
     "hitPoints": 6,
     "name": "The Shadow King",
     "set": "Shadow King"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Belladonna",
+    "status": ["Tough"],
+    "set": "Gambit Nemesis"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Guild Assassin",
+    "set": "Gambit Nemesis"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Exodus",
+    "set": "Exodus"
+  },
+  {
+    "hitPoints": 6,
+    "name": "Donald Pierce",
+    "set": "Reavers"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Skullbuster",
+    "status": ["Tough"],
+    "set": "Reavers"
+  },
+  {
+    "hitPoints": 5,
+    "name": "Bonebreaker",
+    "status": ["Tough"],
+    "set": "Reavers"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Wade Cole",
+    "set": "Reavers"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Murray Reese",
+    "set": "Reavers"
   }
 ]

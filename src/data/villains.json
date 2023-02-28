@@ -1,0 +1,651 @@
+[
+  {
+    "name": "Rhino",
+    "levels": {
+      "1": "14p",
+      "2": {
+        "complete": "15p",
+        "triggers": {
+          "enter": [{ "event": "enter-scheme", "targets": "Breakin' & Takin'" }]
+        }
+      },
+      "3": {
+        "complete": "16p",
+        "status": ["Tough"],
+        "triggers": {
+          "enter": [
+            {
+              "event": "status-enable",
+              "targets": "*hero",
+              "info": "Stunned"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "Klaw",
+    "levels": {
+      "1": "12p",
+      "2": {
+        "complete": "18p",
+        "triggers": {
+          "enter": [
+            { "event": "enter-scheme", "targets": "The \"Immortal\" Klaw" }
+          ]
+        }
+      },
+      "3": {
+        "complete": "22p",
+        "status": ["Tough"]
+      }
+    }
+  },
+  {
+    "name": "Ultron",
+    "levels": {
+      "1": "17p",
+      "2": "22p",
+      "3": {
+        "complete": "27p",
+        "triggers": {
+          "enter": [
+            { "event": "enter-scheme", "targets": "Ultron's Imperative" }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "Norman Osborn",
+    "bSide": "Green Goblin",
+    "levels": { "1": "14p", "2": "18p", "3": "22p" }
+  },
+  {
+    "name": "Green Goblin",
+    "levels": { "1": "16p", "2": "18p", "3": "20p" }
+  },
+  {
+    "name": "Wrecker",
+    "levels": { "A": "14p", "B": "18p" },
+    "stages": { "expert": ["B"], "standard": ["A"] }
+  },
+  {
+    "name": "Thunderball",
+    "levels": { "A": "13p", "B": "16p" },
+    "stages": { "expert": ["B"], "standard": ["A"] }
+  },
+  {
+    "name": "Piledriver",
+    "levels": { "A": "11p", "B": "14p" },
+    "stages": { "expert": ["B"], "standard": ["A"] }
+  },
+  {
+    "name": "Bulldozer",
+    "levels": { "A": "12p", "B": "15p" },
+    "stages": { "expert": ["B"], "standard": ["A"] }
+  },
+  {
+    "name": "Crossbones",
+    "levels": { "1": "12p", "2": "14p", "3": "16p" }
+  },
+  {
+    "name": "Absorbing Man",
+    "levels": { "1": "14p", "2": "15p", "3": "16p" }
+  },
+  {
+    "name": "Taskmaster",
+    "levels": { "1": "13p", "2": "16p", "3": "17p" }
+  },
+  {
+    "name": "Zola",
+    "levels": {
+      "1": "12p",
+      "2": {
+        "complete": "14p",
+        "triggers": {
+          "enter": [{ "event": "enter-scheme", "targets": "Test Subjects" }]
+        }
+      },
+      "3": "16p"
+    }
+  },
+  {
+    "name": "Red Skull",
+    "levels": { "1": "12p", "2": "16p", "3": "20p" }
+  },
+  {
+    "name": "Kang (The Conqueror)",
+    "levels": {
+      "1": {
+        "complete": "12p",
+        "status": ["Tough"],
+        "triggers": {
+          "complete": [
+            { "event": "disable" },
+            { "event": "disable", "targets": "Kang's Arrival" },
+            { "event": "enter", "targets": "The Master of Time" }
+          ]
+        }
+      },
+      "1 EXP": {
+        "complete": "15p",
+        "status": ["Tough"],
+        "triggers": {
+          "complete": [
+            { "event": "disable" },
+            { "event": "disable", "targets": "Kang's Arrival" },
+            { "event": "enter", "targets": "The Master of Time" }
+          ]
+        }
+      },
+      "Immortus": {
+        "hidden": true,
+        "complete": 18,
+        "next": false,
+        "name": "Kang (Immortus)",
+        "status": ["Tough"],
+        "triggers": {
+          "complete": [
+            { "event": "disable" },
+            { "event": "disable", "targets": "The Chronopolis" },
+            { "event": "increase", "targets": "Stage completed" }
+          ]
+        }
+      },
+      "Iron Lad": {
+        "hidden": true,
+        "complete": 18,
+        "next": false,
+        "name": "Kang (Iron Lad)",
+        "status": ["Tough"],
+        "triggers": {
+          "complete": [
+            { "event": "disable" },
+            { "event": "disable", "targets": "Inexorable Fate" },
+            { "event": "increase", "targets": "Stage completed" }
+          ]
+        }
+      },
+      "Rama-Tut": {
+        "hidden": true,
+        "complete": 18,
+        "next": false,
+        "name": "Kang (Rama-Tut)",
+        "status": ["Tough"],
+        "triggers": {
+          "complete": [
+            { "event": "disable" },
+            { "event": "disable", "targets": "The Realm of Rama-Tut" },
+            { "event": "increase", "targets": "Stage completed" }
+          ]
+        }
+      },
+      "Scarlet Centurion": {
+        "hidden": true,
+        "complete": 18,
+        "next": false,
+        "name": "Kang (Scarlet Centurion)",
+        "status": ["Tough"],
+        "triggers": {
+          "complete": [
+            { "event": "disable" },
+            { "event": "disable", "targets": "The Present Future War" },
+            { "event": "increase", "targets": "Stage completed" }
+          ]
+        }
+      },
+      "Immortus EXP": {
+        "hidden": true,
+        "complete": 22,
+        "next": false,
+        "name": "Kang (Immortus)",
+        "status": ["Tough"],
+        "triggers": {
+          "complete": [
+            { "event": "disable" },
+            { "event": "disable", "targets": "The Chronopolis" },
+            { "event": "increase", "targets": "Stage completed" }
+          ]
+        }
+      },
+      "Iron Lad EXP": {
+        "hidden": true,
+        "complete": 22,
+        "next": false,
+        "name": "Kang (Iron Lad)",
+        "status": ["Tough"],
+        "triggers": {
+          "complete": [
+            { "event": "disable" },
+            { "event": "disable", "targets": "Inexorable Fate" },
+            { "event": "increase", "targets": "Stage completed" }
+          ]
+        }
+      },
+      "Rama-Tut EXP": {
+        "hidden": true,
+        "complete": 22,
+        "next": false,
+        "name": "Kang (Rama-Tut)",
+        "status": ["Tough"],
+        "triggers": {
+          "complete": [
+            { "event": "disable" },
+            { "event": "disable", "targets": "The Realm of Rama-Tut" },
+            { "event": "increase", "targets": "Stage completed" }
+          ]
+        }
+      },
+      "Scarlet Centurion EXP": {
+        "hidden": true,
+        "complete": 22,
+        "next": false,
+        "name": "Kang (Scarlet Centurion)",
+        "status": ["Tough"],
+        "triggers": {
+          "complete": [
+            { "event": "disable" },
+            { "event": "disable", "targets": "The Present Future War" },
+            { "event": "increase", "targets": "Stage completed" }
+          ]
+        }
+      },
+      "3": {
+        "complete": "20p",
+        "hidden": true,
+        "status": ["Tough"],
+        "triggers": {
+          "enter": [
+            { "event": "hide", "targets": "Kang (Immortus)" },
+            { "event": "hide", "targets": "Kang (Iron Lad)" },
+            { "event": "hide", "targets": "Kang (Rama-Tut)" },
+            { "event": "hide", "targets": "Kang (Scarlet Centurion)" },
+            { "event": "hide", "targets": "The Chronopolis" },
+            { "event": "hide", "targets": "Inexorable Fate" },
+            { "event": "hide", "targets": "The Realm of Rama-Tut" },
+            { "event": "hide", "targets": "The Present Future War" }
+          ],
+          "complete": [{ "event": "disable" }]
+        }
+      },
+      "3 EXP": {
+        "complete": "25p",
+        "hidden": true,
+        "status": ["Tough"],
+        "triggers": {
+          "enter": [
+            { "event": "hide", "targets": "Kang (Immortus)" },
+            { "event": "hide", "targets": "Kang (Iron Lad)" },
+            { "event": "hide", "targets": "Kang (Rama-Tut)" },
+            { "event": "hide", "targets": "Kang (Scarlet Centurion)" },
+            { "event": "hide", "targets": "The Chronopolis" },
+            { "event": "hide", "targets": "Inexorable Fate" },
+            { "event": "hide", "targets": "The Realm of Rama-Tut" },
+            { "event": "hide", "targets": "The Present Future War" }
+          ],
+          "complete": [{ "event": "disable" }]
+        }
+      }
+    },
+    "stages": {
+      "expert": [
+        "1 EXP",
+        "Immortus EXP",
+        "Iron Lad EXP",
+        "Rama-Tut EXP",
+        "Scarlet Centurion EXP",
+        "3 EXP"
+      ],
+      "standard": [
+        1,
+        "Immortus",
+        "Iron Lad",
+        "Rama-Tut",
+        "Scarlet Centurion",
+        3
+      ]
+    }
+  },
+  {
+    "name": "Drang",
+    "levels": { "1": "13p", "2": "14p", "3": "18p" }
+  },
+  {
+    "name": "Collector",
+    "levels": {
+      "1": "13p",
+      "2": "14p",
+      "3": {
+        "complete": "18p",
+        "triggers": {
+          "enter": [
+            {
+              "event": "increase",
+              "targets": "The Collection",
+              "value": "1p"
+            },
+            {
+              "event": "increase-from",
+              "targets": "The Grand Collection",
+              "value": "The Collection"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "key": "Collector 2",
+    "name": "Collector",
+    "levels": {
+      "A": {
+        "complete": "8p",
+        "triggers": {
+          "complete": [
+            {
+              "event": "decrease",
+              "targets": "The Missing Milano",
+              "value": "3p"
+            },
+            { "event": "lock" },
+            { "event": "reset", "when": "new-round" },
+            { "event": "unlock", "when": "new-round" }
+          ]
+        }
+      },
+      "B": {
+        "complete": "10p",
+        "triggers": {
+          "complete": [
+            {
+              "event": "decrease",
+              "targets": "The Missing Milano",
+              "value": "3p"
+            },
+            { "event": "lock" },
+            { "event": "reset", "when": "new-round" },
+            { "event": "unlock", "when": "new-round" }
+          ]
+        }
+      }
+    },
+    "stages": { "expert": ["B"], "standard": ["A"] }
+  },
+  {
+    "name": "Nebula",
+    "counters": [
+      {
+        "name": "Nebula's Ship",
+        "type": "acceleration",
+        "complete": -1,
+        "triggers": { "new-phase": [{ "event": "increase" }] }
+      }
+    ],
+    "levels": { "1": "14p", "2": "17p", "3": "20p" }
+  },
+  {
+    "name": "Ronan the Accuser",
+    "levels": {
+      "1": {
+        "complete": "14p",
+        "status": ["Tough"]
+      },
+      "2": {
+        "complete": "18p",
+        "status": ["Tough"],
+        "triggers": {
+          "enter": [{ "event": "enter-scheme", "targets": "Cut the Power" }]
+        }
+      },
+      "3": {
+        "complete": "25p",
+        "status": ["Tough"],
+        "triggers": {
+          "enter": [{ "event": "enter-scheme", "targets": "Superior Tactics" }]
+        }
+      }
+    }
+  },
+  {
+    "name": "Ebony Maw",
+    "levels": { "1": "14p", "2": "18p", "3": "23p" }
+  },
+  {
+    "name": "Proxima Midnight",
+    "levels": { "1": "9p", "2": "12p", "3": "15p" }
+  },
+  {
+    "name": "Corvus Glaive",
+    "levels": { "1": "8p", "2": "11p", "3": "14p" }
+  },
+  {
+    "name": "Thanos",
+    "levels": {
+      "1": "16p",
+      "2": { "complete": "23p", "status": ["Tough"] },
+      "3": { "complete": "28p", "status": ["Tough"] }
+    }
+  },
+  {
+    "name": "Hela",
+    "levels": { "A": "8p", "B": "9p" },
+    "stages": { "expert": ["B"], "standard": ["A"] }
+  },
+  {
+    "name": "Loki",
+    "levels": { "1": "20p" },
+    "stages": { "expert": [1], "standard": [1] }
+  },
+  {
+    "name": "The Hood",
+    "levels": { "1": "14p", "2": "16p", "3": "18p" }
+  },
+  {
+    "name": "Sandman",
+    "levels": { "1": "16p", "2": "18p", "3": "19p" }
+  },
+  {
+    "name": "Venom",
+    "levels": {
+      "1": { "complete": "17p", "status": ["Tough"] },
+      "2": { "complete": "18p", "status": ["Tough"] },
+      "3": { "complete": "20p", "status": ["Tough"] }
+    }
+  },
+  {
+    "name": "Mysterio",
+    "levels": { "1": "15p", "2": "17p", "3": "16p" }
+  },
+  {
+    "name": "Doctor Octopus",
+    "levels": {
+      "1": {
+        "complete": "8",
+        "locked": true,
+        "triggers": {
+          "complete": [{ "event": "lock" }, { "event": "reset" }]
+        }
+      }
+    },
+    "stages": { "expert": [1], "standard": [1] }
+  },
+  {
+    "name": "Electro",
+    "levels": {
+      "1": {
+        "complete": "8",
+        "locked": true,
+        "triggers": {
+          "complete": [{ "event": "lock" }, { "event": "reset" }]
+        }
+      }
+    },
+    "stages": { "expert": [1], "standard": [1] }
+  },
+  {
+    "name": "Hobgoblin",
+    "levels": {
+      "1": {
+        "complete": "9",
+        "locked": true,
+        "triggers": {
+          "complete": [{ "event": "lock" }, { "event": "reset" }]
+        }
+      }
+    },
+    "stages": { "expert": [1], "standard": [1] }
+  },
+  {
+    "name": "Kraven the Hunter",
+    "levels": {
+      "1": {
+        "complete": "9",
+        "locked": true,
+        "triggers": {
+          "complete": [{ "event": "lock" }, { "event": "reset" }]
+        }
+      }
+    },
+    "stages": { "expert": [1], "standard": [1] }
+  },
+  {
+    "name": "Scorpion",
+    "levels": {
+      "1": {
+        "complete": "10",
+        "locked": true,
+        "triggers": {
+          "complete": [{ "event": "lock" }, { "event": "reset" }]
+        }
+      }
+    },
+    "stages": { "expert": [1], "standard": [1] }
+  },
+  {
+    "name": "Vulture",
+    "levels": {
+      "1": {
+        "complete": "7",
+        "locked": true,
+        "triggers": {
+          "complete": [{ "event": "lock" }, { "event": "reset" }]
+        }
+      }
+    },
+    "stages": { "expert": [1], "standard": [1] }
+  },
+  {
+    "name": "Venom Goblin",
+    "levels": {
+      "1": { "complete": "16p" },
+      "2": { "complete": "18p", "status": ["Tough"] },
+      "3": { "complete": "21p", "status": ["Tough"] }
+    }
+  },
+  {
+    "name": "Sabretooth",
+    "levels": {
+      "1": "13p",
+      "2": { "complete": "15p", "status": ["Tough"] },
+      "3": { "complete": "18p", "status": ["Tough"] }
+    }
+  },
+  {
+    "name": "Sentinel",
+    "levels": {
+      "1": { "complete": "16p", "status": ["Tough"] },
+      "2": { "complete": "18p", "status": ["Tough"] },
+      "3": { "complete": "22p", "status": ["Tough"] }
+    }
+  },
+  {
+    "name": "Master Mold",
+    "levels": {
+      "1": { "complete": "12p", "status": ["Tough"] },
+      "2": { "complete": "14p", "status": ["Tough"] },
+      "3": { "complete": "16p", "status": ["Tough"] }
+    }
+  },
+  {
+    "name": "Avalanche",
+    "levels": {
+      "A": { "complete": "15p", "locked": true, "status": ["Tough"] },
+      "B": { "complete": "18p", "locked": true, "status": ["Tough"] }
+    },
+    "stages": { "expert": ["B"], "standard": ["A"] }
+  },
+  {
+    "name": "Blob",
+    "levels": {
+      "A": { "complete": "16p", "locked": true, "status": ["Tough"] },
+      "B": { "complete": "19p", "locked": true, "status": ["Tough"] }
+    },
+    "stages": { "expert": ["B"], "standard": ["A"] }
+  },
+  {
+    "name": "Pyro",
+    "levels": {
+      "A": { "complete": "14p", "locked": true, "status": ["Tough"] },
+      "B": { "complete": "17p", "locked": true, "status": ["Tough"] }
+    },
+    "stages": { "expert": ["B"], "standard": ["A"] }
+  },
+  {
+    "name": "Toad",
+    "levels": {
+      "A": { "complete": "13p", "locked": true, "status": ["Tough"] },
+      "B": { "complete": "16p", "locked": true, "status": ["Tough"] }
+    },
+    "stages": { "expert": ["B"], "standard": ["A"] }
+  },
+  {
+    "name": "Magneto",
+    "levels": {
+      "1": { "complete": "18p", "status": ["Tough"] },
+      "2": { "complete": "20p", "status": ["Tough"] },
+      "3": { "complete": "22p", "status": ["Tough"] }
+    }
+  },
+  {
+    "name": "MaGog",
+    "levels": {
+      "A": {
+        "complete": "10p",
+        "triggers": {
+          "complete": [
+            {
+              "event": "increase",
+              "targets": "The Challengers",
+              "value": "3p"
+            },
+            { "event": "reset" }
+          ]
+        }
+      },
+      "B": {
+        "complete": "10p",
+        "triggers": {
+          "complete": [
+            {
+              "event": "increase",
+              "targets": "The Challengers",
+              "value": "2p"
+            },
+            { "event": "reset" }
+          ]
+        }
+      }
+    },
+    "stages": { "expert": ["B"], "standard": ["A"] }
+  },
+  {
+    "name": "Spiral",
+    "levels": { "1": "13p", "2": "15p", "3": "17p" }
+  },
+  {
+    "name": "Mojo",
+    "levels": { "1": "16p", "2": "18p", "3": "25p" }
+  }
+]

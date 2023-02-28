@@ -2,6 +2,7 @@
   "Add thread": "+{count} thread{count, plural, =1 {} other {s}}",
   "Add type Counter": "Add {type}",
   "Counter created": "{type} created",
+  "Create counter type": "Create {type}",
   "custom": "Custom",
   "Decrease": "-{count} token{count, plural, =1 {} other {s}}",
   "Decreased limit": "Decreased limit{count, plural, =1 {} other { × #}}",

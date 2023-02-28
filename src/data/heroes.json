@@ -334,20 +334,18 @@
     "nemesisSchemes": ["Leader of the Morlocks"]
   },
   {
-    "disabled": true,
     "alterEgo": "Remy LeBeau",
     "aspects": ["Justice"],
     "counters": [{ "name": "Charge counters" }],
     "hitPoints": 9,
     "name": "Gambit",
-    "nemesisSchemes": []
+    "nemesisSchemes": ["The Assassins Guild"]
   },
   {
-    "disabled": true,
     "alterEgo": "Anna Marie",
     "aspects": ["Protection"],
     "hitPoints": 11,
     "name": "Rogue",
-    "nemesisSchemes": []
+    "nemesisSchemes": ["Mystique's Manipulations"]
   }
 ]

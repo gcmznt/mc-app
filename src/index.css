@@ -99,6 +99,8 @@ legend {
 }
 
 .is-extra,
+.is-upgrade,
+.is-support,
 .is-confused {
   --color-accent: var(--c-purple);
   --color-accent-contrast: #fff;
@@ -129,6 +131,11 @@ form {
 form footer {
   display: flex;
   align-items: center;
+  margin: 0.6em 0;
+}
+
+form footer input {
+  width: 100%;
 }
 
 input[type="text"],

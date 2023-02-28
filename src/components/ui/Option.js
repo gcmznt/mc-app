@@ -8,13 +8,18 @@ export default function Option({
   disabled = false,
   flag,
   label,
+  mod,
   onChange,
   type = "checkbox",
   value,
   variant = false,
 }) {
   const { t } = useTranslation();
-  const classList = ["option", variant && `option--${variant}`];
+  const classList = [
+    "option",
+    variant && `option--${variant}`,
+    mod && `is-${mod}`,
+  ];
 
   return (
     <label className={getClassName(classList)}>

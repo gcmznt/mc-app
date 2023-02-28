@@ -3,68 +3,13 @@
     "mainScheme": ["The Break In!"],
     "modular": ["Bomb Scare"],
     "name": "Rhino",
-    "pack": "Core Set",
-    "sideSchemes": ["Breakin' & Takin'", "Crowd Control"],
-    "villains": [
-      {
-        "levels": {
-          "1": "14p",
-          "2": {
-            "complete": "15p",
-            "triggers": {
-              "enter": [
-                { "event": "enter-scheme", "targets": "Breakin' & Takin'" }
-              ]
-            }
-          },
-          "3": {
-            "complete": "16p",
-            "status": ["Tough"],
-            "triggers": {
-              "enter": [
-                {
-                  "event": "status-enable",
-                  "targets": "*hero",
-                  "info": "Stunned"
-                }
-              ]
-            }
-          }
-        },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "Core Set"
   },
   {
     "mainScheme": ["Underground Distribution", "Secret Rendezvous"],
     "modular": ["Masters of Evil"],
     "name": "Klaw",
-    "pack": "Core Set",
-    "sideSchemes": [
-      "Defense Network",
-      "Illegal Arms Factory",
-      "The \"Immortal\" Klaw"
-    ],
-    "villains": [
-      {
-        "levels": {
-          "1": "12p",
-          "2": {
-            "complete": "18p",
-            "triggers": {
-              "enter": [
-                { "event": "enter-scheme", "targets": "The \"Immortal\" Klaw" }
-              ]
-            }
-          },
-          "3": {
-            "complete": "22p",
-            "status": ["Tough"]
-          }
-        },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "Core Set"
   },
   {
     "mainScheme": [
@@ -74,99 +19,26 @@
     ],
     "modular": ["Under Attack"],
     "name": "Ultron",
-    "pack": "Core Set",
-    "sideSchemes": ["Drone Factory", "Invasive AI", "Ultron's Imperative"],
-    "villains": [
-      {
-        "levels": {
-          "1": "17p",
-          "2": "22p",
-          "3": {
-            "complete": "27p",
-            "triggers": {
-              "enter": [
-                { "event": "enter-scheme", "targets": "Ultron's Imperative" }
-              ]
-            }
-          }
-        },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "Core Set"
   },
   {
     "mainScheme": ["Hostile Takeover", "Corporate Acquisition"],
     "modular": ["Goblin Gimmicks"],
     "name": "Risky Business",
     "pack": "Green Goblin",
-    "sideSchemes": [
-      "Collapsing Bridge",
-      "Oscorp Manufacturing",
-      "Oscorp Manufacturing",
-      "Payoff",
-      "Payoff"
-    ],
-    "villains": [
-      {
-        "levels": { "1": "14p", "2": "18p", "3": "22p" },
-        "name": "Norman Osborn",
-        "bSide": "Green Goblin",
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "villains": ["Norman Osborn"]
   },
   {
     "mainScheme": ["Unleashing the Mutagen", "Mutagen Cloud"],
     "modular": ["Goblin Gimmicks"],
     "name": "Mutagen Formula",
     "pack": "Green Goblin",
-    "sideSchemes": [
-      "Goblin Reinforcements",
-      "Goblin Reinforcements",
-      "Goblin Nation",
-      "Overrun",
-      "Overrun"
-    ],
-    "villains": [
-      {
-        "levels": { "1": "16p", "2": "18p", "3": "20p" },
-        "name": "Green Goblin",
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "villains": ["Green Goblin"]
   },
   {
     "mainScheme": ["Breakout"],
-    "modular": [],
     "name": "The Wrecking Crew",
-    "sideSchemes": [
-      "Day of Reckoning",
-      "Thunderstruck",
-      "Pile It On!",
-      "Clear the Road"
-    ],
-    "villains": [
-      {
-        "levels": { "A": "14p", "B": "18p" },
-        "name": "Wrecker",
-        "stages": { "expert": ["B"], "standard": ["A"] }
-      },
-      {
-        "levels": { "A": "13p", "B": "16p" },
-        "name": "Thunderball",
-        "stages": { "expert": ["B"], "standard": ["A"] }
-      },
-      {
-        "levels": { "A": "11p", "B": "14p" },
-        "name": "Piledriver",
-        "stages": { "expert": ["B"], "standard": ["A"] }
-      },
-      {
-        "levels": { "A": "12p", "B": "15p" },
-        "name": "Bulldozer",
-        "stages": { "expert": ["B"], "standard": ["A"] }
-      }
-    ]
+    "villains": ["Wrecker", "Thunderball", "Piledriver", "Bulldozer"]
   },
   {
     "encounter": ["Experimental Weapon"],
@@ -177,98 +49,32 @@
     ],
     "modular": ["Hydra Patrol", "Weapon Master", "Legions of Hydra"],
     "name": "Crossbones",
-    "pack": "The Rise of Red Skull",
-    "sideSchemes": [
-      "Crossbones' Assault",
-      "Crossbones' Assault",
-      "Cornered Staff"
-    ],
-    "villains": [
-      {
-        "levels": { "1": "12p", "2": "14p", "3": "16p" },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "The Rise of Red Skull"
   },
   {
     "mainScheme": ["None Shall Pass"],
     "modular": ["Hydra Patrol"],
     "name": "Absorbing Man",
-    "pack": "The Rise of Red Skull",
-    "sideSchemes": ["Avalanche!", "Avalanche!", "Super Absorbing Power"],
-    "villains": [
-      {
-        "levels": { "1": "14p", "2": "15p", "3": "16p" },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "The Rise of Red Skull"
   },
   {
     "encounter": ["Hydra Patrol"],
     "mainScheme": ["Hunting Down Heroes"],
     "modular": ["Weapon Master"],
     "name": "Taskmaster",
-    "pack": "The Rise of Red Skull",
-    "sideSchemes": [
-      "Captured by Hydra",
-      "Captured by Hydra",
-      "Captured by Hydra",
-      "Captured by Hydra",
-      "Taskmaster's Training Camp"
-    ],
-    "villains": [
-      {
-        "levels": { "1": "13p", "2": "16p", "3": "17p" },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "The Rise of Red Skull"
   },
   {
     "mainScheme": ["The Island of Dr. Zola", "The Mad Doctor"],
     "modular": ["Under Attack"],
     "name": "Zola",
-    "pack": "The Rise of Red Skull",
-    "sideSchemes": [
-      "Hydra Prison",
-      "Test Subjects",
-      "Test Subjects",
-      "Zola's Experiments"
-    ],
-    "villains": [
-      {
-        "levels": {
-          "1": "12p",
-          "2": {
-            "complete": "14p",
-            "triggers": {
-              "enter": [{ "event": "enter-scheme", "targets": "Test Subjects" }]
-            }
-          },
-          "3": "16p"
-        },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "The Rise of Red Skull"
   },
   {
     "mainScheme": ["The Rise of Red Skull", "New World Hydra"],
     "modular": ["Hydra Assault", "Hydra Patrol"],
     "name": "Red Skull",
-    "pack": "The Rise of Red Skull",
-    "sideSchemes": [
-      "The Red House",
-      "The Sleeper Awakened",
-      "Prison Camps",
-      "Censor the Past",
-      "Hydra Reinforcements",
-      "Mass Chaos"
-    ],
-    "villains": [
-      {
-        "levels": { "1": "12p", "2": "16p", "3": "20p" },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "The Rise of Red Skull"
   },
   {
     "mainScheme": [
@@ -282,211 +88,7 @@
     ],
     "modular": ["Temporal"],
     "name": "The Once and Future Kang",
-    "sideSchemes": [
-      "Corrupted Timestream",
-      "Kang's Dominion",
-      "Kang's Dominion",
-      "Kang's Dominion",
-      "Kang's Dominion",
-      "Pinned Down",
-      "Rampage",
-      "Rampage"
-    ],
-    "villains": [
-      {
-        "levels": {
-          "1": {
-            "complete": "12p",
-            "status": ["Tough"],
-            "triggers": {
-              "complete": [
-                { "event": "disable" },
-                { "event": "disable", "targets": "Kang's Arrival" },
-                { "event": "enter", "targets": "The Master of Time" }
-              ]
-            }
-          },
-          "1 EXP": {
-            "complete": "15p",
-            "status": ["Tough"],
-            "triggers": {
-              "complete": [
-                { "event": "disable" },
-                { "event": "disable", "targets": "Kang's Arrival" },
-                { "event": "enter", "targets": "The Master of Time" }
-              ]
-            }
-          },
-          "Immortus": {
-            "hidden": true,
-            "complete": 18,
-            "next": false,
-            "name": "Kang (Immortus)",
-            "status": ["Tough"],
-            "triggers": {
-              "complete": [
-                { "event": "disable" },
-                { "event": "disable", "targets": "The Chronopolis" },
-                { "event": "increase", "targets": "Stage completed" }
-              ]
-            }
-          },
-          "Iron Lad": {
-            "hidden": true,
-            "complete": 18,
-            "next": false,
-            "name": "Kang (Iron Lad)",
-            "status": ["Tough"],
-            "triggers": {
-              "complete": [
-                { "event": "disable" },
-                { "event": "disable", "targets": "Inexorable Fate" },
-                { "event": "increase", "targets": "Stage completed" }
-              ]
-            }
-          },
-          "Rama-Tut": {
-            "hidden": true,
-            "complete": 18,
-            "next": false,
-            "name": "Kang (Rama-Tut)",
-            "status": ["Tough"],
-            "triggers": {
-              "complete": [
-                { "event": "disable" },
-                { "event": "disable", "targets": "The Realm of Rama-Tut" },
-                { "event": "increase", "targets": "Stage completed" }
-              ]
-            }
-          },
-          "Scarlet Centurion": {
-            "hidden": true,
-            "complete": 18,
-            "next": false,
-            "name": "Kang (Scarlet Centurion)",
-            "status": ["Tough"],
-            "triggers": {
-              "complete": [
-                { "event": "disable" },
-                { "event": "disable", "targets": "The Present Future War" },
-                { "event": "increase", "targets": "Stage completed" }
-              ]
-            }
-          },
-          "Immortus EXP": {
-            "hidden": true,
-            "complete": 22,
-            "next": false,
-            "name": "Kang (Immortus)",
-            "status": ["Tough"],
-            "triggers": {
-              "complete": [
-                { "event": "disable" },
-                { "event": "disable", "targets": "The Chronopolis" },
-                { "event": "increase", "targets": "Stage completed" }
-              ]
-            }
-          },
-          "Iron Lad EXP": {
-            "hidden": true,
-            "complete": 22,
-            "next": false,
-            "name": "Kang (Iron Lad)",
-            "status": ["Tough"],
-            "triggers": {
-              "complete": [
-                { "event": "disable" },
-                { "event": "disable", "targets": "Inexorable Fate" },
-                { "event": "increase", "targets": "Stage completed" }
-              ]
-            }
-          },
-          "Rama-Tut EXP": {
-            "hidden": true,
-            "complete": 22,
-            "next": false,
-            "name": "Kang (Rama-Tut)",
-            "status": ["Tough"],
-            "triggers": {
-              "complete": [
-                { "event": "disable" },
-                { "event": "disable", "targets": "The Realm of Rama-Tut" },
-                { "event": "increase", "targets": "Stage completed" }
-              ]
-            }
-          },
-          "Scarlet Centurion EXP": {
-            "hidden": true,
-            "complete": 22,
-            "next": false,
-            "name": "Kang (Scarlet Centurion)",
-            "status": ["Tough"],
-            "triggers": {
-              "complete": [
-                { "event": "disable" },
-                { "event": "disable", "targets": "The Present Future War" },
-                { "event": "increase", "targets": "Stage completed" }
-              ]
-            }
-          },
-          "3": {
-            "complete": "20p",
-            "hidden": true,
-            "status": ["Tough"],
-            "triggers": {
-              "enter": [
-                { "event": "hide", "targets": "Kang (Immortus)" },
-                { "event": "hide", "targets": "Kang (Iron Lad)" },
-                { "event": "hide", "targets": "Kang (Rama-Tut)" },
-                { "event": "hide", "targets": "Kang (Scarlet Centurion)" },
-                { "event": "hide", "targets": "The Chronopolis" },
-                { "event": "hide", "targets": "Inexorable Fate" },
-                { "event": "hide", "targets": "The Realm of Rama-Tut" },
-                { "event": "hide", "targets": "The Present Future War" }
-              ],
-              "complete": [{ "event": "disable" }]
-            }
-          },
-          "3 EXP": {
-            "complete": "25p",
-            "hidden": true,
-            "status": ["Tough"],
-            "triggers": {
-              "enter": [
-                { "event": "hide", "targets": "Kang (Immortus)" },
-                { "event": "hide", "targets": "Kang (Iron Lad)" },
-                { "event": "hide", "targets": "Kang (Rama-Tut)" },
-                { "event": "hide", "targets": "Kang (Scarlet Centurion)" },
-                { "event": "hide", "targets": "The Chronopolis" },
-                { "event": "hide", "targets": "Inexorable Fate" },
-                { "event": "hide", "targets": "The Realm of Rama-Tut" },
-                { "event": "hide", "targets": "The Present Future War" }
-              ],
-              "complete": [{ "event": "disable" }]
-            }
-          }
-        },
-        "stages": {
-          "expert": [
-            "1 EXP",
-            "Immortus EXP",
-            "Iron Lad EXP",
-            "Rama-Tut EXP",
-            "Scarlet Centurion EXP",
-            "3 EXP"
-          ],
-          "standard": [
-            1,
-            "Immortus",
-            "Iron Lad",
-            "Rama-Tut",
-            "Scarlet Centurion",
-            3
-          ]
-        },
-        "name": "Kang (The Conqueror)"
-      }
-    ]
+    "villains": ["Kang (The Conqueror)"]
   },
   {
     "encounter": ["Ship Command"],
@@ -494,19 +96,7 @@
     "modular": ["Band of Badoon"],
     "name": "Brotherhood of Badoon",
     "pack": "Galaxy’s Most Wanted",
-    "sideSchemes": [
-      "Blockade",
-      "Bombardment",
-      "Oppressive Armada",
-      "Spatial Positioning"
-    ],
-    "villains": [
-      {
-        "levels": { "1": "13p", "2": "14p", "3": "18p" },
-        "name": "Drang",
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "villains": ["Drang"]
   },
   {
     "encounter": ["Galactic Artifacts"],
@@ -514,34 +104,7 @@
     "modular": ["Menagerie Medley"],
     "name": "Infiltrate the Museum",
     "pack": "Galaxy’s Most Wanted",
-    "sideSchemes": [],
-    "villains": [
-      {
-        "levels": {
-          "1": "13p",
-          "2": "14p",
-          "3": {
-            "complete": "18p",
-            "triggers": {
-              "enter": [
-                {
-                  "event": "increase",
-                  "targets": "The Collection",
-                  "value": "1p"
-                },
-                {
-                  "event": "increase-from",
-                  "targets": "The Grand Collection",
-                  "value": "The Collection"
-                }
-              ]
-            }
-          }
-        },
-        "name": "Collector",
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "villains": ["Collector"]
   },
   {
     "encounter": ["Galactic Artifacts", "Ship Command"],
@@ -553,195 +116,56 @@
     "modular": ["Menagerie Medley"],
     "name": "Escape the Museum",
     "pack": "Galaxy’s Most Wanted",
-    "sideSchemes": [],
-    "villains": [
-      {
-        "levels": {
-          "A": {
-            "complete": "8p",
-            "triggers": {
-              "complete": [
-                {
-                  "event": "decrease",
-                  "targets": "The Missing Milano",
-                  "value": "3p"
-                },
-                { "event": "lock" },
-                { "event": "reset", "when": "new-round" },
-                { "event": "unlock", "when": "new-round" }
-              ]
-            }
-          },
-          "B": {
-            "complete": "10p",
-            "triggers": {
-              "complete": [
-                {
-                  "event": "decrease",
-                  "targets": "The Missing Milano",
-                  "value": "3p"
-                },
-                { "event": "lock" },
-                { "event": "reset", "when": "new-round" },
-                { "event": "unlock", "when": "new-round" }
-              ]
-            }
-          }
-        },
-        "name": "Collector",
-        "stages": { "expert": ["B"], "standard": ["A"] }
-      }
-    ]
+    "villains": ["Collector 2"]
   },
   {
     "encounter": ["Power Stone", "Ship Command"],
     "mainScheme": ["The Art of Evasion", "Warp Drive Initiated"],
     "modular": ["Space Pirates"],
     "name": "Nebula",
-    "pack": "Galaxy’s Most Wanted",
-    "sideSchemes": ["Lethal Intent", "Lethal Intent"],
-    "villains": [
-      {
-        "counters": [
-          {
-            "name": "Nebula's Ship",
-            "type": "acceleration",
-            "complete": -1,
-            "triggers": { "new-phase": [{ "event": "increase" }] }
-          }
-        ],
-        "levels": { "1": "14p", "2": "17p", "3": "20p" },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "Galaxy’s Most Wanted"
   },
   {
     "encounter": ["Power Stone", "Ship Command"],
     "mainScheme": ["Interception Imminent", "\"Take What Is Mine\""],
     "modular": ["Kree Militants"],
     "name": "Ronan the Accuser",
-    "pack": "Galaxy’s Most Wanted",
-    "sideSchemes": [
-      "Cut the Power",
-      "Pincer Maneuver",
-      "Pincer Maneuver",
-      "Superior Tactics"
-    ],
-    "villains": [
-      {
-        "levels": {
-          "1": {
-            "complete": "14p",
-            "status": ["Tough"]
-          },
-          "2": {
-            "complete": "18p",
-            "status": ["Tough"],
-            "triggers": {
-              "enter": [{ "event": "enter-scheme", "targets": "Cut the Power" }]
-            }
-          },
-          "3": {
-            "complete": "25p",
-            "status": ["Tough"],
-            "triggers": {
-              "enter": [
-                { "event": "enter-scheme", "targets": "Superior Tactics" }
-              ]
-            }
-          }
-        },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "Galaxy’s Most Wanted"
   },
   {
-    "encounter": [],
     "mainScheme": ["Attack on Knowhere", "The Power Stone"],
     "modular": ["Armies of Titan", "The Black Order"],
     "name": "Ebony Maw",
-    "pack": "The Mad Titan’s Shadow",
-    "sideSchemes": ["Reactor Overload", "Reactor Overload"],
-    "villains": [
-      {
-        "levels": { "1": "14p", "2": "18p", "3": "23p" },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "The Mad Titan’s Shadow"
   },
   {
-    "encounter": [],
     "mainScheme": ["Under Siege", "The Armies of Thanos"],
     "modular": ["Armies of Titan"],
     "name": "Tower Defense",
     "pack": "The Mad Titan’s Shadow",
-    "sideSchemes": ["City Under Attack", "City Under Attack"],
-    "villains": [
-      {
-        "levels": { "1": "9p", "2": "12p", "3": "15p" },
-        "name": "Proxima Midnight",
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      },
-      {
-        "levels": { "1": "8p", "2": "11p", "3": "14p" },
-        "name": "Corvus Glaive",
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "villains": ["Proxima Midnight", "Corvus Glaive"]
   },
   {
     "encounter": ["Infinity Gauntlet"],
     "mainScheme": ["The Infinity Stones", "Balance the Scales"],
     "modular": ["The Black Order", "Children of Thanos"],
     "name": "Thanos",
-    "pack": "The Mad Titan’s Shadow",
-    "sideSchemes": ["Sanctuary", "The Titan's Throne"],
-    "villains": [
-      {
-        "levels": {
-          "1": "16p",
-          "2": { "complete": "23p", "status": ["Tough"] },
-          "3": { "complete": "28p", "status": ["Tough"] }
-        },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "The Mad Titan’s Shadow"
   },
   {
-    "encounter": [],
     "mainScheme": ["Odin's Torment"],
     "modular": ["Legions of Hel", "Frost Giants"],
     "name": "Hela",
-    "pack": "The Mad Titan’s Shadow",
-    "sideSchemes": ["Gnipahellir", "Hall of Nastrond", "Gjallerbru"],
-    "villains": [
-      {
-        "levels": { "A": "8p", "B": "9p" },
-        "stages": { "expert": ["B"], "standard": ["A"] }
-      }
-    ]
+    "pack": "The Mad Titan’s Shadow"
   },
   {
     "encounter": ["Infinity Gauntlet"],
     "mainScheme": ["All Hail King Loki"],
     "modular": ["Enchantress", "Frost Giants"],
     "name": "Loki",
-    "pack": "The Mad Titan’s Shadow",
-    "sideSchemes": [
-      "Open the Bifrost",
-      "Madness on Midgard",
-      "War in Asgard",
-      "Casket of Ancient Winters"
-    ],
-    "villains": [
-      {
-        "levels": { "1": "20p" },
-        "stages": { "expert": [1], "standard": [1] }
-      }
-    ]
+    "pack": "The Mad Titan’s Shadow"
   },
   {
-    "encounter": [],
     "mainScheme": ["Making Connections", "Promised Prosperity", "Crime State"],
     "modular": [
       "Beasty Boys",
@@ -752,151 +176,41 @@
       "State of Emergency",
       "Streets of Mayhem"
     ],
-    "name": "The Hood",
-    "sideSchemes": ["Unbridled Ambition"],
-    "villains": [
-      {
-        "levels": { "1": "14p", "2": "16p", "3": "18p" },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "name": "The Hood"
   },
   {
     "encounter": ["City in Chaos"],
     "mainScheme": ["Hapless Pedestrians"],
     "modular": ["Down to Earth"],
     "name": "Sandman",
-    "pack": "Sinister Motives",
-    "sideSchemes": ["Dirt Trap", "Dirt Trap", "Tidal Sands"],
-    "villains": [
-      {
-        "levels": { "1": "16p", "2": "18p", "3": "19p" },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "Sinister Motives"
   },
   {
     "encounter": ["Symbiotic Strength"],
     "mainScheme": ["\"Leave Us Alone!\""],
     "modular": ["Down to Earth"],
     "name": "Venom",
-    "pack": "Sinister Motives",
-    "sideSchemes": ["Guard the Bell Tower", "Lashing Out", "Tooth and Nail"],
-    "villains": [
-      {
-        "levels": {
-          "1": { "complete": "17p", "status": ["Tough"] },
-          "2": { "complete": "18p", "status": ["Tough"] },
-          "3": { "complete": "20p", "status": ["Tough"] }
-        },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "Sinister Motives"
   },
   {
     "encounter": ["Personal Nightmare"],
     "mainScheme": ["Maze of Mirrors", "Edge of Reality"],
     "modular": ["Whispers of Paranoia"],
     "name": "Mysterio",
-    "pack": "Sinister Motives",
-    "sideSchemes": [],
-    "villains": [
-      {
-        "levels": { "1": "15p", "2": "17p", "3": "16p" },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "Sinister Motives"
   },
   {
     "encounter": ["Guerilla Tactics"],
     "mainScheme": ["Sinister Synchronization", "Sinister Beatdown"],
-    "modular": [],
     "name": "Sinister Six",
     "pack": "Sinister Motives",
-    "sideSchemes": [
-      "Brute Force Barricade",
-      "Light at the End: Trap!",
-      "Light at the End: Chase!"
-    ],
     "villains": [
-      {
-        "levels": {
-          "1": {
-            "complete": "8",
-            "locked": true,
-            "triggers": {
-              "complete": [{ "event": "lock" }, { "event": "reset" }]
-            }
-          }
-        },
-        "name": "Doctor Octopus",
-        "stages": { "expert": [1], "standard": [1] }
-      },
-      {
-        "levels": {
-          "1": {
-            "complete": "8",
-            "locked": true,
-            "triggers": {
-              "complete": [{ "event": "lock" }, { "event": "reset" }]
-            }
-          }
-        },
-        "name": "Electro",
-        "stages": { "expert": [1], "standard": [1] }
-      },
-      {
-        "levels": {
-          "1": {
-            "complete": "9",
-            "locked": true,
-            "triggers": {
-              "complete": [{ "event": "lock" }, { "event": "reset" }]
-            }
-          }
-        },
-        "name": "Hobgoblin",
-        "stages": { "expert": [1], "standard": [1] }
-      },
-      {
-        "levels": {
-          "1": {
-            "complete": "9",
-            "locked": true,
-            "triggers": {
-              "complete": [{ "event": "lock" }, { "event": "reset" }]
-            }
-          }
-        },
-        "name": "Kraven the Hunter",
-        "stages": { "expert": [1], "standard": [1] }
-      },
-      {
-        "levels": {
-          "1": {
-            "complete": "10",
-            "locked": true,
-            "triggers": {
-              "complete": [{ "event": "lock" }, { "event": "reset" }]
-            }
-          }
-        },
-        "name": "Scorpion",
-        "stages": { "expert": [1], "standard": [1] }
-      },
-      {
-        "levels": {
-          "1": {
-            "complete": "7",
-            "locked": true,
-            "triggers": {
-              "complete": [{ "event": "lock" }, { "event": "reset" }]
-            }
-          }
-        },
-        "name": "Vulture",
-        "stages": { "expert": [1], "standard": [1] }
-      }
+      "Doctor Octopus",
+      "Electro",
+      "Hobgoblin",
+      "Kraven the Hunter",
+      "Scorpion",
+      "Vulture"
     ]
   },
   {
@@ -909,37 +223,13 @@
     ],
     "modular": ["Goblin Gear"],
     "name": "Venom Goblin",
-    "pack": "Sinister Motives",
-    "sideSchemes": ["Festering Mass", "Joy Ride"],
-    "villains": [
-      {
-        "levels": {
-          "1": { "complete": "16p" },
-          "2": { "complete": "18p", "status": ["Tough"] },
-          "3": { "complete": "21p", "status": ["Tough"] }
-        },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "Sinister Motives"
   },
-
   {
-    "encounter": [],
     "mainScheme": ["Stalked by Sabretooth", "The Injured Senator"],
     "modular": ["Mystique", "Brotherhood"],
     "name": "Sabretooth",
-    "pack": "Mutant Genesis",
-    "sideSchemes": ["Find the Senator", "Medical Emergency", "Feral Rage"],
-    "villains": [
-      {
-        "levels": {
-          "1": "13p",
-          "2": { "complete": "15p", "status": ["Tough"] },
-          "3": { "complete": "18p", "status": ["Tough"] }
-        },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "Mutant Genesis"
   },
   {
     "encounter": ["Zero Tolerance"],
@@ -947,46 +237,14 @@
     "modular": ["Sentinels"],
     "name": "Project Wideawake",
     "pack": "Mutant Genesis",
-    "sideSchemes": [
-      "Mutants at the Mall",
-      "Abduction Protocols",
-      "Abduction Protocols",
-      "Abduction Protocols",
-      "Abduction Protocols"
-    ],
-    "villains": [
-      {
-        "levels": {
-          "1": { "complete": "16p", "status": ["Tough"] },
-          "2": { "complete": "18p", "status": ["Tough"] },
-          "3": { "complete": "22p", "status": ["Tough"] }
-        },
-        "name": "Sentinel",
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "villains": ["Sentinel"]
   },
   {
     "encounter": ["Sentinels"],
     "mainScheme": ["The Sentinel Factory", "Master Mold's Agenda"],
     "modular": ["Zero Tolerance"],
     "name": "Master Mold",
-    "pack": "Mutant Genesis",
-    "sideSchemes": [
-      "Intruder Alert!",
-      "Insert Virus Program",
-      "Insert Virus Program"
-    ],
-    "villains": [
-      {
-        "levels": {
-          "1": { "complete": "12p", "status": ["Tough"] },
-          "2": { "complete": "14p", "status": ["Tough"] },
-          "3": { "complete": "16p", "status": ["Tough"] }
-        },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "Mutant Genesis"
   },
   {
     "encounter": ["Brotherhood"],
@@ -998,116 +256,21 @@
     "modular": ["Mystique"],
     "name": "Mansion Attack",
     "pack": "Mutant Genesis",
-    "sideSchemes": [
-      "Protect the Students",
-      "Protect the Students",
-      "Under Siege",
-      "Under Siege"
-    ],
-    "villains": [
-      {
-        "levels": {
-          "A": { "complete": "15p", "locked": true, "status": ["Tough"] },
-          "B": { "complete": "18p", "locked": true, "status": ["Tough"] }
-        },
-        "name": "Avalanche",
-        "stages": { "expert": ["B"], "standard": ["A"] }
-      },
-      {
-        "levels": {
-          "A": { "complete": "16p", "locked": true, "status": ["Tough"] },
-          "B": { "complete": "19p", "locked": true, "status": ["Tough"] }
-        },
-        "name": "Blob",
-        "stages": { "expert": ["B"], "standard": ["A"] }
-      },
-      {
-        "levels": {
-          "A": { "complete": "14p", "locked": true, "status": ["Tough"] },
-          "B": { "complete": "17p", "locked": true, "status": ["Tough"] }
-        },
-        "name": "Pyro",
-        "stages": { "expert": ["B"], "standard": ["A"] }
-      },
-      {
-        "levels": {
-          "A": { "complete": "13p", "locked": true, "status": ["Tough"] },
-          "B": { "complete": "16p", "locked": true, "status": ["Tough"] }
-        },
-        "name": "Toad",
-        "stages": { "expert": ["B"], "standard": ["A"] }
-      }
-    ]
+    "villains": ["Avalanche", "Blob", "Pyro", "Toad"]
   },
   {
-    "encounter": [],
     "mainScheme": ["Asteroid M", "Factory Online", "The Rule of Magnus"],
     "modular": ["Acolytes"],
     "name": "Magneto",
-    "pack": "Mutant Genesis",
-    "sideSchemes": [
-      "Boarding Party",
-      "Sabotage Master Mold",
-      "Orbital Decay",
-      "Magnetic Mayhem",
-      "Magnetically Sealed",
-      "Seized!"
-    ],
-    "villains": [
-      {
-        "levels": {
-          "1": { "complete": "18p", "status": ["Tough"] },
-          "2": { "complete": "20p", "status": ["Tough"] },
-          "3": { "complete": "22p", "status": ["Tough"] }
-        },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "Mutant Genesis"
   },
-
   {
-    "encounter": [],
     "mainScheme": ["Melee in the Mojo-seum"],
     "modular": [["Crime", "Fantasy", "Horror", "Sci-Fi", "Sitcom", "Western"]],
     "name": "MaGog",
-    "pack": "Mojo Mania",
-    "sideSchemes": ["Pump Up the Crowd"],
-    "villains": [
-      {
-        "levels": {
-          "A": {
-            "complete": "10p",
-            "triggers": {
-              "complete": [
-                {
-                  "event": "increase",
-                  "targets": "The Challengers",
-                  "value": "3p"
-                },
-                { "event": "reset" }
-              ]
-            }
-          },
-          "B": {
-            "complete": "10p",
-            "triggers": {
-              "complete": [
-                {
-                  "event": "increase",
-                  "targets": "The Challengers",
-                  "value": "2p"
-                },
-                { "event": "reset" }
-              ]
-            }
-          }
-        },
-        "stages": { "expert": ["B"], "standard": ["A"] }
-      }
-    ]
+    "pack": "Mojo Mania"
   },
   {
-    "encounter": [],
     "mainScheme": ["Across the Mojoverse"],
     "modular": [
       ["Crime", "Fantasy", "Horror", "Sci-Fi", "Sitcom", "Western"],
@@ -1115,27 +278,12 @@
       ["Crime", "Fantasy", "Horror", "Sci-Fi", "Sitcom", "Western"]
     ],
     "name": "Spiral",
-    "pack": "Mojo Mania",
-    "sideSchemes": ["The Search for Spiral"],
-    "villains": [
-      {
-        "levels": { "1": "13p", "2": "15p", "3": "17p" },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "Mojo Mania"
   },
   {
-    "encounter": [],
     "mainScheme": ["MojoMania"],
     "modular": [["Crime", "Fantasy", "Horror", "Sci-Fi", "Sitcom", "Western"]],
     "name": "Mojo",
-    "pack": "Mojo Mania",
-    "sideSchemes": ["Undercover Mojo"],
-    "villains": [
-      {
-        "levels": { "1": "16p", "2": "18p", "3": "25p" },
-        "stages": { "expert": [2, 3], "standard": [1, 2] }
-      }
-    ]
+    "pack": "Mojo Mania"
   }
 ]

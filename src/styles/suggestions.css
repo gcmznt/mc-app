@@ -1,10 +1,12 @@
 .suggestions {
   position: relative;
+  height: 250px;
+  max-height: 25vh;
+  padding-bottom: 30px;
 }
 
 .suggestions > div {
-  height: 250px;
-  max-height: 25vh;
+  height: 100%;
   overflow: auto;
   padding-bottom: 30px;
 }

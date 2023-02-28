@@ -1097,5 +1097,51 @@
     "hitPoints": 2,
     "name": "Forge",
     "set": "Basic"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Rogue",
+    "subTitle": "Anna Marie",
+    "status": ["Tough"],
+    "set": "Gambit"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Bishop",
+    "subTitle": "Lucas Bishop",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "name": "Dazzler",
+    "subTitle": "Alison Blaire",
+    "set": "Justice"
+  },
+  {
+    "hitPoints": 3,
+    "counters": [{ "name": "Charge counters", "start": 3 }],
+    "name": "Gambit",
+    "subTitle": "Remy LeBeau",
+    "set": "Rogue"
+  },
+  {
+    "hitPoints": 3,
+    "counters": [{ "name": "Freeze counters", "start": 3 }],
+    "name": "Iceman",
+    "subTitle": "Bobby Drake",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 1,
+    "name": "Karma",
+    "subTitle": "Xi'An Coy Manh",
+    "set": "Protection"
+  },
+  {
+    "hitPoints": 2,
+    "name": "Armor",
+    "subTitle": "Hisako Ichiki",
+    "status": ["Tough"],
+    "set": "Protection"
   }
 ]

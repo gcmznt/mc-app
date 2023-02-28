@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import "../../styles/modal.css";
 
-export default function Modal({ children, onClose }) {
+export default function Modal({ children, onClose, open }) {
   const [closing, setClosing] = useState(false);
 
   useEffect(() => {
-    document.body.classList.add("no-scroll");
-    return () => document.body.classList.remove("no-scroll");
-  }, []);
+    if (open) {
+      document.body.classList.add("no-scroll");
+      return () => document.body.classList.remove("no-scroll");
+    } else {
+      setClosing(false);
+    }
+  }, [open]);
 
   const handleClose = (e) => {
     setClosing(true);
@@ -21,12 +25,14 @@ export default function Modal({ children, onClose }) {
   };
 
   return (
-    <div
-      className={`modal ${closing ? "is-closing" : ""}`}
-      onClick={handleBackdropClick}
-    >
-      <div className="modal__close" onClick={handleClose} />
-      <div className="modal__content">{children}</div>
-    </div>
+    open && (
+      <div
+        className={`modal ${closing ? "is-closing" : ""}`}
+        onClick={handleBackdropClick}
+      >
+        <div className="modal__close" onClick={handleClose} />
+        <div className="modal__content">{children}</div>
+      </div>
+    )
   );
 }
