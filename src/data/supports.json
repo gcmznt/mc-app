@@ -2,89 +2,89 @@
 	{
 		"code": "01056",
 		"name": "Tac Team",
-		"pack_code": "core",
 		"set": "Aggression",
 		"start": "3",
-		"tokensName": "attack"
+		"tokenName": "Attack counters",
+		"pack_code": "core"
 	},
 	{
 		"code": "01064",
 		"name": "Surveillance Team",
-		"pack_code": "core",
 		"set": "Justice",
 		"start": "3",
-		"tokensName": "snoop"
+		"tokenName": "Snoop counters",
+		"pack_code": "core"
 	},
 	{
 		"code": "01080",
 		"name": "Med Team",
-		"pack_code": "core",
 		"set": "Protection",
 		"start": "3",
-		"tokensName": "medical"
+		"tokenName": "Medical counters",
+		"pack_code": "core"
 	},
 	{
 		"code": "09019",
 		"name": "The Night Nurse",
-		"pack_code": "drs",
 		"set": "Protection",
 		"start": "3",
-		"tokensName": "medical"
+		"tokenName": "Medical counters",
+		"pack_code": "drs"
 	},
 	{
 		"code": "22034",
 		"name": "Defensive Training",
-		"pack_code": "nebu",
 		"set": "Protection",
 		"start": "2",
-		"tokensName": "training"
+		"tokenName": "Training counters",
+		"pack_code": "nebu"
 	},
 	{
 		"code": "23016",
 		"name": "Command Team",
-		"pack_code": "warm",
 		"set": "Leadership",
 		"start": "3",
-		"tokensName": "command"
+		"tokenName": "Command counters",
+		"pack_code": "warm"
 	},
 	{
 		"code": "23033",
 		"name": "Vigilante Training",
-		"pack_code": "warm",
 		"set": "Justice",
 		"start": "2",
-		"tokensName": "training"
+		"tokenName": "Training counters",
+		"pack_code": "warm"
 	},
 	{
 		"code": "25034",
 		"name": "Leadership Training",
-		"pack_code": "valk",
 		"set": "Leadership",
 		"start": "2",
-		"tokensName": "training"
+		"tokenName": "Training counters",
+		"pack_code": "valk"
 	},
 	{
 		"code": "26033",
 		"name": "Assault Training",
-		"pack_code": "vision",
 		"set": "Aggression",
 		"start": "2",
-		"tokensName": "training"
+		"tokenName": "Training counters",
+		"pack_code": "vision"
 	},
 	{
 		"code": "27044",
 		"name": "Field Agent",
-		"pack_code": "sm",
 		"set": "Justice",
 		"start": "3",
-		"tokensName": "backup"
+		"tokenName": "Backup counters",
+		"pack_code": "sm"
 	},
 	{
 		"code": "29020",
 		"name": "R&D Facility",
-		"pack_code": "ironheart",
 		"set": "Leadership",
 		"start": "3",
-		"tokensName": "research"
+		"tokenName": "Research counters",
+		"pack_code": "ironheart"
 	}
 ]

@@ -2,105 +2,121 @@
 	{
 		"code": "01008",
 		"name": "Web-Shooter",
-		"pack_code": "core",
 		"set": "Spider-Man",
 		"start": "3",
-		"tokensName": "web"
+		"tokenName": "Web counters",
+		"pack_code": "core"
 	},
 	{
 		"code": "03034",
 		"name": "Enhanced Awareness",
-		"pack_code": "cap",
 		"set": "Basic",
 		"start": "3",
-		"tokensName": "mental"
+		"tokenName": "Mental counters",
+		"pack_code": "cap"
 	},
 	{
 		"code": "05017",
 		"name": "Energy Barrier",
-		"pack_code": "msm",
 		"set": "Protection",
 		"start": "3",
-		"tokensName": "reflection"
+		"tokenName": "Reflection counters",
+		"pack_code": "msm"
 	},
 	{
 		"code": "05024",
 		"name": "Enhanced Reflexes",
-		"pack_code": "msm",
 		"set": "Basic",
 		"start": "3",
-		"tokensName": "energy"
+		"tokenName": "Energy counters",
+		"pack_code": "msm"
 	},
 	{
 		"code": "06034",
 		"name": "Enhanced Physique",
-		"pack_code": "thor",
 		"set": "Basic",
 		"start": "3",
-		"tokensName": "physical"
+		"tokenName": "Physical counters",
+		"pack_code": "thor"
 	},
 	{
 		"code": "16046",
 		"name": "Hand Cannon",
-		"pack_code": "gmw",
 		"set": "Aggression",
 		"start": "3",
-		"tokensName": "charge"
+		"tokenName": "Charge counters",
+		"pack_code": "gmw"
 	},
 	{
 		"code": "20015",
 		"name": "Sonic Rifle",
-		"pack_code": "vnm",
 		"set": "Justice",
 		"start": "2",
-		"tokensName": "charge"
+		"tokenName": "Charge counters",
+		"pack_code": "vnm"
 	},
 	{
 		"code": "20022",
 		"name": "Plasma Pistol",
-		"pack_code": "vnm",
 		"set": "Basic",
 		"start": "3",
-		"tokensName": "charge"
+		"tokenName": "Charge counters",
+		"pack_code": "vnm"
 	},
 	{
 		"code": "27039",
 		"name": "Web-Shooter",
-		"pack_code": "sm",
 		"set": "Spider-Man - Miles Morales",
 		"start": "3",
-		"tokensName": "web"
+		"tokenName": "Web counters",
+		"pack_code": "sm"
 	},
 	{
 		"code": "31019",
 		"name": "Forcefield Generator",
-		"pack_code": "spdr",
 		"set": "Protection",
 		"start": "6",
-		"tokensName": "energy"
+		"tokenName": "Energy counters",
+		"pack_code": "spdr"
 	},
 	{
 		"code": "32006",
 		"name": "Organic Steel",
-		"pack_code": "mut_gen",
 		"set": "Colossus",
 		"start": "2",
-		"tokensName": "steel"
+		"tokenName": "Steel counters",
+		"pack_code": "mut_gen"
 	},
 	{
 		"code": "35016",
 		"name": "Warrior Skill",
-		"pack_code": "wolv",
 		"set": "Aggression",
 		"start": "3",
-		"tokensName": "warrior"
+		"tokenName": "Warrior counters",
+		"pack_code": "wolv"
 	},
 	{
 		"code": "36019",
 		"name": "Leadership Skill",
-		"pack_code": "storm",
 		"set": "Leadership",
 		"start": "3",
-		"tokensName": "leadership"
+		"tokenName": "Leadership counters",
+		"pack_code": "storm"
+	},
+	{
+		"code": "37013",
+		"name": "Operative Skill",
+		"set": "Justice",
+		"start": "3",
+		"tokenName": "Operative counters",
+		"pack_code": "gambit"
+	},
+	{
+		"code": "38014",
+		"name": "Judoka Skill",
+		"set": "Protection",
+		"start": "3",
+		"tokenName": "Judo counters",
+		"pack_code": "rogue"
 	}
 ]
