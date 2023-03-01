@@ -142,7 +142,7 @@
   {
     "alterEgo": "Groot",
     "aspects": ["Protection"],
-    "counters": [{ "name": "Growth", "max": 10 }],
+    "counters": [{ "name": "Growth counters", "max": 10 }],
     "hitPoints": 11,
     "iconAlterEgo": "🌱",
     "name": "Groot",
@@ -175,7 +175,7 @@
   {
     "alterEgo": "Drax",
     "aspects": ["Protection"],
-    "counters": [{ "name": "Vengeance", "max": 3 }],
+    "counters": [{ "name": "Vengeance counters", "max": 3 }],
     "hitPoints": 14,
     "name": "Drax",
     "nemesisSchemes": ["Cull the Weak"]
@@ -213,7 +213,7 @@
   {
     "alterEgo": "James Rhodes",
     "aspects": ["Leadership"],
-    "counters": [{ "name": "Ammo" }],
+    "counters": [{ "name": "Ammo counters" }],
     "hitPoints": 10,
     "iconHero": "🦾",
     "name": "War Machine",
@@ -262,7 +262,7 @@
   {
     "alterEgo": "Riri Williams",
     "aspects": ["Leadership"],
-    "counters": [{ "name": "Progress" }],
+    "counters": [{ "name": "Progress counters" }],
     "hitPoints": 10,
     "iconAlterEgo": "👩‍🔧",
     "iconHero": "🦾",
