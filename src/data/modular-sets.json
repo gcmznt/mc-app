@@ -1,100 +1,140 @@
 [
   {
+    "boost": 8,
+    "cards": 6,
     "name": "Bomb Scare",
     "sideSchemes": ["Bomb Scare"],
     "pack": "Core Set"
   },
   {
+    "boost": 11,
+    "cards": 6,
     "name": "Legions of Hydra",
     "sideSchemes": ["Legions of Hydra", "Legions of Hydra"],
     "pack": "Core Set"
   },
   {
+    "boost": 6,
+    "cards": 7,
     "name": "Masters of Evil",
     "sideSchemes": ["The Masters of Evil"],
     "pack": "Core Set"
   },
   {
+    "boost": 11,
+    "cards": 6,
     "name": "The Doomsday Chair",
     "sideSchemes": ["The Doomsday Chair", "The Doomsday Chair"],
     "pack": "Core Set"
   },
   {
+    "boost": 5,
+    "cards": 5,
     "name": "Under Attack",
     "sideSchemes": ["Under Attack"],
     "pack": "Core Set"
   },
   {
+    "boost": 5,
+    "cards": 5,
     "name": "A Mess of Things",
     "sideSchemes": ["A Mess of Things"],
     "pack": "Green Goblin"
   },
   {
+    "boost": 12,
+    "cards": 8,
     "name": "Goblin Gimmicks",
     "sideSchemes": [],
     "pack": "Green Goblin"
   },
   {
+    "boost": 9,
+    "cards": 5,
     "name": "Power Drain",
     "sideSchemes": ["Power Drain"],
     "pack": "Green Goblin"
   },
   {
+    "boost": 5,
+    "cards": 5,
     "name": "Running Interference",
     "sideSchemes": ["Running Interference"],
     "pack": "Green Goblin"
   },
   {
+    "boost": 10,
+    "cards": 7,
     "name": "Kree Fanatic",
     "sideSchemes": ["Judge, Jury, Executioner"],
     "pack": "Print and Play"
   },
   {
+    "boost": 8,
+    "cards": 4,
     "name": "Experimental Weapon",
     "sideSchemes": [],
     "pack": "The Rise of Red Skull"
   },
   {
+    "boost": 2,
+    "cards": 6,
     "name": "Hydra Assault",
     "sideSchemes": [],
     "pack": "The Rise of Red Skull"
   },
   {
+    "boost": 9,
+    "cards": 6,
     "name": "Hydra Patrol",
     "sideSchemes": ["Hydra Patrol"],
     "pack": "The Rise of Red Skull"
   },
   {
+    "boost": 6,
+    "cards": 5,
     "name": "Weapon Master",
     "sideSchemes": [],
     "pack": "The Rise of Red Skull"
   },
   {
+    "boost": 7,
+    "cards": 7,
     "name": "Temporal",
     "sideSchemes": ["Time Portal"],
     "pack": "The Once and Future Kang"
   },
   {
+    "boost": 8,
+    "cards": 9,
     "name": "Anachronauts",
     "sideSchemes": ["The Anachronauts", "The Anachronauts"],
     "pack": "The Once and Future Kang"
   },
   {
+    "boost": 11,
+    "cards": 8,
     "name": "Master of Time",
     "sideSchemes": ["Light of Centuries Sphere"],
     "pack": "The Once and Future Kang"
   },
   {
+    "boost": 3,
+    "cards": 10,
     "name": "Band of Badoon",
     "sideSchemes": [],
     "pack": "Galaxy’s Most Wanted"
   },
   {
+    "boost": 8,
+    "cards": 5,
     "name": "Badoon Headhunter",
     "sideSchemes": ["Fugitive Recovery"],
     "pack": "Galaxy’s Most Wanted"
   },
   {
+    "boost": 14,
+    "cards": 9,
     "name": "Galactic Artifacts",
     "sideSchemes": [
       "Hujahdarian Monarch Egg",
@@ -105,101 +145,141 @@
     "pack": "Galaxy’s Most Wanted"
   },
   {
+    "boost": 11,
+    "cards": 9,
     "name": "Kree Militants",
     "sideSchemes": [],
     "pack": "Galaxy’s Most Wanted"
   },
   {
+    "boost": 0,
+    "cards": 9,
     "name": "Menagerie Medley",
     "sideSchemes": [],
     "pack": "Galaxy’s Most Wanted"
   },
   {
+    "boost": 0,
+    "cards": 1,
     "name": "Power Stone",
     "sideSchemes": [],
     "pack": "Galaxy’s Most Wanted"
   },
   {
+    "boost": 8,
+    "cards": 6,
     "name": "Ship Command",
     "sideSchemes": ["Cannonade"],
     "pack": "Galaxy’s Most Wanted"
   },
   {
+    "boost": 9,
+    "cards": 8,
     "name": "Space Pirates",
     "sideSchemes": ["Sound the Alarms"],
     "pack": "Galaxy’s Most Wanted"
   },
   {
+    "boost": 8,
+    "cards": 5,
     "name": "Enchantress",
     "sideSchemes": [],
     "pack": "The Mad Titan’s Shadow"
   },
   {
+    "boost": 12,
+    "cards": 6,
     "name": "Frost Giants",
     "sideSchemes": ["Unnatural Storm"],
     "pack": "The Mad Titan’s Shadow"
   },
   {
+    "boost": 11,
+    "cards": 7,
     "name": "Legions of Hel",
     "sideSchemes": ["Legions of Hel", "Legions of Hel"],
     "pack": "The Mad Titan’s Shadow"
   },
   {
+    "boost": 15,
+    "cards": 7,
     "name": "Infinity Gauntlet",
     "sideSchemes": [],
     "pack": "The Mad Titan’s Shadow"
   },
   {
+    "boost": 5,
+    "cards": 5,
     "name": "Children of Thanos",
     "sideSchemes": ["Tribute", "Tribute"],
     "pack": "The Mad Titan’s Shadow"
   },
   {
+    "boost": 4,
+    "cards": 6,
     "name": "Armies of Titan",
     "sideSchemes": ["Landing Craft", "Landing Craft"],
     "pack": "The Mad Titan’s Shadow"
   },
   {
+    "boost": 8,
+    "cards": 4,
     "name": "The Black Order",
     "sideSchemes": ["The Black Order"],
     "pack": "The Mad Titan’s Shadow"
   },
   {
+    "boost": 7,
+    "cards": 4,
     "name": "Beasty Boys",
     "sideSchemes": ["Beast Mode"],
     "pack": "The Hood"
   },
   {
+    "boost": 7,
+    "cards": 5,
     "name": "Brothers Grimm",
     "sideSchemes": [],
     "pack": "The Hood"
   },
   {
+    "boost": 7,
+    "cards": 4,
     "name": "Mister Hyde",
     "sideSchemes": ["Self-Experimentation"],
     "pack": "The Hood"
   },
   {
+    "boost": 15,
+    "cards": 7,
     "name": "Wrecking Crew",
     "sideSchemes": ["Top Talent"],
     "pack": "The Hood"
   },
   {
+    "boost": 5,
+    "cards": 7,
     "name": "Sinister Syndicate",
     "sideSchemes": ["Crime Pays"],
     "pack": "The Hood"
   },
   {
+    "boost": 8,
+    "cards": 6,
     "name": "Crossfire’s Crew",
     "sideSchemes": ["Out for Blood"],
     "pack": "The Hood"
   },
   {
+    "boost": 10,
+    "cards": 7,
     "name": "Ransacked Armory",
     "sideSchemes": [],
     "pack": "The Hood"
   },
   {
+    "boost": 10,
+    "cards": 6,
     "name": "State of Emergency",
     "sideSchemes": [
       "Feisty Heist",
@@ -210,26 +290,36 @@
     "pack": "The Hood"
   },
   {
+    "boost": 8,
+    "cards": 4,
     "name": "Streets of Mayhem",
     "sideSchemes": [],
     "pack": "The Hood"
   },
   {
+    "boost": 9,
+    "cards": 5,
     "name": "City in Chaos",
     "sideSchemes": ["Panic in the Streets"],
     "pack": "Sinister Motives"
   },
   {
+    "boost": 8,
+    "cards": 7,
     "name": "Down to Earth",
     "sideSchemes": ["Volunteer Work"],
     "pack": "Sinister Motives"
   },
   {
+    "boost": 10,
+    "cards": 6,
     "name": "Goblin Gear",
     "sideSchemes": ["Limitless Supply"],
     "pack": "Sinister Motives"
   },
   {
+    "boost": 4,
+    "cards": 7,
     "name": "Guerilla Tactics",
     "sideSchemes": [
       "Coordinated Effort",
@@ -239,126 +329,176 @@
     "pack": "Sinister Motives"
   },
   {
+    "boost": 18,
+    "cards": 6,
     "name": "Osborn Tech",
     "sideSchemes": [],
     "pack": "Sinister Motives"
   },
   {
+    "boost": 10,
+    "cards": 7,
     "name": "Personal Nightmare",
     "sideSchemes": ["Fool's Paradise", "Weakness from Within"],
     "pack": "Sinister Motives"
   },
   {
+    "boost": 18,
+    "cards": 6,
     "name": "Sinister Assault",
     "sideSchemes": [],
     "pack": "Sinister Motives"
   },
   {
+    "boost": 7,
+    "cards": 9,
     "name": "Symbiotic Strength",
     "sideSchemes": [],
     "pack": "Sinister Motives"
   },
   {
+    "boost": 9,
+    "cards": 5,
     "name": "Whispers of Paranoia",
     "sideSchemes": ["Analysis Paralysis"],
     "pack": "Sinister Motives"
   },
   {
+    "boost": 8,
+    "cards": 6,
     "name": "Armadillo",
     "sideSchemes": ["Armored Assault"],
     "pack": "Nova"
   },
   {
+    "boost": 9,
+    "cards": 7,
     "name": "Zzzax",
     "sideSchemes": ["Feedback Loop"],
     "pack": "Ironheart"
   },
   {
+    "boost": 21,
+    "cards": 9,
     "name": "The Inheritors",
     "sideSchemes": ["Hunting the Spider-Totems"],
     "pack": "Spider-Ham"
   },
   {
+    "boost": 12,
+    "cards": 8,
     "name": "Iron Spider's Sinister Six",
     "sideSchemes": ["Grand Larceny"],
     "pack": "SP//dr"
   },
   {
+    "boost": 10,
+    "cards": 5,
     "name": "Mystique",
     "sideSchemes": ["Metamorphic Mayhem"],
     "pack": "Mutant Genesis"
   },
   {
+    "boost": 13,
+    "cards": 8,
     "name": "Brotherhood",
     "sideSchemes": ["The Brotherhood"],
     "pack": "Mutant Genesis"
   },
   {
+    "boost": 7,
+    "cards": 7,
     "name": "Zero Tolerance",
     "sideSchemes": ["Operation Zero Tolerance"],
     "pack": "Mutant Genesis"
   },
   {
+    "boost": 11,
+    "cards": 7,
     "name": "Sentinels",
     "sideSchemes": ["Relentless Robots"],
     "pack": "Mutant Genesis"
   },
   {
+    "boost": 13,
+    "cards": 7,
     "name": "Acolytes",
     "sideSchemes": ["The Acolytes"],
     "pack": "Mutant Genesis"
   },
   {
+    "boost": 11,
+    "cards": 5,
     "name": "Future Past",
     "sideSchemes": ["Nimrod's Portal", "Bastion's Machinations"],
     "pack": "Mutant Genesis"
   },
   {
+    "boost": 9,
+    "cards": 6,
     "name": "Crime",
     "sideSchemes": ["Crime Scene Investigation", "Law & Order", "Dragnet"],
     "pack": "Mojo Mania"
   },
   {
+    "boost": 7,
+    "cards": 6,
     "name": "Fantasy",
     "sideSchemes": ["Fetch Quest"],
     "pack": "Mojo Mania"
   },
   {
+    "boost": 9,
+    "cards": 6,
     "name": "Horror",
     "sideSchemes": [],
     "pack": "Mojo Mania"
   },
   {
+    "boost": 11,
+    "cards": 7,
     "name": "Sci-Fi",
     "sideSchemes": ["ICE-teroid M"],
     "pack": "Mojo Mania"
   },
   {
+    "boost": 9,
+    "cards": 6,
     "name": "Sitcom",
     "sideSchemes": [],
     "pack": "Mojo Mania"
   },
   {
+    "boost": 9,
+    "cards": 6,
     "name": "Western",
     "sideSchemes": [],
     "pack": "Mojo Mania"
   },
   {
+    "boost": 10,
+    "cards": 6,
     "name": "Deathstrike",
     "sideSchemes": ["Seeking Vengeance"],
     "pack": "Wolverine"
   },
   {
+    "boost": 7,
+    "cards": 5,
     "name": "Shadow King",
     "sideSchemes": ["Ruler of the Astral Plane"],
     "pack": "Storm"
   },
   {
+    "boost": 16,
+    "cards": 8,
     "name": "Reavers",
     "sideSchemes": ["The Reavers"],
     "pack": "Rogue"
   },
   {
+    "boost": 10,
+    "cards": 6,
     "name": "Exodus",
     "sideSchemes": ["Herald of Avalon"],
     "pack": "Gambit"
