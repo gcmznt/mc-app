@@ -1,17 +1,23 @@
 [
   {
+    "boost": 19,
+    "cards": 17,
     "mainScheme": ["The Break In!"],
     "modular": ["Bomb Scare"],
     "name": "Rhino",
     "pack": "Core Set"
   },
   {
+    "boost": 19,
+    "cards": 16,
     "mainScheme": ["Underground Distribution", "Secret Rendezvous"],
     "modular": ["Masters of Evil"],
     "name": "Klaw",
     "pack": "Core Set"
   },
   {
+    "boost": 23,
+    "cards": 17,
     "mainScheme": [
       "The Crimson Cowl",
       "Assault on NORAD",
@@ -22,6 +28,8 @@
     "pack": "Core Set"
   },
   {
+    "boost": 20,
+    "cards": 18,
     "mainScheme": ["Hostile Takeover", "Corporate Acquisition"],
     "modular": ["Goblin Gimmicks"],
     "name": "Risky Business",
@@ -29,6 +37,8 @@
     "villains": ["Norman Osborn"]
   },
   {
+    "boost": 22,
+    "cards": 26,
     "mainScheme": ["Unleashing the Mutagen", "Mutagen Cloud"],
     "modular": ["Goblin Gimmicks"],
     "name": "Mutagen Formula",
@@ -36,11 +46,15 @@
     "villains": ["Green Goblin"]
   },
   {
+    "boost": 55,
+    "cards": 60,
     "mainScheme": ["Breakout"],
     "name": "The Wrecking Crew",
     "villains": ["Wrecker", "Thunderball", "Piledriver", "Bulldozer"]
   },
   {
+    "boost": 20,
+    "cards": 13,
     "encounter": ["Experimental Weapon"],
     "mainScheme": [
       "Attack on Mount Athena",
@@ -52,12 +66,16 @@
     "pack": "The Rise of Red Skull"
   },
   {
+    "boost": 21,
+    "cards": 21,
     "mainScheme": ["None Shall Pass"],
     "modular": ["Hydra Patrol"],
     "name": "Absorbing Man",
     "pack": "The Rise of Red Skull"
   },
   {
+    "boost": 25,
+    "cards": 15,
     "encounter": ["Hydra Patrol"],
     "mainScheme": ["Hunting Down Heroes"],
     "modular": ["Weapon Master"],
@@ -65,18 +83,24 @@
     "pack": "The Rise of Red Skull"
   },
   {
+    "boost": 20,
+    "cards": 25,
     "mainScheme": ["The Island of Dr. Zola", "The Mad Doctor"],
     "modular": ["Under Attack"],
     "name": "Zola",
     "pack": "The Rise of Red Skull"
   },
   {
+    "boost": 21,
+    "cards": 23,
     "mainScheme": ["The Rise of Red Skull", "New World Hydra"],
     "modular": ["Hydra Assault", "Hydra Patrol"],
     "name": "Red Skull",
     "pack": "The Rise of Red Skull"
   },
   {
+    "boost": 53,
+    "cards": 30,
     "mainScheme": [
       "Kang's Arrival",
       "The Master of Time",
@@ -91,6 +115,8 @@
     "villains": ["Kang (The Conqueror)"]
   },
   {
+    "boost": 10,
+    "cards": 7,
     "encounter": ["Ship Command"],
     "mainScheme": ["Terrestrial Invasion", "Protect the Planet"],
     "modular": ["Band of Badoon"],
@@ -99,6 +125,8 @@
     "villains": ["Drang"]
   },
   {
+    "boost": 11,
+    "cards": 9,
     "encounter": ["Galactic Artifacts"],
     "mainScheme": ["The Grand Collection"],
     "modular": ["Menagerie Medley"],
@@ -107,6 +135,8 @@
     "villains": ["Collector"]
   },
   {
+    "boost": 6,
+    "cards": 6,
     "encounter": ["Galactic Artifacts", "Ship Command"],
     "mainScheme": [
       "The Missing Milano",
@@ -119,6 +149,8 @@
     "villains": ["Collector 2"]
   },
   {
+    "boost": 16,
+    "cards": 16,
     "encounter": ["Power Stone", "Ship Command"],
     "mainScheme": ["The Art of Evasion", "Warp Drive Initiated"],
     "modular": ["Space Pirates"],
@@ -126,6 +158,8 @@
     "pack": "Galaxy’s Most Wanted"
   },
   {
+    "boost": 17,
+    "cards": 14,
     "encounter": ["Power Stone", "Ship Command"],
     "mainScheme": ["Interception Imminent", "\"Take What Is Mine\""],
     "modular": ["Kree Militants"],
@@ -133,12 +167,16 @@
     "pack": "Galaxy’s Most Wanted"
   },
   {
+    "boost": 32,
+    "cards": 17,
     "mainScheme": ["Attack on Knowhere", "The Power Stone"],
     "modular": ["Armies of Titan", "The Black Order"],
     "name": "Ebony Maw",
     "pack": "The Mad Titan’s Shadow"
   },
   {
+    "boost": 20,
+    "cards": 17,
     "mainScheme": ["Under Siege", "The Armies of Thanos"],
     "modular": ["Armies of Titan"],
     "name": "Tower Defense",
@@ -146,6 +184,8 @@
     "villains": ["Proxima Midnight", "Corvus Glaive"]
   },
   {
+    "boost": 15,
+    "cards": 14,
     "encounter": ["Infinity Gauntlet"],
     "mainScheme": ["The Infinity Stones", "Balance the Scales"],
     "modular": ["The Black Order", "Children of Thanos"],
@@ -153,12 +193,16 @@
     "pack": "The Mad Titan’s Shadow"
   },
   {
+    "boost": 22,
+    "cards": 15,
     "mainScheme": ["Odin's Torment"],
     "modular": ["Legions of Hel", "Frost Giants"],
     "name": "Hela",
     "pack": "The Mad Titan’s Shadow"
   },
   {
+    "boost": 17,
+    "cards": 15,
     "encounter": ["Infinity Gauntlet"],
     "mainScheme": ["All Hail King Loki"],
     "modular": ["Enchantress", "Frost Giants"],
@@ -166,6 +210,8 @@
     "pack": "The Mad Titan’s Shadow"
   },
   {
+    "boost": 11,
+    "cards": 10,
     "mainScheme": ["Making Connections", "Promised Prosperity", "Crime State"],
     "modular": [
       "Beasty Boys",
@@ -179,6 +225,8 @@
     "name": "The Hood"
   },
   {
+    "boost": 12,
+    "cards": 13,
     "encounter": ["City in Chaos"],
     "mainScheme": ["Hapless Pedestrians"],
     "modular": ["Down to Earth"],
@@ -186,6 +234,8 @@
     "pack": "Sinister Motives"
   },
   {
+    "boost": 7,
+    "cards": 9,
     "encounter": ["Symbiotic Strength"],
     "mainScheme": ["\"Leave Us Alone!\""],
     "modular": ["Down to Earth"],
@@ -193,6 +243,8 @@
     "pack": "Sinister Motives"
   },
   {
+    "boost": 9,
+    "cards": 11,
     "encounter": ["Personal Nightmare"],
     "mainScheme": ["Maze of Mirrors", "Edge of Reality"],
     "modular": ["Whispers of Paranoia"],
@@ -200,6 +252,8 @@
     "pack": "Sinister Motives"
   },
   {
+    "boost": 26,
+    "cards": 16,
     "encounter": ["Guerilla Tactics"],
     "mainScheme": ["Sinister Synchronization", "Sinister Beatdown"],
     "name": "Sinister Six",
@@ -214,6 +268,8 @@
     ]
   },
   {
+    "boost": 8,
+    "cards": 12,
     "encounter": ["Symbiotic Strength"],
     "mainScheme": [
       "Skies Over New York",
@@ -226,12 +282,16 @@
     "pack": "Sinister Motives"
   },
   {
+    "boost": 9,
+    "cards": 10,
     "mainScheme": ["Stalked by Sabretooth", "The Injured Senator"],
     "modular": ["Mystique", "Brotherhood"],
     "name": "Sabretooth",
     "pack": "Mutant Genesis"
   },
   {
+    "boost": 18,
+    "cards": 15,
     "encounter": ["Zero Tolerance"],
     "mainScheme": ["Night of the Sentinels"],
     "modular": ["Sentinels"],
@@ -240,6 +300,8 @@
     "villains": ["Sentinel"]
   },
   {
+    "boost": 17,
+    "cards": 13,
     "encounter": ["Sentinels"],
     "mainScheme": ["The Sentinel Factory", "Master Mold's Agenda"],
     "modular": ["Zero Tolerance"],
@@ -247,6 +309,8 @@
     "pack": "Mutant Genesis"
   },
   {
+    "boost": 24,
+    "cards": 15,
     "encounter": ["Brotherhood"],
     "mainScheme": [
       "The Brotherhood Strikes!",
@@ -259,18 +323,24 @@
     "villains": ["Avalanche", "Blob", "Pyro", "Toad"]
   },
   {
+    "boost": 24,
+    "cards": 24,
     "mainScheme": ["Asteroid M", "Factory Online", "The Rule of Magnus"],
     "modular": ["Acolytes"],
     "name": "Magneto",
     "pack": "Mutant Genesis"
   },
   {
+    "boost": 10,
+    "cards": 8,
     "mainScheme": ["Melee in the Mojo-seum"],
     "modular": [["Crime", "Fantasy", "Horror", "Sci-Fi", "Sitcom", "Western"]],
     "name": "MaGog",
     "pack": "Mojo Mania"
   },
   {
+    "boost": 12,
+    "cards": 8,
     "mainScheme": ["Across the Mojoverse"],
     "modular": [
       ["Crime", "Fantasy", "Horror", "Sci-Fi", "Sitcom", "Western"],
@@ -281,6 +351,8 @@
     "pack": "Mojo Mania"
   },
   {
+    "boost": 12,
+    "cards": 11,
     "mainScheme": ["MojoMania"],
     "modular": [["Crime", "Fantasy", "Horror", "Sci-Fi", "Sitcom", "Western"]],
     "name": "Mojo",
