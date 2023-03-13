@@ -283,7 +283,7 @@ const getVillainCounter = (setup) => (villain) => {
   };
   const stages = (
     isNaN(setup.skirmish)
-      ? villain.stages[setup.mode.toLowerCase()]
+      ? villain.stages[setup.mode.split(" ")[0].toLowerCase()]
       : getSkirmish(+setup.skirmish, villain.levels)
   ).map(
     (s, i, list) =>
