@@ -127,7 +127,13 @@ export const DEFAULT_OPTIONS = {
   timer: true,
 };
 
-export const ASPECTS = ["Aggression", "Justice", "Leadership", "Protection"];
+export const ASPECTS = [
+  "Aggression",
+  "Justice",
+  "Leadership",
+  "Protection",
+  "'Pool",
+];
 export const MODES = ["Standard", "Standard II", "Expert", "Expert II"];
 export const RANDOM = "Random";
 export const FULL_RANDOM = "Full random";

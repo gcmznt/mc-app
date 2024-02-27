@@ -347,5 +347,47 @@
     "hitPoints": 11,
     "name": "Rogue",
     "nemesisSchemes": ["Mystique's Manipulations"]
+  },
+  {
+    "alterEgo": "Nathan Summers",
+    "aspects": ["Leadership"],
+    "hitPoints": 12,
+    "name": "Cable",
+    "nemesisSchemes": []
+  },
+  {
+    "alterEgo": "Neena Thurman",
+    "aspects": ["Justice"],
+    "hitPoints": 9,
+    "name": "Domino",
+    "nemesisSchemes": []
+  },
+  {
+    "alterEgo": "Betsy Braddock",
+    "aspects": ["Justice"],
+    "hitPoints": 10,
+    "name": "Psylocke",
+    "nemesisSchemes": []
+  },
+  {
+    "alterEgo": "Warren Worthington III",
+    "aspects": ["Protection"],
+    "hitPoints": 12,
+    "name": "Angel",
+    "nemesisSchemes": []
+  },
+  {
+    "alterEgo": "Laura Kinney",
+    "aspects": ["Aggression"],
+    "hitPoints": 10,
+    "name": "X-23",
+    "nemesisSchemes": []
+  },
+  {
+    "alterEgo": "Wade Wilson",
+    "aspects": ["'Pool"],
+    "hitPoints": 9,
+    "name": "Deadpool",
+    "nemesisSchemes": []
   }
 ]
